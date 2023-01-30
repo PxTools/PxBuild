@@ -1,0 +1,39 @@
+Could you make a fileparser in python given this file desciption:
+A pxValue is any string but can not contain a quote or a newline. 
+
+The Valuepart is either 
+   a single pxValue without quotes, 
+   a single pxValue with quotes or 
+   a list of pxValue in quotes separated by commas and optional newlines 
+
+Hmm DATA, HIERACRYY
+
+
+A Pxfile contains 1 or more statments on the form:
+Keypart=Valuepart; 
+there may be whitespace after thesemicolon,
+ 
+The Keypart consist of first a keyword then optionally a two letter language code in square-bracket then optionally a subkey in parantesis 
+
+A subkey is a comma separated list of qutoes pxvalues 
+  
+keyword is one of 
+STUB
+SUBJECT-AREA
+SUBJECT-CODE
+SURVEY
+SYNONYMS
+TABLEID
+TIMEVAL
+TITLE
+UNITS
+UPDATE-FREQUENCY
+VALUENOTE
+VALUENOTEX
+VALUES
+VARIABLE-TYPE
+
+
+I want the fileparser to feed the pxValues to setters propertis in a PxModel class. Like "pxmodel.settitle"
+Please make the classes complete
+
