@@ -1,80 +1,80 @@
-﻿Keyword;Language dependent;O(ptional)/M;SubKey;Duplicat keypart allowed ;ValueType;enumValues;Comment
-CHARSET;False;;;;PxString;;
-AXIS-VERSION;False;;;;PxString;;
-CODEPAGE;False;;;;PxString;;
-LANGUAGE;False;;;;PxString;;2 letters
-LANGUAGES;False;;;;List Of PxString;;
-CREATION-DATE;False;;;;PxDate;;
-NEXT-UPDATE;False;;;;PxDate;;
-PX-SERVER;False;;;;PxString;;
-DIRECTORY-PATH;False;;;;PxString;;
-UPDATE-FREQUENCY;False;;;;PxString;;
-TABLEID;False;;;;PxString;;
-SYNONYMS;False;;;;List Of PxString;;
-DEFAULT-GRAPH;False;;;;int;;
-DECIMALS;False;X;;;int;;
-SHOWDECIMALS;False;;;;int;;
-ROUNDING;False;;;;PxString;0,1;
-MATRIX;False;M X;;;PxString;;
-AGGREGALLOWED;False;;;;Bool;;
-AUTOPEN;False;;;;Bool;;
-SUBJECT-CODE;False;M X;;;PxString;;
-SUBJECT-AREA;True;M X;;;PxString;;
-CONFIDENTIAL;False;;;;PxString;;
-COPYRIGHT;False;;;;PxString;;
-DESCRIPTION;True;X;;;PxString;;
-TITLE;True;M X;;;PxString;;
-DESCRIPTIONDEFAULT;False;;;;bool;;
-CONTVARIABLE;True;;;;PxString;;which variable is the content variable
-CONTENTS;True;X;;;PxString;;
-UNITS;True;M X;;;PxString;;
-STUB;True;M X;;;List Of PxString;;
-HEADING;True;M X;;;List Of PxString;;
-VALUES;True;M X;variable;;List Of PxString;;
-TIMEVAL;True;;;;X;;
-CODES;True;;variable;;List Of PxString;;
-DOUBLECOLUMN;True;;variable;;Bool;;
-PRESTEXT;True;;variable;;PxString;0,1,2,3;
-DOMAIN;True;;variable;;PxString;;
-VARIABLE-TYPE;True;;variable;;PxString;;
-HIERARCHIES;True;;variable;;X;;
-HIERARCHYLEVELS;True;;variable;;int;;
-HIERARCHYLEVELSOPEN;True;;variable;;int;;
-HIERARCHYNAMES;True;;variable;;List Of PxString;;
-MAP;True;;variable;;PxString;;
-PARTITIONED;True;;variable;y;List Of PxString;;string , int (,int)
-ELIMINATION;True;;variable;;PxString;;bool eller string
-PRECISION;True;;variable, value;;PxString;int;
-LAST-UPDATED;True;;?content;;PxString;;
-STOCKFA;True;;?content;;PxString;S,F,A;
-CFPRICES;True;;?content;;PxString;C,F;
-DAYADJ;True;;?content;;PxString;bool;
-SEASADJ;True;;?content;;PxString;bool;
-CONTACT;True;;?content;;PxString;;
-REFPERIOD;True;;?content;;PxString;;
-BASEPERIOD;True;;?content;;PxString;;
-DATABASE;True;;;;PxString;;
-SOURCE;True;;;;PxString;;
-SURVEY;True;;;;PxString;;
-LINK;True;;;;PxString;;
-INFOFILE;True;;;;PxString;;
-INFO;True;;;;PxString;;
-NOTEX;True;;?variable;y;PxString;;Applies to table if no subkey
-NOTE;True;;?variable;y;PxString;;Applies to table if no subkey
-VALUENOTEX;True;;variable,value;y;PxString;;
-VALUENOTE;True;;variable,value;y;PxString;;
-CELLNOTEX;True;;variable1,,variableN;y;PxString;;
-CELLNOTE;True;;variable1,,variableN;y;PxString;;
-DATASYMBOL1;True;;;;PxString;;
-DATASYMBOL2;True;;;;PxString;;
-DATASYMBOL3;True;;;;PxString;;
-DATASYMBOL4;True;;;;PxString;;
-DATASYMBOL5;True;;;;PxString;;
-DATASYMBOL6;True;;;;PxString;;
-DATASYMBOLNIL;True;;;;PxString;;
-DATASYMBOLSUM;True;;;;PxString;;
-DATANOTECELL;True;;variable1,,variableN;y;PxString;;
-DATANOTESUM;True;;;;PxString;;
-KEYS;True;;variable;;PxString;CODES,VALUES;
-VARIABLE-CODE;True;;variable;;PxString;;
-DATA;False;M X;;;X;;
+﻿Keyword;Language dependent;O(ptional)/M;SubKey;SubKey Optional;Duplicate keypart allowed ;ValueType;enumValues;Comment
+CHARSET;False;;;;;str;;
+AXIS-VERSION;False;;;;;str;;
+CODEPAGE;False;;;;;str;;
+LANGUAGE;False;;;;;str;;2 letters
+LANGUAGES;False;;;;;List[str];;
+CREATION-DATE;False;;;;;PxDate;;Date
+NEXT-UPDATE;False;;;;;PxDate;;Date
+PX-SERVER;False;;;;;str;;
+DIRECTORY-PATH;False;;;;;str;;
+UPDATE-FREQUENCY;False;;;;;str;;
+TABLEID;False;;;;;str;;
+SYNONYMS;False;;;;;List[str];;
+DEFAULT-GRAPH;False;;;;;int;;
+DECIMALS;False;X;;;;int;;
+SHOWDECIMALS;False;;;;;int;;
+ROUNDING;False;;;;;str;0,1;
+MATRIX;False;X;;;;str;;
+AGGREGALLOWED;False;;;;;Bool;;
+AUTOPEN;False;;;;;Bool;;
+SUBJECT-CODE;False;X;;;;str;;
+SUBJECT-AREA;True;X;;;;str;;
+CONFIDENTIAL;False;;;;;str;;
+COPYRIGHT;False;;;;;str;;
+DESCRIPTION;True;X;;;;str;;
+TITLE;True;X;;;;str;;
+DESCRIPTIONDEFAULT;False;;;;;bool;;
+CONTVARIABLE;True;;;;;str;;which variable is the content variable
+CONTENTS;True;X;;;;str;;
+UNITS;True;X;;;;str;;
+STUB;True;X;;;;List[str];;
+HEADING;True;X;;;;List[str];;
+VALUES;True;X;variable:str;;;List[str];;
+TIMEVAL;True;;variable:str;;;PxTlist;;"TLIST(A1, ”1994”-”1996”);  eller TLIST(A1), ”1994”, ”1995”,""1996”; "
+CODES;True;;variable:str;;;List[str];;
+DOUBLECOLUMN;True;;variable:str;;;bool;;
+PRESTEXT;True;;variable:str;;;str;0,1,2,3;
+DOMAIN;True;;variable:str;;;str;;
+VARIABLE-TYPE;True;;variable:str;;;str;;
+HIERARCHIES;True;;variable:str;;;PxHierarchy;;
+HIERARCHYLEVELS;True;;variable:str;;;int;;
+HIERARCHYLEVELSOPEN;True;;variable:str;;;int;;
+HIERARCHYNAMES;True;;variable:str;;;List[str];;
+MAP;True;;variable:str;;;str;;
+PARTITIONED;True;;variable:str;;y;List[str];;string , int (,int)
+ELIMINATION;True;;variable:str;;;str;;bool eller string
+PRECISION;True;;variable:str, value:str;;;str;int;
+LAST-UPDATED;True;;content:str;Y;;str;;
+STOCKFA;True;;content:str;Y;;str;S,F,A;
+CFPRICES;True;;content:str;Y;;str;C,F;
+DAYADJ;True;;content:str;Y;;str;bool;
+SEASADJ;True;;content:str;Y;;str;bool;
+CONTACT;True;;content:str;Y;;str;;
+REFPERIOD;True;;content:str;Y;;str;;
+BASEPERIOD;True;;content:str;Y;;str;;
+DATABASE;True;;;;;str;;
+SOURCE;True;;;;;str;;
+SURVEY;True;;;;;str;;
+LINK;True;;;;;str;;
+INFOFILE;True;;;;;str;;
+INFO;True;;;;;str;;
+NOTEX;True;;variable:str;Y;y;str;;Applies to table if no subkey
+NOTE;True;;variable:str;Y;y;str;;Applies to table if no subkey
+VALUENOTEX;True;;variable:str,value:str;;y;str;;
+VALUENOTE;True;;variable:str,value:str;;y;str;;
+CELLNOTEX;True;;values:List[str];;y;str;;
+CELLNOTE;True;;values:List[str];;y;str;;
+DATASYMBOL1;True;;;;;str;;
+DATASYMBOL2;True;;;;;str;;
+DATASYMBOL3;True;;;;;str;;
+DATASYMBOL4;True;;;;;str;;
+DATASYMBOL5;True;;;;;str;;
+DATASYMBOL6;True;;;;;str;;
+DATASYMBOLNIL;True;;;;;str;;
+DATASYMBOLSUM;True;;;;;str;;
+DATANOTECELL;True;;variables:List[str];;y;str;;
+DATANOTESUM;True;;;;;str;;
+KEYS;True;;variable:str;;;str;CODES,VALUES;
+VARIABLE-CODE;True;;variable:str;;;str;;
+DATA;False;X;;;;PxData;;
