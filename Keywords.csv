@@ -1,4 +1,4 @@
-﻿Keyword;Language dependent;O(ptional)/M;SubKey;SubKey Optional;Duplicate keypart allowed ;ValueType;enumValues;Comment
+﻿px_keyword;is_lang_dependent;is_Mandatory;px_SubKey;is_SubKey_Optional;is_duplicate_keypart_allowed_;px_valuetype;px_enumvalues;px_comment
 CHARSET;False;;;;;str;;
 AXIS-VERSION;False;;;;;str;;
 CODEPAGE;False;;;;;str;;
