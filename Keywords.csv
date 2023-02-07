@@ -14,7 +14,7 @@ SYNONYMS;False;;;;;List[str];;
 DEFAULT-GRAPH;False;;;;;int;;
 DECIMALS;False;X;;;;int;;
 SHOWDECIMALS;False;;;;;int;;
-ROUNDING;False;;;;;str;0,1;
+ROUNDING;False;;;;;int;0,1;
 MATRIX;False;X;;;;str;;
 AGGREGALLOWED;False;;;;;Bool;;
 AUTOPEN;False;;;;;Bool;;
@@ -44,7 +44,7 @@ HIERARCHYNAMES;True;;variable:str;;;List[str];;
 MAP;True;;variable:str;;;str;;
 PARTITIONED;True;;variable:str;;y;List[str];;string , int (,int)
 ELIMINATION;True;;variable:str;;;str;;bool eller string
-PRECISION;True;;variable:str, value:str;;;str;int;
+PRECISION;True;;variable:str, value:str;;;int;;
 LAST-UPDATED;True;;content:str;Y;;str;;
 STOCKFA;True;;content:str;Y;;str;S,F,A;
 CFPRICES;True;;content:str;Y;;str;C,F;
