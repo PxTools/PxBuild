@@ -1,80 +1,86 @@
-﻿px_keyword;is_lang_dependent;is_Mandatory;px_SubKey;is_SubKey_Optional;is_duplicate_keypart_allowed_;px_valuetype;px_enumvalues;px_comment
-CHARSET;False;;;;;str;;
-AXIS-VERSION;False;;;;;str;;
-CODEPAGE;False;;;;;str;;
-LANGUAGE;False;;;;;str;;2 letters
-LANGUAGES;False;;;;;List[str];;
-CREATION-DATE;False;;;;;PxDate;;Date
-NEXT-UPDATE;False;;;;;PxDate;;Date
-PX-SERVER;False;;;;;str;;
-DIRECTORY-PATH;False;;;;;str;;
-UPDATE-FREQUENCY;False;;;;;str;;
-TABLEID;False;;;;;str;;
-SYNONYMS;False;;;;;List[str];;
-DEFAULT-GRAPH;False;;;;;int;;
-DECIMALS;False;X;;;;int;;
-SHOWDECIMALS;False;;;;;int;;
-ROUNDING;False;;;;;int;0,1;
-MATRIX;False;X;;;;str;;
-AGGREGALLOWED;False;;;;;Bool;;
-AUTOPEN;False;;;;;Bool;;
-SUBJECT-CODE;False;X;;;;str;;
-SUBJECT-AREA;True;X;;;;str;;
-CONFIDENTIAL;False;;;;;str;;
-COPYRIGHT;False;;;;;str;;
-DESCRIPTION;True;X;;;;str;;
-TITLE;True;X;;;;str;;
-DESCRIPTIONDEFAULT;False;;;;;bool;;
-CONTVARIABLE;True;;;;;str;;which variable is the content variable
-CONTENTS;True;X;;;;str;;
-UNITS;True;X;;;;str;;
-STUB;True;X;;;;List[str];;
-HEADING;True;X;;;;List[str];;
-VALUES;True;X;variable:str;;;List[str];;
-TIMEVAL;True;;variable:str;;;PxTlist;;"TLIST(A1, ”1994”-”1996”);  eller TLIST(A1), ”1994”, ”1995”,""1996”; "
-CODES;True;;variable:str;;;List[str];;
-DOUBLECOLUMN;True;;variable:str;;;bool;;
-PRESTEXT;True;;variable:str;;;str;0,1,2,3;
-DOMAIN;True;;variable:str;;;str;;
-VARIABLE-TYPE;True;;variable:str;;;str;;
-HIERARCHIES;True;;variable:str;;;PxHierarchy;;
-HIERARCHYLEVELS;True;;variable:str;;;int;;
-HIERARCHYLEVELSOPEN;True;;variable:str;;;int;;
-HIERARCHYNAMES;True;;variable:str;;;List[str];;
-MAP;True;;variable:str;;;str;;
-PARTITIONED;True;;variable:str;;y;List[str];;string , int (,int)
-ELIMINATION;True;;variable:str;;;str;;bool eller string
-PRECISION;True;;variable:str, value:str;;;int;;
-LAST-UPDATED;True;;content:str;Y;;str;;
-STOCKFA;True;;content:str;Y;;str;S,F,A;
-CFPRICES;True;;content:str;Y;;str;C,F;
-DAYADJ;True;;content:str;Y;;str;bool;
-SEASADJ;True;;content:str;Y;;str;bool;
-CONTACT;True;;content:str;Y;;str;;
-REFPERIOD;True;;content:str;Y;;str;;
-BASEPERIOD;True;;content:str;Y;;str;;
-DATABASE;True;;;;;str;;
-SOURCE;True;;;;;str;;
-SURVEY;True;;;;;str;;
-LINK;True;;;;;str;;
-INFOFILE;True;;;;;str;;
-INFO;True;;;;;str;;
-NOTEX;True;;variable:str;Y;y;str;;Applies to table if no subkey
-NOTE;True;;variable:str;Y;y;str;;Applies to table if no subkey
-VALUENOTEX;True;;variable:str,value:str;;y;str;;
-VALUENOTE;True;;variable:str,value:str;;y;str;;
-CELLNOTEX;True;;values:List[str];;y;str;;
-CELLNOTE;True;;values:List[str];;y;str;;
-DATASYMBOL1;True;;;;;str;;
-DATASYMBOL2;True;;;;;str;;
-DATASYMBOL3;True;;;;;str;;
-DATASYMBOL4;True;;;;;str;;
-DATASYMBOL5;True;;;;;str;;
-DATASYMBOL6;True;;;;;str;;
-DATASYMBOLNIL;True;;;;;str;;
-DATASYMBOLSUM;True;;;;;str;;
-DATANOTECELL;True;;variables:List[str];;y;str;;
-DATANOTESUM;True;;;;;str;;
-KEYS;True;;variable:str;;;str;CODES,VALUES;
-VARIABLE-CODE;True;;variable:str;;;str;;
-DATA;False;X;;;;PxData;;
+﻿px_keyword;is_lang_dependent;is_Mandatory;px_SubKey;is_SubKey_Optional;is_duplicate_keypart_allowed_;px_valuetype;px_valuetype_params;linevalidate;px_enumvalues;px_comment
+CHARSET;;;;;;_PxString;;;;Not in use
+AXIS-VERSION;;;;;;_PxString;;"regexp_string(r""^\d{4}$"",";;
+CODEPAGE;;;;;;_PxString;;;;Not in use
+LANGUAGE;;;;;;_PxString;;"regexp_string(""^[a-z]{2}$"",";;Language-code with 2 letters,sv for Swedish, en for English etc. Default language
+LANGUAGES;;;;;;_PxStringList;;"regexp_item_string(""^[a-z]{2}$"", XX unique(";;List of Language-codes used in file.
+CREATION-DATE;;;;;;_PxString;;;;"Date in ""Px  format"""
+NEXT-UPDATE;;;;;;_PxString;;;;"Date in ""Px  format"""
+PX-SERVER;;;;;;_PxString;;;;
+DIRECTORY-PATH;;;;;;_PxString;;;;Not in use
+UPDATE-FREQUENCY;;;;;;_PxString;;;;Not in use
+TABLEID;;;;;;_PxString;;;;
+SYNONYMS;;;;;;_PxStringList;;;;"This is used for search in PX-Web. If the table concerns CPI the synonym 
+can be “Inflation”. Several words can be included"
+DEFAULT-GRAPH;;;;;;int;;;;Not in use
+DECIMALS;;X;;;;int;;in_range(0,15,;;Number of desimals in stored data.
+SHOWDECIMALS;;;;;;int;;in_range(0,6,;;
+ROUNDING;;;;;;int;;in_range(0,1,;;
+MATRIX;;X;;;;_PxString;;;;
+AGGREGALLOWED;;;;;;_PxBool;;;;
+AUTOPEN;;;;;;_PxBool;;;;
+SUBJECT-CODE;;X;;;;_PxString;;;;
+SUBJECT-AREA;True;X;;;;_PxString;;;;
+CONFIDENTIAL;;;;;;int;;;;Never put confidential data in a pxfile. Ever. Not in use.
+COPYRIGHT;;;;;;_PxString;;;;
+DESCRIPTION;True;X;;;;_PxString;;;;
+TITLE;True;X;;;;_PxString;;;;
+DESCRIPTIONDEFAULT;;;;;;_PxBool;;;;
+CONTVARIABLE;True;;;;;_PxString;;;;which variable is the content variable
+CONTENTS;True;X;;;;_PxString;;;;
+UNITS;True;X;content:str;;;_PxString;;;;
+STUB;True;X;;;;_PxStringList;;;;
+HEADING;True;X;;;;_PxStringList;;;;
+VALUES;True;X;variable:str;;;_PxStringList;;;;
+TIMEVAL;True;;variable:str;;;_PxTlist;timescale:str, time_periods:list[str];;;"TLIST(A1, ”1994”-”1996”);  eller TLIST(A1), ”1994”, ”1995”,""1996”; "
+CODES;True;;variable:str;;;_PxStringList;;unique(;;Hei fra kolonne J,Codes
+DOUBLECOLUMN;True;;variable:str;;;_PxBool;;;;
+PRESTEXT;True;;variable:str;;;int;;in_range(0,3,;;
+DOMAIN;True;;variable:str;;;_PxString;;;;
+VARIABLE-TYPE;True;;variable:str;;;_PxString;;;;
+HIERARCHIES;True;;variable:str;;;_PxHierarchy;root_node:str, mother_child:dict[str,str];;;
+HIERARCHYLEVELS;True;;variable:str;;;int;;;;
+HIERARCHYLEVELSOPEN;True;;variable:str;;;int;;;;
+HIERARCHYNAMES;True;;variable:str;;;_PxStringList;;;;
+MAP;True;;variable:str;;;_PxString;;;;
+PARTITIONED;True;;variable:str;;y;_PxStringList;;;;string , int (,int)
+ELIMINATION;True;;variable:str;;;_PxString;;;;bool eller string
+PRECISION;True;;variable:str, value:str;;;int;;;;
+LAST-UPDATED;True;;content:str;Y;;_PxString;;;;
+STOCKFA;True;;content:str;Y;;_PxString;;"regexp_string(""^(S|F|A)$"",";S,F,A;
+CFPRICES;True;;content:str;Y;;_PxString;;"regexp_string(""^(C|F)$"",";C,F;Indicates if data is in current or fixed prices. C is used for Current and F for Fixed prices
+DAYADJ;True;;content:str;Y;;_PxBool;;;;
+SEASADJ;True;;content:str;Y;;_PxBool;;;;
+CONTACT;True;;content:str;Y;;_PxString;;;;
+REFPERIOD;True;;content:str;Y;;_PxString;;;;
+BASEPERIOD;True;;content:str;Y;;_PxString;;;;
+DATABASE;True;;;;;_PxString;;;;
+SOURCE;True;;;;;_PxString;;;;
+SURVEY;True;;;;;_PxString;;;;
+LINK;True;;;;;_PxString;;;;
+INFOFILE;True;;;;;_PxString;;;;
+INFO;True;;;;;_PxString;;;;
+NOTEX;True;;variable:str;Y;y;_PxString;;;;Applies to table if no subkey
+NOTE;True;;variable:str;Y;y;_PxString;;;;Applies to table if no subkey
+VALUENOTEX;True;;variable:str,value:str;;y;_PxString;;;;
+VALUENOTE;True;;variable:str,value:str;;y;_PxString;;;;
+DATANOTE;True;;variable:str,value:str;;y;_PxString;;;;
+CELLNOTEX;True;;values:list[str];;y;_PxString;;;;
+CELLNOTE;True;;values:list[str];;y;_PxString;;;;
+DATASYMBOL1;True;;;;;_PxString;;;;
+DATASYMBOL2;True;;;;;_PxString;;;;
+DATASYMBOL3;True;;;;;_PxString;;;;
+DATASYMBOL4;True;;;;;_PxString;;;;
+DATASYMBOL5;True;;;;;_PxString;;;;
+DATASYMBOL6;True;;;;;_PxString;;;;
+DATASYMBOLNIL;True;;;;;_PxString;;;;
+DATASYMBOLSUM;True;;;;;_PxString;;;;
+DATANOTECELL;True;;values:list[str];;y;_PxString;;;;
+DATANOTESUM;True;;;;;_PxString;;;;
+KEYS;True;;variable:str;;;_PxString;;"regexp_string(""^(CODES|VALUES)$"",";;
+ATTRIBUTE-ID;;C1;;;;_PxStringList;;;;
+ATTRIBUTE-TEXT;True;C1;;;;_PxStringList;;;;
+ATTRIBUTES;;C1;values:list[str];Y(må ha en uten, kan ha med;Y;_PxStringList;;;;
+VARIABLE-CODE;True;;variable:str;;;_PxString;;;;
+META-ID;;;variable:str, value:str;Y;;_PxString;;;;The META-ID keyword is used to reference a external meta information about a table, variable or value. Requires a separate file to resolve to urls
+DATA;;X;;;;_PxData;;;;
