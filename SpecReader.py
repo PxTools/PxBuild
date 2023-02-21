@@ -57,6 +57,9 @@ class MyKeyword:
         
 
         #util
+
+        self.module_name = "_"+to_python_case(self.keyword)
+
         #keyPart
         self.subkeys = {} if not self.subkeys_raw else dict((x.strip(), y.strip())
             for x, y in (element.split(':')
@@ -163,7 +166,7 @@ with open("Keywords.csv", "r",encoding="utf-8-sig") as theSpecCsv:
 
 # make <Keyword classes>.py
 for kw in data:
-    with open("src/pxtool/model/keywords/"+kw.classnames['This']+".py", "wt",encoding="utf-8-sig") as classPy:
+    with open("src/pxtool/model/keywords/"+kw.module_name+".py", "wt",encoding="utf-8-sig") as classPy:
         kw.imports_writer(classPy)
         kw.class_and_init_writer(classPy)
         kw.set_writer(classPy)
@@ -175,14 +178,14 @@ myDict= {}
 the_imports=[]
 the_attributes = []
 for kw in data:
-    the_imports.append(f"from model.keywords.{kw.classnames['This']} import {kw.classnames['This']}")
+    the_imports.append(f"from model.keywords.{kw.module_name} import {kw.classnames['This']}")
     the_attributes.append(f"self.{to_python_case(kw.keyword)} = {kw.classnames['This']}(\"{kw.keyword}\")")
   
 #from _PX_AXIS_VERSION import _PX_AXIS_VERSION
 #
 #self.axisversion = _PX_AXIS_VERSION("AXIS-VERSION")
 
-with open("src/pxtool/model/PxFileModel.py", "wt",encoding="utf-8-sig") as model_py:
+with open("src/pxtool/model/px_file_model.py", "wt",encoding="utf-8-sig") as model_py:
   #', '.join(kw.
   model_py.write("\n".join(the_imports)+"\n\n")
   model_py.write("class PXFileModel:\n")
