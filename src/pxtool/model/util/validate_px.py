@@ -1,4 +1,4 @@
-from PxFileModel import PXFileModel
+from pxtool.model.px_file_model import PXFileModel
 
 class ValidateMethods:
 

@@ -1,5 +1,5 @@
-﻿from model.util._px_super import _PXSingle, _PxString
-from model.util._line_validator import LineValidator
+﻿from pxtool.model.util._px_super import _PXSingle, _PxString
+from pxtool.model.util._line_validator import LineValidator
 
 class _PX_AXIS_VERSION(_PXSingle): 
 

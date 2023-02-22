@@ -1,4 +1,4 @@
-from collections import namedtuple
+#from collections import namedtuple
 
 class _PXSingle:
     """For data just the keyword, no need for a dict."""

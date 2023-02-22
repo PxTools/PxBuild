@@ -106,10 +106,10 @@ class MyKeyword:
         my_import = [self.classnames["Super"]]
         if self.classnames["Value"] != "int" :
              my_import.append( self.classnames["Value"] )
-        fileHandle.write(f"from model.util._px_super import {', '.join(my_import)}\n")
+        fileHandle.write(f"from pxtool.model.util._px_super import {', '.join(my_import)}\n")
         if self.classnames["Key"]:
-            fileHandle.write(f"from model.util._px_keytypes import { self.classnames['Key']}\n")
-        fileHandle.write("from model.util._line_validator import LineValidator\n\n")
+            fileHandle.write(f"from pxtool.model.util._px_keytypes import { self.classnames['Key']}\n")
+        fileHandle.write("from pxtool.model.util._line_validator import LineValidator\n\n")
 
 
     def class_and_init_writer(self, fileHandle) -> None:
@@ -173,12 +173,13 @@ for kw in data:
 
 ## model.keywords.
 
+
 # make PxFileModel.py
 myDict= {}
 the_imports=[]
 the_attributes = []
 for kw in data:
-    the_imports.append(f"from model.keywords.{kw.module_name} import {kw.classnames['This']}")
+    the_imports.append(f"from pxtool.model.keywords.{kw.module_name} import {kw.classnames['This']}")
     the_attributes.append(f"self.{to_python_case(kw.keyword)} = {kw.classnames['This']}(\"{kw.keyword}\")")
   
 #from _PX_AXIS_VERSION import _PX_AXIS_VERSION
@@ -203,16 +204,7 @@ with open("src/pxtool/model/px_file_model.py", "wt",encoding="utf-8-sig") as mod
   model_py.write("        return \"\\n\".join(attr_strings)\n")
 
 
-
-
-
-
-
-          
-
-
-a = int("3")
-print(a)
+print("Done")
 
 
 
