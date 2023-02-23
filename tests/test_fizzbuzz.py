@@ -1,10 +1,5 @@
 import sys
-my2 = sys.path[0].replace("\\tests","\\src")
-sys.path.insert(1,my2)
 
-print(f"sys.path 0:{sys.path[0]}")
-print(f"sys.path 1:{sys.path[1]}")
-print(f"sys.path 2:{sys.path[2]}")
 
 
 #from pxtool.model import px_file_model
@@ -22,6 +17,9 @@ print(vart)
 
 def test_fizz():
     assert "fizz" == "fizz"
+    
+
+    
 
 
 

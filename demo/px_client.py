@@ -1,6 +1,5 @@
 import sys
-my2 = sys.path[0].replace("\\demo","\\src")
-sys.path.insert(1,my2)
+sys.path.append("..")
 
 from pxtool.model.px_file_model import PXFileModel
 

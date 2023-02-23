@@ -166,7 +166,7 @@ with open("Keywords.csv", "r",encoding="utf-8-sig") as theSpecCsv:
 
 # make <Keyword classes>.py
 for kw in data:
-    with open("src/pxtool/model/keywords/"+kw.module_name+".py", "wt",encoding="utf-8-sig") as classPy:
+    with open("pxtool/model/keywords/"+kw.module_name+".py", "wt",encoding="utf-8-sig") as classPy:
         kw.imports_writer(classPy)
         kw.class_and_init_writer(classPy)
         kw.set_writer(classPy)
@@ -186,7 +186,7 @@ for kw in data:
 #
 #self.axisversion = _PX_AXIS_VERSION("AXIS-VERSION")
 
-with open("src/pxtool/model/px_file_model.py", "wt",encoding="utf-8-sig") as model_py:
+with open("pxtool/model/px_file_model.py", "wt",encoding="utf-8-sig") as model_py:
   #', '.join(kw.
   model_py.write("\n".join(the_imports)+"\n\n")
   model_py.write("class PXFileModel:\n")

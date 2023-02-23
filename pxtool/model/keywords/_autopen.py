@@ -1,0 +1,16 @@
+﻿from pxtool.model.util._px_super import _PXSingle, _PxBool
+from pxtool.model.util._line_validator import LineValidator
+
+class _PX_AUTOPEN(_PXSingle): 
+
+    def set(self, autopen:bool) -> None:
+        """  """
+        LineValidator.is_not_None( self._keyword, autopen)
+        LineValidator.is_bool( self._keyword, autopen)
+        my_value = _PxBool(autopen)
+        try:
+            super().set(my_value)
+        except Exception as e:
+            msg = self._keyword + ":" +str(e)
+            raise type(e)(msg) from e
+

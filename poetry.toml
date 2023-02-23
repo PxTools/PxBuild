@@ -1,3 +1,0 @@
-# Keep virtual environment in project directory. Useful in Jupyter to avoid recreating environment.
-[virtualenvs]
-in-project = true
