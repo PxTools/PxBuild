@@ -3,6 +3,10 @@ from pxtool.model.util._line_validator import LineValidator
 
 class _PX_LANGUAGE(_PXSingle): 
 
+    pxvalue_type:str = _PxString
+    is_language_dependent:bool = False
+
+
     def set(self, language:str) -> None:
         """ Language-code with 2 letters,sv for Swedish, en for English etc. Default language """
         LineValidator.is_not_None( self._keyword, language)

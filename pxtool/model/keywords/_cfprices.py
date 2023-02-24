@@ -4,6 +4,10 @@ from pxtool.model.util._line_validator import LineValidator
 
 class _PX_CFPRICES(_PXValueByKey): 
 
+    pxvalue_type:str = _PxString
+    is_language_dependent:bool = True
+
+
     def set(self, cfprices:str, content:str, lang:str = None) -> None:
         """ Indicates if data is in current or fixed prices. C is used for Current and F for Fixed prices """
         LineValidator.is_not_None( self._keyword, cfprices)

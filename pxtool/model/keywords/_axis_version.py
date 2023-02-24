@@ -3,6 +3,10 @@ from pxtool.model.util._line_validator import LineValidator
 
 class _PX_AXIS_VERSION(_PXSingle): 
 
+    pxvalue_type:str = _PxString
+    is_language_dependent:bool = False
+
+
     def set(self, axis_version:str) -> None:
         """  """
         LineValidator.is_not_None( self._keyword, axis_version)

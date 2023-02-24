@@ -113,7 +113,13 @@ class MyKeyword:
 
 
     def class_and_init_writer(self, fileHandle) -> None:
-        fileHandle.write(f"class {kw.classnames['This']}({kw.classnames['Super']}): \n")
+        fileHandle.write(f"class {kw.classnames['This']}({kw.classnames['Super']}): \n\n")
+        fileHandle.write(f"    pxvalue_type:str = {self.classnames['Value']}\n")
+        if kw.has_lang:
+            fileHandle.write("    is_language_dependent:bool = True\n\n")
+        else:
+            fileHandle.write("    is_language_dependent:bool = False\n\n")
+
         if kw.is_duplicate_keypart_allowed:
             #the others use init in super  
             fileHandle.write(f"    def __init__(self, keyword:str) -> None:\n")

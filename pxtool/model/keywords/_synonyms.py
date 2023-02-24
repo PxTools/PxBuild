@@ -3,6 +3,10 @@ from pxtool.model.util._line_validator import LineValidator
 
 class _PX_SYNONYMS(_PXSingle): 
 
+    pxvalue_type:str = _PxStringList
+    is_language_dependent:bool = False
+
+
     def set(self, synonyms:list[str]) -> None:
         """ This is used for search in PX-Web. If the table concerns CPI the synonym 
 can be “Inflation”. Several words can be included """

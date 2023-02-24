@@ -4,6 +4,10 @@ from pxtool.model.util._line_validator import LineValidator
 
 class _PX_HIERARCHIES(_PXValueByKey): 
 
+    pxvalue_type:str = _PxHierarchy
+    is_language_dependent:bool = True
+
+
     def set(self, root_node:str, mother_child:dict[str,str], variable:str, lang:str = None) -> None:
         """  """
         my_value = _PxHierarchy(root_node, mother_child)

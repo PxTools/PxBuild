@@ -3,6 +3,10 @@ from pxtool.model.util._line_validator import LineValidator
 
 class _PX_CONFIDENTIAL(_PXSingle): 
 
+    pxvalue_type:str = int
+    is_language_dependent:bool = False
+
+
     def set(self, confidential:int) -> None:
         """ Never put confidential data in a pxfile. Ever. Not in use. """
         LineValidator.is_not_None( self._keyword, confidential)

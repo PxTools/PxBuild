@@ -3,6 +3,10 @@ from pxtool.model.util._line_validator import LineValidator
 
 class _PX_AUTOPEN(_PXSingle): 
 
+    pxvalue_type:str = _PxBool
+    is_language_dependent:bool = False
+
+
     def set(self, autopen:bool) -> None:
         """  """
         LineValidator.is_not_None( self._keyword, autopen)

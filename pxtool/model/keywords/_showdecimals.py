@@ -3,6 +3,10 @@ from pxtool.model.util._line_validator import LineValidator
 
 class _PX_SHOWDECIMALS(_PXSingle): 
 
+    pxvalue_type:str = int
+    is_language_dependent:bool = False
+
+
     def set(self, showdecimals:int) -> None:
         """  """
         LineValidator.is_not_None( self._keyword, showdecimals)

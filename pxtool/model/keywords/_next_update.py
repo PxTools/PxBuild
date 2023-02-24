@@ -3,6 +3,10 @@ from pxtool.model.util._line_validator import LineValidator
 
 class _PX_NEXT_UPDATE(_PXSingle): 
 
+    pxvalue_type:str = _PxString
+    is_language_dependent:bool = False
+
+
     def set(self, next_update:str) -> None:
         """ Date in "Px  format" """
         LineValidator.is_not_None( self._keyword, next_update)

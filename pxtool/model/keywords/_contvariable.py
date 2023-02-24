@@ -4,6 +4,10 @@ from pxtool.model.util._line_validator import LineValidator
 
 class _PX_CONTVARIABLE(_PXValueByKey): 
 
+    pxvalue_type:str = _PxString
+    is_language_dependent:bool = True
+
+
     def set(self, contvariable:str, lang:str = None) -> None:
         """ which variable is the content variable """
         LineValidator.is_not_None( self._keyword, contvariable)

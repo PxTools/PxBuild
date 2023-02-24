@@ -3,6 +3,10 @@ from pxtool.model.util._line_validator import LineValidator
 
 class _PX_LANGUAGES(_PXSingle): 
 
+    pxvalue_type:str = _PxStringList
+    is_language_dependent:bool = False
+
+
     def set(self, languages:list[str]) -> None:
         """ List of Language-codes used in file. """
         LineValidator.is_not_None( self._keyword, languages)

@@ -4,6 +4,10 @@ from pxtool.model.util._line_validator import LineValidator
 
 class _PX_TIMEVAL(_PXValueByKey): 
 
+    pxvalue_type:str = _PxTlist
+    is_language_dependent:bool = True
+
+
     def set(self, timescale:str, time_periods:list[str], variable:str, lang:str = None) -> None:
         """ TLIST(A1, ”1994”-”1996”);  eller TLIST(A1), ”1994”, ”1995”,"1996”;  """
         my_value = _PxTlist(timescale, time_periods)

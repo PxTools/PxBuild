@@ -3,6 +3,10 @@ from pxtool.model.util._line_validator import LineValidator
 
 class _PX_DECIMALS(_PXSingle): 
 
+    pxvalue_type:str = int
+    is_language_dependent:bool = False
+
+
     def set(self, decimals:int) -> None:
         """ Number of desimals in stored data. """
         LineValidator.is_not_None( self._keyword, decimals)

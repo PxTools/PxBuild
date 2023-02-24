@@ -3,6 +3,10 @@ from pxtool.model.util._line_validator import LineValidator
 
 class _PX_CODEPAGE(_PXSingle): 
 
+    pxvalue_type:str = _PxString
+    is_language_dependent:bool = False
+
+
     def set(self, codepage:str) -> None:
         """ Not in use """
         LineValidator.is_not_None( self._keyword, codepage)

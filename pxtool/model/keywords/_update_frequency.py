@@ -3,6 +3,10 @@ from pxtool.model.util._line_validator import LineValidator
 
 class _PX_UPDATE_FREQUENCY(_PXSingle): 
 
+    pxvalue_type:str = _PxString
+    is_language_dependent:bool = False
+
+
     def set(self, update_frequency:str) -> None:
         """ Not in use """
         LineValidator.is_not_None( self._keyword, update_frequency)
