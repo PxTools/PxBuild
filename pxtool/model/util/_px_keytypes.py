@@ -45,6 +45,10 @@ class _keytype_variable_lang(_keytype_lang):
     def __hash__(self):
         return hash((self.variable, self.lang))  
     
+    def to_str_message(self) -> str:
+         return  f"for language '{self.lang}' and variable '{self.variable}'"
+
+    
 
 class _keytype_content_lang(_keytype_lang):
     content:str
