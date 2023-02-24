@@ -1,10 +1,10 @@
 import sys
 sys.path.append("..")
-
-from pxtool.model.px_file_model import PXFileModel
+#from pxtool.model.px_file_model import PXFileModel
+import pxtool
 
 #Utforskende nybegynner uvitende om PCAXIS
-a = PXFileModel()
+a = pxtool.model.px_file_model.PXFileModel()
 a.axis_version.set("2023")
 
 #a.title.set(titleText="Yxi Kaksi", lang="fi")
