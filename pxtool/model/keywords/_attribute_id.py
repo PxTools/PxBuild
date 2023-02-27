@@ -1,9 +1,10 @@
-﻿from pxtool.model.util._px_super import _PXSingle, _PxStringList
+﻿from pxtool.model.util._px_super import _PXSingle
+from pxtool.model.util._px_valuetype import _PxStringList
 from pxtool.model.util._line_validator import LineValidator
 
 class _PX_ATTRIBUTE_ID(_PXSingle): 
 
-    pxvalue_type:str = _PxStringList
+    pxvalue_type:str = "_PxStringList"
     is_language_dependent:bool = False
 
 

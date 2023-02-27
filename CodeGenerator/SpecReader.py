@@ -103,10 +103,9 @@ class MyKeyword:
     #Writers
 
     def imports_writer(self, fileHandle) -> None:
-        my_import = [self.classnames["Super"]]
+        fileHandle.write(f"from pxtool.model.util._px_super import {self.classnames['Super']}\n")
         if self.classnames["Value"] != "int" :
-             my_import.append( self.classnames["Value"] )
-        fileHandle.write(f"from pxtool.model.util._px_super import {', '.join(my_import)}\n")
+             fileHandle.write(f"from pxtool.model.util._px_valuetype import {self.classnames['Value']}\n")
         if self.classnames["Key"]:
             fileHandle.write(f"from pxtool.model.util._px_keytypes import { self.classnames['Key']}\n")
         fileHandle.write("from pxtool.model.util._line_validator import LineValidator\n\n")

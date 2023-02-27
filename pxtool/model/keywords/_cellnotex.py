@@ -1,10 +1,11 @@
-﻿from pxtool.model.util._px_super import _PXValueByKey, _PxString
+﻿from pxtool.model.util._px_super import _PXValueByKey
+from pxtool.model.util._px_valuetype import _PxString
 from pxtool.model.util._px_keytypes import _keytype_values_lang_multi
 from pxtool.model.util._line_validator import LineValidator
 
 class _PX_CELLNOTEX(_PXValueByKey): 
 
-    pxvalue_type:str = _PxString
+    pxvalue_type:str = "_PxString"
     is_language_dependent:bool = True
 
     def __init__(self, keyword:str) -> None:

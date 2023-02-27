@@ -4,7 +4,7 @@ from pxtool.model.util._line_validator import LineValidator
 
 class _PX_HIERARCHYLEVELS(_PXValueByKey): 
 
-    pxvalue_type:str = int
+    pxvalue_type:str = "int"
     is_language_dependent:bool = True
 
 

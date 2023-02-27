@@ -1,10 +1,11 @@
-﻿from pxtool.model.util._px_super import _PXValueByKey, _PxStringList
+﻿from pxtool.model.util._px_super import _PXValueByKey
+from pxtool.model.util._px_valuetype import _PxStringList
 from pxtool.model.util._px_keytypes import _keytype_variable_lang
 from pxtool.model.util._line_validator import LineValidator
 
 class _PX_HIERARCHYNAMES(_PXValueByKey): 
 
-    pxvalue_type:str = _PxStringList
+    pxvalue_type:str = "_PxStringList"
     is_language_dependent:bool = True
 
 
