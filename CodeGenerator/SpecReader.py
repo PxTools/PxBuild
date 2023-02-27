@@ -114,7 +114,7 @@ class MyKeyword:
 
     def class_and_init_writer(self, fileHandle) -> None:
         fileHandle.write(f"class {kw.classnames['This']}({kw.classnames['Super']}): \n\n")
-        fileHandle.write(f"    pxvalue_type:str = {self.classnames['Value']}\n")
+        fileHandle.write(f"    pxvalue_type:str = \"{self.classnames['Value']}\"\n")
         if kw.has_lang:
             fileHandle.write("    is_language_dependent:bool = True\n\n")
         else:
