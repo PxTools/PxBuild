@@ -79,7 +79,7 @@ from pxtool.model.keywords._keys import _PX_KEYS
 from pxtool.model.keywords._attribute_id import _PX_ATTRIBUTE_ID
 from pxtool.model.keywords._attribute_text import _PX_ATTRIBUTE_TEXT
 from pxtool.model.keywords._attributes import _PX_ATTRIBUTES
-from pxtool.model.keywords._variable_code import _PX_VARIABLE_CODE
+from pxtool.model.keywords._variablecode import _PX_VARIABLECODE
 from pxtool.model.keywords._meta_id import _PX_META_ID
 from pxtool.model.keywords._data import _PX_DATA
 
@@ -171,7 +171,7 @@ class PXFileModel:
         self.attribute_id = _PX_ATTRIBUTE_ID("ATTRIBUTE-ID")
         self.attribute_text = _PX_ATTRIBUTE_TEXT("ATTRIBUTE-TEXT")
         self.attributes = _PX_ATTRIBUTES("ATTRIBUTES")
-        self.variable_code = _PX_VARIABLE_CODE("VARIABLE-CODE")
+        self.variablecode = _PX_VARIABLECODE("VARIABLECODE")
         self.meta_id = _PX_META_ID("META-ID")
         self.data = _PX_DATA("DATA")
 
