@@ -28,7 +28,7 @@ TITLE;True;X;;;;_PxString;;;;
 DESCRIPTIONDEFAULT;;;;;;_PxBool;;;;
 CONTVARIABLE;True;;;;;_PxString;;;;which variable is the content variable
 CONTENTS;True;X;;;;_PxString;;;;
-UNITS;True;X;content:str;;;_PxString;;;;
+UNITS;True;X;content:str=None;;;_PxString;;;;
 STUB;True;X;;;;_PxStringList;;;;
 HEADING;True;X;;;;_PxStringList;;;;
 VALUES;True;X;variable:str;;;_PxStringList;;;;
