@@ -81,6 +81,6 @@ KEYS;True;;variable:str;;;_PxString;;"regexp_string(""^(CODES|VALUES)$"",";;
 ATTRIBUTE-ID;;C1;;;;_PxStringList;;;;
 ATTRIBUTE-TEXT;True;C1;;;;_PxStringList;;;;
 ATTRIBUTES;;C1;values:list[str];Y(må ha en uten, kan ha med;Y;_PxStringList;;;;
-VARIABLE-CODE;True;;variable:str;;;_PxString;;;;
+VARIABLECODE;True;;variable:str;;;_PxString;;;;
 META-ID;;;variable:str, value:str;Y;;_PxString;;;;The META-ID keyword is used to reference a external meta information about a table, variable or value. Requires a separate file to resolve to urls
 DATA;;X;;;;_PxData;;;;
