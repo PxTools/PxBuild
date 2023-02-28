@@ -29,10 +29,10 @@ SpecRow = namedtuple("SpecRow", ['px_keyword', 'is_lang_dependent', 'is_Mandator
 
 #Tja, de er jo python typer alle sammen. Så det er vel typen til parameter i set funksjonen vs den typen som lagres value i super klassen
 #PxTypesByPythonTypes={"list[str]":"_PxStringList","str":"_PxString","bool":"_PxBool","int":"int"}
-to_native_types={"_PxStringList":"list[str]","_PxString":"str","_PxBool":"bool","int":"int","_PxData":"list"}
+to_native_types={"_PxStringList":"list[str]","_PxString":"str","_PxBool":"bool","_PxInt":"int","_PxData":"list"}
 
 #contains list of validation method-stubs for valueTypes. The keyWord and inputvalue is added in generation. 
-valuetype_line_val = {"_PxStringList":["is_not_None(","is_list_of_strings("],"_PxString":["is_not_None(","is_string("],"_PxBool":["is_not_None(","is_bool("],"int":["is_not_None(","is_int("]}
+valuetype_line_val = {"_PxStringList":["is_not_None(","is_list_of_strings("],"_PxString":["is_not_None(","is_string("],"_PxBool":["is_not_None(","is_bool("],"_PxInt":["is_not_None(","is_int("]}
 
 
 class MyKeyword:

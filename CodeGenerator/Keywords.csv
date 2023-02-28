@@ -12,17 +12,17 @@ UPDATE-FREQUENCY;;;;;;_PxString;;;;Not in use
 TABLEID;;;;;;_PxString;;;;
 SYNONYMS;;;;;;_PxStringList;;;;"This is used for search in PX-Web. If the table concerns CPI the synonym 
 can be “Inflation”. Several words can be included"
-DEFAULT-GRAPH;;;;;;int;;;;Not in use
-DECIMALS;;X;;;;int;;in_range(0,15,;;Number of desimals in stored data.
-SHOWDECIMALS;;;;;;int;;in_range(0,6,;;
-ROUNDING;;;;;;int;;in_range(0,1,;;
+DEFAULT-GRAPH;;;;;;_PxInt;;;;Not in use
+DECIMALS;;X;;;;_PxInt;;in_range(0,15,;;Number of desimals in stored data.
+SHOWDECIMALS;;;;;;_PxInt;;in_range(0,6,;;
+ROUNDING;;;;;;_PxInt;;in_range(0,1,;;
 MATRIX;;X;;;;_PxString;;;;
 AGGREGALLOWED;;;;;;_PxBool;;;;
 AUTOPEN;;;;;;_PxBool;;;;
 SUBJECT-CODE;;X;;;;_PxString;;;;
 SUBJECT-AREA;True;X;;;;_PxString;;;;
-CONFIDENTIAL;;;;;;int;;;;Never put confidential data in a pxfile. Ever. Not in use.
-COPYRIGHT;;;;;;_PxString;;;;
+CONFIDENTIAL;;;;;;_PxInt;;;;Never put confidential data in a pxfile. Ever. Not in use.
+COPYRIGHT;;;;;;_PxBool;;;;
 DESCRIPTION;True;X;;;;_PxString;;;;
 TITLE;True;X;;;;_PxString;;;;
 DESCRIPTIONDEFAULT;;;;;;_PxBool;;;;
@@ -35,17 +35,17 @@ VALUES;True;X;variable:str;;;_PxStringList;;;;
 TIMEVAL;True;;variable:str;;;_PxTlist;timescale:str, time_periods:list[str];;;"TLIST(A1, ”1994”-”1996”);  eller TLIST(A1), ”1994”, ”1995”,""1996”; "
 CODES;True;;variable:str;;;_PxStringList;;unique(;;Hei fra kolonne J,Codes
 DOUBLECOLUMN;True;;variable:str;;;_PxBool;;;;
-PRESTEXT;True;;variable:str;;;int;;in_range(0,3,;;
+PRESTEXT;True;;variable:str;;;_PxInt;;in_range(0,3,;;
 DOMAIN;True;;variable:str;;;_PxString;;;;
 VARIABLE-TYPE;True;;variable:str;;;_PxString;;;;
 HIERARCHIES;True;;variable:str;;;_PxHierarchy;root_node:str, mother_child:dict[str,str];;;
-HIERARCHYLEVELS;True;;variable:str;;;int;;;;
-HIERARCHYLEVELSOPEN;True;;variable:str;;;int;;;;
+HIERARCHYLEVELS;True;;variable:str;;;_PxInt;;;;
+HIERARCHYLEVELSOPEN;True;;variable:str;;;_PxInt;;;;
 HIERARCHYNAMES;True;;variable:str;;;_PxStringList;;;;
 MAP;True;;variable:str;;;_PxString;;;;
 PARTITIONED;True;;variable:str;;y;_PxStringList;;;;string , int (,int)
 ELIMINATION;True;;variable:str;;;_PxString;;;;bool eller string
-PRECISION;True;;variable:str, value:str;;;int;;;;
+PRECISION;True;;variable:str, value:str;;;_PxInt;;;;
 LAST-UPDATED;True;;content:str=None;Y;;_PxString;;;;
 STOCKFA;True;;content:str=None;Y;;_PxString;;"regexp_string(""^(S|F|A)$"",";S,F,A;
 CFPRICES;True;;content:str=None;Y;;_PxString;;"regexp_string(""^(C|F)$"",";C,F;Indicates if data is in current or fixed prices. C is used for Current and F for Fixed prices
