@@ -76,15 +76,14 @@ class _PxData:
     
     def getValue(self):
         return self._data
+    
+class _PxInt:
+    """ Holdes a integer and prints it in quotes """
+    def __init__(self, _int:int) -> None:
+        self._int = _int
 
-        
-
-
-
-
-
-
-
-                        
-
-            
+    def __str__(self):
+            return f"\"{self._int}\""
+    
+    def getValue(self):
+        return self._int        
