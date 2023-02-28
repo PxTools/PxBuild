@@ -94,7 +94,7 @@ class MyKeyword:
         self.classnames["This"] = "_PX_"+self.keyword.replace('-','_') 
         self.classnames["Value"]= self.px_valuetype
         self.classnames["Key"] = getKeyType(self.has_lang,self.subkeys,self.is_duplicate_keypart_allowed)
-        self.classnames["Super"]= "_PXValueByKey" if self.has_lang else "_PXSingle"
+        self.classnames["Super"]= "_PXValueByKey" if self.has_lang or self.subkeys_raw else "_PXSingle"
 
        #Constructors
 

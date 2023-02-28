@@ -1,9 +1,9 @@
-﻿from pxtool.model.util._px_super import _PXSingle
+﻿from pxtool.model.util._px_super import _PXValueByKey
 from pxtool.model.util._px_valuetype import _PxString
 from pxtool.model.util._px_keytypes import _keytype_variable_value
 from pxtool.model.util._line_validator import LineValidator
 
-class _PX_META_ID(_PXSingle): 
+class _PX_META_ID(_PXValueByKey): 
 
     pxvalue_type:str = "_PxString"
     is_language_dependent:bool = False
