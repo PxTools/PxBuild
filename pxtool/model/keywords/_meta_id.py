@@ -9,7 +9,7 @@ class _PX_META_ID(_PXValueByKey):
     is_language_dependent:bool = False
 
 
-    def set(self, meta_id:str, variable:str, value:str) -> None:
+    def set(self, meta_id:str, variable:str=None, value:str=None) -> None:
         """ The META-ID keyword is used to reference a external meta information about a table, variable or value. Requires a separate file to resolve to urls """
         LineValidator.is_not_None( self._keyword, meta_id)
         LineValidator.is_string( self._keyword, meta_id)

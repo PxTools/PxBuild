@@ -12,7 +12,7 @@ class _PX_NOTE(_PXValueByKey):
         super().__init__(keyword)
         self.occurence_counter = 0
 
-    def set(self, note:str, variable:str, lang:str = None) -> None:
+    def set(self, note:str, variable:str=None, lang:str = None) -> None:
         """ Applies to table if no subkey """
         LineValidator.is_not_None( self._keyword, note)
         LineValidator.is_string( self._keyword, note)

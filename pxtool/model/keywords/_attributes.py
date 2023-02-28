@@ -12,7 +12,7 @@ class _PX_ATTRIBUTES(_PXValueByKey):
         super().__init__(keyword)
         self.occurence_counter = 0
 
-    def set(self, attributes:list[str], values:list[str]) -> None:
+    def set(self, attributes:list[str], values:list[str]=None) -> None:
         """  """
         LineValidator.is_not_None( self._keyword, attributes)
         LineValidator.is_list_of_strings( self._keyword, attributes)

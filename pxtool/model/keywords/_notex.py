@@ -12,7 +12,7 @@ class _PX_NOTEX(_PXValueByKey):
         super().__init__(keyword)
         self.occurence_counter = 0
 
-    def set(self, notex:str, variable:str, lang:str = None) -> None:
+    def set(self, notex:str, variable:str=None, lang:str = None) -> None:
         """ Applies to table if no subkey """
         LineValidator.is_not_None( self._keyword, notex)
         LineValidator.is_string( self._keyword, notex)

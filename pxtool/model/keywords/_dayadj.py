@@ -9,7 +9,7 @@ class _PX_DAYADJ(_PXValueByKey):
     is_language_dependent:bool = True
 
 
-    def set(self, dayadj:bool, content:str, lang:str = None) -> None:
+    def set(self, dayadj:bool, content:str=None, lang:str = None) -> None:
         """  """
         LineValidator.is_not_None( self._keyword, dayadj)
         LineValidator.is_bool( self._keyword, dayadj)

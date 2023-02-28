@@ -46,22 +46,22 @@ MAP;True;;variable:str;;;_PxString;;;;
 PARTITIONED;True;;variable:str;;y;_PxStringList;;;;string , int (,int)
 ELIMINATION;True;;variable:str;;;_PxString;;;;bool eller string
 PRECISION;True;;variable:str, value:str;;;int;;;;
-LAST-UPDATED;True;;content:str;Y;;_PxString;;;;
-STOCKFA;True;;content:str;Y;;_PxString;;"regexp_string(""^(S|F|A)$"",";S,F,A;
-CFPRICES;True;;content:str;Y;;_PxString;;"regexp_string(""^(C|F)$"",";C,F;Indicates if data is in current or fixed prices. C is used for Current and F for Fixed prices
-DAYADJ;True;;content:str;Y;;_PxBool;;;;
-SEASADJ;True;;content:str;Y;;_PxBool;;;;
-CONTACT;True;;content:str;Y;;_PxString;;;;
-REFPERIOD;True;;content:str;Y;;_PxString;;;;
-BASEPERIOD;True;;content:str;Y;;_PxString;;;;
+LAST-UPDATED;True;;content:str=None;Y;;_PxString;;;;
+STOCKFA;True;;content:str=None;Y;;_PxString;;"regexp_string(""^(S|F|A)$"",";S,F,A;
+CFPRICES;True;;content:str=None;Y;;_PxString;;"regexp_string(""^(C|F)$"",";C,F;Indicates if data is in current or fixed prices. C is used for Current and F for Fixed prices
+DAYADJ;True;;content:str=None;Y;;_PxBool;;;;
+SEASADJ;True;;content:str=None;Y;;_PxBool;;;;
+CONTACT;True;;content:str=None;Y;;_PxString;;;;
+REFPERIOD;True;;content:str=None;Y;;_PxString;;;;
+BASEPERIOD;True;;content:str=None;Y;;_PxString;;;;
 DATABASE;True;;;;;_PxString;;;;
 SOURCE;True;;;;;_PxString;;;;
 SURVEY;True;;;;;_PxString;;;;
 LINK;True;;;;;_PxString;;;;
 INFOFILE;True;;;;;_PxString;;;;
 INFO;True;;;;;_PxString;;;;
-NOTEX;True;;variable:str;Y;y;_PxString;;;;Applies to table if no subkey
-NOTE;True;;variable:str;Y;y;_PxString;;;;Applies to table if no subkey
+NOTEX;True;;variable:str=None;Y;y;_PxString;;;;Applies to table if no subkey
+NOTE;True;;variable:str=None;Y;y;_PxString;;;;Applies to table if no subkey
 VALUENOTEX;True;;variable:str,value:str;;y;_PxString;;;;
 VALUENOTE;True;;variable:str,value:str;;y;_PxString;;;;
 DATANOTE;True;;variable:str,value:str;;y;_PxString;;;;
@@ -80,7 +80,7 @@ DATANOTESUM;True;;;;;_PxString;;;;
 KEYS;True;;variable:str;;;_PxString;;"regexp_string(""^(CODES|VALUES)$"",";;
 ATTRIBUTE-ID;;C1;;;;_PxStringList;;;;
 ATTRIBUTE-TEXT;True;C1;;;;_PxStringList;;;;
-ATTRIBUTES;;C1;values:list[str];Y(må ha en uten, kan ha med;Y;_PxStringList;;;;
+ATTRIBUTES;;C1;values:list[str]=None;Y(må ha en uten, kan ha med;Y;_PxStringList;;;;
 VARIABLECODE;True;;variable:str;;;_PxString;;;;
-META-ID;;;variable:str, value:str;Y;;_PxString;;;;The META-ID keyword is used to reference a external meta information about a table, variable or value. Requires a separate file to resolve to urls
+META-ID;;;variable:str=None, value:str=None;Y;;_PxString;;;;The META-ID keyword is used to reference a external meta information about a table, variable or value. Requires a separate file to resolve to urls
 DATA;;X;;;;_PxData;;;;

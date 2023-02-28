@@ -9,7 +9,7 @@ class _PX_SEASADJ(_PXValueByKey):
     is_language_dependent:bool = True
 
 
-    def set(self, seasadj:bool, content:str, lang:str = None) -> None:
+    def set(self, seasadj:bool, content:str=None, lang:str = None) -> None:
         """  """
         LineValidator.is_not_None( self._keyword, seasadj)
         LineValidator.is_bool( self._keyword, seasadj)

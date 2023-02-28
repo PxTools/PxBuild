@@ -9,7 +9,7 @@ class _PX_CFPRICES(_PXValueByKey):
     is_language_dependent:bool = True
 
 
-    def set(self, cfprices:str, content:str, lang:str = None) -> None:
+    def set(self, cfprices:str, content:str=None, lang:str = None) -> None:
         """ Indicates if data is in current or fixed prices. C is used for Current and F for Fixed prices """
         LineValidator.is_not_None( self._keyword, cfprices)
         LineValidator.is_string( self._keyword, cfprices)

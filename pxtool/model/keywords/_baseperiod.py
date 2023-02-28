@@ -9,7 +9,7 @@ class _PX_BASEPERIOD(_PXValueByKey):
     is_language_dependent:bool = True
 
 
-    def set(self, baseperiod:str, content:str, lang:str = None) -> None:
+    def set(self, baseperiod:str, content:str=None, lang:str = None) -> None:
         """  """
         LineValidator.is_not_None( self._keyword, baseperiod)
         LineValidator.is_string( self._keyword, baseperiod)
