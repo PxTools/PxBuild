@@ -1,8 +1,9 @@
-#from generated.PxFileModel.py import PxFileModel
 import re
+import pxtool
+
 class QuotedItem:
     def __init__(self, string:str) -> None:
-        self.string=string
+        self.string="\"\"\""+string+"\"\"\""
 
     def hasPxPartSeparator(self) -> bool:
        return False
@@ -16,8 +17,11 @@ class QuotedItem:
     def trimWhitespace(self) -> None:
         pass
 
+    def isTypeQuoted(self) -> bool:
+       return True
+
     def __str__(self):
-        return  f"QuotedItem in quotes:\"{self.string}\"" 
+        return  f"QuotedItem in quotes:{self.string}" 
 
 class UnQuotedItem:
     def __init__(self, string:str) -> None:
@@ -38,6 +42,9 @@ class UnQuotedItem:
     
     def trimWhitespace(self) -> None:
         self.string = trimmed_string = re.sub(r"\s+", "", self.string)
+
+    def isTypeQuoted(self) -> bool:
+       return False    
 
     def __str__(self):
         return  f"UnQuotedItem:{self.string}"    
@@ -63,7 +70,7 @@ class Keypart:
     
 
 class Loader:
-    def isEven(self,value:int) -> bool:
+    def isEven(value:int) -> bool:
         if value % 2 == 0:
             return True
         else:
@@ -121,24 +128,108 @@ class Loader:
         print("    --------")
 
     def fixValuePart(self,items:list) -> None:
-        print("    Valuepart")
-        for item in items:
-           print(f"      {item}")
-        print("    --------")
+        attrName = self.currentKeyPart.modelAttributeName
+        print(f"    Valuepart for {attrName}")
+        myAttri = vars(self.outModel)[attrName]
 
 
+        outLangPart = "" 
+        outSubkeyPart = "" 
+        if len(self.currentKeyPart.subKeys) > 0:
+            outSubkeyPart=f", {', '.join(self.currentKeyPart.subKeys)}"
+
+        outValue =""
+
+        do_run_exec = True
+
+        if myAttri.pxvalue_type == "_PxString":
+            if len(items) != 1:
+                 raise ValueError(f"Excepting single quoted string, but items has not len = 1 ")
+            outValue=items[0].string
+        elif myAttri.pxvalue_type == "_PxBool":
+            if len(items) != 1:
+                raise ValueError(f"Excepting unsingle quoted string YES or NO, but items has not len = 1")
+            outValue="True"
+            if items[0].string not in ["YES","NO"]:
+                raise ValueError(f"Boolean values must be YES or NO")
+            if  items[0].string == "NO":
+                outValue="False"
+        elif myAttri.pxvalue_type == "_PxInt":
+            if len(items) != 1:
+                raise ValueError(f"Excepting an integer as single unquoted string, but items has not len = 1")
+            
+            if not items[0].string.isdecimal():
+                raise ValueError(f"integer value convertion")
+            
+            outValue="False"        
+        elif myAttri.pxvalue_type == "_PxStringList":
+            print("Stringlist")
+            if Loader.isEven(len(items)):
+                raise ValueError(f"Bad list")
+            if not items[0].isTypeQuoted:
+                raise ValueError(f"List must start with quoted string")
+            
+            myStrings=[]
+            for idx, x in enumerate(items):
+                if Loader.isEven(idx):
+                    myStrings.append(x.string)
+                elif x.string != ",":
+                    raise ValueError(f"Bad list")
+                
+            outValue = "[" + ",".join(myStrings) + "]"
+
+            for item in items:
+                print(f"      {item}")
+            print("    --------")
+        elif myAttri.pxvalue_type == "_PxTlist":
+            # TLIST(A1, ”1994”-”1996”);  or TLIST(A1), ”1994”, ”1995”,"1996”;
+            firstItem = items.pop(0)
+            tmp= firstItem.string.replace("TLIST(","").strip()
+            timescale=tmp[0:2]
+
+            outValue=f"\"{timescale}\", "
+
+            if len(items) > 2 and items[1].string.strip() == "-":
+                 outValue = outValue + f"{items[0].string} ,\"-\", {items[2].string}"
+            else:
+                outValue = outValue + "["
+                for item in items:
+                    outValue = outValue + item.string
+                outValue = outValue + "]"
+        elif myAttri.pxvalue_type == "_PxData":
+            data_list=[]
+            for item in items:
+                data_list.append(item.string)
+            self.outModel.data.set(data_list)
+            do_run_exec = False
+
+            
+            
+        if do_run_exec:
+            string_to_exec = f"self.outModel.{attrName}.set({outValue}{outSubkeyPart}{outLangPart})"
+            print("do_exec:" + string_to_exec)
+            exec(string_to_exec)
 
 
+        #    myAttri.set(myBool) 
 
-    def __init__(self)-> None:
+        print(f"---- etter keyword {self.currentKeyPart}  er modellen ----")
+        print(self.outModel) 
+
+        print("--------")
+
+    def __init__(self, filename:str)-> None:
+        self.outModel = pxtool.model.px_file_model.PXFileModel()
         self.currentKeyPart = None 
-        with open('testdataKort.px', 'r') as file:
-            file_contents = file.read()
-        splitFileOnQuote = file_contents.split("\"")
+        with open(filename, 'r') as file:
+            file_contents1 = file.read()
+
+        file_contents2 =  file_contents1.replace("\"\n\"","")
+        splitFileOnQuote = file_contents2.split("\"")
         file=[]
         cnt=0
         for item in splitFileOnQuote:
-            if self.isEven(cnt):
+            if Loader.isEven(cnt):
                file.append(UnQuotedItem(item))
             else:
                file.append(QuotedItem(item))
@@ -183,9 +274,7 @@ class Loader:
 
 
     
-   
 
-loader = Loader()
 
 
 

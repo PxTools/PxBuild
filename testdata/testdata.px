@@ -1,0 +1,111 @@
+CHARSET="ANSI";
+AXIS-VERSION="2010";
+CODEPAGE="iso-8859-1";
+LANGUAGE="no";
+CREATION-DATE="20230214 16:09";
+DECIMALS=1;
+SHOWDECIMALS=0;
+MATRIX="Kjorelengde";
+AGGREGALLOWED=NO;
+COPYRIGHT=NO;
+SUBJECT-CODE="al";
+SUBJECT-AREA="Arbeid og lønn";
+TITLE="12576: Kjørelengder, etter region, kjøretøytype, drivstofftype, statistikkvariabel og år";
+CONTENTS="12576: Kjørelengder,";
+STUB="region","kjøretøytype","drivstofftype";
+HEADING="statistikkvariabel","år";
+CONTVARIABLE="statistikkvariabel";
+VARIABLECODE("region")="Region";
+VALUES("region")="Viken","Oslo";
+VARIABLECODE("kjøretøytype")="Kjoretoytype";
+VALUES("kjøretøytype")="Busser i alt","Små godsbiler i alt","Store lastebiler i alt";
+VARIABLECODE("drivstofftype")="DrivstoffType";
+VALUES("drivstofftype")="Diesel hybrid, ikke ladbar","Parafin","Gass","Hydrogen","Andre drivstoff";
+VARIABLECODE("statistikkvariabel")="ContentsCode";
+VALUES("statistikkvariabel")="Kjørelengde (mill. km)","Gjennomsnittlig kjørelengde per kjøretøy (km)";
+VARIABLECODE("år")="Tid";
+VALUES("uke")="2020U01","2021U01";
+TIMEVAL("uke")=TLIST(W1),"2020W01","2021W01";
+CODES("uke")="2020U01","2021U01";
+PRESTEXT("region")=2;
+PRESTEXT("år")=0;
+PRECISION("statistikkvariabel","Kjørelengde (mill. km)")=1;
+UNITS="mill. km";
+LAST-UPDATED("Kjørelengde (mill. km)")="20220322 08:00";
+STOCKFA("Kjørelengde (mill. km)")="F";
+DAYADJ("Kjørelengde (mill. km)")=NO;
+SEASADJ("Kjørelengde (mill. km)")=NO;
+REFPERIOD("Kjørelengde (mill. km)")="31.12";
+UNITS("Kjørelengde (mill. km)")="mill. km";
+CONTACT("Kjørelengde (mill. km)")="Henrik Bråthen, Statistisk sentralbyrå# +47 40 81 14 03#bhe@ssb.no##";
+LAST-UPDATED("Gjennomsnittlig kjørelengde per kjøretøy (km)")="20220322 08:00";
+STOCKFA("Gjennomsnittlig kjørelengde per kjøretøy (km)")="A";
+DAYADJ("Gjennomsnittlig kjørelengde per kjøretøy (km)")=NO;
+SEASADJ("Gjennomsnittlig kjørelengde per kjøretøy (km)")=NO;
+REFPERIOD("Gjennomsnittlig kjørelengde per kjøretøy (km)")="31.12";
+UNITS("Gjennomsnittlig kjørelengde per kjøretøy (km)")="km";
+CONTACT("Gjennomsnittlig kjørelengde per kjøretøy (km)")="Henrik Bråthen, Statistisk sentralbyrå# +47 40 81 14 03#bhe@ssb.no##";
+DATABASE="Intern PRODUKSJON";
+SOURCE="Statistisk sentralbyrå";
+INFOFILE="None";
+NOTE="En mer detaljert modell for beregning av kjørelengder ble utviklet i 2018 (se Om statistikken). 21. mars 2019 ble det publisert nye tall for 2018 og justerte tall for 2016 og 2017 beregnet med den nye modellen. Selv om omleggingen fra gammel til ny model"
+"l generelt sett har begrenset virkning på kjørelengdene i statistikken, vil det være noen avvik i forhold til tidligere publiserte tall for 2016 og 2017.##<b>Drivstofftype</b><br></br>
+
+<b>Andre drivstoff:</b>
+Inkluderer parafin, gass og hydrogen fram ti"
+"l og med 2015.<br></br>
+
+<b>Bensin- og dieselhybrider:</b>
+Bensin- og dieselhybrider ble i hovedsak registrert som ordinære bensin- og dieselbiler fram til og med 2015.##2018-tallene ble oppdatert 24. mars 2020 som følge av endringer i beregningen av kjø"
+"relengder for kjøretøy i Rindal kommune.##I mars 2020 ble det 40 år gamle Motorvognregisteret til Statens vegvesen erstattet av et nytt Kjøretøyregister med ny teknologi og til dels nytt innhold. Endringer i bruk av variabler og kodelister i det nye regi"
+"steret har medført at det vil kunne være avvik i kjørelengdestatistikken mellom 2019 og 2020 på de mest detaljerte nivåene.
+<br>
+Før 2020 var ikke kjøretøyer på Svalbard som kun var registrert for bruk utenfor offentlig vei med i statistikken.##: = Vises"
+" ikke av konfidensialitetshensyn. Tall publiseres ikke for å unngå å identifisere personer eller virksomheter.##. = Ikke mulig å oppgi tall. Tall finnes ikke på dette tidspunktet fordi kategorien ikke var i bruk da tallene ble samlet inn.";
+NOTE("region")="<a href='https://www.ssb.no/offentlig-sektor/kommunekatalog/endringer-i-de-regionale-inndelingene' target='footnote'><b>Se liste over endringer i de regionale inndelingene.</b></a>";
+META-ID="KORTNAVN:klreg";
+META-ID("region")="urn:ssb:classification:klass:104";
+META-ID("statistikkvariabel","Kjørelengde (mill. km)")="urn:ssb:conceptvariable:vardok:1819";
+DATASYMBOL1="..";
+DATASYMBOL2="...";
+DATASYMBOL3=":";
+DATASYMBOLSUM=".";
+DATASYMBOLNIL="-";
+DATANOTESUM=".";
+TABLEID="12576";
+VARIABLE-TYPE("region")="G";
+VARIABLE-TYPE("kjøretøytype")="V";
+VARIABLE-TYPE("drivstofftype")="V";
+VARIABLE-TYPE("år")="T";
+DATA=
+"......." "......." "......." "......." 
+"......." "......." "......." "......." 
+1.2 0.9 34161.0 29982.0 
+"......." "......." "......." "......." 
+"......." "......." "......." "......." 
+0.8 1.7 12532.0 13361.0 
+"......." "......." "......." "......." 
+1.5 1.8 11632.0 11767.0 
+"..." "..." "..." "..." 
+0.1 0.1 13901.0 8916.0 
+"..." "..." "..." "..." 
+0.1 "..." 7779.0 "..." 
+2.6 4.4 18678.0 25241.0 
+"......." "......." "......." "......." 
+0.9 0.9 30768.0 30606.0 
+1.4 0.6 49615.0 46431.0 
+"......." "......." "......." "......." 
+27.5 33.0 48965.0 62555.0 
+0.1 0.1 15608.0 14724.0 
+0.2 0.2 60950.0 41433.0 
+0.3 0.7 17596.0 10604.0 
+"..." "..." "..." "..." 
+1.4 1.3 9977.0 10638.0 
+"......." "......." "......." "......." 
+0.1 0.0 14890.0 7249.0 
+"..." "..." "..." "..." 
+0.2 0.2 56001.0 58512.0 
+6.1 6.9 22493.0 23081.0 
+"......." "......." "......." "......." 
+"..." 0.1 "..." 13853.0 
+;
