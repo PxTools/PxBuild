@@ -1,9 +1,9 @@
-﻿from pxtool.model.util._px_super import _PXValueByKey
+﻿from pxtool.model.util._px_super import _PxValueByKey
 from pxtool.model.util._px_valuetype import _PxString
-from pxtool.model.util._px_keytypes import _keytype_variable_value
+from pxtool.model.util._px_keytypes import _KeytypeVariableValue
 from pxtool.model.util._line_validator import LineValidator
 
-class MetaId(_PXValueByKey): 
+class _MetaId(_PxValueByKey): 
 
     pxvalue_type:str = "_PxString"
     is_language_dependent:bool = False
@@ -14,7 +14,7 @@ class MetaId(_PXValueByKey):
         LineValidator.is_not_None( self._keyword, meta_id)
         LineValidator.is_string( self._keyword, meta_id)
         my_value = _PxString(meta_id)
-        my_key = _keytype_variable_value(variable, value)
+        my_key = _KeytypeVariableValue(variable, value)
         try:
             super().set(my_value,my_key)
         except Exception as e:

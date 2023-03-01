@@ -1,8 +1,8 @@
-﻿from pxtool.model.util._px_super import _PXSingle
+﻿from pxtool.model.util._px_super import _PxSingle
 from pxtool.model.util._px_valuetype import _PxBool
 from pxtool.model.util._line_validator import LineValidator
 
-class Aggregallowed(_PXSingle): 
+class _Aggregallowed(_PxSingle): 
 
     pxvalue_type:str = "_PxBool"
     is_language_dependent:bool = False

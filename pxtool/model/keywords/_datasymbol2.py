@@ -1,9 +1,9 @@
-﻿from pxtool.model.util._px_super import _PXValueByKey
+﻿from pxtool.model.util._px_super import _PxValueByKey
 from pxtool.model.util._px_valuetype import _PxString
-from pxtool.model.util._px_keytypes import _keytype_lang
+from pxtool.model.util._px_keytypes import _KeytypeLang
 from pxtool.model.util._line_validator import LineValidator
 
-class Datasymbol2(_PXValueByKey): 
+class _Datasymbol2(_PxValueByKey): 
 
     pxvalue_type:str = "_PxString"
     is_language_dependent:bool = True
@@ -14,7 +14,7 @@ class Datasymbol2(_PXValueByKey):
         LineValidator.is_not_None( self._keyword, datasymbol2)
         LineValidator.is_string( self._keyword, datasymbol2)
         my_value = _PxString(datasymbol2)
-        my_key = _keytype_lang(lang)
+        my_key = _KeytypeLang(lang)
         try:
             super().set(my_value,my_key)
         except Exception as e:

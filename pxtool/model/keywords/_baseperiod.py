@@ -1,9 +1,9 @@
-﻿from pxtool.model.util._px_super import _PXValueByKey
+﻿from pxtool.model.util._px_super import _PxValueByKey
 from pxtool.model.util._px_valuetype import _PxString
-from pxtool.model.util._px_keytypes import _keytype_content_lang
+from pxtool.model.util._px_keytypes import _KeytypeContentLang
 from pxtool.model.util._line_validator import LineValidator
 
-class Baseperiod(_PXValueByKey): 
+class _Baseperiod(_PxValueByKey): 
 
     pxvalue_type:str = "_PxString"
     is_language_dependent:bool = True
@@ -14,7 +14,7 @@ class Baseperiod(_PXValueByKey):
         LineValidator.is_not_None( self._keyword, baseperiod)
         LineValidator.is_string( self._keyword, baseperiod)
         my_value = _PxString(baseperiod)
-        my_key = _keytype_content_lang(content, lang)
+        my_key = _KeytypeContentLang(content, lang)
         try:
             super().set(my_value,my_key)
         except Exception as e:

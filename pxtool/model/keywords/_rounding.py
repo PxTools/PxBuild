@@ -1,8 +1,8 @@
-﻿from pxtool.model.util._px_super import _PXSingle
+﻿from pxtool.model.util._px_super import _PxSingle
 from pxtool.model.util._px_valuetype import _PxInt
 from pxtool.model.util._line_validator import LineValidator
 
-class Rounding(_PXSingle): 
+class _Rounding(_PxSingle): 
 
     pxvalue_type:str = "_PxInt"
     is_language_dependent:bool = False

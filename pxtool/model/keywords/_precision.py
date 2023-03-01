@@ -1,9 +1,9 @@
-﻿from pxtool.model.util._px_super import _PXValueByKey
+﻿from pxtool.model.util._px_super import _PxValueByKey
 from pxtool.model.util._px_valuetype import _PxInt
-from pxtool.model.util._px_keytypes import _keytype_variable_value_lang
+from pxtool.model.util._px_keytypes import _KeytypeVariableValueLang
 from pxtool.model.util._line_validator import LineValidator
 
-class Precision(_PXValueByKey): 
+class _Precision(_PxValueByKey): 
 
     pxvalue_type:str = "_PxInt"
     is_language_dependent:bool = True
@@ -14,7 +14,7 @@ class Precision(_PXValueByKey):
         LineValidator.is_not_None( self._keyword, precision)
         LineValidator.is_int( self._keyword, precision)
         my_value = _PxInt(precision)
-        my_key = _keytype_variable_value_lang(variable, value, lang)
+        my_key = _KeytypeVariableValueLang(variable, value, lang)
         try:
             super().set(my_value,my_key)
         except Exception as e:

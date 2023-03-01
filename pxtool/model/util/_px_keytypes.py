@@ -7,7 +7,7 @@ They used to be just namedTuples, but we wanted to use pydantic for validation
 """
 from pxtool.model.util._line_validator import LineValidator
 
-class _keytype_lang():
+class _KeytypeLang():
     lang:str = None
 
     def __init__(self, lang:str) -> None:
@@ -20,14 +20,14 @@ class _keytype_lang():
         return  f"[\"{self.lang}\"]" if self.lang else "" 
 
     def __eq__(self, other):
-        if isinstance(other, _keytype_lang):
+        if isinstance(other, _KeytypeLang):
             return self.lang == other.lang
         return False
 
     def __hash__(self):
         return hash(self.lang)  
 
-class _keytype_variable_lang(_keytype_lang):
+class _KeytypeVariableLang(_KeytypeLang):
     variable:str
 
     def __init__(self, variable:str, lang:str) -> None:
@@ -38,7 +38,7 @@ class _keytype_variable_lang(_keytype_lang):
          return  f"{super().__str__()}(\"{self.variable}\")"
     
     def __eq__(self, other):
-        if isinstance(other, _keytype_variable_lang):
+        if isinstance(other, _KeytypeVariableLang):
             return self.variable == other.variable and self.lang == other.lang
         return False
 
@@ -50,7 +50,7 @@ class _keytype_variable_lang(_keytype_lang):
 
     
 
-class _keytype_content_lang(_keytype_lang):
+class _KeytypeContentLang(_KeytypeLang):
     content:str
 
     def __init__(self, content:str, lang:str) -> None:
@@ -61,7 +61,7 @@ class _keytype_content_lang(_keytype_lang):
           return  f"{super().__str__()}(\"{self.content}\")"
     
     def __eq__(self, other):
-        if isinstance(other, _keytype_content_lang):
+        if isinstance(other, _KeytypeContentLang):
             return self.content == other.content and self.lang == other.lang
         return False
 
@@ -71,7 +71,7 @@ class _keytype_content_lang(_keytype_lang):
     def to_str_message(self) -> str:
          return  f"for language '{self.lang}' and variable '{self.variable}'"
 
-class _keytype_variable_value_lang(_keytype_lang):
+class _KeytypeVariableValueLang(_KeytypeLang):
     variable:str
     value:str
 
@@ -84,7 +84,7 @@ class _keytype_variable_value_lang(_keytype_lang):
         return  f"{super().__str__()}(\"{self.variable}\",\"{self.value}\")"
     
     def __eq__(self, other):
-        if isinstance(other, _keytype_variable_value_lang):
+        if isinstance(other, _KeytypeVariableValueLang):
             return self.variable == other.variable and self.value == other.value and self.lang == other.lang
         return False
 
@@ -93,7 +93,7 @@ class _keytype_variable_value_lang(_keytype_lang):
     
 
     
-class _keytype_variable_value():
+class _KeytypeVariableValue():
     variable:str
     value:str
 
@@ -105,7 +105,7 @@ class _keytype_variable_value():
         return  f"(\"{self.variable}\",\"{self.value}\")"   
 
     def __eq__(self, other):
-        if isinstance(other, _keytype_variable_value):
+        if isinstance(other, _KeytypeVariableValue):
             return self.variable == other.variable and self.value == other.value
         return False
 
@@ -113,7 +113,7 @@ class _keytype_variable_value():
         return hash((self.variable, self.value))   
 
 
-class _keytype_variable_lang_multi(_keytype_variable_lang):
+class _KeytypeVariableLangMulti(_KeytypeVariableLang):
     counter:int
 
     def __init__(self, variable:str, lang:str, counter:int) -> None:
@@ -121,14 +121,14 @@ class _keytype_variable_lang_multi(_keytype_variable_lang):
         self.counter = counter
 
     def __eq__(self, other):
-        if isinstance(other, _keytype_variable_lang_multi):
+        if isinstance(other, _KeytypeVariableLangMulti):
             return self.variable == other.variable and self.lang == other.lang and self.counter == other.counter
         return False
 
     def __hash__(self):
         return hash((self.variable, self.lang, self.counter))
 
-class _keytype_variable_value_lang_multi(_keytype_variable_value_lang):
+class _KeytypeVariableValueLangMulti(_KeytypeVariableValueLang):
     counter:int 
 
     def __init__(self, variable:str, value:str, lang:str, counter:int) -> None:
@@ -136,7 +136,7 @@ class _keytype_variable_value_lang_multi(_keytype_variable_value_lang):
         self.counter = counter
 
     def __eq__(self, other):
-        if isinstance(other, _keytype_variable_value_lang):
+        if isinstance(other, _KeytypeVariableValueLang):
             return self.variable == other.variable and self.value == other.value and self.lang == other.lang and self.counter == other.counter
         return False
 
@@ -146,8 +146,8 @@ class _keytype_variable_value_lang_multi(_keytype_variable_value_lang):
 
 
 
-#_keytype_values_lang_multi = namedtuple("ValuesLangMulti", ['values', 'lang', 'counter'] )
-class _keytype_values_lang_multi(_keytype_lang):
+#_KeytypeValuesLangMulti = namedtuple("ValuesLangMulti", ['values', 'lang', 'counter'] )
+class _KeytypeValuesLangMulti(_KeytypeLang):
     values:list[str] 
     counter:int
     _joined:str
@@ -163,7 +163,7 @@ class _keytype_values_lang_multi(_keytype_lang):
         return  f"{super().__str__()}(\"{self._joined}\")"
     
     def __eq__(self, other):
-        if isinstance(other, _keytype_values_lang_multi):
+        if isinstance(other, _KeytypeValuesLangMulti):
             return self._joined == other._joined and self.lang == other.lang and self.counter == other.counter
         return False
 
@@ -171,7 +171,7 @@ class _keytype_values_lang_multi(_keytype_lang):
         return hash((self._joined, self.lang, self.counter))  
 
 
-class _keytype_values_multi(): 
+class _KeytypeValuesMulti(): 
     values:list[str] 
     counter:int
     _joined:str
@@ -186,7 +186,7 @@ class _keytype_values_multi():
         return  f"(\"{self._joined}\")"
     
     def __eq__(self, other):
-        if isinstance(other, _keytype_values_multi):
+        if isinstance(other, _KeytypeValuesMulti):
             return self._joined == other._joined and self.lang == other.lang and self.counter == other.counter
         return False
 

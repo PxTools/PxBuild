@@ -1,9 +1,9 @@
-﻿from pxtool.model.util._px_super import _PXValueByKey
+﻿from pxtool.model.util._px_super import _PxValueByKey
 from pxtool.model.util._px_valuetype import _PxString
-from pxtool.model.util._px_keytypes import _keytype_variable_value_lang_multi
+from pxtool.model.util._px_keytypes import _KeytypeVariableValueLangMulti
 from pxtool.model.util._line_validator import LineValidator
 
-class Valuenote(_PXValueByKey): 
+class _Valuenote(_PxValueByKey): 
 
     pxvalue_type:str = "_PxString"
     is_language_dependent:bool = True
@@ -18,7 +18,7 @@ class Valuenote(_PXValueByKey):
         LineValidator.is_string( self._keyword, valuenote)
         my_value = _PxString(valuenote)
         self.occurence_counter += 1
-        my_key = _keytype_variable_value_lang_multi(variable, value, lang, self.occurence_counter)
+        my_key = _KeytypeVariableValueLangMulti(variable, value, lang, self.occurence_counter)
         try:
             super().set(my_value,my_key)
         except Exception as e:

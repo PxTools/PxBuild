@@ -1,9 +1,9 @@
-﻿from pxtool.model.util._px_super import _PXValueByKey
+﻿from pxtool.model.util._px_super import _PxValueByKey
 from pxtool.model.util._px_valuetype import _PxStringList
-from pxtool.model.util._px_keytypes import _keytype_variable_lang_multi
+from pxtool.model.util._px_keytypes import _KeytypeVariableLangMulti
 from pxtool.model.util._line_validator import LineValidator
 
-class Partitioned(_PXValueByKey): 
+class _Partitioned(_PxValueByKey): 
 
     pxvalue_type:str = "_PxStringList"
     is_language_dependent:bool = True
@@ -18,7 +18,7 @@ class Partitioned(_PXValueByKey):
         LineValidator.is_list_of_strings( self._keyword, partitioned)
         my_value = _PxStringList(partitioned)
         self.occurence_counter += 1
-        my_key = _keytype_variable_lang_multi(variable, lang, self.occurence_counter)
+        my_key = _KeytypeVariableLangMulti(variable, lang, self.occurence_counter)
         try:
             super().set(my_value,my_key)
         except Exception as e:

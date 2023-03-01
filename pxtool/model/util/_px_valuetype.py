@@ -6,8 +6,8 @@ class _PxTlist:
         self.time_periods = time_periods
 
     def __str__(self):
-        listAsString = f"\",\"".join(self.time_periods)
-        return f"TLIST({self.timescale}),\"{listAsString}\"" 
+        list_as_string = f"\",\"".join(self.time_periods)
+        return f"TLIST({self.timescale}),\"{list_as_string}\"" 
 
     def getValue(self):
         return (self.timescale,self.time_periods)       
@@ -35,8 +35,8 @@ class _PxStringList:
             raise ValueError(f"list_of_strings must have a least one value")
 
     def __str__(self):
-            listAsString = f"\",\"".join(self.list_of_strings)
-            return f"\"{listAsString}\""            
+            list_as_string = f"\",\"".join(self.list_of_strings)
+            return f"\"{list_as_string}\""            
 
     def __len__(self):
         return len(self.list_of_strings)

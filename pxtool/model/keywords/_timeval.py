@@ -1,9 +1,9 @@
-﻿from pxtool.model.util._px_super import _PXValueByKey
+﻿from pxtool.model.util._px_super import _PxValueByKey
 from pxtool.model.util._px_valuetype import _PxTlist
-from pxtool.model.util._px_keytypes import _keytype_variable_lang
+from pxtool.model.util._px_keytypes import _KeytypeVariableLang
 from pxtool.model.util._line_validator import LineValidator
 
-class Timeval(_PXValueByKey): 
+class _Timeval(_PxValueByKey): 
 
     pxvalue_type:str = "_PxTlist"
     is_language_dependent:bool = True
@@ -12,7 +12,7 @@ class Timeval(_PXValueByKey):
     def set(self, timescale:str, time_periods:list[str], variable:str, lang:str = None) -> None:
         """ TLIST(A1, ”1994”-”1996”);  eller TLIST(A1), ”1994”, ”1995”,"1996”;  """
         my_value = _PxTlist(timescale, time_periods)
-        my_key = _keytype_variable_lang(variable, lang)
+        my_key = _KeytypeVariableLang(variable, lang)
         try:
             super().set(my_value,my_key)
         except Exception as e:

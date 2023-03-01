@@ -1,9 +1,9 @@
-﻿from pxtool.model.util._px_super import _PXValueByKey
+﻿from pxtool.model.util._px_super import _PxValueByKey
 from pxtool.model.util._px_valuetype import _PxInt
-from pxtool.model.util._px_keytypes import _keytype_variable_lang
+from pxtool.model.util._px_keytypes import _KeytypeVariableLang
 from pxtool.model.util._line_validator import LineValidator
 
-class Hierarchylevels(_PXValueByKey): 
+class _Hierarchylevels(_PxValueByKey): 
 
     pxvalue_type:str = "_PxInt"
     is_language_dependent:bool = True
@@ -14,7 +14,7 @@ class Hierarchylevels(_PXValueByKey):
         LineValidator.is_not_None( self._keyword, hierarchylevels)
         LineValidator.is_int( self._keyword, hierarchylevels)
         my_value = _PxInt(hierarchylevels)
-        my_key = _keytype_variable_lang(variable, lang)
+        my_key = _KeytypeVariableLang(variable, lang)
         try:
             super().set(my_value,my_key)
         except Exception as e:

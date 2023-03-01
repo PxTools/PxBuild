@@ -1,9 +1,9 @@
-﻿from pxtool.model.util._px_super import _PXValueByKey
+﻿from pxtool.model.util._px_super import _PxValueByKey
 from pxtool.model.util._px_valuetype import _PxStringList
-from pxtool.model.util._px_keytypes import _keytype_variable_lang
+from pxtool.model.util._px_keytypes import _KeytypeVariableLang
 from pxtool.model.util._line_validator import LineValidator
 
-class Codes(_PXValueByKey): 
+class _Codes(_PxValueByKey): 
 
     pxvalue_type:str = "_PxStringList"
     is_language_dependent:bool = True
@@ -15,7 +15,7 @@ class Codes(_PXValueByKey):
         LineValidator.is_list_of_strings( self._keyword, codes)
         LineValidator.unique( self._keyword, codes)
         my_value = _PxStringList(codes)
-        my_key = _keytype_variable_lang(variable, lang)
+        my_key = _KeytypeVariableLang(variable, lang)
         try:
             super().set(my_value,my_key)
         except Exception as e:

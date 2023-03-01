@@ -1,8 +1,8 @@
-﻿from pxtool.model.util._px_super import _PXSingle
+﻿from pxtool.model.util._px_super import _PxSingle
 from pxtool.model.util._px_valuetype import _PxString
 from pxtool.model.util._line_validator import LineValidator
 
-class Tableid(_PXSingle): 
+class _Tableid(_PxSingle): 
 
     pxvalue_type:str = "_PxString"
     is_language_dependent:bool = False

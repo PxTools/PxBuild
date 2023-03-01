@@ -19,13 +19,13 @@ def to_camel_case(text) -> str:
 def getKeyType(has_lang:bool,subkeys:dict,multi:bool) -> str:
        myOut = "" 
        if len(subkeys) > 0:
-        myOut += "_" + "_".join(subkeys.keys())
+        myOut += "".join(key.capitalize() for key in subkeys.keys())
        if has_lang:
-        myOut += "_lang"
+        myOut += "Lang"
        if multi:
-         myOut += "_multi"
+         myOut += "Multi"
        if myOut :  
-         myOut ="_keytype"+myOut  
+         myOut ="_Keytype"+myOut  
        return myOut
 
 
@@ -95,10 +95,10 @@ class MyKeyword:
         #ClassNames
 
         self.classnames={}
-        self.classnames["This"] = to_camel_case(self.keyword)
+        self.classnames["This"] = "_"+to_camel_case(self.keyword)
         self.classnames["Value"]= self.px_valuetype
         self.classnames["Key"] = getKeyType(self.has_lang,self.subkeys,self.is_duplicate_keypart_allowed)
-        self.classnames["Super"]= "_PXValueByKey" if self.has_lang or self.subkeys_raw else "_PXSingle"
+        self.classnames["Super"]= "_PxValueByKey" if self.has_lang or self.subkeys_raw else "_PxSingle"
 
        #Constructors
 

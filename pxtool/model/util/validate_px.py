@@ -29,7 +29,7 @@ class ValidateMethods:
             for key in lang_keywords:
                 keyword = getattr(model, key)
                 if keyword.has_value():
-                    for lang_key in keyword._valueByKey:
+                    for lang_key in keyword._value_by_key:
                         if not lang_key.lang in model.languages._px_value.list_of_strings:
                             raise ValueError(f"Specified language code \"{lang_key.lang}\" for keyword {keyword._keyword} must be one of the codes in keyword languages: {model.languages._px_value}")          
         
@@ -50,10 +50,10 @@ class ValidateMethods:
         return "Showdecimal check complete."
 
     def check_codes_values_equal_count(model:PXFileModel) -> str:
-        for key, value in model.codes._valueByKey.items():
-            if not key in model.values._valueByKey.keys():
+        for key, value in model.codes._value_by_key.items():
+            if not key in model.values._value_by_key.keys():
                 raise ValueError(f"The combination {key.to_str_message()} in codes is not defined for any values.")
-            if not len(value) == len(model.values._valueByKey[key]):
+            if not len(value) == len(model.values._value_by_key[key]):
                     raise ValueError(f"Codes and values does not have the same amout of entries {key.to_str_message()}")
         return "Codes and values checked"
 

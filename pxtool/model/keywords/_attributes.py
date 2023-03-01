@@ -1,9 +1,9 @@
-﻿from pxtool.model.util._px_super import _PXValueByKey
+﻿from pxtool.model.util._px_super import _PxValueByKey
 from pxtool.model.util._px_valuetype import _PxStringList
-from pxtool.model.util._px_keytypes import _keytype_values_multi
+from pxtool.model.util._px_keytypes import _KeytypeValuesMulti
 from pxtool.model.util._line_validator import LineValidator
 
-class Attributes(_PXValueByKey): 
+class _Attributes(_PxValueByKey): 
 
     pxvalue_type:str = "_PxStringList"
     is_language_dependent:bool = False
@@ -18,7 +18,7 @@ class Attributes(_PXValueByKey):
         LineValidator.is_list_of_strings( self._keyword, attributes)
         my_value = _PxStringList(attributes)
         self.occurence_counter += 1
-        my_key = _keytype_values_multi(values, self.occurence_counter)
+        my_key = _KeytypeValuesMulti(values, self.occurence_counter)
         try:
             super().set(my_value,my_key)
         except Exception as e:

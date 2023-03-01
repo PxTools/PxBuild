@@ -1,9 +1,9 @@
-﻿from pxtool.model.util._px_super import _PXValueByKey
+﻿from pxtool.model.util._px_super import _PxValueByKey
 from pxtool.model.util._px_valuetype import _PxString
-from pxtool.model.util._px_keytypes import _keytype_content_lang
+from pxtool.model.util._px_keytypes import _KeytypeContentLang
 from pxtool.model.util._line_validator import LineValidator
 
-class Cfprices(_PXValueByKey): 
+class _Cfprices(_PxValueByKey): 
 
     pxvalue_type:str = "_PxString"
     is_language_dependent:bool = True
@@ -15,7 +15,7 @@ class Cfprices(_PXValueByKey):
         LineValidator.is_string( self._keyword, cfprices)
         LineValidator.regexp_string("^(C|F)$", self._keyword, cfprices)
         my_value = _PxString(cfprices)
-        my_key = _keytype_content_lang(content, lang)
+        my_key = _KeytypeContentLang(content, lang)
         try:
             super().set(my_value,my_key)
         except Exception as e:
