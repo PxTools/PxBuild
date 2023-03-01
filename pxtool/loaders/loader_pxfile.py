@@ -1,5 +1,6 @@
 import re
 import pxtool
+import pxtool.model.util.constants as constants
 
 class QuotedItem:
     def __init__(self, string:str) -> None:
@@ -41,7 +42,8 @@ class UnQuotedItem:
         return string1, string2
     
     def trimWhitespace(self) -> None:
-        self.string = trimmed_string = re.sub(r"\s+", "", self.string)
+        #self.string = trimmed_string = re.sub(r"\s+", "", self.string)
+        self.string = re.sub(r"\s+", "", self.string)
 
     def isTypeQuoted(self) -> bool:
        return False    
@@ -53,14 +55,12 @@ class Keypart:
     keyword:str
     language:str
     subKeys:list[str]
-    modelAttributeName:str
-    
 
     def __init__(self, keyword:str, language:str, subKeys:list[str]) -> None:
         self.keyword = keyword
         self.language = language
         self.subKeys = subKeys
-        self.modelAttributeName = keyword.replace("-", "_").lower()
+        
 
     def __str__(self):
          langPart = f"[\"{self.language}\"]" if self.language else ""
@@ -82,11 +82,11 @@ class Loader:
         #only KEYWORD ismandatory
         #lang may be quoted
 
-        print("    Keypart:")
+        print("    fixKeypart items:")
         for item in items:
            item.trimWhitespace()
            print(f"      Debug:{item}")
-
+        print("    End fixKeypart.")
         #split items into before and after start subkey 
         itemsBeforeSubkey=[]
         itemsAfterSubkey=[]
@@ -111,13 +111,13 @@ class Loader:
         #first item will be UnQuoted and will contain the "[" if language is present in the keypart.
         keyword=""
         langValue=""
-        if isinstance(itemsBeforeSubkey[0], QuotedItem):  
+        if itemsBeforeSubkey[0].isTypeQuoted(): 
             raise Exception(f"Hmm, expected UnquotedItem")
         else:
             if"[" in itemsBeforeSubkey[0].string:
-                keyword, stringAfter = item.get_before_and_after('[')
+                keyword, stringAfter = itemsBeforeSubkey[0].get_before_and_after('[')
                 if "]" in stringAfter:  #stringAfter must be en]
-                    langValue = stringAfter[:2]
+                    langValue = "\"\"\"" + stringAfter[:2] + "\"\"\""
                 else:
                     langValue = itemsBeforeSubkey[1].string
             else:
@@ -128,12 +128,17 @@ class Loader:
         print("    --------")
 
     def fixValuePart(self,items:list) -> None:
-        attrName = self.currentKeyPart.modelAttributeName
+        attrName = constants.KEYWORDS_PYTHONIC_MAP[self.currentKeyPart.keyword]
+        #modelAttributeName
         print(f"    Valuepart for {attrName}")
-        myAttri = vars(self.outModel)[attrName]
 
+        myAttri = vars(self.outModel)[attrName]
+        # "MADE-WITH"
 
         outLangPart = "" 
+        if self.currentKeyPart.language:
+            outLangPart = f", {self.currentKeyPart.language}" 
+
         outSubkeyPart = "" 
         if len(self.currentKeyPart.subKeys) > 0:
             outSubkeyPart=f", {', '.join(self.currentKeyPart.subKeys)}"
@@ -144,22 +149,22 @@ class Loader:
 
         if myAttri.pxvalue_type == "_PxString":
             if len(items) != 1:
-                 raise ValueError(f"Excepting single quoted string, but items has not len = 1 ")
+                 raise ValueError(f"Value for keypart {self.currentKeyPart}: Excepting single quoted string, but items has not len = 1 ")
             outValue=items[0].string
         elif myAttri.pxvalue_type == "_PxBool":
             if len(items) != 1:
-                raise ValueError(f"Excepting unsingle quoted string YES or NO, but items has not len = 1")
+                raise ValueError(f"Value for keypart {self.currentKeyPart}: Excepting unsingle quoted string YES or NO, but items has not len = 1")
             outValue="True"
             if items[0].string not in ["YES","NO"]:
-                raise ValueError(f"Boolean values must be YES or NO")
+                raise ValueError(f"Value for keypart {self.currentKeyPart}: Boolean values must be YES or NO, not:{items[0].string}")
             if  items[0].string == "NO":
                 outValue="False"
         elif myAttri.pxvalue_type == "_PxInt":
             if len(items) != 1:
-                raise ValueError(f"Excepting an integer as single unquoted string, but items has not len = 1")
+                raise ValueError(f"Value for keypart {self.currentKeyPart}: Excepting an integer as single unquoted string, but items has not len = 1")
             
             if not items[0].string.isdecimal():
-                raise ValueError(f"integer value convertion")
+                raise ValueError(f"Value for keypart {self.currentKeyPart}: integer value convertion")
             
             outValue="False"        
         elif myAttri.pxvalue_type == "_PxStringList":
@@ -167,14 +172,16 @@ class Loader:
             if Loader.isEven(len(items)):
                 raise ValueError(f"Bad list")
             if not items[0].isTypeQuoted:
-                raise ValueError(f"List must start with quoted string")
+                raise ValueError(f"Value for keypart {self.currentKeyPart}: List must start with quoted string")
             
             myStrings=[]
             for idx, x in enumerate(items):
                 if Loader.isEven(idx):
                     myStrings.append(x.string)
-                elif x.string != ",":
-                    raise ValueError(f"Bad list")
+                else:
+                    x.trimWhitespace()
+                    if x.string != ",":
+                        raise ValueError(f"Value for keypart {self.currentKeyPart}: Bad list, at item-index{idx}: expected comma found {x.string}")
                 
             outValue = "[" + ",".join(myStrings) + "]"
 
@@ -203,7 +210,7 @@ class Loader:
             self.outModel.data.set(data_list)
             do_run_exec = False
 
-            
+
             
         if do_run_exec:
             string_to_exec = f"self.outModel.{attrName}.set({outValue}{outSubkeyPart}{outLangPart})"
