@@ -1,5 +1,6 @@
 import csv
 from collections import namedtuple
+from re import sub
 
 def DictAsSignature(inDict:dict) -> str:
     """Returns a dict as string in method signature (mystring:str, myint:int)"""
@@ -11,6 +12,9 @@ def DictAsCall(inDict:dict) -> str:
 
 def to_python_case(text):
     return text.replace("-", "_").lower()
+
+def to_camel_case(text) -> str:
+    return sub(r"(_|-)+", " ", text).title().replace(" ", "")
 
 def getKeyType(has_lang:bool,subkeys:dict,multi:bool) -> str:
        myOut = "" 
@@ -91,7 +95,7 @@ class MyKeyword:
         #ClassNames
 
         self.classnames={}
-        self.classnames["This"] = "_PX_"+self.keyword.replace('-','_') 
+        self.classnames["This"] = to_camel_case(self.keyword)
         self.classnames["Value"]= self.px_valuetype
         self.classnames["Key"] = getKeyType(self.has_lang,self.subkeys,self.is_duplicate_keypart_allowed)
         self.classnames["Super"]= "_PXValueByKey" if self.has_lang or self.subkeys_raw else "_PXSingle"
@@ -178,6 +182,22 @@ for kw in data:
 
 ## model.keywords.
 
+# make constants.py
+mandatory_keys = []
+langdependent_keys = []
+keyword_pythonic_map = {}
+for kw in data:    
+    keyword_pythonic_map[kw.keyword] = to_python_case(kw.keyword)
+    if(kw.is_mandatory):
+        mandatory_keys.append(to_python_case(kw.keyword))
+    if(kw.has_lang):
+        langdependent_keys.append(to_python_case(kw.keyword))
+
+with open("../pxtool/model/util/constants.py", "wt",encoding="utf-8-sig", newline="\n" ) as constant_module:
+    constant_module.write("\"\"\"Module for holding constants\"\"\""+"\n\n")
+    constant_module.write(f"MANDATORY_KEYWORDS = {str(mandatory_keys)}\n")
+    constant_module.write(f"LANGDEPENDENT_KEYWORDS = {str(langdependent_keys)}\n")
+    constant_module.write(f"KEYWORDS_PYTHONIC_MAP = {str(keyword_pythonic_map)}\n")
 
 # make PxFileModel.py
 myDict= {}

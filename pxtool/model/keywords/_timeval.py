@@ -3,7 +3,7 @@ from pxtool.model.util._px_valuetype import _PxTlist
 from pxtool.model.util._px_keytypes import _keytype_variable_lang
 from pxtool.model.util._line_validator import LineValidator
 
-class _PX_TIMEVAL(_PXValueByKey): 
+class Timeval(_PXValueByKey): 
 
     pxvalue_type:str = "_PxTlist"
     is_language_dependent:bool = True

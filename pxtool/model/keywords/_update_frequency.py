@@ -2,7 +2,7 @@
 from pxtool.model.util._px_valuetype import _PxString
 from pxtool.model.util._line_validator import LineValidator
 
-class _PX_UPDATE_FREQUENCY(_PXSingle): 
+class UpdateFrequency(_PXSingle): 
 
     pxvalue_type:str = "_PxString"
     is_language_dependent:bool = False

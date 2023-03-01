@@ -2,7 +2,7 @@
 from pxtool.model.util._px_valuetype import _PxBool
 from pxtool.model.util._line_validator import LineValidator
 
-class _PX_COPYRIGHT(_PXSingle): 
+class Copyright(_PXSingle): 
 
     pxvalue_type:str = "_PxBool"
     is_language_dependent:bool = False

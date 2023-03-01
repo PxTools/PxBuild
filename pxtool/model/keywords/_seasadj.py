@@ -3,7 +3,7 @@ from pxtool.model.util._px_valuetype import _PxBool
 from pxtool.model.util._px_keytypes import _keytype_content_lang
 from pxtool.model.util._line_validator import LineValidator
 
-class _PX_SEASADJ(_PXValueByKey): 
+class Seasadj(_PXValueByKey): 
 
     pxvalue_type:str = "_PxBool"
     is_language_dependent:bool = True

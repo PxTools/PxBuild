@@ -3,7 +3,7 @@ from pxtool.model.util._px_valuetype import _PxString
 from pxtool.model.util._px_keytypes import _keytype_lang
 from pxtool.model.util._line_validator import LineValidator
 
-class _PX_INFOFILE(_PXValueByKey): 
+class Infofile(_PXValueByKey): 
 
     pxvalue_type:str = "_PxString"
     is_language_dependent:bool = True

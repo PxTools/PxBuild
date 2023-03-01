@@ -3,7 +3,7 @@ from pxtool.model.util._px_valuetype import _PxInt
 from pxtool.model.util._px_keytypes import _keytype_variable_lang
 from pxtool.model.util._line_validator import LineValidator
 
-class _PX_HIERARCHYLEVELSOPEN(_PXValueByKey): 
+class Hierarchylevelsopen(_PXValueByKey): 
 
     pxvalue_type:str = "_PxInt"
     is_language_dependent:bool = True

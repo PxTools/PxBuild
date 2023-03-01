@@ -3,7 +3,7 @@ from pxtool.model.util._px_valuetype import _PxStringList
 from pxtool.model.util._px_keytypes import _keytype_variable_lang_multi
 from pxtool.model.util._line_validator import LineValidator
 
-class _PX_PARTITIONED(_PXValueByKey): 
+class Partitioned(_PXValueByKey): 
 
     pxvalue_type:str = "_PxStringList"
     is_language_dependent:bool = True

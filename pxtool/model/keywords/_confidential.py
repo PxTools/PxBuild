@@ -2,7 +2,7 @@
 from pxtool.model.util._px_valuetype import _PxInt
 from pxtool.model.util._line_validator import LineValidator
 
-class _PX_CONFIDENTIAL(_PXSingle): 
+class Confidential(_PXSingle): 
 
     pxvalue_type:str = "_PxInt"
     is_language_dependent:bool = False

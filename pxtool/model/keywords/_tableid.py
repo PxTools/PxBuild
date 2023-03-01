@@ -2,7 +2,7 @@
 from pxtool.model.util._px_valuetype import _PxString
 from pxtool.model.util._line_validator import LineValidator
 
-class _PX_TABLEID(_PXSingle): 
+class Tableid(_PXSingle): 
 
     pxvalue_type:str = "_PxString"
     is_language_dependent:bool = False

@@ -2,17 +2,17 @@
 from pxtool.model.util._px_valuetype import _PxBool
 from pxtool.model.util._line_validator import LineValidator
 
-class Descriptiondefault(_PXSingle): 
+class OfficialStatistics(_PXSingle): 
 
     pxvalue_type:str = "_PxBool"
     is_language_dependent:bool = False
 
 
-    def set(self, descriptiondefault:bool) -> None:
-        """  """
-        LineValidator.is_not_None( self._keyword, descriptiondefault)
-        LineValidator.is_bool( self._keyword, descriptiondefault)
-        my_value = _PxBool(descriptiondefault)
+    def set(self, official_statistics:bool) -> None:
+        """ Indicates if the data table is included in the official statistics of the organization. """
+        LineValidator.is_not_None( self._keyword, official_statistics)
+        LineValidator.is_bool( self._keyword, official_statistics)
+        my_value = _PxBool(official_statistics)
         try:
             super().set(my_value)
         except Exception as e:
