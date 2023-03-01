@@ -56,6 +56,7 @@ REFPERIOD;True;;content:str=None;Y;;_PxString;;;;
 BASEPERIOD;True;;content:str=None;Y;;_PxString;;;;
 DATABASE;True;;;;;_PxString;;;;
 SOURCE;True;;;;;_PxString;;;;
+OFFICIAL-STATISTICS;;;;;;_PxBool;;;;Indicates if the data table is included in the official statistics of the organization.
 SURVEY;True;;;;;_PxString;;;;
 LINK;True;;;;;_PxString;;;;
 INFOFILE;True;;;;;_PxString;;;;
