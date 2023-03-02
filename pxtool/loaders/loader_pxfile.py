@@ -75,23 +75,26 @@ class Loader:
             return True
         else:
             return False
-        
-    def fixKeypart(self,items:list) -> None:
-        #keypart:
-        #KEYWORD[lang]( quotedsubkeys sep by ",")
-        #only KEYWORD ismandatory
-        #lang may be quoted
 
-        print("    fixKeypart items:")
-        for item in items:
-           item.trimWhitespace()
-           print(f"      Debug:{item}")
-        print("    End fixKeypart.")
+    def digest_keypart_valuepart_pair(self, key_items:list, value_items:list) -> None:
+        self.fixKeypart(key_items)
+        self.fixValuePart(value_items)
+
+
+
+    def fixKeypart(self,items:list) -> None:
+        #keypart: KEYWORD[lang]( quotedsubkeys sep by ",")
+        #only KEYWORD ismandatory, lang may be quoted
+
         #split items into before and after start subkey 
         itemsBeforeSubkey=[]
         itemsAfterSubkey=[]
         foundSubkey = False
+
         for item in items:
+           
+           item.trimWhitespace()
+
            if item.hasSubkeyStart():
                stringBefore, stringAfter = item.get_before_and_after('(')
                if stringBefore:
@@ -105,7 +108,7 @@ class Loader:
                else:
                    itemsBeforeSubkey.append(item)
 
-        subKeys = [x.string for x in itemsAfterSubkey if isinstance(x, QuotedItem)]
+        subKeys = [x.string for x in itemsAfterSubkey if x.isTypeQuoted()]
 
         #The spec in unclear on  if both ["en"] and [en]  is allowed.
         #first item will be UnQuoted and will contain the "[" if language is present in the keypart.
@@ -144,7 +147,6 @@ class Loader:
             outSubkeyPart=f", {', '.join(self.currentKeyPart.subKeys)}"
 
         outValue =""
-
         do_run_exec = True
 
         if myAttri.pxvalue_type == "_PxString":
@@ -225,58 +227,75 @@ class Loader:
 
         print("--------")
 
-    def __init__(self, filename:str)-> None:
-        self.outModel = pxtool.model.px_file_model.PXFileModel()
-        self.currentKeyPart = None 
+    def get_file_in_chunks(filename:str) -> list:
+        """Reads file, removes any QuoteNewlineQuote, splits on quote and retuns the list with UnQuotedItem and QuotedItem  """
+        my_out=[]
+
         with open(filename, 'r') as file:
             file_contents1 = file.read()
 
+        firstChars=file_contents1[:2]
+        if not firstChars.isalpha():
+            raise ValueError(f"A PxFile must start with a letter. {filename} does not.") 
+
         file_contents2 =  file_contents1.replace("\"\n\"","")
         splitFileOnQuote = file_contents2.split("\"")
-        file=[]
-        cnt=0
+        
+        unquoted = True
         for item in splitFileOnQuote:
-            if Loader.isEven(cnt):
-               file.append(UnQuotedItem(item))
+            if unquoted:
+               my_out.append(UnQuotedItem(item))
             else:
-               file.append(QuotedItem(item))
-            cnt +=1
+               my_out.append(QuotedItem(item))
+            unquoted  = not unquoted
 
-        current=[]
+        return my_out
+    
+
+    def __init__(self, filename:str)-> None:
+        self.outModel = pxtool.model.px_file_model.PXFileModel()
+        self.currentKeyPart = None
+         
+        file = Loader.get_file_in_chunks(filename)
+
+        current_key_items=[]
+        current_value_items=[]
+
         collectingKey=True
 
         while len(file) > 0:
             item = file.pop(0)
             print (f"item:{item}")
-            if collectingKey: 
-                #item  remove all whitespace
+            if collectingKey:
                 if not item.hasPxPartSeparator():
-                   current.append(item)
+                   current_key_items.append(item)
                 else:
                     stringBefore, stringAfter = item.get_before_and_after('=')
                     if stringBefore:
-                      current.append(UnQuotedItem(stringBefore))
+                      current_key_items.append(UnQuotedItem(stringBefore))
                     if stringAfter:
                         # put the "unused" part of the string back 
                         file.insert(0,UnQuotedItem(stringAfter))
-                                  
-                    self.fixKeypart(current)
                     collectingKey = False
-                    current=[]
             else:
                 #collection Valuepart
                 if not item.hasPxEndline():
-                   current.append(item)
+                   current_value_items.append(item)
                 else:
                     stringBefore, stringAfter = item.get_before_and_after(';')
                     if stringBefore:
-                      current.append(UnQuotedItem(stringBefore))
+                      current_value_items.append(UnQuotedItem(stringBefore))
                     if stringAfter:
                         # put the "unused" part of the string back 
                         file.insert(0,UnQuotedItem(stringAfter))
-                    self.fixValuePart(current)
+
+
+                    self.digest_keypart_valuepart_pair(current_key_items,current_value_items)
+
+                    #get ready for next record 
                     collectingKey = True
-                    current=[]
+                    current_key_items=[]
+                    current_value_items=[]
 
 
 
