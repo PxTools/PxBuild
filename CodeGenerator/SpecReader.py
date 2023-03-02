@@ -215,6 +215,8 @@ the_imports=[]
 the_attributes = []
 for kw in data:
     the_imports.append(f"from pxtool.model.keywords.{kw.module_name} import {kw.classnames['This']}")
+    if kw.keyword == "DATA":
+        the_attributes.append("self.unknown_keywords = \"\"")
     the_attributes.append(f"self.{to_python_case(kw.keyword)} = {kw.classnames['This']}(\"{kw.keyword}\")")
   
 #from _PX_AXIS_VERSION import _PX_AXIS_VERSION
@@ -223,7 +225,8 @@ for kw in data:
 
 with open("../pxtool/model/px_file_model.py", "wt",encoding="utf-8-sig", newline="\n") as model_py:
   #', '.join(kw.
-  model_py.write("\n".join(the_imports)+"\n\n")
+  model_py.write("\n".join(the_imports)+"\n")
+  model_py.write("from pxtool.model.util._px_super import _SuperKeyword\n\n")
   model_py.write("class PXFileModel:\n")
   model_py.write("    \"\"\"\n")
   model_py.write("    This class holds the information of a PxFile\n")
@@ -236,7 +239,10 @@ with open("../pxtool/model/px_file_model.py", "wt",encoding="utf-8-sig", newline
   model_py.write("    def __str__(self):\n")
   model_py.write("        attrs = vars(self)\n")
   model_py.write("        attr_strings = [str(value) for value in attrs.values() if str(value) != \"\"]\n")
-  model_py.write("        return \"\\n\".join(attr_strings)\n")
+  model_py.write("        return \"\\n\".join(attr_strings)\n\n")
+
+  model_py.write("    def get_attribute(self, name:str) -> _SuperKeyword:\n")
+  model_py.write("        return getattr(self, name)\n")
 
 
 print("Done")

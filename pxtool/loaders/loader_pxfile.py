@@ -42,7 +42,6 @@ class UnQuotedItem:
         return string1, string2
     
     def trimWhitespace(self) -> None:
-        #self.string = trimmed_string = re.sub(r"\s+", "", self.string)
         self.string = re.sub(r"\s+", "", self.string)
 
     def isTypeQuoted(self) -> bool:
@@ -63,10 +62,9 @@ class Keypart:
         
 
     def __str__(self):
-         langPart = f"[\"{self.language}\"]" if self.language else ""
-         subkeyPart = "(\"" + "\",\"".join(self.subKeys) +"\")" if self.subKeys else ""
-         return  f"{self.keyword}{langPart}{subkeyPart}"    
-        
+         langPart = f"[{self.language}]" if self.language else ""
+         subkeyPart = "(" + ",".join(self.subKeys) +")" if self.subKeys else ""
+         return  f"{self.keyword}{langPart}{subkeyPart}" 
     
 
 class Loader:
@@ -77,12 +75,14 @@ class Loader:
             return False
 
     def digest_keypart_valuepart_pair(self, key_items:list, value_items:list) -> None:
-        self.fixKeypart(key_items)
-        self.fixValuePart(value_items)
+        keypart = self.getKeypart(key_items)
+        if  keypart.keyword in constants.KEYWORDS_PYTHONIC_MAP.keys(): 
+            self.fixValuePart(keypart, value_items)
+        else:
+            self.when_unknown_keyword(keypart, value_items)
 
 
-
-    def fixKeypart(self,items:list) -> None:
+    def getKeypart(self,items:list) -> Keypart:
         #keypart: KEYWORD[lang]( quotedsubkeys sep by ",")
         #only KEYWORD ismandatory, lang may be quoted
 
@@ -126,47 +126,55 @@ class Loader:
             else:
                 keyword = itemsBeforeSubkey[0].string
 
-        self.currentKeyPart = Keypart(keyword,langValue,subKeys)
-        print(self.currentKeyPart)
-        print("    --------")
+        return Keypart(keyword,langValue,subKeys)
 
-    def fixValuePart(self,items:list) -> None:
-        attrName = constants.KEYWORDS_PYTHONIC_MAP[self.currentKeyPart.keyword]
-        #modelAttributeName
+
+    def when_unknown_keyword(self,keypart:Keypart, valueitems:list) -> None:
+        very_quoted_string=f"{keypart}={''.join([str(x.string) for x in valueitems])};"
+        addString=very_quoted_string.replace("\"\"\"","\"")#.replace("\"\"","\"")
+        # strings are """ quoted for strings with newline to survive in a exec
+
+        if self.outModel.unknown_keywords: 
+            self.outModel.unknown_keywords = self.outModel.unknown_keywords  + "\n" + addString
+        else:
+            self.outModel.unknown_keywords = addString
+
+    def fixValuePart(self,keypart:Keypart, items:list) -> None:
+        attrName = constants.KEYWORDS_PYTHONIC_MAP[keypart.keyword]
         print(f"    Valuepart for {attrName}")
 
         myAttri = vars(self.outModel)[attrName]
         # "MADE-WITH"
 
         outLangPart = "" 
-        if self.currentKeyPart.language:
-            outLangPart = f", {self.currentKeyPart.language}" 
+        if keypart.language:
+            outLangPart = f", {keypart.language}"
 
         outSubkeyPart = "" 
-        if len(self.currentKeyPart.subKeys) > 0:
-            outSubkeyPart=f", {', '.join(self.currentKeyPart.subKeys)}"
+        if len(keypart.subKeys) > 0:
+            outSubkeyPart=f", {', '.join(keypart.subKeys)}"
 
         outValue =""
         do_run_exec = True
 
         if myAttri.pxvalue_type == "_PxString":
             if len(items) != 1:
-                 raise ValueError(f"Value for keypart {self.currentKeyPart}: Excepting single quoted string, but items has not len = 1 ")
+                 raise ValueError(f"Value for keypart {keypart}: Excepting single quoted string, but items has not len = 1 ")
             outValue=items[0].string
         elif myAttri.pxvalue_type == "_PxBool":
             if len(items) != 1:
-                raise ValueError(f"Value for keypart {self.currentKeyPart}: Excepting unsingle quoted string YES or NO, but items has not len = 1")
+                raise ValueError(f"Value for keypart {keypart}: Excepting unsingle quoted string YES or NO, but items has not len = 1")
             outValue="True"
             if items[0].string not in ["YES","NO"]:
-                raise ValueError(f"Value for keypart {self.currentKeyPart}: Boolean values must be YES or NO, not:{items[0].string}")
+                raise ValueError(f"Value for keypart {keypart}: Boolean values must be YES or NO, not:{items[0].string}")
             if  items[0].string == "NO":
                 outValue="False"
         elif myAttri.pxvalue_type == "_PxInt":
             if len(items) != 1:
-                raise ValueError(f"Value for keypart {self.currentKeyPart}: Excepting an integer as single unquoted string, but items has not len = 1")
+                raise ValueError(f"Value for keypart {keypart}: Excepting an integer as single unquoted string, but items has not len = 1")
             
             if not items[0].string.isdecimal():
-                raise ValueError(f"Value for keypart {self.currentKeyPart}: integer value convertion")
+                raise ValueError(f"Value for keypart {keypart}: integer value convertion")
             
             outValue="False"        
         elif myAttri.pxvalue_type == "_PxStringList":
@@ -174,7 +182,7 @@ class Loader:
             if Loader.isEven(len(items)):
                 raise ValueError(f"Bad list")
             if not items[0].isTypeQuoted:
-                raise ValueError(f"Value for keypart {self.currentKeyPart}: List must start with quoted string")
+                raise ValueError(f"Value for keypart {keypart}: List must start with quoted string")
             
             myStrings=[]
             for idx, x in enumerate(items):
@@ -183,7 +191,7 @@ class Loader:
                 else:
                     x.trimWhitespace()
                     if x.string != ",":
-                        raise ValueError(f"Value for keypart {self.currentKeyPart}: Bad list, at item-index{idx}: expected comma found {x.string}")
+                        raise ValueError(f"Value for keypart {keypart}: Bad list, at item-index{idx}: expected comma found {x.string}")
                 
             outValue = "[" + ",".join(myStrings) + "]"
 
@@ -220,9 +228,7 @@ class Loader:
             exec(string_to_exec)
 
 
-        #    myAttri.set(myBool) 
-
-        print(f"---- etter keyword {self.currentKeyPart}  er modellen ----")
+        print(f"---- etter keyword {keypart}  er modellen ----")
         print(self.outModel) 
 
         print("--------")
@@ -254,13 +260,11 @@ class Loader:
 
     def __init__(self, filename:str)-> None:
         self.outModel = pxtool.model.px_file_model.PXFileModel()
-        self.currentKeyPart = None
-         
+
         file = Loader.get_file_in_chunks(filename)
 
         current_key_items=[]
         current_value_items=[]
-
         collectingKey=True
 
         while len(file) > 0:
@@ -296,6 +300,8 @@ class Loader:
                     collectingKey = True
                     current_key_items=[]
                     current_value_items=[]
+
+        print(self.outModel)                 
 
 
 

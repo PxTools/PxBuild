@@ -176,12 +176,13 @@ class PXFileModel:
         self.attributes = _Attributes("ATTRIBUTES")
         self.variablecode = _Variablecode("VARIABLECODE")
         self.meta_id = _MetaId("META-ID")
+        self.unknown_keywords = ""
         self.data = _Data("DATA")
 
     def __str__(self):
         attrs = vars(self)
         attr_strings = [str(value) for value in attrs.values() if str(value) != ""]
         return "\n".join(attr_strings)
-    
+
     def get_attribute(self, name:str) -> _SuperKeyword:
         return getattr(self, name)
