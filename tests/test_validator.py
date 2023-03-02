@@ -34,5 +34,12 @@ def test_check_codes_values_equal_count_value_error():
     with pytest.raises(ValueError, match=f"The combination for language 'en' and variable 'var_d' in codes is not defined for any values."):
         rep = val.check_codes_values_equal_count(pxfile)
 
+def test_check_mandatory_returns_error():
+    pxfile = PXFileModel()
+    pxfile.title.set(title="TableTitle", lang="no")
+    pxfile.decimals.set(2)
+    pxfile.matrix.set(matrix="TestMatrix")
 
+    with pytest.raises(ValueError, match=f"These kewywords are mandatory and is not set: SUBJECT-CODE, SUBJECT-AREA, DESCRIPTION, CONTENTS, UNITS, STUB, HEADING, VALUES, ATTRIBUTE-ID, ATTRIBUTE-TEXT, ATTRIBUTES, DATA"):
+        rep = val.check_mandatory(pxfile)
 

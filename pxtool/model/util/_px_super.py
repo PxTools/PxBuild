@@ -1,11 +1,22 @@
 from pxtool.model.util._px_valuetype import _PxBool, _PxData, _PxHierarchy, _PxInt, _PxString, _PxStringList, _PxTlist
+from abc import ABC, abstractmethod
 
-class _PxSingle:
-    """For data just the keyword, no need for a dict."""
+
+class _SuperKeyword(ABC):
     _keyword: str
 
     def __init__(self, keyword) -> None:
         self._keyword = keyword
+
+    @abstractmethod
+    def has_value(self) -> bool:
+        pass
+
+class _PxSingle(_SuperKeyword):
+    """For data just the keyword, no need for a dict."""
+
+    def __init__(self, keyword) -> None:
+        super().__init__(keyword)
 
     def set(self, px_value:_PxInt | _PxString | _PxStringList | _PxBool | _PxData) -> None:
         if self.has_value():
@@ -24,14 +35,12 @@ class _PxSingle:
     def has_value(self) -> bool:
         return hasattr(self,"_px_value")
 
-class _PxValueByKey:
+class _PxValueByKey(_SuperKeyword):
     """_PXValueByKey for data in a dict"""
-    _keyword: str
 
     def __init__(self, keyword) -> None:
-        self._keyword = keyword
+        super().__init__(keyword)
         self._value_by_key = {}
-        
 
     def set(self, px_value, my_key) -> None:
         if my_key in self._value_by_key.keys():
@@ -40,7 +49,6 @@ class _PxValueByKey:
 
     def get_value(self, my_key) -> _PxInt | _PxString | _PxStringList | _PxBool |_PxHierarchy | _PxTlist:
         return self._value_by_key.get(my_key)
-
 
     def __str__(self):
         myOut = []

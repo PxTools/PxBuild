@@ -83,6 +83,7 @@ from pxtool.model.keywords._attributes import _Attributes
 from pxtool.model.keywords._variablecode import _Variablecode
 from pxtool.model.keywords._meta_id import _MetaId
 from pxtool.model.keywords._data import _Data
+from pxtool.model.util._px_super import _SuperKeyword
 
 class PXFileModel:
     """
@@ -181,3 +182,6 @@ class PXFileModel:
         attrs = vars(self)
         attr_strings = [str(value) for value in attrs.values() if str(value) != ""]
         return "\n".join(attr_strings)
+    
+    def get_attribute(self, name:str) -> _SuperKeyword:
+        return getattr(self, name)

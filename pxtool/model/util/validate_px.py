@@ -3,16 +3,15 @@ import pxtool.model.util.constants as const
 class ValidateMethods:
 
     def check_mandatory(model:PXFileModel) -> str:
-        error_msg = "These kewywords are mandatory and is not set:"
         keyword_missing = []
         for key in const.MANDATORY_KEYWORDS:
-            keyword = getattr(model, key)
+            keyword = model.get_attribute(key)
             if not keyword.has_value():
                 keyword_missing.append(keyword._keyword)
         
         if len(keyword_missing) > 0:
             error_msg_keywords = ", ".join(keyword_missing)
-            raise ValueError(f"These kewywords are mandatory and is not set:\n {error_msg_keywords}")
+            raise ValueError(f"These kewywords are mandatory and is not set: {error_msg_keywords}")
            
         return "Mandatory keyword check complete.\n" 
     
@@ -25,7 +24,7 @@ class ValidateMethods:
     def check_lang_keys(model:PXFileModel):
         if model.languages.has_value():
             for key in const.LANGDEPENDENT_KEYWORDS:
-                keyword = getattr(model, key)
+                keyword = model.get_attribute(key)
                 if keyword.has_value():
                     for lang_key in keyword._value_by_key:
                         if not lang_key.lang in model.languages._px_value.list_of_strings:
