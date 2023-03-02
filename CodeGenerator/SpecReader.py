@@ -128,7 +128,7 @@ class MyKeyword:
             fileHandle.write(f"    def __init__(self, keyword:str) -> None:\n")
             fileHandle.write(f"        super().__init__(keyword)\n")
             fileHandle.write(f"        self.occurence_counter = 0\n")
-        fileHandle.write(f"\n")        
+        fileHandle.write(f"\n")
 
     def set_writer(self, fileHandle) -> None:
         fileHandle.write(f"    def set(self, {kw.params_in_set}) -> None:\n")
@@ -161,6 +161,15 @@ class MyKeyword:
         fileHandle.write(f"            msg = self._keyword + \":\" +str(e)\n")
         fileHandle.write(f"            raise type(e)(msg) from e\n\n")
 
+    def get_value_writer(self, filehandle) -> None:
+        if(self.classnames['Super'] == "_PxSingle"):
+            filehandle.write(f"    def get_value(self) -> {self.classnames['Value']}:\n")
+            filehandle.write(f"        return super().get_value()")
+        if len(self.keyParams) > 0:
+            filehandle.write(f"    def get_value(self, my_key: {self.classnames['Key']}) -> {self.classnames['Value']}:\n")
+            filehandle.write(f"        return super().get_value(my_key)")
+
+    
 # ---------------  end of class ----------------------------
 
 # read file
@@ -179,6 +188,7 @@ for kw in data:
         kw.imports_writer(classPy)
         kw.class_and_init_writer(classPy)
         kw.set_writer(classPy)
+        kw.get_value_writer(classPy)
 
 ## model.keywords.
 

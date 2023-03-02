@@ -19,3 +19,5 @@ class _Timeval(_PxValueByKey):
             msg = self._keyword + ":" +str(e)
             raise type(e)(msg) from e
 
+    def get_value(self, my_key: _KeytypeVariableLang) -> _PxTlist:
+        return super().get_value(my_key)

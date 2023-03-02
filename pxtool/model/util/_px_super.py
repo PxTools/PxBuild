@@ -1,3 +1,5 @@
+from pxtool.model.util._px_valuetype import _PxBool, _PxData, _PxHierarchy, _PxInt, _PxString, _PxStringList, _PxTlist
+
 class _PxSingle:
     """For data just the keyword, no need for a dict."""
     _keyword: str
@@ -5,13 +7,13 @@ class _PxSingle:
     def __init__(self, keyword) -> None:
         self._keyword = keyword
 
-    def set(self, px_value) -> None:
+    def set(self, px_value:_PxInt | _PxString | _PxStringList | _PxBool | _PxData) -> None:
         if self.has_value():
            raise ValueError(f"Duplicate use. First value {self._px_value}, second value {px_value}.")
         self._px_value = px_value
 
-    def get(self) -> None:
-        return self._px_value.getValue()
+    def get_value(self) -> _PxInt | _PxString | _PxStringList | _PxBool | _PxData:
+        return self._px_value.get_value()
 
     def __str__(self):
         if self.has_value():
@@ -36,8 +38,8 @@ class _PxValueByKey:
             raise ValueError(f"Duplicate key {my_key}, first value {self._value_by_key[my_key]}, second value {px_value}.")
         self._value_by_key[my_key] = px_value
 
-    def get(self, my_key) -> None:
-        return self._value_by_key[my_key].getValue()
+    def get_value(self, my_key) -> _PxInt | _PxString | _PxStringList | _PxBool |_PxHierarchy | _PxTlist:
+        return self._value_by_key.get(my_key)
 
 
     def __str__(self):

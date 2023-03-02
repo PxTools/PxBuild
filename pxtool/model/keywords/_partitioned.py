@@ -25,3 +25,5 @@ class _Partitioned(_PxValueByKey):
             msg = self._keyword + ":" +str(e)
             raise type(e)(msg) from e
 
+    def get_value(self, my_key: _KeytypeVariableLangMulti) -> _PxStringList:
+        return super().get_value(my_key)

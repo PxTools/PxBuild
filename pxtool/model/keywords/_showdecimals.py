@@ -20,3 +20,5 @@ class _Showdecimals(_PxSingle):
             msg = self._keyword + ":" +str(e)
             raise type(e)(msg) from e
 
+    def get_value(self) -> _PxInt:
+        return super().get_value()

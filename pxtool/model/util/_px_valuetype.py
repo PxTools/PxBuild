@@ -9,7 +9,7 @@ class _PxTlist:
         list_as_string = f"\",\"".join(self.time_periods)
         return f"TLIST({self.timescale}),\"{list_as_string}\"" 
 
-    def getValue(self):
+    def get_value(self):
         return (self.timescale,self.time_periods)       
 
 class _PxHierarchy:
@@ -21,7 +21,7 @@ class _PxHierarchy:
     def __str__(self):
         return self.root_node + ', '.join(['{}:{}'.format(k, v) for k, v in self.mother_child.items()])
 
-    def getValue(self):
+    def get_value(self):
         return (self.root_node,self. mother_child)    
 
 
@@ -41,7 +41,7 @@ class _PxStringList:
     def __len__(self):
         return len(self.list_of_strings)
     
-    def getValue(self):
+    def get_value(self):
         return self.list_of_strings    
 
 class _PxString:
@@ -52,7 +52,7 @@ class _PxString:
     def __str__(self):
             return f"\"{self._string}\""
     
-    def getValue(self):
+    def get_value(self):
         return self._string
     
 class _PxBool:
@@ -63,7 +63,7 @@ class _PxBool:
     def __str__(self):
             return "YES" if self._bool else"NO"
     
-    def getValue(self):
+    def get_value(self):
         return self._bool
 
 class _PxData:
@@ -74,7 +74,7 @@ class _PxData:
     def __str__(self):
             return " ".join(self._data)
     
-    def getValue(self):
+    def get_value(self):
         return self._data
     
 class _PxInt:
@@ -85,5 +85,5 @@ class _PxInt:
     def __str__(self):
             return f"\"{self._int}\""
     
-    def getValue(self):
+    def get_value(self) -> int:
         return self._int        
