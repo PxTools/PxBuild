@@ -22,3 +22,4 @@ can be “Inflation”. Several words can be included """
 
     def get_value(self) -> _PxStringList:
         return super().get_value()
+

@@ -22,3 +22,4 @@ class _Showdecimals(_PxSingle):
 
     def get_value(self) -> _PxInt:
         return super().get_value()
+

@@ -21,3 +21,4 @@ class _OfficialStatistics(_PxSingle):
 
     def get_value(self) -> _PxBool:
         return super().get_value()
+

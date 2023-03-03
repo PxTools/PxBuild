@@ -23,3 +23,4 @@ class _Languages(_PxSingle):
 
     def get_value(self) -> _PxStringList:
         return super().get_value()
+

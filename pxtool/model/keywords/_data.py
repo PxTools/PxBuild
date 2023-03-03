@@ -19,3 +19,4 @@ class _Data(_PxSingle):
 
     def get_value(self) -> _PxData:
         return super().get_value()
+

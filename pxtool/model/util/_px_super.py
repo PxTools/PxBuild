@@ -65,4 +65,19 @@ class _PxValueByKey(_SuperKeyword):
     
     def has_value(self) -> bool:
         return len(self._value_by_key) > 0
+    
+
+    #for classes that may_have_language
+    def reset_language_none_to(self,lang:str)->None:
+        new_value_by_key = {}
+        for old_key, value in self._value_by_key.items():
+            new_key = old_key.reset_lang_none_to(lang)
+            if new_key in new_value_by_key.keys():
+                raise ValueError(f"Duplicate key for {self._keyword} {new_key}, when inserting default language")
+            new_value_by_key[new_key] = value
+
+        self._value_by_key = new_value_by_key
+
+
+
 

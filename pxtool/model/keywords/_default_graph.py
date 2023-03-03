@@ -21,3 +21,4 @@ class _DefaultGraph(_PxSingle):
 
     def get_value(self) -> _PxInt:
         return super().get_value()
+

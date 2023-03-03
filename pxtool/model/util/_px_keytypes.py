@@ -25,7 +25,13 @@ class _KeytypeLang():
         return False
 
     def __hash__(self):
-        return hash(self.lang)  
+        return hash(self.lang)
+    
+    def reset_lang_none_to(self, lang:str):
+        if self.lang: 
+            return self
+        else: 
+            return _KeytypeLang(lang)
 
 class _KeytypeVariableLang(_KeytypeLang):
     variable:str
@@ -47,6 +53,12 @@ class _KeytypeVariableLang(_KeytypeLang):
     
     def to_str_message(self) -> str:
          return  f"for language '{self.lang}' and variable '{self.variable}'"
+
+    def reset_lang_none_to(self, lang:str):
+        if self.lang: 
+            return self
+        else: 
+            return _KeytypeVariableLang(self.variable,lang) 
 
     
 
@@ -70,6 +82,12 @@ class _KeytypeContentLang(_KeytypeLang):
 
     def to_str_message(self) -> str:
          return  f"for language '{self.lang}' and variable '{self.variable}'"
+    
+    def reset_lang_none_to(self, lang:str):
+        if self.lang: 
+            return self
+        else: 
+            return _KeytypeContentLang(self.content,lang)
 
 class _KeytypeVariableValueLang(_KeytypeLang):
     variable:str
@@ -91,7 +109,11 @@ class _KeytypeVariableValueLang(_KeytypeLang):
     def __hash__(self):
         return hash((self.variable, self.value, self.lang))  
     
-
+    def reset_lang_none_to(self, lang:str):
+        if self.lang: 
+            return self
+        else: 
+            return _KeytypeVariableValueLang(self.variable, self.value, lang)
     
 class _KeytypeVariableValue():
     variable:str
@@ -127,6 +149,13 @@ class _KeytypeVariableLangMulti(_KeytypeVariableLang):
 
     def __hash__(self):
         return hash((self.variable, self.lang, self.counter))
+    
+    def reset_lang_none_to(self, lang:str):
+        if self.lang: 
+            return self
+        else: 
+            return _KeytypeVariableLangMulti(self.variable, lang, self.counter)
+    
 
 class _KeytypeVariableValueLangMulti(_KeytypeVariableValueLang):
     counter:int 
@@ -141,10 +170,13 @@ class _KeytypeVariableValueLangMulti(_KeytypeVariableValueLang):
         return False
 
     def __hash__(self):
-        return hash((self.variable, self.value, self.lang, self.counter))  
-    
+        return hash((self.variable, self.value, self.lang, self.counter))
 
-
+    def reset_lang_none_to(self, lang:str):
+        if self.lang: 
+            return self
+        else: 
+            return _KeytypeVariableValueLangMulti(self.variable,self.value,lang,self.counter)
 
 #_KeytypeValuesLangMulti = namedtuple("ValuesLangMulti", ['values', 'lang', 'counter'] )
 class _KeytypeValuesLangMulti(_KeytypeLang):
@@ -168,7 +200,13 @@ class _KeytypeValuesLangMulti(_KeytypeLang):
         return False
 
     def __hash__(self):
-        return hash((self._joined, self.lang, self.counter))  
+        return hash((self._joined, self.lang, self.counter)) 
+
+    def reset_lang_none_to(self, lang:str):
+        if self.lang: 
+            return self
+        else: 
+            return _KeytypeValuesLangMulti(self.values,lang,self.counter)
 
 
 class _KeytypeValuesMulti(): 
@@ -192,3 +230,6 @@ class _KeytypeValuesMulti():
 
     def __hash__(self):
         return hash((self._joined, self.lang, self.counter))  
+
+
+

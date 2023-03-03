@@ -21,3 +21,4 @@ class _Charset(_PxSingle):
 
     def get_value(self) -> _PxString:
         return super().get_value()
+

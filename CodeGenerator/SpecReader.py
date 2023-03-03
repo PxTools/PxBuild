@@ -116,14 +116,15 @@ class MyKeyword:
 
 
     def class_and_init_writer(self, fileHandle) -> None:
-        fileHandle.write(f"class {kw.classnames['This']}({kw.classnames['Super']}): \n\n")
+        fileHandle.write(f"class {self.classnames['This']}({self.classnames['Super']}): \n\n")
         fileHandle.write(f"    pxvalue_type:str = \"{self.classnames['Value']}\"\n")
-        if kw.has_lang:
-            fileHandle.write("    may_have_language:bool = True\n\n")
+        if self.has_lang:
+            fileHandle.write("    may_have_language:bool = True\n")
+            fileHandle.write("    _seen_languages={}\n\n")
         else:
             fileHandle.write("    may_have_language:bool = False\n\n")
 
-        if kw.is_duplicate_keypart_allowed:
+        if self.is_duplicate_keypart_allowed:
             #the others use init in super  
             fileHandle.write(f"    def __init__(self, keyword:str) -> None:\n")
             fileHandle.write(f"        super().__init__(keyword)\n")
@@ -151,15 +152,20 @@ class MyKeyword:
                 fileHandle.write(f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)})\n")
 
             self.catch_duplicate_writer(fileHandle, "super().set(my_value,my_key)")
+            if self.has_lang:
+                fileHandle.write(f"        self._seen_languages[lang]=1\n")
+            
         else:
             self.catch_duplicate_writer(fileHandle, "super().set(my_value)")
+        fileHandle.write(f"\n")
+
 
     def catch_duplicate_writer(self, fileHandle, codeline:str) -> None:
         fileHandle.write(f"        try:\n")
         fileHandle.write(f"            {codeline}\n")
         fileHandle.write(f"        except Exception as e:\n")
         fileHandle.write(f"            msg = self._keyword + \":\" +str(e)\n")
-        fileHandle.write(f"            raise type(e)(msg) from e\n\n")
+        fileHandle.write(f"            raise type(e)(msg) from e\n")
 
     def get_value_writer(self, filehandle) -> None:
         if(self.classnames['Super'] == "_PxSingle"):
@@ -169,7 +175,23 @@ class MyKeyword:
             filehandle.write(f"    def get_value(self, my_key: {self.classnames['Key']}) -> {self.classnames['Value']}:\n")
             filehandle.write(f"        return super().get_value(my_key)")
 
-    
+        filehandle.write(f"\n\n")
+            
+    def get_lang_utils_writer(self, filehandle) -> None:
+        if not self.has_lang:
+            return
+        
+        filehandle.write(f"    def get_used_languages(self) -> list[str]:\n")
+        filehandle.write(f"       return list(self._seen_languages.keys())\n\n")
+        filehandle.write(f"    def reset_language_none_to(self,lang:str)->None:\n")
+        filehandle.write(f"        if not lang:\n")
+        filehandle.write(f"            return\n")
+        filehandle.write(f"        if None in self.get_used_languages():\n")        
+        filehandle.write(f"             super().reset_language_none_to(lang)\n")
+        filehandle.write(f"             #unsee None\n")
+        filehandle.write(f"             del self._seen_languages[None]\n")
+        filehandle.write(f"             self._seen_languages[lang]=1\n")
+
 # ---------------  end of class ----------------------------
 
 # read file
@@ -189,6 +211,7 @@ for kw in data:
         kw.class_and_init_writer(classPy)
         kw.set_writer(classPy)
         kw.get_value_writer(classPy)
+        kw.get_lang_utils_writer(classPy)
 
 ## model.keywords.
 
