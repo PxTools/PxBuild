@@ -5,7 +5,7 @@ from pxtool.model.util._line_validator import LineValidator
 class _Showdecimals(_PxSingle): 
 
     pxvalue_type:str = "_PxInt"
-    is_language_dependent:bool = False
+    may_have_language:bool = False
 
 
     def set(self, showdecimals:int) -> None:

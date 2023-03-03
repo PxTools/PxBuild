@@ -6,7 +6,7 @@ from pxtool.model.util._line_validator import LineValidator
 class _Hierarchynames(_PxValueByKey): 
 
     pxvalue_type:str = "_PxStringList"
-    is_language_dependent:bool = True
+    may_have_language:bool = True
 
 
     def set(self, hierarchynames:list[str], variable:str, lang:str = None) -> None:

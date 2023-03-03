@@ -119,9 +119,9 @@ class MyKeyword:
         fileHandle.write(f"class {kw.classnames['This']}({kw.classnames['Super']}): \n\n")
         fileHandle.write(f"    pxvalue_type:str = \"{self.classnames['Value']}\"\n")
         if kw.has_lang:
-            fileHandle.write("    is_language_dependent:bool = True\n\n")
+            fileHandle.write("    may_have_language:bool = True\n\n")
         else:
-            fileHandle.write("    is_language_dependent:bool = False\n\n")
+            fileHandle.write("    may_have_language:bool = False\n\n")
 
         if kw.is_duplicate_keypart_allowed:
             #the others use init in super  

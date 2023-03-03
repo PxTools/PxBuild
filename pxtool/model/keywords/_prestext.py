@@ -6,7 +6,7 @@ from pxtool.model.util._line_validator import LineValidator
 class _Prestext(_PxValueByKey): 
 
     pxvalue_type:str = "_PxInt"
-    is_language_dependent:bool = True
+    may_have_language:bool = True
 
 
     def set(self, prestext:int, variable:str, lang:str = None) -> None:

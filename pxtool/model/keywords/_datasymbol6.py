@@ -6,7 +6,7 @@ from pxtool.model.util._line_validator import LineValidator
 class _Datasymbol6(_PxValueByKey): 
 
     pxvalue_type:str = "_PxString"
-    is_language_dependent:bool = True
+    may_have_language:bool = True
 
 
     def set(self, datasymbol6:str, lang:str = None) -> None:
