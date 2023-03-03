@@ -57,7 +57,7 @@ class ValidateMethods:
 
 class ValidatePx:
     
-    def validate_all(model:PXFileModel):
+    def is_valid(model:PXFileModel) -> bool:
         val_rep = [str]
         try:
             val_rep.append(ValidateMethods.check_mandatory(model))
@@ -66,11 +66,13 @@ class ValidatePx:
             val_rep.append(ValidateMethods.check_decimals(model))
             val_rep.append(ValidateMethods.check_showdecimals(model))
             val_rep.append(ValidateMethods.check_lang_keys(model))
+            print(*val_rep, sep='\n')
+            return True
         except ValueError as e:
            print(f"Error: {e.args}")
-           return
+           return False
         
-        print(*val_rep, sep='\n')
+
 
  
         
