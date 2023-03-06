@@ -1,5 +1,5 @@
 from pxtool.model.px_file_model import PXFileModel
-from pxtool.model.util.validate_px import ValidateMethods as val
+from pxtool.model.validate_px import ValidateMethods as val
 import pytest
 
 
@@ -73,3 +73,7 @@ def test_check_lang():
 
     with pytest.raises(ValueError, match="Specified language code \"sv\" for keyword VALUES must be one of the codes in keyword languages: \"no\",\"en\",\"fi\""):
         rep = val.check_lang_keys(pxfile)
+
+
+
+

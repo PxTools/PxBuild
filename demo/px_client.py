@@ -4,10 +4,11 @@ sys.path.insert(1,my)
 #from pxtool.model.px_file_model import PXFileModel
 import pxtool
 
-from pxtool.model.util.util import Util
+#from pxtool.model.cleaner import Cleaner
 
 #Utforskende nybegynner uvitende om PCAXIS
-a = pxtool.model.px_file_model.PXFileModel()
+
+a = pxtool.PXFileModel()
 a.axis_version.set("2023")
 
 #a.title.set(titleText="Yxi Kaksi", lang="fi")
@@ -80,8 +81,13 @@ a.data.set( datastring.split())
 print(a)
 print("--------")
 
-Util.apply_default_language(a)
+pxtool.Cleaner.apply_default_language(a)
 
 print(a.codes.get_used_languages())
 
 print(a)
+
+
+#temp = ValidatePx(a)
+#if ! temp.is_all_valid()
+#   print (for x in getReport ; print x.problems )
