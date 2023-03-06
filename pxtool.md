@@ -71,6 +71,7 @@ classDiagram
     I_Valuetype <|-- _PxInt
 ```
 The "Keyword-classes" use 2 different superclasses, one \_PxSingle for those that have just the keyword and a value and \_PxValueByKey for the Others. 
+These 2 both inhert an abstract class called _SuperKeyword
 ```mermaid
 classDiagram
    class _PXSingle{
@@ -80,6 +81,10 @@ classDiagram
    class _PXValueByKey{
      -Dict(~I_Keytype~,~I_Valuetype~) _ValueByKey
    }
+
+    _SuperKeyword <|-- _PXSingle
+    _SuperKeyword <|-- _PXValueByKey
+    
 
     _PXSingle *-- I_Valuetype
     _PXValueByKey *-- I_Valuetype
