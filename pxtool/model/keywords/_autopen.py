@@ -9,7 +9,7 @@ class _Autopen(_PxSingle):
 
 
     def set(self, autopen:bool) -> None:
-        """  """
+        """ Not is use. """
         LineValidator.is_not_None( self._keyword, autopen)
         LineValidator.is_bool( self._keyword, autopen)
         my_value = _PxBool(autopen)

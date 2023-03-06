@@ -2,17 +2,17 @@
 from pxtool.model.util._px_valuetype import _PxString
 from pxtool.model.util._line_validator import LineValidator
 
-class _Tableid(_PxSingle): 
+class _FirstPublished(_PxSingle): 
 
     pxvalue_type:str = "_PxString"
     may_have_language:bool = False
 
 
-    def set(self, tableid:str) -> None:
-        """ Id of table """
-        LineValidator.is_not_None( self._keyword, tableid)
-        LineValidator.is_string( self._keyword, tableid)
-        my_value = _PxString(tableid)
+    def set(self, first_published:str) -> None:
+        """ In use? """
+        LineValidator.is_not_None( self._keyword, first_published)
+        LineValidator.is_string( self._keyword, first_published)
+        my_value = _PxString(first_published)
         try:
             super().set(my_value)
         except Exception as e:

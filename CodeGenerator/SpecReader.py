@@ -29,7 +29,7 @@ def getKeyType(has_lang:bool,subkeys:dict,multi:bool) -> str:
        return myOut
 
 
-SpecRow = namedtuple("SpecRow", ['px_keyword', 'is_lang_dependent', 'is_Mandatory', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_enumvalues', 'px_comment'] )
+SpecRow = namedtuple("SpecRow", ['px_keyword', 'is_lang_dependent', 'is_Mandatory', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_comment','from_pdf'] )
 
 #Tja, de er jo python typer alle sammen. Så det er vel typen til parameter i set funksjonen vs den typen som lagres value i super klassen
 #PxTypesByPythonTypes={"list[str]":"_PxStringList","str":"_PxString","bool":"_PxBool","int":"int"}
@@ -199,7 +199,7 @@ with open("Keywords.csv", "r",encoding="utf-8-sig") as theSpecCsv:
     reader = csv.reader(theSpecCsv,delimiter=";" )
     header = next(reader)
     print ("De to under bør være like")
-    print("['px_keyword', 'is_lang_dependent', 'is_Mandatory', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_enumvalues', 'px_comment']")
+    print("['px_keyword', 'is_lang_dependent', 'is_Mandatory', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_comment', 'from_pdf']")
     print(header)
     data = [MyKeyword(SpecRow(*row)) for row in reader] 
 

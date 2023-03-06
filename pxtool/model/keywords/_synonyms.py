@@ -9,8 +9,7 @@ class _Synonyms(_PxSingle):
 
 
     def set(self, synonyms:list[str]) -> None:
-        """ This is used for search in PX-Web. If the table concerns CPI the synonym 
-can be “Inflation”. Several words can be included """
+        """ In use? """
         LineValidator.is_not_None( self._keyword, synonyms)
         LineValidator.is_list_of_strings( self._keyword, synonyms)
         my_value = _PxStringList(synonyms)

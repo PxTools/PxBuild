@@ -11,7 +11,7 @@ class _Units(_PxValueByKey):
 
 
     def set(self, units:str, content:str=None, lang:str = None) -> None:
-        """  """
+        """ Unit text, e.g. ton, NOK """
         LineValidator.is_not_None( self._keyword, units)
         LineValidator.is_string( self._keyword, units)
         my_value = _PxString(units)

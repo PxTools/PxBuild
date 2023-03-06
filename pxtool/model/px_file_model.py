@@ -4,6 +4,7 @@ from pxtool.model.keywords._codepage import _Codepage
 from pxtool.model.keywords._language import _Language
 from pxtool.model.keywords._languages import _Languages
 from pxtool.model.keywords._creation_date import _CreationDate
+from pxtool.model.keywords._first_published import _FirstPublished
 from pxtool.model.keywords._next_update import _NextUpdate
 from pxtool.model.keywords._px_server import _PxServer
 from pxtool.model.keywords._directory_path import _DirectoryPath
@@ -98,6 +99,7 @@ class PXFileModel:
         self.language = _Language("LANGUAGE")
         self.languages = _Languages("LANGUAGES")
         self.creation_date = _CreationDate("CREATION-DATE")
+        self.first_published = _FirstPublished("FIRST-PUBLISHED")
         self.next_update = _NextUpdate("NEXT-UPDATE")
         self.px_server = _PxServer("PX-SERVER")
         self.directory_path = _DirectoryPath("DIRECTORY-PATH")

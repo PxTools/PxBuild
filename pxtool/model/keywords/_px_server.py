@@ -9,7 +9,7 @@ class _PxServer(_PxSingle):
 
 
     def set(self, px_server:str) -> None:
-        """  """
+        """ Not in use """
         LineValidator.is_not_None( self._keyword, px_server)
         LineValidator.is_string( self._keyword, px_server)
         my_value = _PxString(px_server)

@@ -11,7 +11,7 @@ class _Stockfa(_PxValueByKey):
 
 
     def set(self, stockfa:str, content:str=None, lang:str = None) -> None:
-        """  """
+        """ Indicates if data is stock, flow or average.  Used characters: S (stock), F (flow) and A (average)  """
         LineValidator.is_not_None( self._keyword, stockfa)
         LineValidator.is_string( self._keyword, stockfa)
         LineValidator.regexp_string("^(S|F|A)$", self._keyword, stockfa)

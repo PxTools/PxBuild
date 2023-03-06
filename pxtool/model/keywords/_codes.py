@@ -11,7 +11,7 @@ class _Codes(_PxValueByKey):
 
 
     def set(self, codes:list[str], variable:str, lang:str = None) -> None:
-        """ Hei fra kolonne J,Codes """
+        """ Codes of the values for the variable. """
         LineValidator.is_not_None( self._keyword, codes)
         LineValidator.is_list_of_strings( self._keyword, codes)
         LineValidator.unique( self._keyword, codes)

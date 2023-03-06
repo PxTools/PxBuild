@@ -9,7 +9,7 @@ class _Confidential(_PxSingle):
 
 
     def set(self, confidential:int) -> None:
-        """ Never put confidential data in a pxfile. Ever. Not in use. """
+        """ Not in use.   """
         LineValidator.is_not_None( self._keyword, confidential)
         LineValidator.is_int( self._keyword, confidential)
         my_value = _PxInt(confidential)

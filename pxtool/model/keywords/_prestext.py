@@ -11,7 +11,7 @@ class _Prestext(_PxValueByKey):
 
 
     def set(self, prestext:int, variable:str, lang:str = None) -> None:
-        """  """
+        """ 0 - Display only the value code. 1 - Display only the value text. 2 - Display first the code then the value text. 3 - Display first the value text then the value code. """
         LineValidator.is_not_None( self._keyword, prestext)
         LineValidator.is_int( self._keyword, prestext)
         LineValidator.in_range(0,3, self._keyword, prestext)

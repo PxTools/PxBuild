@@ -11,7 +11,7 @@ class _Stub(_PxValueByKey):
 
 
     def set(self, stub:list[str], lang:str = None) -> None:
-        """  """
+        """ Variables in stub """
         LineValidator.is_not_None( self._keyword, stub)
         LineValidator.is_list_of_strings( self._keyword, stub)
         my_value = _PxStringList(stub)
