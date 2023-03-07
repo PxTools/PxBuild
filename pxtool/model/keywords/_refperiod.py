@@ -11,7 +11,7 @@ class _Refperiod(_PxValueByKey):
 
 
     def set(self, refperiod:str, content:str=None, lang:str = None) -> None:
-        """  """
+        """ Text with information on the exact period for the statistics. """
         LineValidator.is_not_None( self._keyword, refperiod)
         LineValidator.is_string( self._keyword, refperiod)
         my_value = _PxString(refperiod)

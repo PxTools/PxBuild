@@ -9,7 +9,7 @@ class _Copyright(_PxSingle):
 
 
     def set(self, copyright:bool) -> None:
-        """  """
+        """ If true the copyright refers to the organization given in SOURCE """
         LineValidator.is_not_None( self._keyword, copyright)
         LineValidator.is_bool( self._keyword, copyright)
         my_value = _PxBool(copyright)

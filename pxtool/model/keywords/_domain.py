@@ -11,7 +11,7 @@ class _Domain(_PxValueByKey):
 
 
     def set(self, domain:str, variable:str, lang:str = None) -> None:
-        """  """
+        """ Can occur once for each variable. Is used to determine which value sets are of interest, and thus which aggregation lists can be used.  """
         LineValidator.is_not_None( self._keyword, domain)
         LineValidator.is_string( self._keyword, domain)
         my_value = _PxString(domain)

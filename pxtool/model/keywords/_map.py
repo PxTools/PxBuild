@@ -11,7 +11,7 @@ class _Map(_PxValueByKey):
 
 
     def set(self, map:str, variable:str, lang:str = None) -> None:
-        """  """
+        """ Used for a geographic variable for which maps can be made. Example: "Sweden_municipality". """
         LineValidator.is_not_None( self._keyword, map)
         LineValidator.is_string( self._keyword, map)
         my_value = _PxString(map)

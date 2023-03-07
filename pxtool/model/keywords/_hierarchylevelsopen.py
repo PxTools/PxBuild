@@ -11,7 +11,7 @@ class _Hierarchylevelsopen(_PxValueByKey):
 
 
     def set(self, hierarchylevelsopen:int, variable:str, lang:str = None) -> None:
-        """  """
+        """ Not in normal use. See pdf """
         LineValidator.is_not_None( self._keyword, hierarchylevelsopen)
         LineValidator.is_int( self._keyword, hierarchylevelsopen)
         my_value = _PxInt(hierarchylevelsopen)

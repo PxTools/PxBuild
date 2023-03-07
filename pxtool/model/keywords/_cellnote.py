@@ -14,7 +14,7 @@ class _Cellnote(_PxValueByKey):
         self.occurence_counter = 0
 
     def set(self, cellnote:str, values:list[str], lang:str = None) -> None:
-        """  """
+        """ Footnote for a single cell or a group of cells. Which cell it refers to is given by values and variables. If a value is given as * the note refers to all values for that variable. Only one value can be given for each variable. T """
         LineValidator.is_not_None( self._keyword, cellnote)
         LineValidator.is_string( self._keyword, cellnote)
         my_value = _PxString(cellnote)

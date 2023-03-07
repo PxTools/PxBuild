@@ -11,7 +11,7 @@ class _Hierarchies(_PxValueByKey):
 
 
     def set(self, root_node:str, mother_child:dict[str,str], variable:str, lang:str = None) -> None:
-        """  """
+        """ Not in normal use. See pdf """
         my_value = _PxHierarchy(root_node, mother_child)
         my_key = _KeytypeVariableLang(variable, lang)
         try:

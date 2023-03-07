@@ -9,7 +9,7 @@ class _Data(_PxSingle):
 
 
     def set(self, data:list) -> None:
-        """  """
+        """ Numbers and quoted dots """
         my_value = _PxData(data)
         try:
             super().set(my_value)

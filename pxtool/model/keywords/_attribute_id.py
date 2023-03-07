@@ -9,7 +9,7 @@ class _AttributeId(_PxSingle):
 
 
     def set(self, attribute_id:list[str]) -> None:
-        """  """
+        """ Not in normal use. See pdf """
         LineValidator.is_not_None( self._keyword, attribute_id)
         LineValidator.is_list_of_strings( self._keyword, attribute_id)
         my_value = _PxStringList(attribute_id)

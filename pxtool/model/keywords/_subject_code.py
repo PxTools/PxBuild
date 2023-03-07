@@ -9,7 +9,7 @@ class _SubjectCode(_PxSingle):
 
 
     def set(self, subject_code:str) -> None:
-        """  """
+        """ Subject area code. It is used to create files with tables available in PC-Axis. The text must not exceed 20 characters  """
         LineValidator.is_not_None( self._keyword, subject_code)
         LineValidator.is_string( self._keyword, subject_code)
         my_value = _PxString(subject_code)

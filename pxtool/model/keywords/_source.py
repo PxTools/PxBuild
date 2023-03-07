@@ -11,7 +11,7 @@ class _Source(_PxValueByKey):
 
 
     def set(self, source:str, lang:str = None) -> None:
-        """  """
+        """ States the organization which is responsible for the statistics """
         LineValidator.is_not_None( self._keyword, source)
         LineValidator.is_string( self._keyword, source)
         my_value = _PxString(source)

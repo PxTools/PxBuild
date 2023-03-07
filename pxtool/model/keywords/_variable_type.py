@@ -11,7 +11,7 @@ class _VariableType(_PxValueByKey):
 
 
     def set(self, variable_type:str, variable:str, lang:str = None) -> None:
-        """  """
+        """ Currently free-text. Suggestion: T for Time, G for Geo, C for Content  """
         LineValidator.is_not_None( self._keyword, variable_type)
         LineValidator.is_string( self._keyword, variable_type)
         my_value = _PxString(variable_type)

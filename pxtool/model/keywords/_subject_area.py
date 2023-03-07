@@ -11,7 +11,7 @@ class _SubjectArea(_PxValueByKey):
 
 
     def set(self, subject_area:str, lang:str = None) -> None:
-        """  """
+        """ Text  for Subject area code """
         LineValidator.is_not_None( self._keyword, subject_area)
         LineValidator.is_string( self._keyword, subject_area)
         my_value = _PxString(subject_area)

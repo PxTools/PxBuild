@@ -11,7 +11,7 @@ class _Survey(_PxValueByKey):
 
 
     def set(self, survey:str, lang:str = None) -> None:
-        """  """
+        """ Hmm, try, pdf says: Is shown on information screen in PX-web if installation parameter true. """
         LineValidator.is_not_None( self._keyword, survey)
         LineValidator.is_string( self._keyword, survey)
         my_value = _PxString(survey)

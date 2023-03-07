@@ -14,7 +14,7 @@ class _Partitioned(_PxValueByKey):
         self.occurence_counter = 0
 
     def set(self, partitioned:list[str], variable:str, lang:str = None) -> None:
-        """ string , int (,int) """
+        """ string , int (,int) , see pdf """
         LineValidator.is_not_None( self._keyword, partitioned)
         LineValidator.is_list_of_strings( self._keyword, partitioned)
         my_value = _PxStringList(partitioned)

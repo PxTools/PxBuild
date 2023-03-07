@@ -11,7 +11,7 @@ class _LastUpdated(_PxValueByKey):
 
 
     def set(self, last_updated:str, content:str=None, lang:str = None) -> None:
-        """  """
+        """ latest update  in pxdate format """
         LineValidator.is_not_None( self._keyword, last_updated)
         LineValidator.is_string( self._keyword, last_updated)
         my_value = _PxString(last_updated)

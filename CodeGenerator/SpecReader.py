@@ -240,7 +240,7 @@ for kw in data:
     the_imports.append(f"from pxtool.model.keywords.{kw.module_name} import {kw.classnames['This']}")
     if kw.keyword == "DATA":
         the_attributes.append("self.unknown_keywords = \"\"")
-    the_attributes.append(f"self.{to_python_case(kw.keyword)} = {kw.classnames['This']}(\"{kw.keyword}\")")
+    the_attributes.append(f"self.{to_python_case(kw.keyword)} = {kw.classnames['This']}(\"{kw.keyword}\")\n        \"\"\"{kw.px_comment}\"\"\"")
   
 #from _PX_AXIS_VERSION import _PX_AXIS_VERSION
 #

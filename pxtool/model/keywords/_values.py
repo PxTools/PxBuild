@@ -11,7 +11,7 @@ class _Values(_PxValueByKey):
 
 
     def set(self, values:list[str], variable:str, lang:str = None) -> None:
-        """  """
+        """ Labels of the values for the variable. """
         LineValidator.is_not_None( self._keyword, values)
         LineValidator.is_list_of_strings( self._keyword, values)
         my_value = _PxStringList(values)

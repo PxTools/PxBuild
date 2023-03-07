@@ -11,7 +11,7 @@ class _Hierarchynames(_PxValueByKey):
 
 
     def set(self, hierarchynames:list[str], variable:str, lang:str = None) -> None:
-        """  """
+        """ Not in normal use. See pdf """
         LineValidator.is_not_None( self._keyword, hierarchynames)
         LineValidator.is_list_of_strings( self._keyword, hierarchynames)
         my_value = _PxStringList(hierarchynames)

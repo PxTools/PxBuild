@@ -9,7 +9,7 @@ class _Descriptiondefault(_PxSingle):
 
 
     def set(self, descriptiondefault:bool) -> None:
-        """  """
+        """ Not in normal use. """
         LineValidator.is_not_None( self._keyword, descriptiondefault)
         LineValidator.is_bool( self._keyword, descriptiondefault)
         my_value = _PxBool(descriptiondefault)

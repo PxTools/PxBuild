@@ -11,7 +11,7 @@ class _Datasymbol2(_PxValueByKey):
 
 
     def set(self, datasymbol2:str, lang:str = None) -> None:
-        """  """
+        """ Should be in config? """
         LineValidator.is_not_None( self._keyword, datasymbol2)
         LineValidator.is_string( self._keyword, datasymbol2)
         my_value = _PxString(datasymbol2)

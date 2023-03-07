@@ -14,7 +14,7 @@ class _Note(_PxValueByKey):
         self.occurence_counter = 0
 
     def set(self, note:str, variable:str=None, lang:str = None) -> None:
-        """ Applies to table if no subkey """
+        """ non-mandatory footnote for variable or table if no variable is given """
         LineValidator.is_not_None( self._keyword, note)
         LineValidator.is_string( self._keyword, note)
         my_value = _PxString(note)

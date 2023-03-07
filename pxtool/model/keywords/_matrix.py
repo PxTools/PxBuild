@@ -9,7 +9,7 @@ class _Matrix(_PxSingle):
 
 
     def set(self, matrix:str) -> None:
-        """  """
+        """ The name of the matrix. Is suggested as file name when the file is fetched. """
         LineValidator.is_not_None( self._keyword, matrix)
         LineValidator.is_string( self._keyword, matrix)
         my_value = _PxString(matrix)

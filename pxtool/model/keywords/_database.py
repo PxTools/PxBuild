@@ -11,7 +11,7 @@ class _Database(_PxValueByKey):
 
 
     def set(self, database:str, lang:str = None) -> None:
-        """  """
+        """ The name of the database from where the statistics is retrieved """
         LineValidator.is_not_None( self._keyword, database)
         LineValidator.is_string( self._keyword, database)
         my_value = _PxString(database)

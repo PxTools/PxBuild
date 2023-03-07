@@ -9,7 +9,7 @@ class _CreationDate(_PxSingle):
 
 
     def set(self, creation_date:str) -> None:
-        """ Date in "Px Format" """
+        """ Date in 'Px Format' """
         LineValidator.is_not_None( self._keyword, creation_date)
         LineValidator.is_string( self._keyword, creation_date)
         my_value = _PxString(creation_date)

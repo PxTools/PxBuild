@@ -9,7 +9,7 @@ class _NextUpdate(_PxSingle):
 
 
     def set(self, next_update:str) -> None:
-        """ Not in use. Date in "Px  format" """
+        """ Not in use. Date in 'Px  format' """
         LineValidator.is_not_None( self._keyword, next_update)
         LineValidator.is_string( self._keyword, next_update)
         my_value = _PxString(next_update)
