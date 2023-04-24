@@ -1,0 +1,87 @@
+﻿px_keyword;is_lang_dependent;is_Mandatory;px_SubKey;is_SubKey_Optional;is_duplicate_keypart_allowed_;px_valuetype;px_valuetype_params;linevalidate;px_comment;from_pdf
+CHARSET;;;;;;_PxString;;;Not in use;"CHARSET=”ANSI”; indicates that the texts in the file are written in Windows format. If the keyword is missing it means that the texts in the file are in DOS format. They will be translated by PC-Axis to Windows. This keyword must appear in the beginning of the file before any texts that can include characters outside A-Z, 0-9."
+AXIS-VERSION;;;;;;_PxString;;"regexp_string(r""^\d{4}$"",";Not in use. Version number for PC-Axis ;Version number for PC-Axis (new text length 2008). Is read and saved but otherwise not used.
+CODEPAGE;;;;;;_PxString;;;Not in use;Is used when creating XML format to get correct characters. Default iso-8859-1. Max 20 chars.
+LANGUAGE;;;;;;_PxString;;"regexp_string(""^[a-z]{2}$"",";Language-code with 2 letters,sv for Swedish, en for English etc. Default language;
+LANGUAGES;;;;;;_PxStringList;;"regexp_item_string(""^[a-z]{2}$"", XX unique(";List of Language-codes used in file.;
+CREATION-DATE;;;;;;_PxString;;;Date in 'Px Format';Date when file was created. Written in format CCYYMMDD hh:mm, e.g. 19960612 14:20. Is shown together with footnotes. 
+FIRST-PUBLISHED;;;;;;_PxString;;;In use?;The date when the data cube was first published in the format CCYYMMDD hh:mm Example: FIRST-PUBLISHED=20130224 20:55
+NEXT-UPDATE;;;;;;_PxString;;;Not in use. Date in 'Px  format';This keyword is read and saved in the PX-file but not shown in PC-axis.
+PX-SERVER;;;;;;_PxString;;;Not in use;This keyword is read and saved in the PX-file but not shown in PC-axis
+DIRECTORY-PATH;;;;;;_PxString;;;Not in use;This keyword is read and saved in the PX-file but not shown in PC-axis.
+UPDATE-FREQUENCY;;;;;;_PxString;;;Not in use;This keyword is read and saved in the PX-file but not shown in PC-axis.
+TABLEID;;;;;;_PxString;;;Id of table;A text that is the identity of the table.
+SYNONYMS;;;;;;_PxStringList;;;In use?;This is used for search in PX-Web. If the table concerns CPI the synonym can be “Inflation”. Several words can be included within “ “ and the total line can be max 256 chars.
+DEFAULT-GRAPH;;;;;;_PxInt;;;Not in use;
+DECIMALS;;X;;;;_PxInt;;in_range(0,15,;Number of desimals in stored data.;The number of decimals in the table cells. 0 - 15. (0-6 if SHOWDECIMALS is not included). Indicates how many decimals will be saved in the PC-Axis file. Written without quotation marks. Compare SHOWDECIMALS.
+SHOWDECIMALS;;;;;;_PxInt;;in_range(0,6,;Number of desimals to display. May be overridden by Precision;
+ROUNDING;;;;;;_PxInt;;in_range(0,1,;Not in normal use;
+MATRIX;;X;;;;_PxString;;;The name of the matrix. Is suggested as file name when the file is fetched.;The name of the matrix. Is suggested as file name when the file is fetched. (new length 2008).
+AGGREGALLOWED;;;;;;_PxBool;;;False if the contents of the table cannot be aggregated;"If the contents of the table cannot be aggregated, contains for instance index and average, the keyword AGGREGALLOWED=NO; is used to stop the user from making a sum. If the keyword is missing aggregations are allowed."
+AUTOPEN;;;;;;_PxBool;;;Not is use.;"If the file is published on the Internet and the user selects a number of variables and values it is possible to remove the windows “Select variables and values” in PC-Axis and instead show the complete table in PC-Axis when the file is downloaded. AUTOPEN=YES;"
+SUBJECT-CODE;;X;;;;_PxString;;;Subject area code. It is used to create files with tables available in PC-Axis. The text must not exceed 20 characters ;
+SUBJECT-AREA;True;X;;;;_PxString;;;Text  for Subject area code;"The name of the subject area in plain text, as shown in the menu ""Select subject area"". The text must not exceed 256 characters (new length in 2008)."
+CONFIDENTIAL;;;;;;_PxInt;;;Not in use.  ;
+COPYRIGHT;;;;;;_PxBool;;;If true the copyright refers to the organization given in SOURCE;
+DESCRIPTION;True;X;;;;_PxString;;;Use title instead?;If a file contains DESCRIPTION, when fetching from a disk, this text is used to show the contents of the disk. C.f. TITLE. If the user wants to save a file in PC-AXIS and writes a text that describes the file, this text will be saved as DESCRIPTION. The text will be used to show the contents of tables in the SUBJECT AREA. The text is not presented as a note nor in any other way when the table is presented on the screen unless the keyword DESCRIPTIONDEFAULT is used. In this case the description is shown instead of the title
+TITLE;True;X;;;;_PxString;;;The title of the table, reflecting its contents and variables;"The title of the table, reflecting its contents and variables. Is not needed if the file contains DESCRIPTION, in that case the text belonging to description is used. How the heading of a table will look depends on which variables the user chooses; the heading thus created will then be saved as TITLE. (Compare also DESCRIPTIONDEFAULT)If the file contains DESCRIPTION the text for this key word will be used."
+DESCRIPTIONDEFAULT;;;;;;_PxBool;;;Not in normal use.;"For some languages it is difficult to build a table title dynamically. The keyword DESCRIPTIONDEFAULT=YES; means that the text after keyword Description will be used as title for the table."
+CONTVARIABLE;True;;;;;_PxString;;;which variable is the content variable;
+CONTENTS;True;X;;;;_PxString;;;Sort of a base title?;Information about the contents, which makes up the first part of a title created when retrieving tables from PC-Axis. The text must not exceed 256 characters (before 2002 only 100 chars)
+UNITS;True;X;content:str=None;;;_PxString;;;Unit text, e.g. ton, NOK;"Unit text, e.g. ton, index. The text must not exceed 256 characters (new length 2008). Compare UNITS for CONTVARIABLE. When there is a CONTVARIABLE the keyword UNITS takes an index and is repeated for every value for the contents variable. UNITS(""value"")=""tons"""
+STUB;True;X;;;;_PxStringList;;;Variables in stub;At least one of the keywords STUB or HEADING must be included. Usually both are included, as you choose one or several variables for the stub and the heading, respectively. The keywords are followed by a list with the chosen variables. The variables are within quotation marks and separated by commas. If the list with the variables has to be divided up into several lines, this should be done after a comma and not within the variable name
+HEADING;True;X;;;;_PxStringList;;;Variables in heading;At least one of the keywords STUB or HEADING must be included. Usually both are included, as you choose one or several variables for the stub and the heading, respectively. The keywords are followed by a list with the chosen variables. The variables are within quotation marks and separated by commas. If the list with the variables has to be divided up into several lines, this should be done after a comma and not within the variable name.
+VALUES;True;X;variable:str;;;_PxStringList;;;Labels of the values for the variable.;The keyword VALUES occurs once for each variable in the table, and is followed by the variable name in parentheses, within quotation marks. The values will be in the same order as in the stub and heading, respectively. They are within quotation marks and separated by commas. Each value name must not exceed 256 characters. If the values have to be divided up into several lines, this should be done after a comma and not within the value name. See also the keyword TIMEVAL below.
+TIMEVAL;True;;variable:str;;;_PxTlist;timescale:str, time_periods:list[str];;"See pdf. TLIST(A1, ”1994”-”1996”);  eller TLIST(A1), ”1994”, ”1995”,""1996”; ";
+CODES;True;;variable:str;;;_PxStringList;;unique(;Codes of the values for the variable.;
+DOUBLECOLUMN;True;;variable:str;;;_PxBool;;;This keyword is used to get code and text in separate columns for the specified variable ;"This keyword is used to get code and text in separate columns for the specified variable DOUBLECOLUMN(”region”)=YES;. On screen it only has effect if the user selects presentation in matrix format."
+PRESTEXT;True;;variable:str;;;_PxInt;;in_range(0,3,;0 - Display only the value code. 1 - Display only the value text. 2 - Display first the code then the value text. 3 - Display first the value text then the value code.;
+DOMAIN;True;;variable:str;;;_PxString;;;Can occur once for each variable. Is used to determine which value sets are of interest, and thus which aggregation lists can be used. ;
+VARIABLE-TYPE;True;;variable:str;;;_PxString;;;Currently free-text. Suggestion: T for Time, G for Geo, C for Content ;This keyword is read and saved in the PX-file but not shown in PC-Axis.
+HIERARCHIES;True;;variable:str;;;_PxHierarchy;root_node:str, mother_child:dict[str,str];;Not in normal use. See pdf;
+HIERARCHYLEVELS;True;;variable:str;;;_PxInt;;;Not in normal use. See pdf;
+HIERARCHYLEVELSOPEN;True;;variable:str;;;_PxInt;;;Not in normal use. See pdf;
+HIERARCHYNAMES;True;;variable:str;;;_PxStringList;;;Not in normal use. See pdf;
+MAP;True;;variable:str;;;_PxString;;;"Used for a geographic variable for which maps can be made. Example: ""Sweden_municipality"".";
+PARTITIONED;True;;variable:str;;y;_PxStringList;;;string , int (,int) , see pdf;
+ELIMINATION;True;;variable:str;;;_PxString;;;bool eller string;
+PRECISION;True;;variable:str, value:str;;;_PxInt;;in_range(1,6,;Determines that the value shall be presented with a number of decimals that differs from the keyword SHOWDECIMALS;
+LAST-UPDATED;True;;content:str=None;Y;;_PxString;;;latest update  in pxdate format;
+STOCKFA;True;;content:str=None;Y;;_PxString;;"regexp_string(""^(S|F|A)$"",";Indicates if data is stock, flow or average.  Used characters: S (stock), F (flow) and A (average) ;
+CFPRICES;True;;content:str=None;Y;;_PxString;;"regexp_string(""^(C|F)$"",";Indicates if data is in current or fixed prices. C is used for Current and F for Fixed prices;
+DAYADJ;True;;content:str=None;Y;;_PxBool;;;data is adjusted e.g. to take into account the number of working days;
+SEASADJ;True;;content:str=None;Y;;_PxBool;;;Is  the data seasonally adjusted;
+CONTACT;True;;content:str=None;Y;;_PxString;;;Is written in the form name, organization, telephone, fax, e-mail. Several persons can be stated in the same text string and are then divided by the #-sign;"States the person who can give information about the statistics. Is written in the form name, organization, telephone, fax, e-mail. Several persons can be stated in the same text string and are then divided by the #-sign. Is shown with the footnote. If there is a contents variable the keyword is repeated for each value CONTACT(""value"")=""xx"".Example: CONTACT=""Maria Svensson, SCB, +4619176800, +4619176900, maria.svensson@scb.se"";"
+REFPERIOD;True;;content:str=None;Y;;_PxString;;;Text with information on the exact period for the statistics.;
+BASEPERIOD;True;;content:str=None;Y;;_PxString;;;Base period for, for instance index series;
+DATABASE;True;;;;;_PxString;;;The name of the database from where the statistics is retrieved;
+SOURCE;True;;;;;_PxString;;;States the organization which is responsible for the statistics;
+OFFICIAL-STATISTICS;;;;;;_PxBool;;;Indicates if the data table is included in the official statistics of the organization.;
+SURVEY;True;;;;;_PxString;;;Hmm, try, pdf says: Is shown on information screen in PX-web if installation parameter true.;
+LINK;True;;;;;_PxString;;;Not in use?;
+INFOFILE;True;;;;;_PxString;;;Name of a file containing more information for the statistics. Working?;
+INFO;True;;;;;_PxString;;;Not in use;This keyword is read and saved in the PX-file but not shown in PC-axis
+NOTEX;True;;variable:str=None;Y;y;_PxString;;;Mandatory footnote for variable or table if no variable is given;
+NOTE;True;;variable:str=None;Y;y;_PxString;;;non-mandatory footnote for variable or table if no variable is given;
+VALUENOTEX;True;;variable:str,value:str;;y;_PxString;;;Mandatory footnote for value in variable;
+VALUENOTE;True;;variable:str,value:str;;y;_PxString;;;Non-mandatory footnote for value in variable;
+DATANOTE;True;;variable:str,value:str;;y;_PxString;;;;
+CELLNOTEX;True;;values:list[str];;y;_PxString;;;As CELLNOTE but shown mandatory as for NOTEX.;
+CELLNOTE;True;;values:list[str];;y;_PxString;;;Footnote for a single cell or a group of cells. Which cell it refers to is given by values and variables. If a value is given as * the note refers to all values for that variable. Only one value can be given for each variable. T;
+DATASYMBOL1;True;;;;;_PxString;;;Should be in config?;
+DATASYMBOL2;True;;;;;_PxString;;;Should be in config?;
+DATASYMBOL3;True;;;;;_PxString;;;Should be in config?;
+DATASYMBOL4;True;;;;;_PxString;;;Should be in config?;
+DATASYMBOL5;True;;;;;_PxString;;;Should be in config?;
+DATASYMBOL6;True;;;;;_PxString;;;Should be in config?;
+DATASYMBOLNIL;True;;;;;_PxString;;;;
+DATASYMBOLSUM;True;;;;;_PxString;;;;
+DATANOTECELL;True;;values:list[str];;y;_PxString;;;;
+DATANOTESUM;True;;;;;_PxString;;;;
+KEYS;True;;variable:str;;;_PxString;;"regexp_string(""^(CODES|VALUES)$"",";;
+ATTRIBUTE-ID;;C1;;;;_PxStringList;;;Not in normal use. See pdf;This keyword list the identities of all attributes. Indirectly it also specifies the number of attributes. Each attribute id is separate with a comma sign and it is written within quotes. The ATTRIBUTE-ID keyword must be written before the ATTRIBUTES keyword and must exist if the ATTRIBUTES keyword is present. The ATTRIBUTE-ID keyword is multilingual, that is you do not have to specify it for each language
+ATTRIBUTE-TEXT;True;C1;;;;_PxStringList;;;Not in normal use. See pdf;"This keyword specifies a textual representation of the attribute for presentational purpose and it is optional. Each attribute text is separate with a comma sign and written within quotes. The ATTRIBUTE-TEXT keyword must occur after the ATTRIBUTE-ID and it is also language dependent. The order of the texts should be the same as for the order of the ids. Example: ATTRIBUTE-TEXT=""Observation status"",""Observation confidence""; ATTRIBUTE-TEXT[""sv""]=""Status"",""Tillit"";"
+ATTRIBUTES;;C1;values:list[str]=None;Y(må ha en uten, kan ha med;Y;_PxStringList;;;Not in normal use. See pdf;
+VARIABLECODE;True;;variable:str;;;_PxString;;;;
+META-ID;;;variable:str=None, value:str=None;Y;;_PxString;;;The META-ID keyword is used to reference a external meta information about a table, variable or value. Requires a separate file to resolve to urls;
+DATA;;X;;;;_PxData;;;Numbers and quoted dots;
