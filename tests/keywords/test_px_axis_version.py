@@ -14,7 +14,7 @@ def test_AxisVersion_init():
     version = _AxisVersion("AXIS-VERSION")
     assert version._keyword == "AXIS-VERSION"
     assert version.pxvalue_type == "_PxString"
-    assert version.is_language_dependent == False
+    assert version.may_have_language == False
 
 def test_AxisVersion_set_valid():
     version = _AxisVersion("AXIS-VERSION")
