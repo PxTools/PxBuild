@@ -24,7 +24,7 @@ class _PxSingle(_SuperKeyword):
         self._px_value = px_value
 
     def get_value(self) -> _PxInt | _PxString | _PxStringList | _PxBool | _PxData:
-        return self._px_value.get_value()
+        return self._px_value
 
     def __str__(self):
         if self.has_value():
