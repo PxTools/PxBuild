@@ -27,8 +27,9 @@ class _Cellnotex(_PxValueByKey):
             raise type(e)(msg) from e
         self._seen_languages[lang]=1
 
-    def get_value(self, my_key: _KeytypeValuesLangMulti) -> _PxString:
-        return super().get_value(my_key)
+    def get_value(self, values:list[str], lang:str = None) -> str:
+        my_key = _KeytypeValuesLangMulti(values, lang)
+        return super().get_value(my_key).get_value()
 
     def get_used_languages(self) -> list[str]:
        return list(self._seen_languages.keys())

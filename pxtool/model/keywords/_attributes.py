@@ -25,6 +25,7 @@ class _Attributes(_PxValueByKey):
             msg = self._keyword + ":" +str(e)
             raise type(e)(msg) from e
 
-    def get_value(self, my_key: _KeytypeValuesMulti) -> _PxStringList:
-        return super().get_value(my_key)
+    def get_value(self, values:list[str]=None) -> list[str]:
+        my_key = _KeytypeValuesMulti(values)
+        return super().get_value(my_key).get_value()
 

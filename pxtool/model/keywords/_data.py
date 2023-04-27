@@ -17,6 +17,6 @@ class _Data(_PxSingle):
             msg = self._keyword + ":" +str(e)
             raise type(e)(msg) from e
 
-    def get_value(self) -> _PxData:
-        return super().get_value()
+    def get_value(self) -> list:
+        return super().get_value().get_value()
 
