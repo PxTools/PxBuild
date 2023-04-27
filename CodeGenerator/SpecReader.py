@@ -10,6 +10,14 @@ def DictAsCall(inDict:dict) -> str:
     """Returns a dict as string in method call (mystring, myint)"""
     return ', '.join(inDict.keys())
 
+def DictAsReturntype(inDict:dict) -> str:
+    """Returns a dict as string in method call (str, int) or str if there is only one entry """
+    my_out =  ', '.join(inDict.values())
+    if ("," in my_out):
+        my_out = f"({my_out})"
+    return my_out
+
+
 def to_python_case(text):
     return text.replace("-", "_").lower()
 
@@ -32,7 +40,6 @@ def getKeyType(has_lang:bool,subkeys:dict,multi:bool) -> str:
 SpecRow = namedtuple("SpecRow", ['px_keyword', 'is_lang_dependent', 'is_Mandatory', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_comment','from_pdf'] )
 
 #Tja, de er jo python typer alle sammen. Så det er vel typen til parameter i set funksjonen vs den typen som lagres value i super klassen
-#PxTypesByPythonTypes={"list[str]":"_PxStringList","str":"_PxString","bool":"_PxBool","int":"int"}
 to_native_types={"_PxStringList":"list[str]","_PxString":"str","_PxBool":"bool","_PxInt":"int","_PxData":"list"}
 
 #contains list of validation method-stubs for valueTypes. The keyWord and inputvalue is added in generation. 
@@ -169,12 +176,12 @@ class MyKeyword:
 
     def get_value_writer(self, filehandle) -> None:
         if(self.classnames['Super'] == "_PxSingle"):
-            filehandle.write(f"    def get_value(self) -> {self.classnames['Value']}:\n")
-            filehandle.write(f"        return super().get_value()")
+            filehandle.write(f"    def get_value(self) -> {DictAsReturntype(self.valueParams)}:\n")
+            filehandle.write(f"        return super().get_value().get_value()")
         if len(self.keyParams) > 0:
-            filehandle.write(f"    def get_value(self, my_key: {self.classnames['Key']}) -> {self.classnames['Value']}:\n")
-            filehandle.write(f"        return super().get_value(my_key)")
-
+            filehandle.write(f"    def get_value(self, {DictAsSignature(self.keyParams)}) -> {DictAsReturntype(self.valueParams)}:\n")
+            filehandle.write(f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)})\n")
+            filehandle.write(f"        return super().get_value(my_key).get_value()")
         filehandle.write(f"\n\n")
             
     def get_lang_utils_writer(self, filehandle) -> None:
@@ -194,18 +201,23 @@ class MyKeyword:
 
 # ---------------  end of class ----------------------------
 
-# read file
-with open("Keywords.csv", "r",encoding="utf-8-sig") as theSpecCsv:
-    reader = csv.reader(theSpecCsv,delimiter=";" )
-    header = next(reader)
-    print ("De to under bør være like")
-    print("['px_keyword', 'is_lang_dependent', 'is_Mandatory', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_comment', 'from_pdf']")
-    print(header)
-    data = [MyKeyword(SpecRow(*row)) for row in reader] 
+class SpecReader:
+    def __init__(self,) -> None:
+       # read file
+       with open("Keywords.csv", "r",encoding="utf-8-sig") as theSpecCsv:
+         reader = csv.reader(theSpecCsv,delimiter=";" )
+         header = next(reader)
+         print ("De to under bør være like")
+         print("['px_keyword', 'is_lang_dependent', 'is_Mandatory', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_comment', 'from_pdf']")
+         print(header)
+         self.data = [MyKeyword(SpecRow(*row)) for row in reader] 
 
+# ---------------  end of class ----------------------------
+
+my_spec_reader = SpecReader()
 
 # make <Keyword classes>.py
-for kw in data:
+for kw in my_spec_reader.data:
     with open("../pxtool/model/keywords/"+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
         kw.imports_writer(classPy)
         kw.class_and_init_writer(classPy)
@@ -219,7 +231,7 @@ for kw in data:
 mandatory_keys = []
 langdependent_keys = []
 keyword_pythonic_map = {}
-for kw in data:    
+for kw in my_spec_reader.data:    
     keyword_pythonic_map[kw.keyword] = to_python_case(kw.keyword)
     if(kw.is_mandatory):
         mandatory_keys.append(to_python_case(kw.keyword))
@@ -236,7 +248,7 @@ with open("../pxtool/model/util/constants.py", "wt",encoding="utf-8-sig", newlin
 myDict= {}
 the_imports=[]
 the_attributes = []
-for kw in data:
+for kw in my_spec_reader.data:
     the_imports.append(f"from pxtool.model.keywords.{kw.module_name} import {kw.classnames['This']}")
     if kw.keyword == "DATA":
         the_attributes.append("self.unknown_keywords = \"\"")
@@ -267,6 +279,10 @@ with open("../pxtool/model/px_file_model.py", "wt",encoding="utf-8-sig", newline
   model_py.write("    def get_attribute(self, name:str) -> _SuperKeyword:\n")
   model_py.write("        return getattr(self, name)\n")
 
+
+
+
+######################################################################################
 
 print("Done")
 
