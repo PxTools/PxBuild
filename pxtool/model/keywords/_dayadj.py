@@ -23,8 +23,9 @@ class _Dayadj(_PxValueByKey):
             raise type(e)(msg) from e
         self._seen_languages[lang]=1
 
-    def get_value(self, my_key: _KeytypeContentLang) -> _PxBool:
-        return super().get_value(my_key)
+    def get_value(self, content:str=None, lang:str = None) -> bool:
+        my_key = _KeytypeContentLang(content, lang)
+        return super().get_value(my_key).get_value()
 
     def get_used_languages(self) -> list[str]:
        return list(self._seen_languages.keys())

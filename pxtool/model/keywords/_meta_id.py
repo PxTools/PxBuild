@@ -21,6 +21,7 @@ class _MetaId(_PxValueByKey):
             msg = self._keyword + ":" +str(e)
             raise type(e)(msg) from e
 
-    def get_value(self, my_key: _KeytypeVariableValue) -> _PxString:
-        return super().get_value(my_key)
+    def get_value(self, variable:str=None, value:str=None) -> str:
+        my_key = _KeytypeVariableValue(variable, value)
+        return super().get_value(my_key).get_value()
 

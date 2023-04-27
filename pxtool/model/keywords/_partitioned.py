@@ -27,8 +27,9 @@ class _Partitioned(_PxValueByKey):
             raise type(e)(msg) from e
         self._seen_languages[lang]=1
 
-    def get_value(self, my_key: _KeytypeVariableLangMulti) -> _PxStringList:
-        return super().get_value(my_key)
+    def get_value(self, variable:str, lang:str = None) -> list[str]:
+        my_key = _KeytypeVariableLangMulti(variable, lang)
+        return super().get_value(my_key).get_value()
 
     def get_used_languages(self) -> list[str]:
        return list(self._seen_languages.keys())

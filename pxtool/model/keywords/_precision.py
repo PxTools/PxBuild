@@ -24,8 +24,9 @@ class _Precision(_PxValueByKey):
             raise type(e)(msg) from e
         self._seen_languages[lang]=1
 
-    def get_value(self, my_key: _KeytypeVariableValueLang) -> _PxInt:
-        return super().get_value(my_key)
+    def get_value(self, variable:str, value:str, lang:str = None) -> int:
+        my_key = _KeytypeVariableValueLang(variable, value, lang)
+        return super().get_value(my_key).get_value()
 
     def get_used_languages(self) -> list[str]:
        return list(self._seen_languages.keys())
