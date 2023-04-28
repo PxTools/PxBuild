@@ -225,11 +225,11 @@ class _KeytypeValuesMulti():
     
     def __eq__(self, other):
         if isinstance(other, _KeytypeValuesMulti):
-            return self._joined == other._joined and self.lang == other.lang and self.counter == other.counter
+            return self._joined == other._joined and self.counter == other.counter
         return False
 
     def __hash__(self):
-        return hash((self._joined, self.lang, self.counter))  
+        return hash((self._joined, self.counter))  
 
 
 
