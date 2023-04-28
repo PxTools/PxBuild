@@ -28,7 +28,8 @@ class _Valuenote(_PxValueByKey):
         self._seen_languages[lang]=1
 
     def get_value(self, variable:str, value:str, lang:str = None) -> str:
-        my_key = _KeytypeVariableValueLangMulti(variable, value, lang)
+        #TODO how should this function? Any usecases?
+        my_key = _KeytypeVariableValueLangMulti(variable, value, lang,1)
         return super().get_value(my_key).get_value()
 
     def get_used_languages(self) -> list[str]:

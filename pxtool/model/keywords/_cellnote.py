@@ -28,7 +28,8 @@ class _Cellnote(_PxValueByKey):
         self._seen_languages[lang]=1
 
     def get_value(self, values:list[str], lang:str = None) -> str:
-        my_key = _KeytypeValuesLangMulti(values, lang)
+        #TODO how should this function? Any usecases?
+        my_key = _KeytypeValuesLangMulti(values, lang,1)
         return super().get_value(my_key).get_value()
 
     def get_used_languages(self) -> list[str]:

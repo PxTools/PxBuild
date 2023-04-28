@@ -26,6 +26,7 @@ class _Attributes(_PxValueByKey):
             raise type(e)(msg) from e
 
     def get_value(self, values:list[str]=None) -> list[str]:
-        my_key = _KeytypeValuesMulti(values)
+        #TODO how should this function? Any usecases?
+        my_key = _KeytypeValuesMulti(values,1)
         return super().get_value(my_key).get_value()
 

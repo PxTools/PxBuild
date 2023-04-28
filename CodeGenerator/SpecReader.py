@@ -180,7 +180,11 @@ class MyKeyword:
             filehandle.write(f"        return super().get_value().get_value()")
         if len(self.keyParams) > 0:
             filehandle.write(f"    def get_value(self, {DictAsSignature(self.keyParams)}) -> {DictAsReturntype(self.valueParams)}:\n")
-            filehandle.write(f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)})\n")
+            if kw.is_duplicate_keypart_allowed:
+                filehandle.write(f"        #TODO how should this function? Any usecases?\n")
+                filehandle.write(f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)},1)\n")
+            else:
+                filehandle.write(f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)})\n")
             filehandle.write(f"        return super().get_value(my_key).get_value()")
         filehandle.write(f"\n\n")
             
