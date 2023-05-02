@@ -20,3 +20,12 @@ def test_Partitioned_reset_language():
     assert not None in obj.get_used_languages()
     assert "no" in obj.get_used_languages()  
 
+    
+def test_Partitioned_hack_multi_duplicate_set_raises():
+    obj = _Partitioned()
+    obj.set(["a string"],"region","no")
+    #reseting counter to create error
+    obj.occurence_counter=0
+    with pytest.raises(Exception) as err_mess:
+        obj.set(["a string"],"region","no")
+    assert str(err_mess.value).startswith("PARTITIONED:")

@@ -43,6 +43,13 @@ def test{my_class}_set_invalid_raises():
        obj.set({bad_value})
 """
 
+set_invalid_with_keypart_fstring="""    
+def test{my_class}_set_invalid_raises():
+    obj = {my_class}()
+    with pytest.raises(Exception):
+       obj.set({bad_value},{keypart})  
+"""
+
 duplicate_set_fstring="""    
 def test{my_class}_duplicate_set_raises():
     obj = {my_class}()
@@ -132,7 +139,8 @@ def test_lang_stringlist_writer(kw, filehandle) -> None:
     
     if(not kw.is_duplicate_keypart_allowed):
         filehandle.write(duplicate_set_with_keypart_fstring.format(**locals()))
-
+    else:
+        filehandle.write(hack_forcing_error_multi_with_keypart_fstring.format(**locals()))
 
 #####
 
@@ -205,6 +213,24 @@ def test_lang_bool_writer(kw, filehandle) -> None:
 
 ####
 
+def test_with_keypart_int_writer(kw, filehandle) -> None:
+    my_class = kw.classnames['This']
+
+    good_value= 1
+    keypart= get_keypart(kw.subkeys_raw.strip())
+    keypart_no_lang = get_keypart_no_lang(kw.subkeys_raw.strip())
+
+    filehandle.write(intro_fstring.format(**locals()))
+    filehandle.write(set_valid_with_keypart_fstring.format(**locals()))
+    if('in_range' in "".join(kw.linevalidate)):
+        bad_value=666
+        filehandle.write(set_invalid_fstring.format(**locals()))
+
+    filehandle.write(language_management_with_keypart_fstring.format(**locals()))
+
+    if(not kw.is_duplicate_keypart_allowed):
+        filehandle.write(duplicate_set_with_keypart_fstring.format(**locals()))
+
 def test_scalar_int_writer(kw, filehandle) -> None:
     my_class = kw.classnames['This']
 
@@ -217,7 +243,7 @@ def test_scalar_int_writer(kw, filehandle) -> None:
         filehandle.write(set_invalid_fstring.format(**locals()))
 
     if(not kw.is_duplicate_keypart_allowed):
-        filehandle.write(duplicate_set_fstring.format(**locals()))
+        filehandle.write(duplicate_set_fstring.format(**locals()))        
 
 ###################################################################################
 
@@ -225,7 +251,7 @@ my_spec= SpecReader()
 
 # make test_<Keyword classes>.py
 for kw in my_spec.data:
-    if kw.keyword in ["DATA","ATTRIBUTES"]:
+    if kw.keyword in ["DATA","TIMEVAL","ATTRIBUTES","HIERARCHYLEVELSOPEN","HIERARCHYLEVELS","HIERARCHIES","META-ID"]:
        print(f"Skipping {kw.keyword}.")
        continue
 
@@ -255,6 +281,9 @@ for kw in my_spec.data:
         elif(kw.px_valuetype == "_PxBool"):
             with open("../tests/keywords/test"+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
                test_lang_bool_writer(kw,classPy)
+        elif(kw.px_valuetype == "_PxInt"):
+            with open("../tests/keywords/test"+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
+               test_with_keypart_int_writer(kw,classPy)
         elif(kw.px_valuetype == "_PxStringList"):
             with open("../tests/keywords/test"+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
                test_lang_stringlist_writer(kw,classPy)                   
