@@ -9,6 +9,8 @@ class _Infofile(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("INFOFILE")
 
     def set(self, infofile:str, lang:str = None) -> None:
         """ Name of a file containing more information for the statistics. Working? """

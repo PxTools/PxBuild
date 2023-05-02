@@ -9,6 +9,8 @@ class _Precision(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("PRECISION")
 
     def set(self, precision:int, variable:str, value:str, lang:str = None) -> None:
         """ Determines that the value shall be presented with a number of decimals that differs from the keyword SHOWDECIMALS """

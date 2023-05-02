@@ -7,6 +7,8 @@ class _DirectoryPath(_PxSingle):
     pxvalue_type:str = "_PxString"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("DIRECTORY-PATH")
 
     def set(self, directory_path:str) -> None:
         """ Not in use """

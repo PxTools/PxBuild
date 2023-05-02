@@ -9,6 +9,8 @@ class _Contvariable(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("CONTVARIABLE")
 
     def set(self, contvariable:str, lang:str = None) -> None:
         """ which variable is the content variable """

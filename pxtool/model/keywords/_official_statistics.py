@@ -7,6 +7,8 @@ class _OfficialStatistics(_PxSingle):
     pxvalue_type:str = "_PxBool"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("OFFICIAL-STATISTICS")
 
     def set(self, official_statistics:bool) -> None:
         """ Indicates if the data table is included in the official statistics of the organization. """

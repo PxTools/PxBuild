@@ -8,6 +8,8 @@ class _MetaId(_PxValueByKey):
     pxvalue_type:str = "_PxString"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("META-ID")
 
     def set(self, meta_id:str, variable:str=None, value:str=None) -> None:
         """ The META-ID keyword is used to reference a external meta information about a table, variable or value. Requires a separate file to resolve to urls """

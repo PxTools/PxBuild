@@ -9,6 +9,8 @@ class _Contact(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("CONTACT")
 
     def set(self, contact:str, content:str=None, lang:str = None) -> None:
         """ Is written in the form name, organization, telephone, fax, e-mail. Several persons can be stated in the same text string and are then divided by the #-sign """

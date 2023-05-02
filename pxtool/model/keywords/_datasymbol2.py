@@ -9,6 +9,8 @@ class _Datasymbol2(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("DATASYMBOL2")
 
     def set(self, datasymbol2:str, lang:str = None) -> None:
         """ Should be in config? """

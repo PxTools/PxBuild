@@ -9,6 +9,8 @@ class _Refperiod(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("REFPERIOD")
 
     def set(self, refperiod:str, content:str=None, lang:str = None) -> None:
         """ Text with information on the exact period for the statistics. """

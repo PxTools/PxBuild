@@ -9,6 +9,8 @@ class _Hierarchies(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("HIERARCHIES")
 
     def set(self, root_node:str, mother_child:dict[str,str], variable:str, lang:str = None) -> None:
         """ Not in normal use. See pdf """

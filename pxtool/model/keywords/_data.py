@@ -7,6 +7,8 @@ class _Data(_PxSingle):
     pxvalue_type:str = "_PxData"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("DATA")
 
     def set(self, data:list) -> None:
         """ Numbers and quoted dots """

@@ -9,6 +9,8 @@ class _Hierarchylevels(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("HIERARCHYLEVELS")
 
     def set(self, hierarchylevels:int, variable:str, lang:str = None) -> None:
         """ Not in normal use. See pdf """

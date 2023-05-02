@@ -7,6 +7,8 @@ class _Languages(_PxSingle):
     pxvalue_type:str = "_PxStringList"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("LANGUAGES")
 
     def set(self, languages:list[str]) -> None:
         """ List of Language-codes used in file. """

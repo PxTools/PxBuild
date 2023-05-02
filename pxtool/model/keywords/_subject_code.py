@@ -7,6 +7,8 @@ class _SubjectCode(_PxSingle):
     pxvalue_type:str = "_PxString"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("SUBJECT-CODE")
 
     def set(self, subject_code:str) -> None:
         """ Subject area code. It is used to create files with tables available in PC-Axis. The text must not exceed 20 characters  """

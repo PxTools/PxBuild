@@ -9,6 +9,8 @@ class _LastUpdated(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("LAST-UPDATED")
 
     def set(self, last_updated:str, content:str=None, lang:str = None) -> None:
         """ latest update  in pxdate format """

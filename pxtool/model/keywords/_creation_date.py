@@ -7,6 +7,8 @@ class _CreationDate(_PxSingle):
     pxvalue_type:str = "_PxString"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("CREATION-DATE")
 
     def set(self, creation_date:str) -> None:
         """ Date in 'Px Format' """

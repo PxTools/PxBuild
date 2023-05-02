@@ -9,6 +9,8 @@ class _Info(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("INFO")
 
     def set(self, info:str, lang:str = None) -> None:
         """ Not in use """

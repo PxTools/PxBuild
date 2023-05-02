@@ -7,6 +7,8 @@ class _AttributeId(_PxSingle):
     pxvalue_type:str = "_PxStringList"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("ATTRIBUTE-ID")
 
     def set(self, attribute_id:list[str]) -> None:
         """ Not in normal use. See pdf """

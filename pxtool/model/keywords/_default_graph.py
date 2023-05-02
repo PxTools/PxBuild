@@ -7,6 +7,8 @@ class _DefaultGraph(_PxSingle):
     pxvalue_type:str = "_PxInt"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("DEFAULT-GRAPH")
 
     def set(self, default_graph:int) -> None:
         """ Not in use """

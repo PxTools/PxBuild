@@ -7,6 +7,8 @@ class _Copyright(_PxSingle):
     pxvalue_type:str = "_PxBool"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("COPYRIGHT")
 
     def set(self, copyright:bool) -> None:
         """ If true the copyright refers to the organization given in SOURCE """

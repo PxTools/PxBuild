@@ -7,6 +7,8 @@ class _Synonyms(_PxSingle):
     pxvalue_type:str = "_PxStringList"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("SYNONYMS")
 
     def set(self, synonyms:list[str]) -> None:
         """ In use? """

@@ -9,6 +9,8 @@ class _Map(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("MAP")
 
     def set(self, map:str, variable:str, lang:str = None) -> None:
         """ Used for a geographic variable for which maps can be made. Example: "Sweden_municipality". """

@@ -9,6 +9,8 @@ class _VariableType(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("VARIABLE-TYPE")
 
     def set(self, variable_type:str, variable:str, lang:str = None) -> None:
         """ Currently free-text. Suggestion: T for Time, G for Geo, C for Content  """
