@@ -92,15 +92,13 @@ class Loader:
         foundSubkey = False
 
         for item in items:
-           
            item.trimWhitespace()
-
            if item.hasSubkeyStart():
                stringBefore, stringAfter = item.get_before_and_after('(')
                if stringBefore:
                       itemsBeforeSubkey.append(UnQuotedItem(stringBefore))
                if stringAfter: 
-                   raise Exception(f"Hmm, there is something :{stringAfter} between ( and \") in keypart.")
+                   raise Exception(f"Hmm, there is something:{stringAfter} between ( and first \" in keypart.")
                foundSubkey = True
            else:
                if foundSubkey:
@@ -114,12 +112,12 @@ class Loader:
         #first item will be UnQuoted and will contain the "[" if language is present in the keypart.
         keyword=""
         langValue=""
-        if itemsBeforeSubkey[0].isTypeQuoted(): 
-            raise Exception(f"Hmm, expected UnquotedItem")
+        if itemsBeforeSubkey[0].isTypeQuoted() or itemsBeforeSubkey[0].string =='' : 
+            raise Exception(f"Hmm, expected non-empty UnquotedItem.")
         else:
             if"[" in itemsBeforeSubkey[0].string:
                 keyword, stringAfter = itemsBeforeSubkey[0].get_before_and_after('[')
-                if "]" in stringAfter:  #stringAfter must be en]
+                if "]" in stringAfter:  #stringAfter must be: en]
                     langValue = "\"\"\"" + stringAfter[:2] + "\"\"\""
                 else:
                     langValue = itemsBeforeSubkey[1].string
@@ -163,7 +161,7 @@ class Loader:
             outValue=items[0].string
         elif myAttri.pxvalue_type == "_PxBool":
             if len(items) != 1:
-                raise ValueError(f"Value for keypart {keypart}: Excepting unsingle quoted string YES or NO, but items has not len = 1")
+                raise ValueError(f"Value for keypart {keypart}: Excepting single unquoted string YES or NO, but items has not len = 1")
             outValue="True"
             if items[0].string not in ["YES","NO"]:
                 raise ValueError(f"Value for keypart {keypart}: Boolean values must be YES or NO, not:{items[0].string}")
@@ -181,7 +179,7 @@ class Loader:
             print("Stringlist")
             if Loader.isEven(len(items)):
                 raise ValueError(f"Bad list")
-            if not items[0].isTypeQuoted:
+            if not items[0].isTypeQuoted():
                 raise ValueError(f"Value for keypart {keypart}: List must start with quoted string")
             
             myStrings=[]
@@ -207,7 +205,7 @@ class Loader:
             outValue=f"\"{timescale}\", "
 
             if len(items) > 2 and items[1].string.strip() == "-":
-                 outValue = outValue + f"{items[0].string} ,\"-\", {items[2].string}"
+                 outValue = outValue + f"{items[0].string} \"-\" {items[2].string}"
             else:
                 outValue = outValue + "["
                 for item in items:

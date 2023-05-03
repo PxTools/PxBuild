@@ -1,0 +1,5 @@
+SUBJECT-AREA["sv"]="khi";
+AGGREGALLOWED=NO;
+UNKNOWN1="This keyword is unknown.";
+TIMEVAL("time")=TLIST(A1, "1994"-"1996");
+UNKNOWN2="So is this";
