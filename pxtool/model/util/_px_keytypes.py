@@ -81,7 +81,7 @@ class _KeytypeContentLang(_KeytypeLang):
         return hash((self.content, self.lang))  
 
     def to_str_message(self) -> str:
-         return  f"for language '{self.lang}' and variable '{self.variable}'"
+         return  f"for language '{self.lang}' and content '{self.content}'"
     
     def reset_lang_none_to(self, lang:str):
         if self.lang: 

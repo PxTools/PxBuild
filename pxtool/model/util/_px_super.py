@@ -9,7 +9,7 @@ class _SuperKeyword(ABC):
         self._keyword = keyword
 
     @abstractmethod
-    def has_value(self) -> bool:
+    def has_value(self) -> bool: # pragma: no cover
         pass
 
 class _PxSingle(_SuperKeyword):

@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.util._px_super import _PxSingle, _PxValueByKey
+from pxtool.model.util._px_super import _PxSingle, _PxValueByKey,_SuperKeyword
 from pxtool.model.util._px_valuetype import _PxString
 from pxtool.model.util._px_keytypes import _KeytypeLang
 
@@ -20,6 +20,20 @@ def test_super():
     actB = objB.get_value(my_key)
     assert  actB == my_px_str
 
+    lengthB = len(objB)
+
+def test_reset_language_none_to_raises():
+        my_key_no = _KeytypeLang("no")
+        my_key_none = _KeytypeLang(None)
+        a_value = "string"
+
+        objB = _PxValueByKey("MYKEYWORD")
+
+        objB.set(a_value,my_key_none)
+        objB.set(a_value,my_key_no)
+
+        with pytest.raises(ValueError, match="Duplicate key for MYKEYWORD "):
+           objB.reset_language_none_to("no")
 
 
 
