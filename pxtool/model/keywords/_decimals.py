@@ -7,6 +7,8 @@ class _Decimals(_PxSingle):
     pxvalue_type:str = "_PxInt"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("DECIMALS")
 
     def set(self, decimals:int) -> None:
         """ Number of desimals in stored data. """

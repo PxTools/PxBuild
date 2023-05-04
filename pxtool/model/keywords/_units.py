@@ -9,6 +9,8 @@ class _Units(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("UNITS")
 
     def set(self, units:str, content:str=None, lang:str = None) -> None:
         """ Unit text, e.g. ton, NOK """

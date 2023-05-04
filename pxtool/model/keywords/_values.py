@@ -9,6 +9,8 @@ class _Values(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("VALUES")
 
     def set(self, values:list[str], variable:str, lang:str = None) -> None:
         """ Labels of the values for the variable. """

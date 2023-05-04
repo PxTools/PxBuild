@@ -9,6 +9,8 @@ class _Elimination(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("ELIMINATION")
 
     def set(self, elimination:str, variable:str, lang:str = None) -> None:
         """ bool eller string """

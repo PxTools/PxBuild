@@ -9,6 +9,8 @@ class _SubjectArea(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("SUBJECT-AREA")
 
     def set(self, subject_area:str, lang:str = None) -> None:
         """ Text  for Subject area code """

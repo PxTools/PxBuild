@@ -7,6 +7,8 @@ class _Showdecimals(_PxSingle):
     pxvalue_type:str = "_PxInt"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("SHOWDECIMALS")
 
     def set(self, showdecimals:int) -> None:
         """ Number of desimals to display. May be overridden by Precision """

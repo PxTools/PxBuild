@@ -7,6 +7,8 @@ class _Descriptiondefault(_PxSingle):
     pxvalue_type:str = "_PxBool"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("DESCRIPTIONDEFAULT")
 
     def set(self, descriptiondefault:bool) -> None:
         """ Not in normal use. """

@@ -9,6 +9,8 @@ class _Dayadj(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("DAYADJ")
 
     def set(self, dayadj:bool, content:str=None, lang:str = None) -> None:
         """ data is adjusted e.g. to take into account the number of working days """

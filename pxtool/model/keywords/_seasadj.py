@@ -9,6 +9,8 @@ class _Seasadj(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("SEASADJ")
 
     def set(self, seasadj:bool, content:str=None, lang:str = None) -> None:
         """ Is  the data seasonally adjusted """

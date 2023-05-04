@@ -9,8 +9,8 @@ class _Note(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
-    def __init__(self, keyword:str) -> None:
-        super().__init__(keyword)
+    def __init__(self) -> None:
+        super().__init__("NOTE")
         self.occurence_counter = 0
 
     def set(self, note:str, variable:str=None, lang:str = None) -> None:

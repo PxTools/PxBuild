@@ -9,6 +9,8 @@ class _Datasymbolsum(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("DATASYMBOLSUM")
 
     def set(self, datasymbolsum:str, lang:str = None) -> None:
         """  """

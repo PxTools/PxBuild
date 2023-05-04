@@ -93,178 +93,178 @@ class PXFileModel:
     """
 
     def __init__(self) -> None:
-        self.charset = _Charset("CHARSET")
+        self.charset = _Charset()
         """Not in use"""
-        self.axis_version = _AxisVersion("AXIS-VERSION")
+        self.axis_version = _AxisVersion()
         """Not in use. Version number for PC-Axis """
-        self.codepage = _Codepage("CODEPAGE")
+        self.codepage = _Codepage()
         """Not in use"""
-        self.language = _Language("LANGUAGE")
+        self.language = _Language()
         """Language-code with 2 letters,sv for Swedish, en for English etc. Default language"""
-        self.languages = _Languages("LANGUAGES")
+        self.languages = _Languages()
         """List of Language-codes used in file."""
-        self.creation_date = _CreationDate("CREATION-DATE")
+        self.creation_date = _CreationDate()
         """Date in 'Px Format'"""
-        self.first_published = _FirstPublished("FIRST-PUBLISHED")
+        self.first_published = _FirstPublished()
         """In use?"""
-        self.next_update = _NextUpdate("NEXT-UPDATE")
+        self.next_update = _NextUpdate()
         """Not in use. Date in 'Px  format'"""
-        self.px_server = _PxServer("PX-SERVER")
+        self.px_server = _PxServer()
         """Not in use"""
-        self.directory_path = _DirectoryPath("DIRECTORY-PATH")
+        self.directory_path = _DirectoryPath()
         """Not in use"""
-        self.update_frequency = _UpdateFrequency("UPDATE-FREQUENCY")
+        self.update_frequency = _UpdateFrequency()
         """Not in use"""
-        self.tableid = _Tableid("TABLEID")
+        self.tableid = _Tableid()
         """Id of table"""
-        self.synonyms = _Synonyms("SYNONYMS")
+        self.synonyms = _Synonyms()
         """In use?"""
-        self.default_graph = _DefaultGraph("DEFAULT-GRAPH")
+        self.default_graph = _DefaultGraph()
         """Not in use"""
-        self.decimals = _Decimals("DECIMALS")
+        self.decimals = _Decimals()
         """Number of desimals in stored data."""
-        self.showdecimals = _Showdecimals("SHOWDECIMALS")
+        self.showdecimals = _Showdecimals()
         """Number of desimals to display. May be overridden by Precision"""
-        self.rounding = _Rounding("ROUNDING")
+        self.rounding = _Rounding()
         """Not in normal use"""
-        self.matrix = _Matrix("MATRIX")
+        self.matrix = _Matrix()
         """The name of the matrix. Is suggested as file name when the file is fetched."""
-        self.aggregallowed = _Aggregallowed("AGGREGALLOWED")
+        self.aggregallowed = _Aggregallowed()
         """False if the contents of the table cannot be aggregated"""
-        self.autopen = _Autopen("AUTOPEN")
+        self.autopen = _Autopen()
         """Not is use."""
-        self.subject_code = _SubjectCode("SUBJECT-CODE")
+        self.subject_code = _SubjectCode()
         """Subject area code. It is used to create files with tables available in PC-Axis. The text must not exceed 20 characters """
-        self.subject_area = _SubjectArea("SUBJECT-AREA")
+        self.subject_area = _SubjectArea()
         """Text  for Subject area code"""
-        self.confidential = _Confidential("CONFIDENTIAL")
+        self.confidential = _Confidential()
         """Not in use.  """
-        self.copyright = _Copyright("COPYRIGHT")
+        self.copyright = _Copyright()
         """If true the copyright refers to the organization given in SOURCE"""
-        self.description = _Description("DESCRIPTION")
+        self.description = _Description()
         """Use title instead?"""
-        self.title = _Title("TITLE")
+        self.title = _Title()
         """The title of the table, reflecting its contents and variables"""
-        self.descriptiondefault = _Descriptiondefault("DESCRIPTIONDEFAULT")
+        self.descriptiondefault = _Descriptiondefault()
         """Not in normal use."""
-        self.contvariable = _Contvariable("CONTVARIABLE")
+        self.contvariable = _Contvariable()
         """which variable is the content variable"""
-        self.contents = _Contents("CONTENTS")
+        self.contents = _Contents()
         """Sort of a base title?"""
-        self.units = _Units("UNITS")
+        self.units = _Units()
         """Unit text, e.g. ton, NOK"""
-        self.stub = _Stub("STUB")
+        self.stub = _Stub()
         """Variables in stub"""
-        self.heading = _Heading("HEADING")
+        self.heading = _Heading()
         """Variables in heading"""
-        self.values = _Values("VALUES")
+        self.values = _Values()
         """Labels of the values for the variable."""
-        self.timeval = _Timeval("TIMEVAL")
+        self.timeval = _Timeval()
         """See pdf. TLIST(A1, ”1994”-”1996”);  eller TLIST(A1), ”1994”, ”1995”,"1996”; """
-        self.codes = _Codes("CODES")
+        self.codes = _Codes()
         """Codes of the values for the variable."""
-        self.doublecolumn = _Doublecolumn("DOUBLECOLUMN")
+        self.doublecolumn = _Doublecolumn()
         """This keyword is used to get code and text in separate columns for the specified variable """
-        self.prestext = _Prestext("PRESTEXT")
+        self.prestext = _Prestext()
         """0 - Display only the value code. 1 - Display only the value text. 2 - Display first the code then the value text. 3 - Display first the value text then the value code."""
-        self.domain = _Domain("DOMAIN")
+        self.domain = _Domain()
         """Can occur once for each variable. Is used to determine which value sets are of interest, and thus which aggregation lists can be used. """
-        self.variable_type = _VariableType("VARIABLE-TYPE")
+        self.variable_type = _VariableType()
         """Currently free-text. Suggestion: T for Time, G for Geo, C for Content """
-        self.hierarchies = _Hierarchies("HIERARCHIES")
+        self.hierarchies = _Hierarchies()
         """Not in normal use. See pdf"""
-        self.hierarchylevels = _Hierarchylevels("HIERARCHYLEVELS")
+        self.hierarchylevels = _Hierarchylevels()
         """Not in normal use. See pdf"""
-        self.hierarchylevelsopen = _Hierarchylevelsopen("HIERARCHYLEVELSOPEN")
+        self.hierarchylevelsopen = _Hierarchylevelsopen()
         """Not in normal use. See pdf"""
-        self.hierarchynames = _Hierarchynames("HIERARCHYNAMES")
+        self.hierarchynames = _Hierarchynames()
         """Not in normal use. See pdf"""
-        self.map = _Map("MAP")
+        self.map = _Map()
         """Used for a geographic variable for which maps can be made. Example: "Sweden_municipality"."""
-        self.partitioned = _Partitioned("PARTITIONED")
+        self.partitioned = _Partitioned()
         """string , int (,int) , see pdf"""
-        self.elimination = _Elimination("ELIMINATION")
+        self.elimination = _Elimination()
         """bool eller string"""
-        self.precision = _Precision("PRECISION")
+        self.precision = _Precision()
         """Determines that the value shall be presented with a number of decimals that differs from the keyword SHOWDECIMALS"""
-        self.last_updated = _LastUpdated("LAST-UPDATED")
+        self.last_updated = _LastUpdated()
         """latest update  in pxdate format"""
-        self.stockfa = _Stockfa("STOCKFA")
+        self.stockfa = _Stockfa()
         """Indicates if data is stock, flow or average.  Used characters: S (stock), F (flow) and A (average) """
-        self.cfprices = _Cfprices("CFPRICES")
+        self.cfprices = _Cfprices()
         """Indicates if data is in current or fixed prices. C is used for Current and F for Fixed prices"""
-        self.dayadj = _Dayadj("DAYADJ")
+        self.dayadj = _Dayadj()
         """data is adjusted e.g. to take into account the number of working days"""
-        self.seasadj = _Seasadj("SEASADJ")
+        self.seasadj = _Seasadj()
         """Is  the data seasonally adjusted"""
-        self.contact = _Contact("CONTACT")
+        self.contact = _Contact()
         """Is written in the form name, organization, telephone, fax, e-mail. Several persons can be stated in the same text string and are then divided by the #-sign"""
-        self.refperiod = _Refperiod("REFPERIOD")
+        self.refperiod = _Refperiod()
         """Text with information on the exact period for the statistics."""
-        self.baseperiod = _Baseperiod("BASEPERIOD")
+        self.baseperiod = _Baseperiod()
         """Base period for, for instance index series"""
-        self.database = _Database("DATABASE")
+        self.database = _Database()
         """The name of the database from where the statistics is retrieved"""
-        self.source = _Source("SOURCE")
+        self.source = _Source()
         """States the organization which is responsible for the statistics"""
-        self.official_statistics = _OfficialStatistics("OFFICIAL-STATISTICS")
+        self.official_statistics = _OfficialStatistics()
         """Indicates if the data table is included in the official statistics of the organization."""
-        self.survey = _Survey("SURVEY")
+        self.survey = _Survey()
         """Hmm, try, pdf says: Is shown on information screen in PX-web if installation parameter true."""
-        self.link = _Link("LINK")
+        self.link = _Link()
         """Not in use?"""
-        self.infofile = _Infofile("INFOFILE")
+        self.infofile = _Infofile()
         """Name of a file containing more information for the statistics. Working?"""
-        self.info = _Info("INFO")
+        self.info = _Info()
         """Not in use"""
-        self.notex = _Notex("NOTEX")
+        self.notex = _Notex()
         """Mandatory footnote for variable or table if no variable is given"""
-        self.note = _Note("NOTE")
+        self.note = _Note()
         """non-mandatory footnote for variable or table if no variable is given"""
-        self.valuenotex = _Valuenotex("VALUENOTEX")
+        self.valuenotex = _Valuenotex()
         """Mandatory footnote for value in variable"""
-        self.valuenote = _Valuenote("VALUENOTE")
+        self.valuenote = _Valuenote()
         """Non-mandatory footnote for value in variable"""
-        self.datanote = _Datanote("DATANOTE")
+        self.datanote = _Datanote()
         """"""
-        self.cellnotex = _Cellnotex("CELLNOTEX")
+        self.cellnotex = _Cellnotex()
         """As CELLNOTE but shown mandatory as for NOTEX."""
-        self.cellnote = _Cellnote("CELLNOTE")
+        self.cellnote = _Cellnote()
         """Footnote for a single cell or a group of cells. Which cell it refers to is given by values and variables. If a value is given as * the note refers to all values for that variable. Only one value can be given for each variable. T"""
-        self.datasymbol1 = _Datasymbol1("DATASYMBOL1")
+        self.datasymbol1 = _Datasymbol1()
         """Should be in config?"""
-        self.datasymbol2 = _Datasymbol2("DATASYMBOL2")
+        self.datasymbol2 = _Datasymbol2()
         """Should be in config?"""
-        self.datasymbol3 = _Datasymbol3("DATASYMBOL3")
+        self.datasymbol3 = _Datasymbol3()
         """Should be in config?"""
-        self.datasymbol4 = _Datasymbol4("DATASYMBOL4")
+        self.datasymbol4 = _Datasymbol4()
         """Should be in config?"""
-        self.datasymbol5 = _Datasymbol5("DATASYMBOL5")
+        self.datasymbol5 = _Datasymbol5()
         """Should be in config?"""
-        self.datasymbol6 = _Datasymbol6("DATASYMBOL6")
+        self.datasymbol6 = _Datasymbol6()
         """Should be in config?"""
-        self.datasymbolnil = _Datasymbolnil("DATASYMBOLNIL")
+        self.datasymbolnil = _Datasymbolnil()
         """"""
-        self.datasymbolsum = _Datasymbolsum("DATASYMBOLSUM")
+        self.datasymbolsum = _Datasymbolsum()
         """"""
-        self.datanotecell = _Datanotecell("DATANOTECELL")
+        self.datanotecell = _Datanotecell()
         """"""
-        self.datanotesum = _Datanotesum("DATANOTESUM")
+        self.datanotesum = _Datanotesum()
         """"""
-        self.keys = _Keys("KEYS")
+        self.keys = _Keys()
         """"""
-        self.attribute_id = _AttributeId("ATTRIBUTE-ID")
+        self.attribute_id = _AttributeId()
         """Not in normal use. See pdf"""
-        self.attribute_text = _AttributeText("ATTRIBUTE-TEXT")
+        self.attribute_text = _AttributeText()
         """Not in normal use. See pdf"""
-        self.attributes = _Attributes("ATTRIBUTES")
+        self.attributes = _Attributes()
         """Not in normal use. See pdf"""
-        self.variablecode = _Variablecode("VARIABLECODE")
+        self.variablecode = _Variablecode()
         """"""
-        self.meta_id = _MetaId("META-ID")
+        self.meta_id = _MetaId()
         """The META-ID keyword is used to reference a external meta information about a table, variable or value. Requires a separate file to resolve to urls"""
         self.unknown_keywords = ""
-        self.data = _Data("DATA")
+        self.data = _Data()
         """Numbers and quoted dots"""
 
     def __str__(self):

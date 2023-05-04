@@ -9,6 +9,8 @@ class _Doublecolumn(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("DOUBLECOLUMN")
 
     def set(self, doublecolumn:bool, variable:str, lang:str = None) -> None:
         """ This keyword is used to get code and text in separate columns for the specified variable  """

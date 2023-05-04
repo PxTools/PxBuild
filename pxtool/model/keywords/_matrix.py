@@ -7,6 +7,8 @@ class _Matrix(_PxSingle):
     pxvalue_type:str = "_PxString"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("MATRIX")
 
     def set(self, matrix:str) -> None:
         """ The name of the matrix. Is suggested as file name when the file is fetched. """

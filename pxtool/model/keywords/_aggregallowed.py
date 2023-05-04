@@ -7,6 +7,8 @@ class _Aggregallowed(_PxSingle):
     pxvalue_type:str = "_PxBool"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("AGGREGALLOWED")
 
     def set(self, aggregallowed:bool) -> None:
         """ False if the contents of the table cannot be aggregated """

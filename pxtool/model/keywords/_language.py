@@ -7,6 +7,8 @@ class _Language(_PxSingle):
     pxvalue_type:str = "_PxString"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("LANGUAGE")
 
     def set(self, language:str) -> None:
         """ Language-code with 2 letters,sv for Swedish, en for English etc. Default language """

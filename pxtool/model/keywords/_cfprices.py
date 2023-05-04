@@ -9,6 +9,8 @@ class _Cfprices(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("CFPRICES")
 
     def set(self, cfprices:str, content:str=None, lang:str = None) -> None:
         """ Indicates if data is in current or fixed prices. C is used for Current and F for Fixed prices """

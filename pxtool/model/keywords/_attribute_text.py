@@ -9,6 +9,8 @@ class _AttributeText(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("ATTRIBUTE-TEXT")
 
     def set(self, attribute_text:list[str], lang:str = None) -> None:
         """ Not in normal use. See pdf """

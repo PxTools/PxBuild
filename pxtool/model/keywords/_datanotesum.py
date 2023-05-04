@@ -9,6 +9,8 @@ class _Datanotesum(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("DATANOTESUM")
 
     def set(self, datanotesum:str, lang:str = None) -> None:
         """  """

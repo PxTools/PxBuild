@@ -8,8 +8,8 @@ class _Attributes(_PxValueByKey):
     pxvalue_type:str = "_PxStringList"
     may_have_language:bool = False
 
-    def __init__(self, keyword:str) -> None:
-        super().__init__(keyword)
+    def __init__(self) -> None:
+        super().__init__("ATTRIBUTES")
         self.occurence_counter = 0
 
     def set(self, attributes:list[str], values:list[str]=None) -> None:

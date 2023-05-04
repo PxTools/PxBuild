@@ -9,6 +9,8 @@ class _Title(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("TITLE")
 
     def set(self, title:str, lang:str = None) -> None:
         """ The title of the table, reflecting its contents and variables """

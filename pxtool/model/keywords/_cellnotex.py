@@ -9,8 +9,8 @@ class _Cellnotex(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
-    def __init__(self, keyword:str) -> None:
-        super().__init__(keyword)
+    def __init__(self) -> None:
+        super().__init__("CELLNOTEX")
         self.occurence_counter = 0
 
     def set(self, cellnotex:str, values:list[str], lang:str = None) -> None:

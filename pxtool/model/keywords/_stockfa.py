@@ -9,6 +9,8 @@ class _Stockfa(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("STOCKFA")
 
     def set(self, stockfa:str, content:str=None, lang:str = None) -> None:
         """ Indicates if data is stock, flow or average.  Used characters: S (stock), F (flow) and A (average)  """

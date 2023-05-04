@@ -131,10 +131,9 @@ class MyKeyword:
         else:
             fileHandle.write("    may_have_language:bool = False\n\n")
 
-        if self.is_duplicate_keypart_allowed:
-            #the others use init in super  
-            fileHandle.write(f"    def __init__(self, keyword:str) -> None:\n")
-            fileHandle.write(f"        super().__init__(keyword)\n")
+        fileHandle.write(f"    def __init__(self) -> None:\n")
+        fileHandle.write(f"        super().__init__(\"{self.keyword}\")\n")
+        if self.is_duplicate_keypart_allowed:    
             fileHandle.write(f"        self.occurence_counter = 0\n")
         fileHandle.write(f"\n")
 
@@ -256,11 +255,11 @@ for kw in my_spec_reader.data:
     the_imports.append(f"from pxtool.model.keywords.{kw.module_name} import {kw.classnames['This']}")
     if kw.keyword == "DATA":
         the_attributes.append("self.unknown_keywords = \"\"")
-    the_attributes.append(f"self.{to_python_case(kw.keyword)} = {kw.classnames['This']}(\"{kw.keyword}\")\n        \"\"\"{kw.px_comment}\"\"\"")
+    the_attributes.append(f"self.{to_python_case(kw.keyword)} = {kw.classnames['This']}()\n        \"\"\"{kw.px_comment}\"\"\"")
   
 #from _PX_AXIS_VERSION import _PX_AXIS_VERSION
 #
-#self.axisversion = _PX_AXIS_VERSION("AXIS-VERSION")
+#self.axisversion = _PX_AXIS_VERSION()
 
 with open("../pxtool/model/px_file_model.py", "wt",encoding="utf-8-sig", newline="\n") as model_py:
   #', '.join(kw.

@@ -9,6 +9,8 @@ class _Survey(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("SURVEY")
 
     def set(self, survey:str, lang:str = None) -> None:
         """ Hmm, try, pdf says: Is shown on information screen in PX-web if installation parameter true. """

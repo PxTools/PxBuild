@@ -9,6 +9,8 @@ class _Stub(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
+    def __init__(self) -> None:
+        super().__init__("STUB")
 
     def set(self, stub:list[str], lang:str = None) -> None:
         """ Variables in stub """

@@ -9,8 +9,8 @@ class _Cellnote(_PxValueByKey):
     may_have_language:bool = True
     _seen_languages={}
 
-    def __init__(self, keyword:str) -> None:
-        super().__init__(keyword)
+    def __init__(self) -> None:
+        super().__init__("CELLNOTE")
         self.occurence_counter = 0
 
     def set(self, cellnote:str, values:list[str], lang:str = None) -> None:

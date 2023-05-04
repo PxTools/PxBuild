@@ -7,6 +7,8 @@ class _NextUpdate(_PxSingle):
     pxvalue_type:str = "_PxString"
     may_have_language:bool = False
 
+    def __init__(self) -> None:
+        super().__init__("NEXT-UPDATE")
 
     def set(self, next_update:str) -> None:
         """ Not in use. Date in 'Px  format' """
