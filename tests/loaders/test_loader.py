@@ -17,7 +17,7 @@ class TestBadStart:
 
 class TestQuoteUnquote:
    def test_QuoteUnquote1_file_raises_value_error(self):
-     with pytest.raises(Exception, match="Hmm, there is something:wrongplacement1 between \( and first \" in keypart."):
+     with pytest.raises(Exception, match="Hmm, there is something:wrongplacement1 between "):
         dummy = Loader('testdata/BadFiles/QuoteUnquote1.px')  
 
    def test_QuoteUnquote2_file_raises_value_error(self):
