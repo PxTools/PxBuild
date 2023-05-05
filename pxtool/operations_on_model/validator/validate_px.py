@@ -1,42 +1,12 @@
 from pxtool.model.px_file_model import PXFileModel
+from pxtool.operations_on_model.validator.validationResult import ValidationResult
+
+from pxtool.operations_on_model.validator.checks.check_mandatory import  check_mandatory
+
+
 import pxtool.model.util.constants as const
 
-class ValidationResult:
-    desc:str
-    is_valid:bool
-    error_msg:str
-
-    def __init__(self, desc) -> None:
-        self.desc = desc
-        self.is_valid = True
-
-    def add_error(self, error:str):
-        self.error_msg = error
-        self.is_valid = False
-
-    def __str__(self)-> str:
-        rep_str = f"{self.desc}"
-        if self.is_valid:
-            rep_str += "\n" + "Validation passed"
-        else:
-            rep_str += "\n" + "Validation failed" + "\n" + f"Error: {self.error_msg}"
-        return rep_str
-
 class Validator:
-    def check_mandatory(model:PXFileModel) -> ValidationResult:
-        val_result = ValidationResult(desc="Check if all mandatory keywords are set")
-        keyword_missing = []
-        for key in const.MANDATORY_KEYWORDS:
-            keyword = model.get_attribute(key)
-            if not keyword.has_value():
-                keyword_missing.append(keyword._keyword)
-        
-        if len(keyword_missing) > 0:
-            error_msg_keywords = ", ".join(keyword_missing)
-            val_result.add_error(f"These kewywords are mandatory and is not set: {error_msg_keywords}")
-        
-        return val_result
-    
     def check_language(model:PXFileModel) -> ValidationResult:
         val_result = ValidationResult(desc="Check if default languges is defined in languages keyword")
         if (model.language.has_value() and model.languages.has_value()):
@@ -87,7 +57,7 @@ class Valdidate:
         self.passed = []
         self.failed = []
         try:
-            self.runned_checks.append(Validator.check_mandatory(model))
+            self.runned_checks.append(check_mandatory(model))
             self.runned_checks.append(Validator.check_codes_values_equal_count(model))
             self.runned_checks.append(Validator.check_language(model))
             self.runned_checks.append(Validator.check_decimals(model))

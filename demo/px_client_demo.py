@@ -64,7 +64,7 @@ print("\n\n--------   model before cleaner:")
 print(model)
 
 
-pxtool.Cleaner.apply_default_language(model)
+pxtool.apply_default_language(model)
 print("\n\n-------- model after cleaner:")
 print(model)
 
