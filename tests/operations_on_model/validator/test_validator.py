@@ -1,5 +1,6 @@
 from pxtool.model.px_file_model import PXFileModel
-from pxtool.model.validate_px import Validator as val
+from pxtool.operations_on_model.validator.validate_px import Validator as val
+
 import pytest
 
 
@@ -64,16 +65,6 @@ def test_check_codes_values_equal_count_value_error_missing_values():
     val_rep = val.check_codes_values_equal_count(pxfile)
     assert val_rep.is_valid == False 
     assert val_rep.error_msg == "Codes and values does not have the same amout of entries for language 'en' and variable 'var_c'"
-
-def test_check_mandatory_returns_error():
-    pxfile = PXFileModel()
-    pxfile.title.set(title="TableTitle", lang="no")
-    pxfile.decimals.set(2)
-    pxfile.matrix.set(matrix="TestMatrix")
-
-    val_rep = val.check_mandatory(pxfile)
-    assert val_rep.is_valid == False 
-    assert val_rep.error_msg == "These kewywords are mandatory and is not set: SUBJECT-CODE, SUBJECT-AREA, DESCRIPTION, CONTENTS, UNITS, STUB, HEADING, VALUES, DATA"
 
 def test_check_lang():
     pxfile = PXFileModel()

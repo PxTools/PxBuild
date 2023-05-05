@@ -1,4 +1,4 @@
-from pxtool.loaders.loader_pxfile import Loader
+from pxtool.operations_on_model.loaders.loader_pxfile import Loader
 from pxtool.model.px_file_model import PXFileModel
 import pytest
 

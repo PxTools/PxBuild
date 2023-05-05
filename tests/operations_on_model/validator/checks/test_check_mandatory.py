@@ -1,5 +1,5 @@
 from pxtool.model.px_file_model import PXFileModel
-from pxtool.model.validators.check_mandatory import check_mandatory 
+from pxtool.operations_on_model.validator.checks.check_mandatory import check_mandatory 
 
 import pytest
 
