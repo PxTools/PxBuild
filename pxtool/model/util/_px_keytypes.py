@@ -20,7 +20,7 @@ class _KeytypeLang():
         return  f"[\"{self.lang}\"]" if self.lang else "" 
 
     def __eq__(self, other):
-        if isinstance(other, _KeytypeLang):
+        if type(self) == type(other):
             return self.lang == other.lang
         return False
 
@@ -44,7 +44,7 @@ class _KeytypeVariableLang(_KeytypeLang):
          return  f"{super().__str__()}(\"{self.variable}\")"
     
     def __eq__(self, other):
-        if isinstance(other, _KeytypeVariableLang):
+        if type(self) == type(other):
             return self.variable == other.variable and self.lang == other.lang
         return False
 
@@ -73,7 +73,7 @@ class _KeytypeContentLang(_KeytypeLang):
           return  f"{super().__str__()}(\"{self.content}\")"
     
     def __eq__(self, other):
-        if isinstance(other, _KeytypeContentLang):
+        if type(self) == type(other):
             return self.content == other.content and self.lang == other.lang
         return False
 
@@ -102,7 +102,7 @@ class _KeytypeVariableValueLang(_KeytypeLang):
         return  f"{super().__str__()}(\"{self.variable}\",\"{self.value}\")"
     
     def __eq__(self, other):
-        if isinstance(other, _KeytypeVariableValueLang):
+        if type(self) == type(other):
             return self.variable == other.variable and self.value == other.value and self.lang == other.lang
         return False
 
@@ -127,7 +127,7 @@ class _KeytypeVariableValue():
         return  f"(\"{self.variable}\",\"{self.value}\")"   
 
     def __eq__(self, other):
-        if isinstance(other, _KeytypeVariableValue):
+        if type(self) == type(other):
             return self.variable == other.variable and self.value == other.value
         return False
 
@@ -143,7 +143,7 @@ class _KeytypeVariableLangMulti(_KeytypeVariableLang):
         self.counter = counter
 
     def __eq__(self, other):
-        if isinstance(other, _KeytypeVariableLangMulti):
+        if type(self) == type(other):
             return self.variable == other.variable and self.lang == other.lang and self.counter == other.counter
         return False
 
@@ -165,7 +165,7 @@ class _KeytypeVariableValueLangMulti(_KeytypeVariableValueLang):
         self.counter = counter
 
     def __eq__(self, other):
-        if isinstance(other, _KeytypeVariableValueLang):
+        if type(self) == type(other):
             return self.variable == other.variable and self.value == other.value and self.lang == other.lang and self.counter == other.counter
         return False
 
@@ -178,7 +178,7 @@ class _KeytypeVariableValueLangMulti(_KeytypeVariableValueLang):
         else: 
             return _KeytypeVariableValueLangMulti(self.variable,self.value,lang,self.counter)
 
-#_KeytypeValuesLangMulti = namedtuple("ValuesLangMulti", ['values', 'lang', 'counter'] )
+
 class _KeytypeValuesLangMulti(_KeytypeLang):
     values:list[str] 
     counter:int
@@ -195,7 +195,7 @@ class _KeytypeValuesLangMulti(_KeytypeLang):
         return  f"{super().__str__()}(\"{self._joined}\")"
     
     def __eq__(self, other):
-        if isinstance(other, _KeytypeValuesLangMulti):
+        if type(self) == type(other):
             return self._joined == other._joined and self.lang == other.lang and self.counter == other.counter
         return False
 
@@ -224,7 +224,7 @@ class _KeytypeValuesMulti():
         return  f"(\"{self._joined}\")"
     
     def __eq__(self, other):
-        if isinstance(other, _KeytypeValuesMulti):
+        if type(self) == type(other):
             return self._joined == other._joined and self.counter == other.counter
         return False
 
