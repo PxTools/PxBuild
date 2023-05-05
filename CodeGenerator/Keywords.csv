@@ -2,8 +2,8 @@
 CHARSET;;;;;;_PxString;;;Not in use;"CHARSET=”ANSI”; indicates that the texts in the file are written in Windows format. If the keyword is missing it means that the texts in the file are in DOS format. They will be translated by PC-Axis to Windows. This keyword must appear in the beginning of the file before any texts that can include characters outside A-Z, 0-9."
 AXIS-VERSION;;;;;;_PxString;;"regexp_string(r""^\d{4}$"",";Not in use. Version number for PC-Axis ;Version number for PC-Axis (new text length 2008). Is read and saved but otherwise not used.
 CODEPAGE;;;;;;_PxString;;;Not in use;Is used when creating XML format to get correct characters. Default iso-8859-1. Max 20 chars.
-LANGUAGE;;;;;;_PxString;;"regexp_string(""^[a-z]{2}$"",";Language-code with 2 letters,sv for Swedish, en for English etc. Default language;
-LANGUAGES;;;;;;_PxStringList;;"regexp_item_string(""^[a-z]{2}$"", XX unique(";List of Language-codes used in file.;
+LANGUAGE;;X;;;;_PxString;;"regexp_string(""^[a-z]{2}$"",";Language-code with 2 letters,sv for Swedish, en for English etc. Default language;
+LANGUAGES;;X;;;;_PxStringList;;"regexp_item_string(""^[a-z]{2}$"", XX unique(";List of Language-codes used in file.;
 CREATION-DATE;;;;;;_PxString;;;Date in 'Px Format';Date when file was created. Written in format CCYYMMDD hh:mm, e.g. 19960612 14:20. Is shown together with footnotes. 
 FIRST-PUBLISHED;;;;;;_PxString;;;In use?;The date when the data cube was first published in the format CCYYMMDD hh:mm Example: FIRST-PUBLISHED=20130224 20:55
 NEXT-UPDATE;;;;;;_PxString;;;Not in use. Date in 'Px  format';This keyword is read and saved in the PX-file but not shown in PC-axis.

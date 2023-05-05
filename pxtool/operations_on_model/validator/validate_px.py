@@ -9,49 +9,61 @@ from pxtool.operations_on_model.validator.checks.check_showdecimals import check
 from pxtool.operations_on_model.validator.checks.check_codes_values_equal_count import check_codes_values_equal_count
 
 class Valdidate:
-    runned_checks: list[ValidationResult]
+    checks_ran: list[ValidationResult]
     
     def __init__(self, model:PXFileModel):
-        self.runned_checks = []
+        self.checks_ran = []
         self.passed = []
         self.failed = []
-        try:
-            self.runned_checks.append(check_mandatory(model))
-            self.runned_checks.append(check_codes_values_equal_count(model))
-            self.runned_checks.append(check_language(model))
-            self.runned_checks.append(check_decimals(model))
-            self.runned_checks.append(check_showdecimals(model))
-            self.runned_checks.append(check_lang_keys(model))
-        except Exception as e:
-            print(f"Error: {e.args}")
+
+        self.run_checks(model)
         
-        for rep in self.runned_checks:
+        
+        for rep in self.checks_ran:
             if rep.is_valid:
                 self.passed.append(rep)
             else:
                 self.failed.append(rep)
 
+    def run_checks(self, model:PXFileModel) -> None:
+        #
+        self.checks_ran.append(check_mandatory(model))
+        if not self.checks_ran[-1].is_valid:
+            return 
+        #
+        self.checks_ran.append(check_language(model))
+        if not self.checks_ran[-1].is_valid:
+            return
+        self.checks_ran.append(check_lang_keys(model))
+        if not self.checks_ran[-1].is_valid:
+            return
+        #
+        self.checks_ran.append(check_codes_values_equal_count(model))
+        self.checks_ran.append(check_decimals(model))
+        self.checks_ran.append(check_showdecimals(model))
+
     def is_valid(self) -> bool:
         return (not len(self.failed) > 0)
 
-    def print_report(self):
-        print("Validation report: \n")
-        print(f"Total checks done: {len(self.runned_checks)} \n")
-        print(f"Passed: {len(self.passed)} \n")
+    def get_report(self) -> str:
+        my_out = "Validation report: \n"
+        my_out += f"Total checks done: {len(self.checks_ran)} \n"
+        my_out += f"Passed: {len(self.passed)} \n"
         for rep in self.passed:
-            print(str(rep), "\n")
+            my_out += str(rep) + "\n"
         
-        print(f"Failed: {len(self.failed )}\n")
-        for rep in self.failed:
-            print(str(rep), "\n")
+        my_out += "\n" +self.get_errors()
+
+        return my_out
        
 
-    def print_errors(self):
+    def get_errors(self) -> str:
         if self.is_valid():
-            print("Validated without errors. No errors to print.")
-        else:                
-            print(f"Failed: {len(self.failed )}\n")
+            return "Validated without errors. No errors to print."
+        else:
+            my_out = f"Failed: {len(self.failed )}\n"
             for rep in self.failed:
-                print(str(rep), "\n")
+                my_out +=  str(rep) + "\n"
+            return my_out
         
     

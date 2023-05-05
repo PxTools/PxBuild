@@ -11,7 +11,5 @@ def test_check_mandatory_returns_error():
 
     val_rep = check_mandatory(pxfile)
     assert val_rep.is_valid == False 
-    assert val_rep.error_msg == "These kewywords are mandatory and is not set: SUBJECT-CODE, SUBJECT-AREA, DESCRIPTION, CONTENTS, UNITS, STUB, HEADING, VALUES, DATA"
-
-
+    assert "These kewywords are mandatory and is not set" in val_rep.error_msg 
 
