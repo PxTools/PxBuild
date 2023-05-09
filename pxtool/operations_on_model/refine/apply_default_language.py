@@ -13,7 +13,7 @@ def apply_default_language(model:PXFileModel):
             to_lang=model.language.get_value()
             for kw in constants.LANGDEPENDENT_KEYWORDS:
                 instance = model.get_attribute(kw)
-                if instance.has_value():
+                if instance.is_present():
                     instance.reset_language_none_to(to_lang)
 
 

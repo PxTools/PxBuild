@@ -29,6 +29,10 @@ class _SubjectArea(_PxValueByKey):
         my_key = _KeytypeLang(lang)
         return super().get_value(my_key).get_value()
 
+    def has_value(self, lang:str = None) -> bool:
+        my_key = _KeytypeLang(lang)
+        return super().has_value(my_key)
+
     def get_used_languages(self) -> list[str]:
        return list(self._seen_languages.keys())
 

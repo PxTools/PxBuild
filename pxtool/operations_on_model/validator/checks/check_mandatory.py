@@ -7,7 +7,7 @@ def check_mandatory(model:PXFileModel) -> ValidationResult:
         keyword_missing = []
         for key in const.MANDATORY_KEYWORDS:
             keyword = model.get_attribute(key)
-            if not keyword.has_value():
+            if not keyword.is_present():
                 keyword_missing.append(keyword._keyword)
         
         if len(keyword_missing) > 0:

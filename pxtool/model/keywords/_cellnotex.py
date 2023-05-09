@@ -32,6 +32,11 @@ class _Cellnotex(_PxValueByKey):
         my_key = _KeytypeValuesLangMulti(values, lang,1)
         return super().get_value(my_key).get_value()
 
+    def has_value(self, values:list[str], lang:str = None) -> bool:
+        #TODO how should this function? Any usecases?
+        my_key = _KeytypeValuesLangMulti(values, lang,1)
+        return super().has_value(my_key)
+
     def get_used_languages(self) -> list[str]:
        return list(self._seen_languages.keys())
 

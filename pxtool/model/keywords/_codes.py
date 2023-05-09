@@ -30,6 +30,10 @@ class _Codes(_PxValueByKey):
         my_key = _KeytypeVariableLang(variable, lang)
         return super().get_value(my_key).get_value()
 
+    def has_value(self, variable:str, lang:str = None) -> bool:
+        my_key = _KeytypeVariableLang(variable, lang)
+        return super().has_value(my_key)
+
     def get_used_languages(self) -> list[str]:
        return list(self._seen_languages.keys())
 

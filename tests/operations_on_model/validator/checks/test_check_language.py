@@ -11,7 +11,13 @@ def test_check_language_ok():
     val_rep = check_language(model)
     assert val_rep.is_valid == True
 
-def test_check_language():
+def test_check_language_missing():
+    model = PXFileModel()
+    val_rep = check_language(model)
+    assert val_rep.is_valid == False
+    assert "Both keyword language and keyword languages must be present in model." == val_rep.error_msg
+
+def test_check_language_bad_lang():
     model = PXFileModel()
     model.languages.set(["no","en","fi"])
     model.language.set("sv")

@@ -37,7 +37,7 @@ def getKeyType(has_lang:bool,subkeys:dict,multi:bool) -> str:
        return myOut
 
 
-SpecRow = namedtuple("SpecRow", ['px_keyword', 'is_lang_dependent', 'is_Mandatory', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_comment','from_pdf'] )
+SpecRow = namedtuple("SpecRow", ['px_keyword', 'is_lang_dependent', 'is_Mandatory', 'skip_completeness','med_ut','ut_default', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_comment','from_pdf'] )
 
 #Tja, de er jo python typer alle sammen. Så det er vel typen til parameter i set funksjonen vs den typen som lagres value i super klassen
 to_native_types={"_PxStringList":"list[str]","_PxString":"str","_PxBool":"bool","_PxInt":"int","_PxData":"list"}
@@ -173,7 +173,7 @@ class MyKeyword:
         fileHandle.write(f"            msg = self._keyword + \":\" +str(e)\n")
         fileHandle.write(f"            raise type(e)(msg) from e\n")
 
-    def get_value_writer(self, filehandle) -> None:
+    def get_and_has_value_writer(self, filehandle) -> None:
         if(self.classnames['Super'] == "_PxSingle"):
             filehandle.write(f"    def get_value(self) -> {DictAsReturntype(self.valueParams)}:\n")
             filehandle.write(f"        return super().get_value().get_value()")
@@ -186,6 +186,20 @@ class MyKeyword:
                 filehandle.write(f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)})\n")
             filehandle.write(f"        return super().get_value(my_key).get_value()")
         filehandle.write(f"\n\n")
+
+        if(self.classnames['Super'] == "_PxSingle"):
+            filehandle.write(f"    def has_value(self) -> bool:\n")
+            filehandle.write(f"        return super().has_value()")
+        if len(self.keyParams) > 0:
+            filehandle.write(f"    def has_value(self, {DictAsSignature(self.keyParams)}) -> bool:\n")
+            if kw.is_duplicate_keypart_allowed:
+                filehandle.write(f"        #TODO how should this function? Any usecases?\n")
+                filehandle.write(f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)},1)\n")
+            else:
+                filehandle.write(f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)})\n")
+            filehandle.write(f"        return super().has_value(my_key)")
+        filehandle.write(f"\n\n")        
+
             
     def get_lang_utils_writer(self, filehandle) -> None:
         if not self.has_lang:
@@ -211,7 +225,7 @@ class SpecReader:
          reader = csv.reader(theSpecCsv,delimiter=";" )
          header = next(reader)
          print ("De to under bør være like")
-         print("['px_keyword', 'is_lang_dependent', 'is_Mandatory', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_comment', 'from_pdf']")
+         print("['px_keyword', 'is_lang_dependent', 'is_Mandatory',  'skip_completeness','med_ut','ut_default', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_comment', 'from_pdf']")
          print(header)
          self.data = [MyKeyword(SpecRow(*row)) for row in reader] 
 
@@ -225,7 +239,7 @@ for kw in my_spec_reader.data:
         kw.imports_writer(classPy)
         kw.class_and_init_writer(classPy)
         kw.set_writer(classPy)
-        kw.get_value_writer(classPy)
+        kw.get_and_has_value_writer(classPy)
         kw.get_lang_utils_writer(classPy)
 
 ## model.keywords.

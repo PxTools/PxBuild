@@ -30,3 +30,8 @@ class _Attributes(_PxValueByKey):
         my_key = _KeytypeValuesMulti(values,1)
         return super().get_value(my_key).get_value()
 
+    def has_value(self, values:list[str]=None) -> bool:
+        #TODO how should this function? Any usecases?
+        my_key = _KeytypeValuesMulti(values,1)
+        return super().has_value(my_key)
+

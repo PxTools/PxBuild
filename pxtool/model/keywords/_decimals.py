@@ -25,3 +25,6 @@ class _Decimals(_PxSingle):
     def get_value(self) -> int:
         return super().get_value().get_value()
 
+    def has_value(self) -> bool:
+        return super().has_value()
+

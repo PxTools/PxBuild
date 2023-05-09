@@ -25,3 +25,6 @@ class _Language(_PxSingle):
     def get_value(self) -> str:
         return super().get_value().get_value()
 
+    def has_value(self) -> bool:
+        return super().has_value()
+

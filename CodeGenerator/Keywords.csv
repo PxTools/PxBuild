@@ -1,4 +1,4 @@
-﻿px_keyword;is_lang_dependent;is_Mandatory;skip completeness;med ut;ut_default;px_SubKey;is_SubKey_Optional;is_duplicate_keypart_allowed_;px_valuetype;px_valuetype_params;linevalidate;px_comment;from_pdf
+﻿px_keyword;is_lang_dependent;is_Mandatory;skip_completeness;med_ut;ut_default;px_SubKey;is_SubKey_Optional;is_duplicate_keypart_allowed_;px_valuetype;px_valuetype_params;linevalidate;px_comment;from_pdf
 CHARSET;;;;N;;;;;_PxString;;;Not in use;"CHARSET=”ANSI”; indicates that the texts in the file are written in Windows format. If the keyword is missing it means that the texts in the file are in DOS format. They will be translated by PC-Axis to Windows. This keyword must appear in the beginning of the file before any texts that can include characters outside A-Z, 0-9."
 AXIS-VERSION;;;;J;2014;;;;_PxString;;"regexp_string(r""^\d{4}$"",";Not in use. Version number for PC-Axis ;Version number for PC-Axis (new text length 2008). Is read and saved but otherwise not used.
 CODEPAGE;;;;N;;;;;_PxString;;;Not in use;Is used when creating XML format to get correct characters. Default iso-8859-1. Max 20 chars.
@@ -33,19 +33,19 @@ STUB;True;;;J;;;;;_PxStringList;;;Variables in stub;At least one of the keywords
 HEADING;True;;;J;;;;;_PxStringList;;;Variables in heading;At least one of the keywords STUB or HEADING must be included. Usually both are included, as you choose one or several variables for the stub and the heading, respectively. The keywords are followed by a list with the chosen variables. The variables are within quotation marks and separated by commas. If the list with the variables has to be divided up into several lines, this should be done after a comma and not within the variable name.
 VALUES;True;X;;J;;variable:str;;;_PxStringList;;;Labels of the values for the variable.;The keyword VALUES occurs once for each variable in the table, and is followed by the variable name in parentheses, within quotation marks. The values will be in the same order as in the stub and heading, respectively. They are within quotation marks and separated by commas. Each value name must not exceed 256 characters. If the values have to be divided up into several lines, this should be done after a comma and not within the value name. See also the keyword TIMEVAL below.
 TIMEVAL;True;;Y;J;;variable:str;;;_PxTlist;timescale:str, time_periods:list[str];;"See pdf. TLIST(A1, ”1994”-”1996”);  eller TLIST(A1), ”1994”, ”1995”,""1996”; ";
-CODES;True;;;J;;variable:str;;;_PxStringList;;unique(;Codes of the values for the variable.;
+CODES;True;X;;J;;variable:str;;;_PxStringList;;unique(;Codes of the values for the variable.;
 DOUBLECOLUMN;True;;Y;F?;;variable:str;;;_PxBool;;;This keyword is used to get code and text in separate columns for the specified variable ;"This keyword is used to get code and text in separate columns for the specified variable DOUBLECOLUMN(”region”)=YES;. On screen it only has effect if the user selects presentation in matrix format."
 PRESTEXT;True;;Y;J;1;variable:str;;;_PxInt;;in_range(0,3,;0 - Display only the value code. 1 - Display only the value text. 2 - Display first the code then the value text. 3 - Display first the value text then the value code.;
 DOMAIN;True;;Y;F?;;variable:str;;;_PxString;;;Can occur once for each variable. Is used to determine which value sets are of interest, and thus which aggregation lists can be used. ;
 VARIABLE-TYPE;True;;;J;;variable:str;;;_PxString;;;Currently free-text. Suggestion: T for Time, G for Geo, C for Content ;This keyword is read and saved in the PX-file but not shown in PC-Axis.
-HIERARCHIES;True;;;F;;variable:str;;;_PxHierarchy;root_node:str, mother_child:dict[str,str];;Not in normal use. See pdf;
-HIERARCHYLEVELS;True;;;F;;variable:str;;;_PxInt;;;Not in normal use. See pdf;
-HIERARCHYLEVELSOPEN;True;;;F;;variable:str;;;_PxInt;;;Not in normal use. See pdf;
-HIERARCHYNAMES;True;;;F;;variable:str;;;_PxStringList;;;Not in normal use. See pdf;
-MAP;True;;;?;;variable:str;;;_PxString;;;"Used for a geographic variable for which maps can be made. Example: ""Sweden_municipality"".";
-PARTITIONED;True;;;N;;variable:str;;y;_PxStringList;;;string , int (,int) , see pdf;
-ELIMINATION;True;;;J;;variable:str;;;_PxString;;;bool eller string;
-PRECISION;True;;;F;;variable:str, value:str;;;_PxInt;;in_range(1,6,;Determines that the value shall be presented with a number of decimals that differs from the keyword SHOWDECIMALS;
+HIERARCHIES;True;;Y;F;;variable:str;;;_PxHierarchy;root_node:str, mother_child:dict[str,str];;Not in normal use. See pdf;
+HIERARCHYLEVELS;True;;Y;F;;variable:str;;;_PxInt;;;Not in normal use. See pdf;
+HIERARCHYLEVELSOPEN;True;;Y;F;;variable:str;;;_PxInt;;;Not in normal use. See pdf;
+HIERARCHYNAMES;True;;Y;F;;variable:str;;;_PxStringList;;;Not in normal use. See pdf;
+MAP;True;;Y;?;;variable:str;;;_PxString;;;"Used for a geographic variable for which maps can be made. Example: ""Sweden_municipality"".";
+PARTITIONED;True;;Y;N;;variable:str;;y;_PxStringList;;;string , int (,int) , see pdf;
+ELIMINATION;True;;Y;J;;variable:str;;;_PxString;;;bool eller string;
+PRECISION;True;;Y;F;;variable:str, value:str;;;_PxInt;;in_range(1,6,;Determines that the value shall be presented with a number of decimals that differs from the keyword SHOWDECIMALS;
 LAST-UPDATED;True;;;J?;;content:str=None;Y;;_PxString;;;latest update  in pxdate format;
 STOCKFA;True;;;F;;content:str=None;Y;;_PxString;;"regexp_string(""^(S|F|A)$"",";Indicates if data is stock, flow or average.  Used characters: S (stock), F (flow) and A (average) ;
 CFPRICES;True;;;F;;content:str=None;Y;;_PxString;;"regexp_string(""^(C|F)$"",";Indicates if data is in current or fixed prices. C is used for Current and F for Fixed prices;
@@ -61,13 +61,13 @@ SURVEY;True;;;?;;;;;_PxString;;;Hmm, try, pdf says: Is shown on information scre
 LINK;True;;;F;;;;;_PxString;;;Not in use?;
 INFOFILE;True;;;F;;;;;_PxString;;;Name of a file containing more information for the statistics. Working?;
 INFO;True;;;F;;;;;_PxString;;;Not in use;This keyword is read and saved in the PX-file but not shown in PC-axis
-NOTEX;True;;;F;;variable:str=None;Y;y;_PxString;;;Mandatory footnote for variable or table if no variable is given;
-NOTE;True;;;F;;variable:str=None;Y;y;_PxString;;;non-mandatory footnote for variable or table if no variable is given;
-VALUENOTEX;True;;;F;;variable:str,value:str;;y;_PxString;;;Mandatory footnote for value in variable;
-VALUENOTE;True;;;F;;variable:str,value:str;;y;_PxString;;;Non-mandatory footnote for value in variable;
-DATANOTE;True;;;F;;variable:str,value:str;;y;_PxString;;;;
-CELLNOTEX;True;;;F;;values:list[str];;y;_PxString;;;As CELLNOTE but shown mandatory as for NOTEX.;
-CELLNOTE;True;;;F;;values:list[str];;y;_PxString;;;Footnote for a single cell or a group of cells. Which cell it refers to is given by values and variables. If a value is given as * the note refers to all values for that variable. Only one value can be given for each variable. T;
+NOTEX;True;;y;F;;variable:str=None;Y;y;_PxString;;;Mandatory footnote for variable or table if no variable is given;
+NOTE;True;;y;F;;variable:str=None;Y;y;_PxString;;;non-mandatory footnote for variable or table if no variable is given;
+VALUENOTEX;True;;y;F;;variable:str,value:str;;y;_PxString;;;Mandatory footnote for value in variable;
+VALUENOTE;True;;y;F;;variable:str,value:str;;y;_PxString;;;Non-mandatory footnote for value in variable;
+DATANOTE;True;;y;F;;variable:str,value:str;;y;_PxString;;;;
+CELLNOTEX;True;;y;F;;values:list[str];;y;_PxString;;;As CELLNOTE but shown mandatory as for NOTEX.;
+CELLNOTE;True;;y;F;;values:list[str];;y;_PxString;;;Footnote for a single cell or a group of cells. Which cell it refers to is given by values and variables. If a value is given as * the note refers to all values for that variable. Only one value can be given for each variable. T;
 DATASYMBOL1;True;;;N?;;;;;_PxString;;;Should be in config?;
 DATASYMBOL2;True;;;N?;;;;;_PxString;;;Should be in config?;
 DATASYMBOL3;True;;;N?;;;;;_PxString;;;Should be in config?;
@@ -76,7 +76,7 @@ DATASYMBOL5;True;;;N?;;;;;_PxString;;;Should be in config?;
 DATASYMBOL6;True;;;N?;;;;;_PxString;;;Should be in config?;
 DATASYMBOLNIL;True;;;N?;;;;;_PxString;;;;
 DATASYMBOLSUM;True;;;N?;;;;;_PxString;;;;
-DATANOTECELL;True;;;F;;values:list[str];;y;_PxString;;;;
+DATANOTECELL;True;;Y;F;;values:list[str];;y;_PxString;;;;
 DATANOTESUM;True;;;F;;;;;_PxString;;;;
 KEYS;True;;;F;;variable:str;;;_PxString;;"regexp_string(""^(CODES|VALUES)$"",";;
 ATTRIBUTE-ID;;;;F;;;;;_PxStringList;;;Not in normal use. See pdf;This keyword list the identities of all attributes. Indirectly it also specifies the number of attributes. Each attribute id is separate with a comma sign and it is written within quotes. The ATTRIBUTE-ID keyword must be written before the ATTRIBUTES keyword and must exist if the ATTRIBUTES keyword is present. The ATTRIBUTE-ID keyword is multilingual, that is you do not have to specify it for each language

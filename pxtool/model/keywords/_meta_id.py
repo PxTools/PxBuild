@@ -27,3 +27,7 @@ class _MetaId(_PxValueByKey):
         my_key = _KeytypeVariableValue(variable, value)
         return super().get_value(my_key).get_value()
 
+    def has_value(self, variable:str=None, value:str=None) -> bool:
+        my_key = _KeytypeVariableValue(variable, value)
+        return super().has_value(my_key)
+
