@@ -5,7 +5,7 @@ import pytest
 
 
 
-def test_check_lang():
+def test_check_lang_keys_unlisted_language_fails():
     pxfile = PXFileModel()
     pxfile.languages.set(["no","en","fi"])
     pxfile.values.set(["v1", "v2"], "var", lang="sv")
@@ -13,3 +13,4 @@ def test_check_lang():
     val_rep = check_lang_keys(pxfile)
     assert val_rep.is_valid == False 
     assert val_rep.error_msg == "Specified language code \"sv\" for keyword VALUES must be one of the codes in keyword languages: \"no\",\"en\",\"fi\""
+

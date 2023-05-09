@@ -51,9 +51,11 @@ def test_KeytypeValuesLangMulti():
     assert hash(my_key) == hash(my_key2)
     my_key3 = _KeytypeValuesLangMulti(["kongsvinger","Oslo"],"no",1)
     assert not my_key == my_key3
+    
     my_key4 = _KeytypeValuesLangMulti(["kongsvinger","Oslo"],None,1)
     my_key5  = my_key4.reset_lang_none_to("sv")
     assert isinstance(my_key5, _KeytypeValuesLangMulti)
+    my_key6  = my_key5.reset_lang_none_to("sv")
 
 
 def test_lab_test():

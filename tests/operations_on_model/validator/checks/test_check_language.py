@@ -3,6 +3,14 @@ from pxtool.operations_on_model.validator.checks.check_language import check_lan
 
 import pytest
 
+def test_check_language_ok():
+    model = PXFileModel()
+    model.languages.set(["no","en","fi"])
+    model.language.set("no")
+
+    val_rep = check_language(model)
+    assert val_rep.is_valid == True
+
 def test_check_language():
     model = PXFileModel()
     model.languages.set(["no","en","fi"])
