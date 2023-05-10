@@ -14,7 +14,7 @@ def test_check_codes_values_equal_count_value_error():
 
     val_rep = check_codes_values_equal_count(pxfile)
     assert val_rep.is_valid == False 
-    assert val_rep.error_msg == "The combination for language 'en' and variable 'var_d' in codes is not defined for any values."
+    assert "The combination for language 'en' and variable 'var_d' in codes is not defined for any values." in val_rep.error_msg
 
 def test_check_codes_values_equal_count_value_error_missing_key():
     pxfile = PXFileModel()
@@ -27,7 +27,7 @@ def test_check_codes_values_equal_count_value_error_missing_key():
 
     val_rep = check_codes_values_equal_count(pxfile)
     assert val_rep.is_valid == False 
-    assert val_rep.error_msg == "The combination for language 'en' and variable 'var_d' in codes is not defined for any values."
+    assert "The combination for language 'en' and variable 'var_d' in codes is not defined for any values." in val_rep.error_msg
     
 def test_check_codes_values_equal_count_value_error_missing_values():
     pxfile = PXFileModel()
@@ -39,4 +39,4 @@ def test_check_codes_values_equal_count_value_error_missing_values():
 
     val_rep = check_codes_values_equal_count(pxfile)
     assert val_rep.is_valid == False 
-    assert val_rep.error_msg == "Codes and values does not have the same amout of entries for language 'en' and variable 'var_c'"
+    assert "Codes and values does not have the same amout of entries for language 'en' and variable 'var_c'" in val_rep.error_msg

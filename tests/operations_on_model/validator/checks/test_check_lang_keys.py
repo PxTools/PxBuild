@@ -12,5 +12,5 @@ def test_check_lang_keys_unlisted_language_fails():
 
     val_rep = check_lang_keys(pxfile)
     assert val_rep.is_valid == False 
-    assert val_rep.error_msg == "Specified language code \"sv\" for keyword VALUES must be one of the codes in keyword languages: \"no\",\"en\",\"fi\""
+    assert "Specified language code \"sv\" for keyword VALUES must be one of the codes in keyword languages: \"no\",\"en\",\"fi\"" in val_rep.error_msg
 

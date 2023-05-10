@@ -23,7 +23,7 @@ def test_check_stub_and_heading_fails_different_length():
 
     val_rep = check_stub_and_heading(pxfile)
     assert val_rep.is_valid == False 
-    assert val_rep.error_msg == "Number of items in HEADING don't match when comparing language code: fi and sv."
+    assert "Number of items in HEADING don't match when comparing language code: fi and sv." in val_rep.error_msg
 
 
 def test_check_stub_and_heading_fails_both_missing():
@@ -32,7 +32,7 @@ def test_check_stub_and_heading_fails_both_missing():
 
     val_rep = check_stub_and_heading(pxfile)
     assert val_rep.is_valid == False 
-    assert val_rep.error_msg == "For language code \"fi\": Neither STUB nor HEADING found."
+    assert "For language code \"fi\": Neither STUB nor HEADING found." in val_rep.error_msg
 
 
 

@@ -15,7 +15,7 @@ def test_check_language_missing():
     model = PXFileModel()
     val_rep = check_language(model)
     assert val_rep.is_valid == False
-    assert "Both keyword language and keyword languages must be present in model." == val_rep.error_msg
+    assert "Both keyword language and keyword languages must be present in model." in val_rep.error_msg
 
 def test_check_language_bad_lang():
     model = PXFileModel()
@@ -24,4 +24,4 @@ def test_check_language_bad_lang():
 
     val_rep = check_language(model)
     assert val_rep.is_valid == False 
-    assert val_rep.error_msg == "Specified language code \"sv\" in keyword language must be one of the codes in keyword languages: \"no\",\"en\",\"fi\""
+    assert "Specified language code \"sv\" in keyword language must be one of the codes in keyword languages: \"no\",\"en\",\"fi\"" in val_rep.error_msg

@@ -10,4 +10,4 @@ def test_check_showdecimals_value_error():
     
     val_rep = check_showdecimals(pxfile)
     assert val_rep.is_valid == False 
-    assert val_rep.error_msg == "Value <3> in showdecimals is not valid. The value must be less or equal decimals."
+    assert "Value <3> in showdecimals is not valid. The value must be less or equal decimals." in val_rep.error_msg

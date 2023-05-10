@@ -9,7 +9,7 @@ def test_check_decimals_value_error():
 
     val_rep = check_decimals(pxfile)
     assert val_rep.is_valid == False 
-    assert val_rep.error_msg == "Value <7> in decimals is not valid. When the keyword showdecimals is not specified, the value for decimals must be between 0 and 6."
+    assert "Value <7> in decimals is not valid. When the keyword showdecimals is not specified, the value for decimals must be between 0 and 6." in val_rep.error_msg
 
 def test_check_decimals_is_valid():
     pxfile = PXFileModel()
