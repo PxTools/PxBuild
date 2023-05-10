@@ -9,7 +9,7 @@ flowchart TD
     D --> B
     D --> C
 ``` 
-#Validation
+### Validation
 "keyword is present": The model contains at least one occurence of the keyword.
 "has value" : has a value for a given key. (For singletons like AXIS-VERSION this is the same as is present) 
 
@@ -33,7 +33,7 @@ These are the subkeyTypes :  content:str=None , variable:str , "variable:str, va
 Unlisted language, variable or value. Missing dimensions in values:list (here * is an ok value)
 
 
-Key-part stuff, should be called in sequence.  It makes little sence to try b if a failed
+#### Key-part stuff, should be called in sequence.  It makes little sence to try b if a failed
 - a) ensure LANGUAGES and LANGUAGE is present, and than LANGUAGE one LANGUAGES  (  2) check_language: ensures default languge is defined in languages keyword )
 - b) ensure at least one of STUB or HEADING is present and when present, is complete and have the same length for all LANGUAGES.
 - c) if CONTVARIABLE is present: ensure the value has the same index in STUB union HEADING for all LANGUAGES.
@@ -44,7 +44,7 @@ Key-part stuff, should be called in sequence.  It makes little sence to try b if
 - f1) check_mandatory: ensures that each mandatory keywords has at least one record in the model.
 - f2) completeness:
 
-Pure value, in random order. If one fails this does not affect the succes/failing of others
+#### Pure value, in random order. If one fails this does not affect the succes/failing of others
 - check_codes_values_equal_count: ensures that if language and variable are defined for both CODES and VALUES, then they have the same number of values.
 - check_decimals: ensures that the value for DECIMALS is lower than or equal to 6 if SHOWDECIMALS is not defined
 - check_showdecimals: ensures that if SHOWDECIMALS is present its value is greater than value for DECIMALS
