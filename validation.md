@@ -28,7 +28,9 @@ if CONTVARIABLE is present :
 For keywords that take variable as a subkey all values from STUB and HEADING must be present as a subkey.
 
 "Illegal keys":
-Unlisted language, variable. value
+These are the subkeyTypes :  content:str=None , variable:str , "variable:str, value:str",variable:str=None ,values:list[str]=None ,values:list[str] ,variable:str=None, value:str=None
+Unlisted language, variable or value. Missing dimensions in values:list (here * is an ok value)
+
 
 Key-part stuff, should be called in sequence.  It makes little sence to try b if a failed
 - a) ensure LANGUAGES and LANGUAGE is present, and than LANGUAGE one LANGUAGES  (  2) check_language: ensures default languge is defined in languages keyword )
