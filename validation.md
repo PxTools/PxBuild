@@ -36,7 +36,7 @@ Unlisted language, variable or value. Missing dimensions in values:list (here * 
 #### Key-part stuff, should be called in sequence.  It makes little sence to try b if a failed
 - a) ensure LANGUAGES and LANGUAGE is present, and than LANGUAGE one LANGUAGES  (  2) check_language: ensures default languge is defined in languages keyword )
 - b) ensure at least one of STUB or HEADING is present and when present, is complete and have the same length for all LANGUAGES.
-- c) if CONTVARIABLE is present: ensure the value has the same index in STUB union HEADING for all LANGUAGES.
+- c) ensure CONTVARIABLE is present and that the value has the same index in STUB union HEADING for all LANGUAGES.
 - d) ensure VALUES is complete
 - e) check_lang_keys: ensures for keywords in const.LANGDEPENDENT_KEYWORDS that any language used is fould in LANGUAGES
 - g) ensure all subkeys are legal
