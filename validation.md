@@ -29,6 +29,7 @@ For keywords that take variable as a subkey all values from STUB and HEADING mus
 
 "Illegal keys":
 These are the subkeyTypes :  content:str=None , variable:str , "variable:str, value:str",variable:str=None ,values:list[str]=None ,values:list[str] ,variable:str=None, value:str=None
+
 Unlisted language, variable or value. Missing dimensions in values:list (here * is an ok value)
 
 
