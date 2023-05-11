@@ -28,7 +28,7 @@ if CONTVARIABLE is present :
 For keywords that take variable as a subkey all values from STUB and HEADING must be present as a subkey.
 
 "Illegal keys":
-These are the subkeyTypes :  content:str=None , variable:str , "variable:str, value:str",variable:str=None ,values:list[str]=None ,values:list[str] ,variable:str=None, value:str=None
+These are the subkeyTypes :  content:str=None , variable:str , "variable:str, value:str",variable:str=None ,values:list[str]=None ,values:list[str] ,variable:str=None, value:str=None, codes:list[str]=None
 
 Unlisted language, variable or value. Missing dimensions in values:list (here * is an ok value)
 
@@ -39,16 +39,18 @@ Unlisted language, variable or value. Missing dimensions in values:list (here * 
 - c) ensure CONTVARIABLE is present and that the value has the same index in STUB union HEADING for all LANGUAGES.
 - d) ensure VALUES is complete
 - e) check_lang_keys: ensures for keywords in const.LANGDEPENDENT_KEYWORDS that any language used is fould in LANGUAGES
-- g) ensure all subkeys are legal
+- g) ensure all valuebased subkeys are legal  (Only ATTRIBUTES keyword used a codebased subkey)
 - h) ensure mandatory and completeness   
 - h1) check_mandatory: ensures that each mandatory keywords has at least one record in the model.
 - h2) completeness:
 
 #### Pure value, in random order. If one fails this does not affect the succes/failing of others
-- check_codes_values_equal_count: ensures that if language and variable are defined for both CODES and VALUES, then they have the same number of values.
-- check_decimals: ensures that the value for DECIMALS is lower than or equal to 6 if SHOWDECIMALS is not defined
-- check_showdecimals: ensures that if SHOWDECIMALS is present its value is greater than value for DECIMALS
+- 1) check_codes_values_equal_count: ensures that if language and variable are defined for both CODES and VALUES, then they have the same number of values.
+- 2) check_decimals: ensures that the value for DECIMALS is lower than or equal to 6 if SHOWDECIMALS is not defined
+- 3) check_showdecimals: ensures that if SHOWDECIMALS is present its value is greater than value for DECIMALS
 
+#### These could perhaps start by failing if the keywords are present, and be made propperly when we have a real need...
+- 100) ensured the 3 ATTRIBUTE* keywords are ok. 
 
 
 
