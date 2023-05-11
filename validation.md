@@ -50,7 +50,7 @@ Unlisted language, variable or value. Missing dimensions in values:list (here * 
 - 3) check_showdecimals: ensures that if SHOWDECIMALS is present its value is greater than value for DECIMALS
 
 #### These could perhaps start by failing if the keywords are present, and be made propperly when we have a real need...
-- 100) ensured the 3 ATTRIBUTE* keywords are ok. 
+- 100) ensure the 3 ATTRIBUTE* keywords are ok. 
 
 
 
