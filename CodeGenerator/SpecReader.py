@@ -125,6 +125,10 @@ class MyKeyword:
     def class_and_init_writer(self, fileHandle) -> None:
         fileHandle.write(f"class {self.classnames['This']}({self.classnames['Super']}): \n\n")
         fileHandle.write(f"    pxvalue_type:str = \"{self.classnames['Value']}\"\n")
+        if self.keyword == "LANGUAGES":
+            pass
+        fileHandle.write(f"    has_subkey:bool = {not self.subkeys_raw.strip() == ''}\n")
+        fileHandle.write(f"    subkey_optional:bool = {self.is_SubKey_Optional }\n")
         if self.has_lang:
             fileHandle.write("    may_have_language:bool = True\n")
             fileHandle.write("    _seen_languages={}\n\n")
@@ -248,12 +252,14 @@ for kw in my_spec_reader.data:
 mandatory_keys = []
 langdependent_keys = []
 keyword_pythonic_map = {}
+
 for kw in my_spec_reader.data:    
     keyword_pythonic_map[kw.keyword] = to_python_case(kw.keyword)
     if(kw.is_mandatory):
         mandatory_keys.append(to_python_case(kw.keyword))
     if(kw.has_lang):
         langdependent_keys.append(to_python_case(kw.keyword))
+
 
 with open("../pxtool/model/util/constants.py", "wt",encoding="utf-8-sig", newline="\n" ) as constant_module:
     constant_module.write("\"\"\"Module for holding constants\"\"\""+"\n\n")

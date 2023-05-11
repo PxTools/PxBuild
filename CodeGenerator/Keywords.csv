@@ -46,14 +46,14 @@ MAP;True;;Y;?;;variable:str;;;_PxString;;;"Used for a geographic variable for wh
 PARTITIONED;True;;Y;N;;variable:str;;y;_PxStringList;;;string , int (,int) , see pdf;
 ELIMINATION;True;;Y;J;;variable:str;;;_PxString;;;bool eller string;
 PRECISION;True;;Y;F;;variable:str, value:str;;;_PxInt;;in_range(1,6,;Determines that the value shall be presented with a number of decimals that differs from the keyword SHOWDECIMALS;
-LAST-UPDATED;True;;;J?;;content:str=None;Y;;_PxString;;;latest update  in pxdate format;
-STOCKFA;True;;;F;;content:str=None;Y;;_PxString;;"regexp_string(""^(S|F|A)$"",";Indicates if data is stock, flow or average.  Used characters: S (stock), F (flow) and A (average) ;
-CFPRICES;True;;;F;;content:str=None;Y;;_PxString;;"regexp_string(""^(C|F)$"",";Indicates if data is in current or fixed prices. C is used for Current and F for Fixed prices;
-DAYADJ;True;;;F;;content:str=None;Y;;_PxBool;;;data is adjusted e.g. to take into account the number of working days;
-SEASADJ;True;;;F;;content:str=None;Y;;_PxBool;;;Is  the data seasonally adjusted;
-CONTACT;True;;;J;;content:str=None;Y;;_PxString;;;Is written in the form name, organization, telephone, fax, e-mail. Several persons can be stated in the same text string and are then divided by the #-sign;"States the person who can give information about the statistics. Is written in the form name, organization, telephone, fax, e-mail. Several persons can be stated in the same text string and are then divided by the #-sign. Is shown with the footnote. If there is a contents variable the keyword is repeated for each value CONTACT(""value"")=""xx"".Example: CONTACT=""Maria Svensson, SCB, +4619176800, +4619176900, maria.svensson@scb.se"";"
-REFPERIOD;True;;;F;;content:str=None;Y;;_PxString;;;Text with information on the exact period for the statistics.;
-BASEPERIOD;True;;;F;;content:str=None;Y;;_PxString;;;Base period for, for instance index series;
+LAST-UPDATED;True;;;J?;;content:str=None;;;_PxString;;;latest update  in pxdate format;
+STOCKFA;True;;;F;;content:str=None;;;_PxString;;"regexp_string(""^(S|F|A)$"",";Indicates if data is stock, flow or average.  Used characters: S (stock), F (flow) and A (average) ;
+CFPRICES;True;;;F;;content:str=None;;;_PxString;;"regexp_string(""^(C|F)$"",";Indicates if data is in current or fixed prices. C is used for Current and F for Fixed prices;
+DAYADJ;True;;;F;;content:str=None;;;_PxBool;;;data is adjusted e.g. to take into account the number of working days;
+SEASADJ;True;;;F;;content:str=None;;;_PxBool;;;Is  the data seasonally adjusted;
+CONTACT;True;;;J;;content:str=None;;;_PxString;;;Is written in the form name, organization, telephone, fax, e-mail. Several persons can be stated in the same text string and are then divided by the #-sign;"States the person who can give information about the statistics. Is written in the form name, organization, telephone, fax, e-mail. Several persons can be stated in the same text string and are then divided by the #-sign. Is shown with the footnote. If there is a contents variable the keyword is repeated for each value CONTACT(""value"")=""xx"".Example: CONTACT=""Maria Svensson, SCB, +4619176800, +4619176900, maria.svensson@scb.se"";"
+REFPERIOD;True;;;F;;content:str=None;;;_PxString;;;Text with information on the exact period for the statistics.;
+BASEPERIOD;True;;;F;;content:str=None;;;_PxString;;;Base period for, for instance index series;
 DATABASE;True;;;?;;;;;_PxString;;;The name of the database from where the statistics is retrieved;
 SOURCE;True;;;J;SSB;;;;_PxString;;;States the organization which is responsible for the statistics;
 OFFICIAL-STATISTICS;;;;F;;;;;_PxBool;;;Indicates if the data table is included in the official statistics of the organization.;
@@ -65,7 +65,7 @@ NOTEX;True;;y;F;;variable:str=None;Y;y;_PxString;;;Mandatory footnote for variab
 NOTE;True;;y;F;;variable:str=None;Y;y;_PxString;;;non-mandatory footnote for variable or table if no variable is given;
 VALUENOTEX;True;;y;F;;variable:str,value:str;;y;_PxString;;;Mandatory footnote for value in variable;
 VALUENOTE;True;;y;F;;variable:str,value:str;;y;_PxString;;;Non-mandatory footnote for value in variable;
-DATANOTE;True;;y;F;;variable:str,value:str;;y;_PxString;;;;
+DATANOTE;True;;y;F;;variable:str=None, value:str=None;Y;y;_PxString;;;;
 CELLNOTEX;True;;y;F;;values:list[str];;y;_PxString;;;As CELLNOTE but shown mandatory as for NOTEX.;
 CELLNOTE;True;;y;F;;values:list[str];;y;_PxString;;;Footnote for a single cell or a group of cells. Which cell it refers to is given by values and variables. If a value is given as * the note refers to all values for that variable. Only one value can be given for each variable. T;
 DATASYMBOL1;True;;;N?;;;;;_PxString;;;Should be in config?;
@@ -83,5 +83,5 @@ ATTRIBUTE-ID;;;;F;;;;;_PxStringList;;;Not in normal use. See pdf;This keyword li
 ATTRIBUTE-TEXT;True;;;F;;;;;_PxStringList;;;Not in normal use. See pdf;"This keyword specifies a textual representation of the attribute for presentational purpose and it is optional. Each attribute text is separate with a comma sign and written within quotes. The ATTRIBUTE-TEXT keyword must occur after the ATTRIBUTE-ID and it is also language dependent. The order of the texts should be the same as for the order of the ids. Example: ATTRIBUTE-TEXT=""Observation status"",""Observation confidence""; ATTRIBUTE-TEXT[""sv""]=""Status"",""Tillit"";"
 ATTRIBUTES;;;;F;;values:list[str]=None;Y(må ha en uten, kan ha med;Y;_PxStringList;;;Not in normal use. See pdf;
 VARIABLECODE;True;;;J;;variable:str;;;_PxString;;;;
-META-ID;;;;F;;variable:str=None, value:str=None;Y;;_PxString;;;The META-ID keyword is used to reference a external meta information about a table, variable or value. Requires a separate file to resolve to urls;
+META-ID;True;;;F;;variable:str=None, value:str=None;Y;;_PxString;;;The META-ID keyword is used to reference a external meta information about a table, variable or value. Requires a separate file to resolve to urls;
 DATA;;X;;J;;;;;_PxData;;;Numbers and quoted dots;
