@@ -1,6 +1,6 @@
 ﻿import pytest
 from pxtool.model.util._px_valuetype import _PxString
-from pxtool.model.util._px_keytypes import _KeytypeValuesMulti, _KeytypeValuesLangMulti, _KeytypeVariableValueLangMulti, _KeytypeVariableLangMulti, _KeytypeLang,_KeytypeVariableLang,_KeytypeContentLang, _KeytypeVariableValueLang,_KeytypeVariableValue
+from pxtool.model.util._px_keytypes import _KeytypeCodes, _KeytypeValuesLangMulti, _KeytypeVariableValueLangMulti, _KeytypeVariableLangMulti, _KeytypeLang,_KeytypeVariableLang,_KeytypeContentLang, _KeytypeVariableValueLang
 
 def test_eq_returns_false():
 
@@ -25,10 +25,6 @@ def test_eq_returns_false():
     my_key = _KeytypeVariableValueLang("region","oslo","no")
     assert not my_key == my_str
     my_key.reset_lang_none_to("sv")
-
-
-    my_key = _KeytypeVariableValue("region","oslo")
-    assert not my_key == my_str
    
     my_key = _KeytypeVariableLangMulti("region","no",1)
     assert not my_key == my_str
@@ -39,7 +35,7 @@ def test_eq_returns_false():
     assert not my_key == my_str
     my_key.reset_lang_none_to("sv")
 
-    my_key = _KeytypeValuesMulti(["kongsvinger","oslo"],1)
+    my_key = _KeytypeCodes(["kongsvinger","oslo"])
     assert not my_key == my_str
 
 

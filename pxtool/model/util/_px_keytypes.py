@@ -115,25 +115,6 @@ class _KeytypeVariableValueLang(_KeytypeLang):
         else: 
             return _KeytypeVariableValueLang(self.variable, self.value, lang)
     
-class _KeytypeVariableValue():
-    variable:str
-    value:str
-
-    def __init__(self, variable:str, value:str) -> None:
-        self.variable = variable
-        self.value = value
-    
-    def __str__(self):
-        return  f"(\"{self.variable}\",\"{self.value}\")"   
-
-    def __eq__(self, other):
-        if type(self) == type(other):
-            return self.variable == other.variable and self.value == other.value
-        return False
-
-    def __hash__(self):
-        return hash((self.variable, self.value))   
-
 
 class _KeytypeVariableLangMulti(_KeytypeVariableLang):
     counter:int
@@ -188,7 +169,7 @@ class _KeytypeValuesLangMulti(_KeytypeLang):
         super().__init__(lang)
         self.values = values
         self.counter = counter
-        self._joined = "\",\"".join(self.values)
+        self._joined = "\",\"".join(self.values) if values else "TODO"
 
 
     def __str__(self):
@@ -209,27 +190,25 @@ class _KeytypeValuesLangMulti(_KeytypeLang):
             return _KeytypeValuesLangMulti(self.values,lang,self.counter)
 
 
-class _KeytypeValuesMulti(): 
-    values:list[str] 
-    counter:int
+class _KeytypeCodes(): 
+    codes:list[str] 
     _joined:str
 
-    def __init__(self, values:list[str], counter:int) -> None:
+    def __init__(self, codes:list[str]) -> None:
         super().__init__()
-        self.values = values
-        self.counter = counter
-        self._joined = "\",\"".join(self.values)
+        self.codes = codes
+        self._joined = "\",\"".join(self.codes)
 
     def __str__(self):
         return  f"(\"{self._joined}\")"
     
     def __eq__(self, other):
         if type(self) == type(other):
-            return self._joined == other._joined and self.counter == other.counter
+            return self._joined == other._joined
         return False
 
     def __hash__(self):
-        return hash((self._joined, self.counter))  
+        return hash(self._joined)  
 
 
 

@@ -3,7 +3,9 @@ from pxtool.model.keywords._precision import _Precision
     
 def test_Precision_set_valid():
     obj = _Precision()
+    assert not obj.has_value("region","oslo","no")    
     obj.set(1,"region","oslo","no")
+    assert obj.has_value("region","oslo","no")    
     assert obj.get_value("region","oslo","no") == 1
     
 def test_Precision_set_invalid_raises():

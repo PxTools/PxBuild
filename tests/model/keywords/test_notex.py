@@ -3,7 +3,9 @@ from pxtool.model.keywords._notex import _Notex
     
 def test_Notex_set_valid():
     obj = _Notex()
+    assert not obj.has_value("region","no")    
     obj.set("a string","region","no")
+    assert obj.has_value("region","no")    
     assert obj.get_value("region","no") == "a string"
     
 def test_Notex_used_languages():

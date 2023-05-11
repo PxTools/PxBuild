@@ -1,20 +1,20 @@
 ﻿import pytest
-from pxtool.model.keywords._valuenote import _Valuenote
+from pxtool.model.keywords._meta_id import _MetaId
     
-def test_Valuenote_set_valid():
-    obj = _Valuenote()
+def test_MetaId_set_valid():
+    obj = _MetaId()
     assert not obj.has_value("region","oslo","no")    
     obj.set("a string","region","oslo","no")
     assert obj.has_value("region","oslo","no")    
     assert obj.get_value("region","oslo","no") == "a string"
     
-def test_Valuenote_used_languages():
-    obj = _Valuenote()
+def test_MetaId_used_languages():
+    obj = _MetaId()
     obj.set("a string","region","oslo","no")
     assert "no" in obj.get_used_languages()
 
-def test_Valuenote_reset_language():
-    obj = _Valuenote()
+def test_MetaId_reset_language():
+    obj = _MetaId()
     obj.set("a string","region","oslo")
     assert None in obj.get_used_languages()
     obj.reset_language_none_to(None)    
@@ -23,11 +23,8 @@ def test_Valuenote_reset_language():
     assert "no" in obj.get_used_languages()  
 
     
-def test_Valuenote_hack_multi_duplicate_set_raises():
-    obj = _Valuenote()
+def test_MetaId_duplicate_set_raises():
+    obj = _MetaId()
     obj.set("a string","region","oslo","no")
-    #reseting counter to create error
-    obj.occurence_counter=0
-    with pytest.raises(Exception) as err_mess:
+    with pytest.raises(Exception):
         obj.set("a string","region","oslo","no")
-    assert str(err_mess.value).startswith("VALUENOTE:")
