@@ -6,6 +6,8 @@ from pxtool.model.util._line_validator import LineValidator
 class _Keys(_PxValueByKey): 
 
     pxvalue_type:str = "_PxString"
+    has_subkey:bool = True
+    subkey_optional:bool = False
     may_have_language:bool = True
     _seen_languages={}
 

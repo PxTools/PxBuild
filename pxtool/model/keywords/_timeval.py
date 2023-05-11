@@ -6,6 +6,8 @@ from pxtool.model.util._line_validator import LineValidator
 class _Timeval(_PxValueByKey): 
 
     pxvalue_type:str = "_PxTlist"
+    has_subkey:bool = True
+    subkey_optional:bool = False
     may_have_language:bool = True
     _seen_languages={}
 
