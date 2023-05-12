@@ -8,6 +8,7 @@ class _Doublecolumn(_PxValueByKey):
     pxvalue_type:str = "_PxBool"
     has_subkey:bool = True
     subkey_optional:bool = False
+    completeness_type:str = "Lang"
     may_have_language:bool = True
     _seen_languages={}
 

@@ -8,6 +8,7 @@ class _Attributes(_PxValueByKey):
     pxvalue_type:str = "_PxStringList"
     has_subkey:bool = True
     subkey_optional:bool = True
+    completeness_type:str = ""
     may_have_language:bool = False
 
     def __init__(self) -> None:

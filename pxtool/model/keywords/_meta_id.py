@@ -8,6 +8,7 @@ class _MetaId(_PxValueByKey):
     pxvalue_type:str = "_PxString"
     has_subkey:bool = True
     subkey_optional:bool = True
+    completeness_type:str = "Lang"
     may_have_language:bool = True
     _seen_languages={}
 

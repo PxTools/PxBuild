@@ -7,6 +7,7 @@ class _Data(_PxSingle):
     pxvalue_type:str = "_PxData"
     has_subkey:bool = False
     subkey_optional:bool = False
+    completeness_type:str = ""
     may_have_language:bool = False
 
     def __init__(self) -> None:

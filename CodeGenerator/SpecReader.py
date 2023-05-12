@@ -37,7 +37,7 @@ def getKeyType(has_lang:bool,subkeys:dict,multi:bool) -> str:
        return myOut
 
 
-SpecRow = namedtuple("SpecRow", ['px_keyword', 'is_lang_dependent', 'is_Mandatory', 'skip_completeness','med_ut','ut_default', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_comment','from_pdf'] )
+SpecRow = namedtuple("SpecRow", ['px_keyword', 'is_lang_dependent', 'is_Mandatory', 'completeness_type','med_ut','ut_default', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_comment','from_pdf'] )
 
 #Tja, de er jo python typer alle sammen. Så det er vel typen til parameter i set funksjonen vs den typen som lagres value i super klassen
 to_native_types={"_PxStringList":"list[str]","_PxString":"str","_PxBool":"bool","_PxInt":"int","_PxData":"list"}
@@ -51,6 +51,7 @@ class MyKeyword:
         self.keyword = csvRow.px_keyword
         self.has_lang = bool(csvRow.is_lang_dependent)
         self.is_mandatory = bool(csvRow.is_Mandatory)  #todo
+        self.completeness_type = csvRow.completeness_type
         self.subkeys_raw = csvRow.px_SubKey
         self.is_SubKey_Optional = bool(csvRow.is_SubKey_Optional)
         self.is_duplicate_keypart_allowed = bool(csvRow.is_duplicate_keypart_allowed_)
@@ -129,6 +130,8 @@ class MyKeyword:
             pass
         fileHandle.write(f"    has_subkey:bool = {not self.subkeys_raw.strip() == ''}\n")
         fileHandle.write(f"    subkey_optional:bool = {self.is_SubKey_Optional }\n")
+        fileHandle.write(f"    completeness_type:str = \"{self.completeness_type}\"\n")
+
         if self.has_lang:
             fileHandle.write("    may_have_language:bool = True\n")
             fileHandle.write("    _seen_languages={}\n\n")
@@ -228,8 +231,7 @@ class SpecReader:
        with open("Keywords.csv", "r",encoding="utf-8-sig") as theSpecCsv:
          reader = csv.reader(theSpecCsv,delimiter=";" )
          header = next(reader)
-         print ("De to under bør være like")
-         print("['px_keyword', 'is_lang_dependent', 'is_Mandatory',  'skip_completeness','med_ut','ut_default', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_comment', 'from_pdf']")
+         
          print(header)
          self.data = [MyKeyword(SpecRow(*row)) for row in reader] 
 

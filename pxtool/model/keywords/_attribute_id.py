@@ -7,6 +7,7 @@ class _AttributeId(_PxSingle):
     pxvalue_type:str = "_PxStringList"
     has_subkey:bool = False
     subkey_optional:bool = False
+    completeness_type:str = ""
     may_have_language:bool = False
 
     def __init__(self) -> None:

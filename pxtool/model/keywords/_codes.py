@@ -8,6 +8,7 @@ class _Codes(_PxValueByKey):
     pxvalue_type:str = "_PxStringList"
     has_subkey:bool = True
     subkey_optional:bool = False
+    completeness_type:str = "Variable"
     may_have_language:bool = True
     _seen_languages={}
 

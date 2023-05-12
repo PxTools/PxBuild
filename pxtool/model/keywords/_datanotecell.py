@@ -8,6 +8,7 @@ class _Datanotecell(_PxValueByKey):
     pxvalue_type:str = "_PxString"
     has_subkey:bool = True
     subkey_optional:bool = False
+    completeness_type:str = ""
     may_have_language:bool = True
     _seen_languages={}
 
