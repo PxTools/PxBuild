@@ -8,14 +8,18 @@ from pxtool.model.keywords.{kw.module_name} import {my_class}
 set_valid_fstring="""    
 def test{my_class}_set_valid():
     obj = {my_class}()
+    assert not obj.has_value()   
     obj.set({good_value})
+    assert obj.has_value()    
     assert obj.get_value() == {good_value}
 """
 
 set_valid_with_keypart_fstring="""    
 def test{my_class}_set_valid():
     obj = {my_class}()
+    assert not obj.has_value({keypart})    
     obj.set({good_value},{keypart})
+    assert obj.has_value({keypart})    
     assert obj.get_value({keypart}) == {good_value}
 """
 
@@ -248,27 +252,27 @@ def test_scalar_int_writer(kw, filehandle) -> None:
 ###################################################################################
 
 my_spec= SpecReader()
-
+dir_string = "../tests/model/keywords/test"
 # make test_<Keyword classes>.py
 for kw in my_spec.data:
-    if kw.keyword in ["DATA","TIMEVAL","ATTRIBUTES","HIERARCHYLEVELSOPEN","HIERARCHYLEVELS","HIERARCHIES","META-ID"]:
+    if kw.keyword in ["DATA","TIMEVAL","ATTRIBUTES","HIERARCHYLEVELSOPEN","HIERARCHYLEVELS","HIERARCHIES"]:
        print(f"Skipping {kw.keyword}.")
        continue
 
     if(not kw.has_lang):
       if(not kw.subkeys_raw):
         if(kw.px_valuetype in ["_PxString"] ):
-            with open("../tests/keywords/test"+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
+            with open(dir_string+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
                test_scalar_string_writer(kw,classPy)
                
         elif(kw.px_valuetype == "_PxBool"):
-            with open("../tests/keywords/test"+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
+            with open(dir_string+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
                test_scalar_bool_writer(kw,classPy)
         elif(kw.px_valuetype == "_PxInt"):
-            with open("../tests/keywords/test"+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
+            with open(dir_string+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
                test_scalar_int_writer(kw,classPy)
         elif(kw.px_valuetype == "_PxStringList"):
-            with open("../tests/keywords/test"+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
+            with open(dir_string+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
                test_scalar_stringlist_writer(kw,classPy)
         else:
             print(f"miss {kw.keyword}")
@@ -276,16 +280,16 @@ for kw in my_spec.data:
         print(f"subkeys so miss {kw.keyword}")
     else:
         if(kw.px_valuetype in ["_PxString"] ):
-            with open("../tests/keywords/test"+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
+            with open(dir_string+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
                test_lang_string_writer(kw,classPy)
         elif(kw.px_valuetype == "_PxBool"):
-            with open("../tests/keywords/test"+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
+            with open(dir_string+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
                test_lang_bool_writer(kw,classPy)
         elif(kw.px_valuetype == "_PxInt"):
-            with open("../tests/keywords/test"+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
+            with open(dir_string+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
                test_with_keypart_int_writer(kw,classPy)
         elif(kw.px_valuetype == "_PxStringList"):
-            with open("../tests/keywords/test"+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
+            with open(dir_string+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
                test_lang_stringlist_writer(kw,classPy)                   
             
 

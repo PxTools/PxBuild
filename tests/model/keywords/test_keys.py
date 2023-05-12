@@ -3,7 +3,9 @@ from pxtool.model.keywords._keys import _Keys
     
 def test_Keys_set_valid():
     obj = _Keys()
+    assert not obj.has_value("region","no")    
     obj.set("CODES","region","no")
+    assert obj.has_value("region","no")    
     assert obj.get_value("region","no") == "CODES"
     
 def test_Keys_used_languages():

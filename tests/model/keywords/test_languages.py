@@ -3,7 +3,9 @@ from pxtool.model.keywords._languages import _Languages
     
 def test_Languages_set_valid():
     obj = _Languages()
+    assert not obj.has_value()   
     obj.set(["en"])
+    assert obj.has_value()    
     assert obj.get_value() == ["en"]
     
 def test_Languages_set_invalid_raises():

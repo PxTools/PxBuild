@@ -3,7 +3,9 @@ from pxtool.model.keywords._cellnotex import _Cellnotex
     
 def test_Cellnotex_set_valid():
     obj = _Cellnotex()
+    assert not obj.has_value(["male","oslo"],"no")    
     obj.set("a string",["male","oslo"],"no")
+    assert obj.has_value(["male","oslo"],"no")    
     assert obj.get_value(["male","oslo"],"no") == "a string"
     
 def test_Cellnotex_used_languages():

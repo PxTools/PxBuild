@@ -12,6 +12,15 @@ def test_check_stub_and_heading_one_missing_ok():
     val_rep = check_stub_and_heading(pxfile)
     assert val_rep.is_valid == True
 
+def test_check_stub_and_heading_the_other_missing_ok():
+    pxfile = PXFileModel()
+    pxfile.languages.set(["sv","fi"])
+    pxfile.heading.set(["var_sv"], "sv")
+    pxfile.heading.set(["var_fi"], "fi")
+
+    val_rep = check_stub_and_heading(pxfile)
+    assert val_rep.is_valid == True
+
 def test_check_stub_and_heading_fails_different_length():
     pxfile = PXFileModel()
     pxfile.languages.set(["sv","fi"])

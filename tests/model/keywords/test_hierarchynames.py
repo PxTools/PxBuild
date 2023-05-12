@@ -3,7 +3,9 @@ from pxtool.model.keywords._hierarchynames import _Hierarchynames
     
 def test_Hierarchynames_set_valid():
     obj = _Hierarchynames()
+    assert not obj.has_value("region","no")    
     obj.set(["a string"],"region","no")
+    assert obj.has_value("region","no")    
     assert obj.get_value("region","no") == ["a string"]
     
 def test_Hierarchynames_used_languages():

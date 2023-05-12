@@ -81,7 +81,7 @@ DATANOTESUM;True;;;F;;;;;_PxString;;;;
 KEYS;True;;;F;;variable:str;;;_PxString;;"regexp_string(""^(CODES|VALUES)$"",";;
 ATTRIBUTE-ID;;;;F;;;;;_PxStringList;;;Not in normal use. See pdf;This keyword list the identities of all attributes. Indirectly it also specifies the number of attributes. Each attribute id is separate with a comma sign and it is written within quotes. The ATTRIBUTE-ID keyword must be written before the ATTRIBUTES keyword and must exist if the ATTRIBUTES keyword is present. The ATTRIBUTE-ID keyword is multilingual, that is you do not have to specify it for each language
 ATTRIBUTE-TEXT;True;;;F;;;;;_PxStringList;;;Not in normal use. See pdf;"This keyword specifies a textual representation of the attribute for presentational purpose and it is optional. Each attribute text is separate with a comma sign and written within quotes. The ATTRIBUTE-TEXT keyword must occur after the ATTRIBUTE-ID and it is also language dependent. The order of the texts should be the same as for the order of the ids. Example: ATTRIBUTE-TEXT=""Observation status"",""Observation confidence""; ATTRIBUTE-TEXT[""sv""]=""Status"",""Tillit"";"
-ATTRIBUTES;;;;F;;values:list[str]=None;Y(må ha en uten, kan ha med;Y;_PxStringList;;;Not in normal use. See pdf;
+ATTRIBUTES;;;;F;;codes:list[str]=None;Y(må ha en uten, kan ha med;;_PxStringList;;;Not in normal use. See pdf;
 VARIABLECODE;True;;;J;;variable:str;;;_PxString;;;;
 META-ID;True;;;F;;variable:str=None, value:str=None;Y;;_PxString;;;The META-ID keyword is used to reference a external meta information about a table, variable or value. Requires a separate file to resolve to urls;
 DATA;;X;;J;;;;;_PxData;;;Numbers and quoted dots;
