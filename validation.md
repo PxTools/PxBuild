@@ -34,7 +34,7 @@ Unlisted language, variable or value. Missing dimensions in values:list (here * 
 
 
 #### Key-part stuff, should be called in sequence.  It makes little sence to try b if a failed
-- a) ensure LANGUAGES and LANGUAGE is present, and than LANGUAGE one LANGUAGES  (  2) check_language: ensures default languge is defined in languages keyword )
+- a) ensure LANGUAGES and LANGUAGE is present, and than LANGUAGE is one of LANGUAGES 
 - b) ensure at least one of STUB or HEADING is present and when present, is complete and have the same length for all LANGUAGES.
 - c) ensure CONTVARIABLE is present and that the value has the same index in STUB union HEADING for all LANGUAGES.
 - d) ensure VALUES is complete
@@ -49,6 +49,7 @@ Unlisted language, variable or value. Missing dimensions in values:list (here * 
 - 2) check_decimals: ensures that the value for DECIMALS is lower than or equal to 6 if SHOWDECIMALS is not defined
 - 3) check_showdecimals: ensures that if SHOWDECIMALS is present its value is greater than value for DECIMALS
 
+- 4) VARIABLE_TYPE vs CONTVARIABLE vs TIMESCALE
 #### These could perhaps start by failing if the keywords are present, and be made propperly when we have a real need...
 - 100 ) ensure the 3 ATTRIBUTE* keywords are ok.
 - 101 ) ensure: for KEYS: If this keyword is used it must occur as many times as there are variables in the stub.
