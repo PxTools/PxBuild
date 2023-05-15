@@ -7,6 +7,11 @@ from pxtool.operations_on_model.validator.checks.check_lang_keys import check_la
 from pxtool.operations_on_model.validator.checks.check_decimals import check_decimals
 from pxtool.operations_on_model.validator.checks.check_showdecimals import check_showdecimals
 from pxtool.operations_on_model.validator.checks.check_codes_values_equal_count import check_codes_values_equal_count
+from pxtool.operations_on_model.validator.checks.check_stub_and_heading import check_stub_and_heading
+from pxtool.operations_on_model.validator.checks.check_contentsvariable_is_present import check_contentsvariable_is_present
+from pxtool.operations_on_model.validator.checks.check_values import check_values
+from pxtool.operations_on_model.validator.checks.check_subkeys import check_valuebased_subkeys
+from pxtool.operations_on_model.validator.checks.check_completeness import check_completeness
 
 class Valdidate:
     checks_ran: list[ValidationResult]
@@ -26,17 +31,38 @@ class Valdidate:
                 self.failed.append(rep)
 
     def run_checks(self, model:PXFileModel) -> None:
-        #
-        self.checks_ran.append(check_mandatory(model))
-        if not self.checks_ran[-1].is_valid:
-            return 
-        #
+
         self.checks_ran.append(check_language(model))
         if not self.checks_ran[-1].is_valid:
-            return
+            return     
+        
+        self.checks_ran.append(check_stub_and_heading(model))
+        if not self.checks_ran[-1].is_valid:
+            return   
+        
+        self.checks_ran.append(check_contentsvariable_is_present(model))
+        if not self.checks_ran[-1].is_valid:
+            return              
+        
+        self.checks_ran.append(check_values(model))
+        if not self.checks_ran[-1].is_valid:
+            return  
+        
         self.checks_ran.append(check_lang_keys(model))
         if not self.checks_ran[-1].is_valid:
             return
+                 
+        self.checks_ran.append(check_valuebased_subkeys(model))
+        if not self.checks_ran[-1].is_valid:
+            return    
+                 
+        self.checks_ran.append(check_mandatory(model))
+        if not self.checks_ran[-1].is_valid:
+            return 
+        
+        self.checks_ran.append(check_completeness(model))
+        if not self.checks_ran[-1].is_valid:
+          return        
         #
         self.checks_ran.append(check_codes_values_equal_count(model))
         self.checks_ran.append(check_decimals(model))
