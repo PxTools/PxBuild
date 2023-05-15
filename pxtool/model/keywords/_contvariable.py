@@ -8,7 +8,7 @@ class _Contvariable(_PxValueByKey):
     pxvalue_type:str = "_PxString"
     has_subkey:bool = False
     subkey_optional:bool = False
-    completeness_type:str = "Lang"
+    completeness_type:str = "X"
     may_have_language:bool = True
     _seen_languages={}
 
