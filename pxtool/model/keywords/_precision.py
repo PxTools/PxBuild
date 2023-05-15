@@ -8,7 +8,7 @@ class _Precision(_PxValueByKey):
     pxvalue_type:str = "_PxInt"
     has_subkey:bool = True
     subkey_optional:bool = False
-    completeness_type:str = "Lang"
+    completeness_type:str = "EachVarVal"
     may_have_language:bool = True
     _seen_languages={}
 
