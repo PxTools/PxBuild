@@ -146,7 +146,7 @@ class Loader:
 
         outLangPart = "" 
         if keypart.language:
-            outLangPart = f", {keypart.language}"
+            outLangPart = f", lang={keypart.language}"
 
         outSubkeyPart = "" 
         if len(keypart.subKeys) > 0:
