@@ -10,10 +10,10 @@ class _Baseperiod(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "AllContent"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("BASEPERIOD")
+        self._seen_languages={}
 
     def set(self, baseperiod:str, content:str=None, lang:str = None) -> None:
         """ Base period for, for instance index series """

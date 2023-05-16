@@ -10,10 +10,10 @@ class _Datanote(_PxValueByKey):
     subkey_optional:bool = True
     completeness_type:str = ""
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("DATANOTE")
+        self._seen_languages={}
         self.occurence_counter = 0
 
     def set(self, datanote:str, variable:str=None, value:str=None, lang:str = None) -> None:

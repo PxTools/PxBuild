@@ -10,10 +10,10 @@ class _LastUpdated(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "AllContent"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("LAST-UPDATED")
+        self._seen_languages={}
 
     def set(self, last_updated:str, content:str=None, lang:str = None) -> None:
         """ latest update  in pxdate format """

@@ -10,10 +10,10 @@ class _Link(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "Lang"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("LINK")
+        self._seen_languages={}
 
     def set(self, link:str, lang:str = None) -> None:
         """ Not in use? """

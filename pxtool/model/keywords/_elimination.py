@@ -10,10 +10,10 @@ class _Elimination(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "Lang"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("ELIMINATION")
+        self._seen_languages={}
 
     def set(self, elimination:str, variable:str, lang:str = None) -> None:
         """ bool eller string """

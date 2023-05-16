@@ -97,9 +97,8 @@ class _Checker:
         theOneIndex = ""
         for key in keyword._value_by_key:
             _seen_languages[key.lang]=1
-
             tmpIndex = self.indexByLangAndVariable[(key.lang,key.variable)]
-            if not theOneIndex:
+            if theOneIndex == "":
                 theOneIndex = tmpIndex
             else:
                 if not tmpIndex == theOneIndex:

@@ -10,10 +10,10 @@ class _Hierarchynames(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "EachVariable"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("HIERARCHYNAMES")
+        self._seen_languages={}
 
     def set(self, hierarchynames:list[str], variable:str, lang:str = None) -> None:
         """ Not in normal use. See pdf """

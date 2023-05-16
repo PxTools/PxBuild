@@ -10,10 +10,10 @@ class _Datasymbolnil(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "Lang"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("DATASYMBOLNIL")
+        self._seen_languages={}
 
     def set(self, datasymbolnil:str, lang:str = None) -> None:
         """  """

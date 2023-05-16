@@ -10,10 +10,10 @@ class _Source(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "Lang"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("SOURCE")
+        self._seen_languages={}
 
     def set(self, source:str, lang:str = None) -> None:
         """ States the organization which is responsible for the statistics """

@@ -10,10 +10,10 @@ class _Map(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "Lang"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("MAP")
+        self._seen_languages={}
 
     def set(self, map:str, variable:str, lang:str = None) -> None:
         """ Used for a geographic variable for which maps can be made. Example: "Sweden_municipality". """

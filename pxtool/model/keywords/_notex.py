@@ -10,10 +10,10 @@ class _Notex(_PxValueByKey):
     subkey_optional:bool = True
     completeness_type:str = ""
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("NOTEX")
+        self._seen_languages={}
         self.occurence_counter = 0
 
     def set(self, notex:str, variable:str=None, lang:str = None) -> None:

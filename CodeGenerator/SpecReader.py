@@ -131,17 +131,14 @@ class MyKeyword:
         fileHandle.write(f"    has_subkey:bool = {not self.subkeys_raw.strip() == ''}\n")
         fileHandle.write(f"    subkey_optional:bool = {self.is_SubKey_Optional }\n")
         fileHandle.write(f"    completeness_type:str = \"{self.completeness_type}\"\n")
-
-        if self.has_lang:
-            fileHandle.write("    may_have_language:bool = True\n")
-            fileHandle.write("    _seen_languages={}\n\n")
-        else:
-            fileHandle.write("    may_have_language:bool = False\n\n")
+        fileHandle.write(f"    may_have_language:bool = {self.has_lang}\n\n")
 
         fileHandle.write(f"    def __init__(self) -> None:\n")
         fileHandle.write(f"        super().__init__(\"{self.keyword}\")\n")
+        if self.has_lang:
+            fileHandle.write("        self._seen_languages={}\n")
         if self.is_duplicate_keypart_allowed:    
-            fileHandle.write(f"        self.occurence_counter = 0\n")
+            fileHandle.write("        self.occurence_counter = 0\n")
         fileHandle.write(f"\n")
 
     def set_writer(self, fileHandle) -> None:

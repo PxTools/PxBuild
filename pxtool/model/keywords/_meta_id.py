@@ -10,10 +10,10 @@ class _MetaId(_PxValueByKey):
     subkey_optional:bool = True
     completeness_type:str = "EachVariable"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("META-ID")
+        self._seen_languages={}
 
     def set(self, meta_id:str, variable:str=None, value:str=None, lang:str = None) -> None:
         """ The META-ID keyword is used to reference a external meta information about a table, variable or value. Requires a separate file to resolve to urls """
