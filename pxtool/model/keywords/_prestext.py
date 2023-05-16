@@ -10,10 +10,10 @@ class _Prestext(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "EachVariable"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("PRESTEXT")
+        self._seen_languages={}
 
     def set(self, prestext:int, variable:str, lang:str = None) -> None:
         """ 0 - Display only the value code. 1 - Display only the value text. 2 - Display first the code then the value text. 3 - Display first the value text then the value code. """

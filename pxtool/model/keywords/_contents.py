@@ -10,10 +10,10 @@ class _Contents(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "Lang"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("CONTENTS")
+        self._seen_languages={}
 
     def set(self, contents:str, lang:str = None) -> None:
         """ Sort of a base title? """

@@ -10,10 +10,10 @@ class _Datanotecell(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = ""
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("DATANOTECELL")
+        self._seen_languages={}
         self.occurence_counter = 0
 
     def set(self, datanotecell:str, values:list[str], lang:str = None) -> None:

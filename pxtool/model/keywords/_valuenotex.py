@@ -10,10 +10,10 @@ class _Valuenotex(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = ""
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("VALUENOTEX")
+        self._seen_languages={}
         self.occurence_counter = 0
 
     def set(self, valuenotex:str, variable:str, value:str, lang:str = None) -> None:

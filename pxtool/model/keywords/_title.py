@@ -10,10 +10,10 @@ class _Title(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "Lang"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("TITLE")
+        self._seen_languages={}
 
     def set(self, title:str, lang:str = None) -> None:
         """ The title of the table, reflecting its contents and variables """

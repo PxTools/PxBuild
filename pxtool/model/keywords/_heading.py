@@ -10,10 +10,10 @@ class _Heading(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "X"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("HEADING")
+        self._seen_languages={}
 
     def set(self, heading:list[str], lang:str = None) -> None:
         """ Variables in heading """

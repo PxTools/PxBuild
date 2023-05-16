@@ -10,10 +10,10 @@ class _Datasymbol4(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "Lang"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("DATASYMBOL4")
+        self._seen_languages={}
 
     def set(self, datasymbol4:str, lang:str = None) -> None:
         """ Should be in config? """

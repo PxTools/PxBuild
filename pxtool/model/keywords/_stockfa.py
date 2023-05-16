@@ -10,10 +10,10 @@ class _Stockfa(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "AllContent"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("STOCKFA")
+        self._seen_languages={}
 
     def set(self, stockfa:str, content:str=None, lang:str = None) -> None:
         """ Indicates if data is stock, flow or average.  Used characters: S (stock), F (flow) and A (average)  """

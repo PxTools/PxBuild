@@ -10,10 +10,10 @@ class _Values(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "X"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("VALUES")
+        self._seen_languages={}
 
     def set(self, values:list[str], variable:str, lang:str = None) -> None:
         """ Labels of the values for the variable. """

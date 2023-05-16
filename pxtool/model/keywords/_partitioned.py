@@ -10,10 +10,10 @@ class _Partitioned(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "TODO"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("PARTITIONED")
+        self._seen_languages={}
         self.occurence_counter = 0
 
     def set(self, partitioned:list[str], variable:str, lang:str = None) -> None:

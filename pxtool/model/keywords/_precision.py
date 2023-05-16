@@ -10,10 +10,10 @@ class _Precision(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "EachVarVal"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("PRECISION")
+        self._seen_languages={}
 
     def set(self, precision:int, variable:str, value:str, lang:str = None) -> None:
         """ Determines that the value shall be presented with a number of decimals that differs from the keyword SHOWDECIMALS """

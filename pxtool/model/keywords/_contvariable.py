@@ -10,10 +10,10 @@ class _Contvariable(_PxValueByKey):
     subkey_optional:bool = False
     completeness_type:str = "X"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("CONTVARIABLE")
+        self._seen_languages={}
 
     def set(self, contvariable:str, lang:str = None) -> None:
         """ which variable is the content variable """
