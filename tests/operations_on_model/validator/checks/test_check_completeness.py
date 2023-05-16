@@ -41,7 +41,55 @@ def _get_model() -> PXFileModel:
     pxfile.cellnote.set("A cellnote",["v_1_1_sv","v_2_1_sv","*"],"sv")
     pxfile.cellnote.set("A cellnote",["v_1_1_fi","v_2_1_fi","*"],"fi")
 
+   
     return pxfile
+
+#Timeval is (currently ) the only Keyword with One_variable
+def test_check_completeness_one_variable_fails_keyword_not_supported():
+    pxfile = _get_model()
+    pxfile.attributes.set(["C","F"],["C1","C2","C3"])
+
+    val_rep = check_completeness(pxfile)
+    assert val_rep.is_valid == False 
+    assert "For keyword ATTRIBUTES:Sorry keyword not supported yet." in val_rep.error_msg
+
+#Timeval is (currently ) the only Keyword with One_variable
+def test_check_completeness_one_variable_fails_half_a_variable():
+    pxfile = _get_model()
+    pxfile.timeval.set("A1",["T1","T2"],"var1_sv","sv")
+
+    val_rep = check_completeness(pxfile)
+    assert val_rep.is_valid == False 
+    assert "For keyword TIMEVAL:Missing value for lang:fi" in val_rep.error_msg
+
+def test_check_completeness_one_variable_ok_one_variable():
+    pxfile = _get_model()
+    pxfile.timeval.set("A1",["T1","T2"],"var1_sv","sv")
+    pxfile.timeval.set("A1",["T1","T2"],"var1_fi","fi")
+    val_rep = check_completeness(pxfile)
+    assert val_rep.is_valid 
+
+def test_check_completeness_one_variable_fails_2_variables():
+    pxfile = _get_model()
+    pxfile.timeval.set("A1",["T1","T2"],"var1_sv","sv")
+    pxfile.timeval.set("A1",["T1","T2"],"var1_fi","fi")
+    
+    pxfile.timeval.set("A1",["T1","T2"],"var3_sv","sv")
+    pxfile.timeval.set("A1",["T1","T2"],"var3_fi","fi")
+
+    val_rep = check_completeness(pxfile)
+    assert val_rep.is_valid == False 
+    assert "For keyword TIMEVAL: Should only reference 1 variable. Found 2: index 0 and 2." in val_rep.error_msg
+
+
+def test_check_completeness_one_variable_fails_2_half_variables():
+    pxfile = _get_model()
+    pxfile.timeval.set("A1",["T1","T2"],"var1_sv","sv")
+    pxfile.timeval.set("A1",["T1","T2"],"var3_fi","fi")
+
+    val_rep = check_completeness(pxfile)
+    assert val_rep.is_valid == False 
+    assert "For keyword TIMEVAL: Should only reference 1 variable. Found 2: index 0 and 2." in val_rep.error_msg
 
 
 
