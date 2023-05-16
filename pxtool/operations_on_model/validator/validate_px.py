@@ -13,7 +13,7 @@ from pxtool.operations_on_model.validator.checks.check_values import check_value
 from pxtool.operations_on_model.validator.checks.check_subkeys import check_valuebased_subkeys
 from pxtool.operations_on_model.validator.checks.check_completeness import check_completeness
 
-class Valdidate:
+class Validate:
     checks_ran: list[ValidationResult]
     
     def __init__(self, model:PXFileModel):
