@@ -1,6 +1,5 @@
 from pxtool.model.px_file_model import PXFileModel
 from pxtool.operations_on_model.validator.validationResult import ValidationResult
-
 from pxtool.operations_on_model.validator.checks.check_mandatory import  check_mandatory
 from pxtool.operations_on_model.validator.checks.check_language import check_language
 from pxtool.operations_on_model.validator.checks.check_lang_keys import check_lang_keys
