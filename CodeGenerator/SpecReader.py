@@ -250,6 +250,7 @@ for kw in my_spec_reader.data:
 # make constants.py
 mandatory_keys = []
 langdependent_keys = []
+content_indexed_keywords =[]
 keyword_pythonic_map = {}
 
 for kw in my_spec_reader.data:    
@@ -258,12 +259,17 @@ for kw in my_spec_reader.data:
         mandatory_keys.append(to_python_case(kw.keyword))
     if(kw.has_lang):
         langdependent_keys.append(to_python_case(kw.keyword))
+    if("content" in kw.subkeys_raw):
+        content_indexed_keywords.append(to_python_case(kw.keyword))
+
+
 
 
 with open("../pxtool/model/util/constants.py", "wt",encoding="utf-8-sig", newline="\n" ) as constant_module:
     constant_module.write("\"\"\"Module for holding constants\"\"\""+"\n\n")
     constant_module.write(f"MANDATORY_KEYWORDS = {str(mandatory_keys)}\n")
     constant_module.write(f"LANGDEPENDENT_KEYWORDS = {str(langdependent_keys)}\n")
+    constant_module.write(f"CONTENT_INDEXED_KEYWORDS = {str(content_indexed_keywords)}\n")
     constant_module.write(f"KEYWORDS_PYTHONIC_MAP = {str(keyword_pythonic_map)}\n")
 
 # make PxFileModel.py
