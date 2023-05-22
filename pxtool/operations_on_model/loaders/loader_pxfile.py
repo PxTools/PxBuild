@@ -1,6 +1,7 @@
 import re
 import pxtool
 import pxtool.model.util.constants as constants
+from pxtool.model.px_file_model import PXFileModel
 
 
 class QuotedItem:
@@ -70,6 +71,7 @@ class Keypart:
 
 
 class Loader:
+    @staticmethod 
     def isEven(value: int) -> bool:
         if value % 2 == 0:
             return True
@@ -276,7 +278,7 @@ class Loader:
         return my_out
 
     def __init__(self, filename: str) -> None:
-        self.outModel = pxtool.model.px_file_model.PXFileModel()
+        self.outModel:PXFileModel = PXFileModel()
 
         file = Loader.get_file_in_chunks(filename)
 

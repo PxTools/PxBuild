@@ -13,12 +13,11 @@ from pxtool.operations_on_model.validator.checks.check_subkeys import check_valu
 from pxtool.operations_on_model.validator.checks.check_completeness import check_completeness
 
 class Validate:
-    checks_ran: list[ValidationResult]
     
     def __init__(self, model:PXFileModel):
-        self.checks_ran = []
-        self.passed = []
-        self.failed = []
+        self.checks_ran: list[ValidationResult] = []
+        self.passed: list[ValidationResult] = []
+        self.failed: list[ValidationResult] = []
 
         self.run_checks(model)
         

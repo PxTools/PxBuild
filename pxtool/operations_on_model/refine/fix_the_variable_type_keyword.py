@@ -1,13 +1,10 @@
 from pxtool.model.px_file_model import PXFileModel
-from pxtool.operations_on_model.validator.checks.check_completeness import (
-    check_completeness,
-)
+
 from pxtool.operations_on_model.validator.checks.check_contentsvariable_is_present import (
     check_contentsvariable_is_present,
 )
 from pxtool.operations_on_model.validator.checks.check_lang_keys import check_lang_keys
 from pxtool.operations_on_model.validator.checks.check_language import check_language
-from pxtool.operations_on_model.validator.checks.check_mandatory import check_mandatory
 from pxtool.operations_on_model.validator.checks.check_stub_and_heading import (
     check_stub_and_heading,
 )
@@ -53,3 +50,5 @@ def fix_the_variable_type_keyword(model: PXFileModel):
                 model.variable_type.set("G", vari, lang)
             else:
                 model.variable_type.set("N", vari, lang)
+
+
