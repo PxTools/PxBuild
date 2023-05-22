@@ -1,0 +1,9 @@
+from pxtool.operations_on_model.loaders.loader_pxfile import Loader
+from pxtool.operations_on_model.refine.trickle_measurement_to_contentsvalues import trickle_measurement_to_contentsvalues
+import pytest
+
+def test_trickle_measurement_to_contentsvalues_raises():
+      dummy = Loader('testdata/clean_me.px')
+      with pytest.raises(Exception, match="One of check_language, check_stub_and_heading, "):
+          trickle_measurement_to_contentsvalues(dummy.outModel)
+      
