@@ -6,11 +6,14 @@ from pxtool.model.util._line_validator import LineValidator
 class _Seasadj(_PxValueByKey): 
 
     pxvalue_type:str = "_PxBool"
+    has_subkey:bool = True
+    subkey_optional:bool = False
+    completeness_type:str = "AllContent"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("SEASADJ")
+        self._seen_languages={}
 
     def set(self, seasadj:bool, content:str=None, lang:str = None) -> None:
         """ Is  the data seasonally adjusted """
@@ -28,6 +31,10 @@ class _Seasadj(_PxValueByKey):
     def get_value(self, content:str=None, lang:str = None) -> bool:
         my_key = _KeytypeContentLang(content, lang)
         return super().get_value(my_key).get_value()
+
+    def has_value(self, content:str=None, lang:str = None) -> bool:
+        my_key = _KeytypeContentLang(content, lang)
+        return super().has_value(my_key)
 
     def get_used_languages(self) -> list[str]:
        return list(self._seen_languages.keys())

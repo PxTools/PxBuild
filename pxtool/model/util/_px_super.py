@@ -9,7 +9,7 @@ class _SuperKeyword(ABC):
         self._keyword = keyword
 
     @abstractmethod
-    def has_value(self) -> bool: # pragma: no cover
+    def is_present(self) -> bool: # pragma: no cover
         pass
 
 class _PxSingle(_SuperKeyword):
@@ -19,7 +19,7 @@ class _PxSingle(_SuperKeyword):
         super().__init__(keyword)
 
     def set(self, px_value:_PxInt | _PxString | _PxStringList | _PxBool | _PxData) -> None:
-        if self.has_value():
+        if self.is_present():
            raise ValueError(f"Duplicate use. First value {self._px_value}, second value {px_value}.")
         self._px_value = px_value
 
@@ -33,6 +33,9 @@ class _PxSingle(_SuperKeyword):
             return ""
 
     def has_value(self) -> bool:
+        return hasattr(self,"_px_value")
+    
+    def is_present(self) -> bool:
         return hasattr(self,"_px_value")
 
 class _PxValueByKey(_SuperKeyword):
@@ -49,11 +52,15 @@ class _PxValueByKey(_SuperKeyword):
 
     def get_value(self, my_key) -> _PxInt | _PxString | _PxStringList | _PxBool |_PxHierarchy | _PxTlist:
         return self._value_by_key.get(my_key)
+    
+    def has_value(self, my_key) -> _PxInt | _PxString | _PxStringList | _PxBool |_PxHierarchy | _PxTlist:
+        return my_key in self._value_by_key
+
 
     def __str__(self):
         myOut = []
         
-        if self.has_value():
+        if self.is_present():
           for keypart in self._value_by_key.keys() :
               myOut.append(f"{self._keyword}{keypart} = {self._value_by_key[keypart]};") 
           return "\n".join(myOut)
@@ -63,7 +70,7 @@ class _PxValueByKey(_SuperKeyword):
     def __len__(self):
         return len(self._value_by_key)
     
-    def has_value(self) -> bool:
+    def is_present(self) -> bool:
         return len(self._value_by_key) > 0
     
 

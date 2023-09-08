@@ -3,7 +3,9 @@ from pxtool.model.keywords._doublecolumn import _Doublecolumn
     
 def test_Doublecolumn_set_valid():
     obj = _Doublecolumn()
+    assert not obj.has_value("region","no")    
     obj.set(True,"region","no")
+    assert obj.has_value("region","no")    
     assert obj.get_value("region","no") == True
     
 def test_Doublecolumn_used_languages():

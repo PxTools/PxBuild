@@ -6,11 +6,14 @@ from pxtool.model.util._line_validator import LineValidator
 class _Contvariable(_PxValueByKey): 
 
     pxvalue_type:str = "_PxString"
+    has_subkey:bool = False
+    subkey_optional:bool = False
+    completeness_type:str = "X"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("CONTVARIABLE")
+        self._seen_languages={}
 
     def set(self, contvariable:str, lang:str = None) -> None:
         """ which variable is the content variable """
@@ -28,6 +31,10 @@ class _Contvariable(_PxValueByKey):
     def get_value(self, lang:str = None) -> str:
         my_key = _KeytypeLang(lang)
         return super().get_value(my_key).get_value()
+
+    def has_value(self, lang:str = None) -> bool:
+        my_key = _KeytypeLang(lang)
+        return super().has_value(my_key)
 
     def get_used_languages(self) -> list[str]:
        return list(self._seen_languages.keys())

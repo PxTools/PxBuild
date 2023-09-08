@@ -6,11 +6,14 @@ from pxtool.model.util._line_validator import LineValidator
 class _Description(_PxValueByKey): 
 
     pxvalue_type:str = "_PxString"
+    has_subkey:bool = False
+    subkey_optional:bool = False
+    completeness_type:str = "Lang"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("DESCRIPTION")
+        self._seen_languages={}
 
     def set(self, description:str, lang:str = None) -> None:
         """ Use title instead? """
@@ -28,6 +31,10 @@ class _Description(_PxValueByKey):
     def get_value(self, lang:str = None) -> str:
         my_key = _KeytypeLang(lang)
         return super().get_value(my_key).get_value()
+
+    def has_value(self, lang:str = None) -> bool:
+        my_key = _KeytypeLang(lang)
+        return super().has_value(my_key)
 
     def get_used_languages(self) -> list[str]:
        return list(self._seen_languages.keys())

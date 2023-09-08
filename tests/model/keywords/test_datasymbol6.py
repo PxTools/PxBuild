@@ -3,7 +3,9 @@ from pxtool.model.keywords._datasymbol6 import _Datasymbol6
     
 def test_Datasymbol6_set_valid():
     obj = _Datasymbol6()
+    assert not obj.has_value("no")    
     obj.set("a string","no")
+    assert obj.has_value("no")    
     assert obj.get_value("no") == "a string"
     
 def test_Datasymbol6_used_languages():

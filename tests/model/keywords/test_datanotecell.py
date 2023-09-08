@@ -3,7 +3,9 @@ from pxtool.model.keywords._datanotecell import _Datanotecell
     
 def test_Datanotecell_set_valid():
     obj = _Datanotecell()
+    assert not obj.has_value(["male","oslo"],"no")    
     obj.set("a string",["male","oslo"],"no")
+    assert obj.has_value(["male","oslo"],"no")    
     assert obj.get_value(["male","oslo"],"no") == "a string"
     
 def test_Datanotecell_used_languages():

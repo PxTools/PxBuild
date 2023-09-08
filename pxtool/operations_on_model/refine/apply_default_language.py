@@ -1,8 +1,7 @@
 import pxtool.model.util.constants as constants
 from pxtool.model.px_file_model import PXFileModel
 
-class Cleaner():
-    def apply_default_language(model:PXFileModel):
+def apply_default_language(model:PXFileModel):
         """ inserts the actual language where default is use for language
         So that
         LANGUAGE=en  +
@@ -14,7 +13,7 @@ class Cleaner():
             to_lang=model.language.get_value()
             for kw in constants.LANGDEPENDENT_KEYWORDS:
                 instance = model.get_attribute(kw)
-                if instance.has_value():
+                if instance.is_present():
                     instance.reset_language_none_to(to_lang)
 
 

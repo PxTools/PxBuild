@@ -6,11 +6,14 @@ from pxtool.model.util._line_validator import LineValidator
 class _Precision(_PxValueByKey): 
 
     pxvalue_type:str = "_PxInt"
+    has_subkey:bool = True
+    subkey_optional:bool = False
+    completeness_type:str = "EachVarVal"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("PRECISION")
+        self._seen_languages={}
 
     def set(self, precision:int, variable:str, value:str, lang:str = None) -> None:
         """ Determines that the value shall be presented with a number of decimals that differs from the keyword SHOWDECIMALS """
@@ -29,6 +32,10 @@ class _Precision(_PxValueByKey):
     def get_value(self, variable:str, value:str, lang:str = None) -> int:
         my_key = _KeytypeVariableValueLang(variable, value, lang)
         return super().get_value(my_key).get_value()
+
+    def has_value(self, variable:str, value:str, lang:str = None) -> bool:
+        my_key = _KeytypeVariableValueLang(variable, value, lang)
+        return super().has_value(my_key)
 
     def get_used_languages(self) -> list[str]:
        return list(self._seen_languages.keys())

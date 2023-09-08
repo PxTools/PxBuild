@@ -3,7 +3,9 @@ from pxtool.model.keywords._valuenote import _Valuenote
     
 def test_Valuenote_set_valid():
     obj = _Valuenote()
+    assert not obj.has_value("region","oslo","no")    
     obj.set("a string","region","oslo","no")
+    assert obj.has_value("region","oslo","no")    
     assert obj.get_value("region","oslo","no") == "a string"
     
 def test_Valuenote_used_languages():

@@ -3,7 +3,9 @@ from pxtool.model.keywords._map import _Map
     
 def test_Map_set_valid():
     obj = _Map()
+    assert not obj.has_value("region","no")    
     obj.set("a string","region","no")
+    assert obj.has_value("region","no")    
     assert obj.get_value("region","no") == "a string"
     
 def test_Map_used_languages():

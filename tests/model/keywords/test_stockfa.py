@@ -3,7 +3,9 @@ from pxtool.model.keywords._stockfa import _Stockfa
     
 def test_Stockfa_set_valid():
     obj = _Stockfa()
+    assert not obj.has_value("persons","no")    
     obj.set("F","persons","no")
+    assert obj.has_value("persons","no")    
     assert obj.get_value("persons","no") == "F"
     
 def test_Stockfa_used_languages():

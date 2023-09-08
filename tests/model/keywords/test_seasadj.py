@@ -3,7 +3,9 @@ from pxtool.model.keywords._seasadj import _Seasadj
     
 def test_Seasadj_set_valid():
     obj = _Seasadj()
+    assert not obj.has_value("persons","no")    
     obj.set(True,"persons","no")
+    assert obj.has_value("persons","no")    
     assert obj.get_value("persons","no") == True
     
 def test_Seasadj_used_languages():

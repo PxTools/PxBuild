@@ -3,7 +3,9 @@ from pxtool.model.keywords._units import _Units
     
 def test_Units_set_valid():
     obj = _Units()
+    assert not obj.has_value("persons","no")    
     obj.set("a string","persons","no")
+    assert obj.has_value("persons","no")    
     assert obj.get_value("persons","no") == "a string"
     
 def test_Units_used_languages():

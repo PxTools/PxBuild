@@ -3,7 +3,9 @@ from pxtool.model.keywords._valuenotex import _Valuenotex
     
 def test_Valuenotex_set_valid():
     obj = _Valuenotex()
+    assert not obj.has_value("region","oslo","no")    
     obj.set("a string","region","oslo","no")
+    assert obj.has_value("region","oslo","no")    
     assert obj.get_value("region","oslo","no") == "a string"
     
 def test_Valuenotex_used_languages():

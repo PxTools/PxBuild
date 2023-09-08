@@ -37,7 +37,7 @@ def getKeyType(has_lang:bool,subkeys:dict,multi:bool) -> str:
        return myOut
 
 
-SpecRow = namedtuple("SpecRow", ['px_keyword', 'is_lang_dependent', 'is_Mandatory', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_comment','from_pdf'] )
+SpecRow = namedtuple("SpecRow", ['px_keyword', 'is_lang_dependent', 'is_Mandatory', 'completeness_type','med_ut','ut_default', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_comment','from_pdf'] )
 
 #Tja, de er jo python typer alle sammen. Så det er vel typen til parameter i set funksjonen vs den typen som lagres value i super klassen
 to_native_types={"_PxStringList":"list[str]","_PxString":"str","_PxBool":"bool","_PxInt":"int","_PxData":"list"}
@@ -51,6 +51,7 @@ class MyKeyword:
         self.keyword = csvRow.px_keyword
         self.has_lang = bool(csvRow.is_lang_dependent)
         self.is_mandatory = bool(csvRow.is_Mandatory)  #todo
+        self.completeness_type = csvRow.completeness_type
         self.subkeys_raw = csvRow.px_SubKey
         self.is_SubKey_Optional = bool(csvRow.is_SubKey_Optional)
         self.is_duplicate_keypart_allowed = bool(csvRow.is_duplicate_keypart_allowed_)
@@ -125,16 +126,19 @@ class MyKeyword:
     def class_and_init_writer(self, fileHandle) -> None:
         fileHandle.write(f"class {self.classnames['This']}({self.classnames['Super']}): \n\n")
         fileHandle.write(f"    pxvalue_type:str = \"{self.classnames['Value']}\"\n")
-        if self.has_lang:
-            fileHandle.write("    may_have_language:bool = True\n")
-            fileHandle.write("    _seen_languages={}\n\n")
-        else:
-            fileHandle.write("    may_have_language:bool = False\n\n")
+        if self.keyword == "LANGUAGES":
+            pass
+        fileHandle.write(f"    has_subkey:bool = {not self.subkeys_raw.strip() == ''}\n")
+        fileHandle.write(f"    subkey_optional:bool = {self.is_SubKey_Optional }\n")
+        fileHandle.write(f"    completeness_type:str = \"{self.completeness_type}\"\n")
+        fileHandle.write(f"    may_have_language:bool = {self.has_lang}\n\n")
 
         fileHandle.write(f"    def __init__(self) -> None:\n")
         fileHandle.write(f"        super().__init__(\"{self.keyword}\")\n")
+        if self.has_lang:
+            fileHandle.write("        self._seen_languages={}\n")
         if self.is_duplicate_keypart_allowed:    
-            fileHandle.write(f"        self.occurence_counter = 0\n")
+            fileHandle.write("        self.occurence_counter = 0\n")
         fileHandle.write(f"\n")
 
     def set_writer(self, fileHandle) -> None:
@@ -173,7 +177,7 @@ class MyKeyword:
         fileHandle.write(f"            msg = self._keyword + \":\" +str(e)\n")
         fileHandle.write(f"            raise type(e)(msg) from e\n")
 
-    def get_value_writer(self, filehandle) -> None:
+    def get_and_has_value_writer(self, filehandle) -> None:
         if(self.classnames['Super'] == "_PxSingle"):
             filehandle.write(f"    def get_value(self) -> {DictAsReturntype(self.valueParams)}:\n")
             filehandle.write(f"        return super().get_value().get_value()")
@@ -186,6 +190,20 @@ class MyKeyword:
                 filehandle.write(f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)})\n")
             filehandle.write(f"        return super().get_value(my_key).get_value()")
         filehandle.write(f"\n\n")
+
+        if(self.classnames['Super'] == "_PxSingle"):
+            filehandle.write(f"    def has_value(self) -> bool:\n")
+            filehandle.write(f"        return super().has_value()")
+        if len(self.keyParams) > 0:
+            filehandle.write(f"    def has_value(self, {DictAsSignature(self.keyParams)}) -> bool:\n")
+            if kw.is_duplicate_keypart_allowed:
+                filehandle.write(f"        #TODO how should this function? Any usecases?\n")
+                filehandle.write(f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)},1)\n")
+            else:
+                filehandle.write(f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)})\n")
+            filehandle.write(f"        return super().has_value(my_key)")
+        filehandle.write(f"\n\n")        
+
             
     def get_lang_utils_writer(self, filehandle) -> None:
         if not self.has_lang:
@@ -210,8 +228,7 @@ class SpecReader:
        with open("Keywords.csv", "r",encoding="utf-8-sig") as theSpecCsv:
          reader = csv.reader(theSpecCsv,delimiter=";" )
          header = next(reader)
-         print ("De to under bør være like")
-         print("['px_keyword', 'is_lang_dependent', 'is_Mandatory', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_comment', 'from_pdf']")
+         
          print(header)
          self.data = [MyKeyword(SpecRow(*row)) for row in reader] 
 
@@ -225,7 +242,7 @@ for kw in my_spec_reader.data:
         kw.imports_writer(classPy)
         kw.class_and_init_writer(classPy)
         kw.set_writer(classPy)
-        kw.get_value_writer(classPy)
+        kw.get_and_has_value_writer(classPy)
         kw.get_lang_utils_writer(classPy)
 
 ## model.keywords.
@@ -233,18 +250,26 @@ for kw in my_spec_reader.data:
 # make constants.py
 mandatory_keys = []
 langdependent_keys = []
+content_indexed_keywords =[]
 keyword_pythonic_map = {}
+
 for kw in my_spec_reader.data:    
     keyword_pythonic_map[kw.keyword] = to_python_case(kw.keyword)
     if(kw.is_mandatory):
         mandatory_keys.append(to_python_case(kw.keyword))
     if(kw.has_lang):
         langdependent_keys.append(to_python_case(kw.keyword))
+    if("content" in kw.subkeys_raw):
+        content_indexed_keywords.append(to_python_case(kw.keyword))
+
+
+
 
 with open("../pxtool/model/util/constants.py", "wt",encoding="utf-8-sig", newline="\n" ) as constant_module:
     constant_module.write("\"\"\"Module for holding constants\"\"\""+"\n\n")
     constant_module.write(f"MANDATORY_KEYWORDS = {str(mandatory_keys)}\n")
     constant_module.write(f"LANGDEPENDENT_KEYWORDS = {str(langdependent_keys)}\n")
+    constant_module.write(f"CONTENT_INDEXED_KEYWORDS = {str(content_indexed_keywords)}\n")
     constant_module.write(f"KEYWORDS_PYTHONIC_MAP = {str(keyword_pythonic_map)}\n")
 
 # make PxFileModel.py

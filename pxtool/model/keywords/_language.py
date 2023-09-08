@@ -5,6 +5,9 @@ from pxtool.model.util._line_validator import LineValidator
 class _Language(_PxSingle): 
 
     pxvalue_type:str = "_PxString"
+    has_subkey:bool = False
+    subkey_optional:bool = False
+    completeness_type:str = ""
     may_have_language:bool = False
 
     def __init__(self) -> None:
@@ -24,4 +27,7 @@ class _Language(_PxSingle):
 
     def get_value(self) -> str:
         return super().get_value().get_value()
+
+    def has_value(self) -> bool:
+        return super().has_value()
 

@@ -6,11 +6,14 @@ from pxtool.model.util._line_validator import LineValidator
 class _Contact(_PxValueByKey): 
 
     pxvalue_type:str = "_PxString"
+    has_subkey:bool = True
+    subkey_optional:bool = False
+    completeness_type:str = "AllContent"
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("CONTACT")
+        self._seen_languages={}
 
     def set(self, contact:str, content:str=None, lang:str = None) -> None:
         """ Is written in the form name, organization, telephone, fax, e-mail. Several persons can be stated in the same text string and are then divided by the #-sign """
@@ -28,6 +31,10 @@ class _Contact(_PxValueByKey):
     def get_value(self, content:str=None, lang:str = None) -> str:
         my_key = _KeytypeContentLang(content, lang)
         return super().get_value(my_key).get_value()
+
+    def has_value(self, content:str=None, lang:str = None) -> bool:
+        my_key = _KeytypeContentLang(content, lang)
+        return super().has_value(my_key)
 
     def get_used_languages(self) -> list[str]:
        return list(self._seen_languages.keys())

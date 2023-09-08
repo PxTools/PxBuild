@@ -3,7 +3,9 @@ from pxtool.model.keywords._contact import _Contact
     
 def test_Contact_set_valid():
     obj = _Contact()
+    assert not obj.has_value("persons","no")    
     obj.set("a string","persons","no")
+    assert obj.has_value("persons","no")    
     assert obj.get_value("persons","no") == "a string"
     
 def test_Contact_used_languages():

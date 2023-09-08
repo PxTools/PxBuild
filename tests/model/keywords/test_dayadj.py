@@ -3,7 +3,9 @@ from pxtool.model.keywords._dayadj import _Dayadj
     
 def test_Dayadj_set_valid():
     obj = _Dayadj()
+    assert not obj.has_value("persons","no")    
     obj.set(True,"persons","no")
+    assert obj.has_value("persons","no")    
     assert obj.get_value("persons","no") == True
     
 def test_Dayadj_used_languages():

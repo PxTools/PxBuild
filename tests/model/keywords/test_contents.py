@@ -3,7 +3,9 @@ from pxtool.model.keywords._contents import _Contents
     
 def test_Contents_set_valid():
     obj = _Contents()
+    assert not obj.has_value("no")    
     obj.set("a string","no")
+    assert obj.has_value("no")    
     assert obj.get_value("no") == "a string"
     
 def test_Contents_used_languages():

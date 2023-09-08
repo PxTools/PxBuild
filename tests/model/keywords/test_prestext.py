@@ -3,7 +3,9 @@ from pxtool.model.keywords._prestext import _Prestext
     
 def test_Prestext_set_valid():
     obj = _Prestext()
+    assert not obj.has_value("region","no")    
     obj.set(1,"region","no")
+    assert obj.has_value("region","no")    
     assert obj.get_value("region","no") == 1
     
 def test_Prestext_set_invalid_raises():

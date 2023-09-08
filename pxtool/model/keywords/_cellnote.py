@@ -6,11 +6,14 @@ from pxtool.model.util._line_validator import LineValidator
 class _Cellnote(_PxValueByKey): 
 
     pxvalue_type:str = "_PxString"
+    has_subkey:bool = True
+    subkey_optional:bool = False
+    completeness_type:str = ""
     may_have_language:bool = True
-    _seen_languages={}
 
     def __init__(self) -> None:
         super().__init__("CELLNOTE")
+        self._seen_languages={}
         self.occurence_counter = 0
 
     def set(self, cellnote:str, values:list[str], lang:str = None) -> None:
@@ -31,6 +34,11 @@ class _Cellnote(_PxValueByKey):
         #TODO how should this function? Any usecases?
         my_key = _KeytypeValuesLangMulti(values, lang,1)
         return super().get_value(my_key).get_value()
+
+    def has_value(self, values:list[str], lang:str = None) -> bool:
+        #TODO how should this function? Any usecases?
+        my_key = _KeytypeValuesLangMulti(values, lang,1)
+        return super().has_value(my_key)
 
     def get_used_languages(self) -> list[str]:
        return list(self._seen_languages.keys())

@@ -3,7 +3,9 @@ from pxtool.model.keywords._subject_area import _SubjectArea
     
 def test_SubjectArea_set_valid():
     obj = _SubjectArea()
+    assert not obj.has_value("no")    
     obj.set("a string","no")
+    assert obj.has_value("no")    
     assert obj.get_value("no") == "a string"
     
 def test_SubjectArea_used_languages():

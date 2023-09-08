@@ -1,0 +1,16 @@
+LANGUAGE="sv";
+LANGUAGES="sv","fi";
+CONTVARIABLE["sv"]="var2_sv";
+CONTVARIABLE["fi"]="var2_fi";
+STUB["sv"]="var1_sv","var2_sv";
+STUB["fi"]="var1_fi","var2_fi";
+HEADING["sv"]="var3_sv";
+HEADING["fi"]="var3_fi";
+VALUES["sv"]("var1_sv")="val1","val2";
+VALUES["sv"]("var2_sv")="val1","val2","val3","val4_sv";
+VALUES["sv"]("var3_sv")="val1";
+VALUES["fi"]("var1_fi")="val1","val2";
+VALUES["fi"]("var2_fi")="val1","val2","val3","val4";
+VALUES["fi"]("var3_fi")="val1";
+SEASADJ["sv"]("val1")=YES;
+SEASADJ["fi"]("val1")=YES;
