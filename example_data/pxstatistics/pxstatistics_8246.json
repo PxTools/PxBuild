@@ -1,0 +1,19 @@
+{
+  "id": "8246",
+  "updateFrequency":{"no":"Uke","en":"Week"},
+  "metaId":"KORTNAVN:laks",
+  "subjectCode":"uh",
+  "subjectText":{"no":"Utenriksøkonomi","en":"External economy"},
+  "upcomingReleases": ["2023-09-06 08:00:00.0",
+                       "2023-09-13 08:00:00.0",
+                       "2023-09-20 08:00:00.0",
+                       "2023-09-27 08:00:00.0"
+						],
+  "contacts":[
+  {
+    "phone": "+47 2109 4753",
+    "email": "utenrikshandel@ssb.no",                  
+    "name": {"no":"Utenrikshandel, Statistisk sentralbyrå","en":"Utenrikshandel, Statistics Norway"}  
+  }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "8790",
+  "updateFrequency":{"no":"År","en":"Year"},
+  "metaId":"KORTNAVN:klreg",
+  "subjectCode":"tr",
+  "subjectText":{"no": "transport og reiseliv", "en": "transport and tourism"},
+  "upcomingReleases": [],
+  "contacts":[
+  {
+    "phone": "+47 4080001",
+    "email": "bhe@ssb.no",                  
+    "name": {"no":"Henrik Bråthen, Statistisk sentralbyrå","en":"Henrik Bråthen, Statistics Norway"}  
+  }
+  ]
+}

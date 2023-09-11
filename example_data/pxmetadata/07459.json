@@ -1,0 +1,108 @@
+﻿{
+  "dataset": {
+    "documnetId": null,
+    "tableId": "07459",
+    "storedDecimals": null,
+    "statisticsId": "8454",
+    "dataFile": null,
+    "baseTitle": {
+      "no": "Befolkning",
+      "en": "Population"
+    },
+    "searchKeywords": {
+      "no": [
+        "ord",
+        "til",
+        "søk"
+      ],
+      "en": [
+        "Words",
+        "for",
+        "search"
+      ]
+    },
+    "notes": null,
+    "cellNotes": null,
+    "timeDimension": {
+      "columnName": "periode_kolonne",
+      "timePeriodFormat": "åååå",
+      "label": {
+        "no": "år",
+        "en": "year"
+      }
+    },
+    "codedDimensions": [
+      {
+        "columnName": "Alder",
+        "code": "Alder",
+        "isGeoVariableType": false,
+        "codelistId": "tab07459_AlleAldre00B",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "alder",
+          "en": "age"
+        },
+        "notes": null
+      },
+      {
+        "columnName": "Region",
+        "code": "Region",
+        "isGeoVariableType": false,
+        "codelistId": "tab07459_Region",
+        "labelConstructionOption": "code_text",
+        "label": {
+          "no": "region",
+          "en": "region"
+        },
+        "notes": [
+          {
+            "text": {
+              "no": "<a href='https://www.ssb.no/offentlig-sektor/kommunekatalog/endringer-i-de-regionale-inndelingene' target='footnote'><b>Se liste over endringer i de regionale inndelingene.</b></a>",
+              "en": "<a href='https://www.ssb.no/offentlig-sektor/kommunekatalog/endringer-i-de-regionale-inndelingene' target='footnote'><b>See list over changes in regional classifications (in Norwegian).</b></a>"
+            },
+            "isMandatory": false
+          }
+        ]
+      },
+      {
+        "columnName": "Kjonn",
+        "code": "Kjonn",
+        "isGeoVariableType": false,
+        "codelistId": "tab07459_Kjonn",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "kjønn",
+          "en": "sex"
+        },
+        "notes": null
+      }
+    ],
+    "measurements": [
+      {
+        "columnName": "Personer1",
+        "code": "Personer1",
+        "showDecimals": 0,
+        "priceType": null,
+        "isSeasonallyAdjusted": false,
+        "isWorkingdaysAdjusted": false,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "Personer",
+          "en": "Persons"
+        },
+        "basePeriod": {},
+        "referencePeriod": {
+          "no": "1.1.",
+          "en": "1.1."
+        },
+        "rank": null,
+        "unitOfMeasure": {
+          "no": "personer",
+          "en": "persons"
+        },
+        "notes": null
+      }
+    ],
+    "attributes": null
+  }
+}

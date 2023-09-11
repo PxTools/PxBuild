@@ -1,0 +1,3817 @@
+﻿{
+  "id": "tab07459_AlleAldre00B",
+  "admin": {
+    "isFinal": true,
+    "tags": [
+      "til",
+      "søk"
+    ],
+    "todoCreation": "her må det vel lagres noe om hvordan dette har oppstått. Vil tro man trenger det"
+  },
+  "label": {
+    "no": "1-årige aldersgrupper  # til og med 105+. AGG. GRUPPERING",
+    "en": "Age 1-year groups # 0 - 105+"
+  },
+  "codes": [
+    {
+      "code": "000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "0 år",
+        "en": "0 years"
+      },
+      "rank": {
+        "no": "000",
+        "en": "000"
+      },
+      "notes": null
+    },
+    {
+      "code": "001",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1 år",
+        "en": "1 year"
+      },
+      "rank": {
+        "no": "001",
+        "en": "001"
+      },
+      "notes": null
+    },
+    {
+      "code": "002",
+      "unorderedChildren": null,
+      "label": {
+        "no": "2 år",
+        "en": "2 years"
+      },
+      "rank": {
+        "no": "002",
+        "en": "002"
+      },
+      "notes": null
+    },
+    {
+      "code": "003",
+      "unorderedChildren": null,
+      "label": {
+        "no": "3 år",
+        "en": "3 years"
+      },
+      "rank": {
+        "no": "003",
+        "en": "003"
+      },
+      "notes": null
+    },
+    {
+      "code": "004",
+      "unorderedChildren": null,
+      "label": {
+        "no": "4 år",
+        "en": "4 years"
+      },
+      "rank": {
+        "no": "004",
+        "en": "004"
+      },
+      "notes": null
+    },
+    {
+      "code": "005",
+      "unorderedChildren": null,
+      "label": {
+        "no": "5 år",
+        "en": "5 years"
+      },
+      "rank": {
+        "no": "005",
+        "en": "005"
+      },
+      "notes": null
+    },
+    {
+      "code": "006",
+      "unorderedChildren": null,
+      "label": {
+        "no": "6 år",
+        "en": "6 years"
+      },
+      "rank": {
+        "no": "006",
+        "en": "006"
+      },
+      "notes": null
+    },
+    {
+      "code": "007",
+      "unorderedChildren": null,
+      "label": {
+        "no": "7 år",
+        "en": "7 years"
+      },
+      "rank": {
+        "no": "007",
+        "en": "007"
+      },
+      "notes": null
+    },
+    {
+      "code": "008",
+      "unorderedChildren": null,
+      "label": {
+        "no": "8 år",
+        "en": "8 years"
+      },
+      "rank": {
+        "no": "008",
+        "en": "008"
+      },
+      "notes": null
+    },
+    {
+      "code": "009",
+      "unorderedChildren": null,
+      "label": {
+        "no": "9 år",
+        "en": "9 years"
+      },
+      "rank": {
+        "no": "009",
+        "en": "009"
+      },
+      "notes": null
+    },
+    {
+      "code": "010",
+      "unorderedChildren": null,
+      "label": {
+        "no": "10 år",
+        "en": "10 years"
+      },
+      "rank": {
+        "no": "010",
+        "en": "010"
+      },
+      "notes": null
+    },
+    {
+      "code": "011",
+      "unorderedChildren": null,
+      "label": {
+        "no": "11 år",
+        "en": "11 years"
+      },
+      "rank": {
+        "no": "011",
+        "en": "011"
+      },
+      "notes": null
+    },
+    {
+      "code": "012",
+      "unorderedChildren": null,
+      "label": {
+        "no": "12 år",
+        "en": "12 years"
+      },
+      "rank": {
+        "no": "012",
+        "en": "012"
+      },
+      "notes": null
+    },
+    {
+      "code": "013",
+      "unorderedChildren": null,
+      "label": {
+        "no": "13 år",
+        "en": "13 years"
+      },
+      "rank": {
+        "no": "013",
+        "en": "013"
+      },
+      "notes": null
+    },
+    {
+      "code": "014",
+      "unorderedChildren": null,
+      "label": {
+        "no": "14 år",
+        "en": "14 years"
+      },
+      "rank": {
+        "no": "014",
+        "en": "014"
+      },
+      "notes": null
+    },
+    {
+      "code": "015",
+      "unorderedChildren": null,
+      "label": {
+        "no": "15 år",
+        "en": "15 years"
+      },
+      "rank": {
+        "no": "015",
+        "en": "015"
+      },
+      "notes": null
+    },
+    {
+      "code": "016",
+      "unorderedChildren": null,
+      "label": {
+        "no": "16 år",
+        "en": "16 years"
+      },
+      "rank": {
+        "no": "016",
+        "en": "016"
+      },
+      "notes": null
+    },
+    {
+      "code": "017",
+      "unorderedChildren": null,
+      "label": {
+        "no": "17 år",
+        "en": "17 years"
+      },
+      "rank": {
+        "no": "017",
+        "en": "017"
+      },
+      "notes": null
+    },
+    {
+      "code": "018",
+      "unorderedChildren": null,
+      "label": {
+        "no": "18 år",
+        "en": "18 years"
+      },
+      "rank": {
+        "no": "018",
+        "en": "018"
+      },
+      "notes": null
+    },
+    {
+      "code": "019",
+      "unorderedChildren": null,
+      "label": {
+        "no": "19 år",
+        "en": "19 years"
+      },
+      "rank": {
+        "no": "019",
+        "en": "019"
+      },
+      "notes": null
+    },
+    {
+      "code": "020",
+      "unorderedChildren": null,
+      "label": {
+        "no": "20 år",
+        "en": "20 years"
+      },
+      "rank": {
+        "no": "020",
+        "en": "020"
+      },
+      "notes": null
+    },
+    {
+      "code": "021",
+      "unorderedChildren": null,
+      "label": {
+        "no": "21 år",
+        "en": "21 years"
+      },
+      "rank": {
+        "no": "021",
+        "en": "021"
+      },
+      "notes": null
+    },
+    {
+      "code": "022",
+      "unorderedChildren": null,
+      "label": {
+        "no": "22 år",
+        "en": "22 years"
+      },
+      "rank": {
+        "no": "022",
+        "en": "022"
+      },
+      "notes": null
+    },
+    {
+      "code": "023",
+      "unorderedChildren": null,
+      "label": {
+        "no": "23 år",
+        "en": "23 years"
+      },
+      "rank": {
+        "no": "023",
+        "en": "023"
+      },
+      "notes": null
+    },
+    {
+      "code": "024",
+      "unorderedChildren": null,
+      "label": {
+        "no": "24 år",
+        "en": "24 years"
+      },
+      "rank": {
+        "no": "024",
+        "en": "024"
+      },
+      "notes": null
+    },
+    {
+      "code": "025",
+      "unorderedChildren": null,
+      "label": {
+        "no": "25 år",
+        "en": "25 years"
+      },
+      "rank": {
+        "no": "025",
+        "en": "025"
+      },
+      "notes": null
+    },
+    {
+      "code": "026",
+      "unorderedChildren": null,
+      "label": {
+        "no": "26 år",
+        "en": "26 years"
+      },
+      "rank": {
+        "no": "026",
+        "en": "026"
+      },
+      "notes": null
+    },
+    {
+      "code": "027",
+      "unorderedChildren": null,
+      "label": {
+        "no": "27 år",
+        "en": "27 years"
+      },
+      "rank": {
+        "no": "027",
+        "en": "027"
+      },
+      "notes": null
+    },
+    {
+      "code": "028",
+      "unorderedChildren": null,
+      "label": {
+        "no": "28 år",
+        "en": "28 years"
+      },
+      "rank": {
+        "no": "028",
+        "en": "028"
+      },
+      "notes": null
+    },
+    {
+      "code": "029",
+      "unorderedChildren": null,
+      "label": {
+        "no": "29 år",
+        "en": "29 years"
+      },
+      "rank": {
+        "no": "029",
+        "en": "029"
+      },
+      "notes": null
+    },
+    {
+      "code": "030",
+      "unorderedChildren": null,
+      "label": {
+        "no": "30 år",
+        "en": "30 years"
+      },
+      "rank": {
+        "no": "030",
+        "en": "030"
+      },
+      "notes": null
+    },
+    {
+      "code": "031",
+      "unorderedChildren": null,
+      "label": {
+        "no": "31 år",
+        "en": "31 years"
+      },
+      "rank": {
+        "no": "031",
+        "en": "031"
+      },
+      "notes": null
+    },
+    {
+      "code": "032",
+      "unorderedChildren": null,
+      "label": {
+        "no": "32 år",
+        "en": "32 years"
+      },
+      "rank": {
+        "no": "032",
+        "en": "032"
+      },
+      "notes": null
+    },
+    {
+      "code": "033",
+      "unorderedChildren": null,
+      "label": {
+        "no": "33 år",
+        "en": "33 years"
+      },
+      "rank": {
+        "no": "033",
+        "en": "033"
+      },
+      "notes": null
+    },
+    {
+      "code": "034",
+      "unorderedChildren": null,
+      "label": {
+        "no": "34 år",
+        "en": "34 years"
+      },
+      "rank": {
+        "no": "034",
+        "en": "034"
+      },
+      "notes": null
+    },
+    {
+      "code": "035",
+      "unorderedChildren": null,
+      "label": {
+        "no": "35 år",
+        "en": "35 years"
+      },
+      "rank": {
+        "no": "035",
+        "en": "035"
+      },
+      "notes": null
+    },
+    {
+      "code": "036",
+      "unorderedChildren": null,
+      "label": {
+        "no": "36 år",
+        "en": "36 years"
+      },
+      "rank": {
+        "no": "036",
+        "en": "036"
+      },
+      "notes": null
+    },
+    {
+      "code": "037",
+      "unorderedChildren": null,
+      "label": {
+        "no": "37 år",
+        "en": "37 years"
+      },
+      "rank": {
+        "no": "037",
+        "en": "037"
+      },
+      "notes": null
+    },
+    {
+      "code": "038",
+      "unorderedChildren": null,
+      "label": {
+        "no": "38 år",
+        "en": "38 years"
+      },
+      "rank": {
+        "no": "038",
+        "en": "038"
+      },
+      "notes": null
+    },
+    {
+      "code": "039",
+      "unorderedChildren": null,
+      "label": {
+        "no": "39 år",
+        "en": "39 years"
+      },
+      "rank": {
+        "no": "039",
+        "en": "039"
+      },
+      "notes": null
+    },
+    {
+      "code": "040",
+      "unorderedChildren": null,
+      "label": {
+        "no": "40 år",
+        "en": "40 years"
+      },
+      "rank": {
+        "no": "040",
+        "en": "040"
+      },
+      "notes": null
+    },
+    {
+      "code": "041",
+      "unorderedChildren": null,
+      "label": {
+        "no": "41 år",
+        "en": "41 years"
+      },
+      "rank": {
+        "no": "041",
+        "en": "041"
+      },
+      "notes": null
+    },
+    {
+      "code": "042",
+      "unorderedChildren": null,
+      "label": {
+        "no": "42 år",
+        "en": "42 years"
+      },
+      "rank": {
+        "no": "042",
+        "en": "042"
+      },
+      "notes": null
+    },
+    {
+      "code": "043",
+      "unorderedChildren": null,
+      "label": {
+        "no": "43 år",
+        "en": "43 years"
+      },
+      "rank": {
+        "no": "043",
+        "en": "043"
+      },
+      "notes": null
+    },
+    {
+      "code": "044",
+      "unorderedChildren": null,
+      "label": {
+        "no": "44 år",
+        "en": "44 years"
+      },
+      "rank": {
+        "no": "044",
+        "en": "044"
+      },
+      "notes": null
+    },
+    {
+      "code": "045",
+      "unorderedChildren": null,
+      "label": {
+        "no": "45 år",
+        "en": "45 years"
+      },
+      "rank": {
+        "no": "045",
+        "en": "045"
+      },
+      "notes": null
+    },
+    {
+      "code": "046",
+      "unorderedChildren": null,
+      "label": {
+        "no": "46 år",
+        "en": "46 years"
+      },
+      "rank": {
+        "no": "046",
+        "en": "046"
+      },
+      "notes": null
+    },
+    {
+      "code": "047",
+      "unorderedChildren": null,
+      "label": {
+        "no": "47 år",
+        "en": "47 years"
+      },
+      "rank": {
+        "no": "047",
+        "en": "047"
+      },
+      "notes": null
+    },
+    {
+      "code": "048",
+      "unorderedChildren": null,
+      "label": {
+        "no": "48 år",
+        "en": "48 years"
+      },
+      "rank": {
+        "no": "048",
+        "en": "048"
+      },
+      "notes": null
+    },
+    {
+      "code": "049",
+      "unorderedChildren": null,
+      "label": {
+        "no": "49 år",
+        "en": "49 years"
+      },
+      "rank": {
+        "no": "049",
+        "en": "049"
+      },
+      "notes": null
+    },
+    {
+      "code": "050",
+      "unorderedChildren": null,
+      "label": {
+        "no": "50 år",
+        "en": "50 years"
+      },
+      "rank": {
+        "no": "050",
+        "en": "050"
+      },
+      "notes": null
+    },
+    {
+      "code": "051",
+      "unorderedChildren": null,
+      "label": {
+        "no": "51 år",
+        "en": "51 years"
+      },
+      "rank": {
+        "no": "051",
+        "en": "051"
+      },
+      "notes": null
+    },
+    {
+      "code": "052",
+      "unorderedChildren": null,
+      "label": {
+        "no": "52 år",
+        "en": "52 years"
+      },
+      "rank": {
+        "no": "052",
+        "en": "052"
+      },
+      "notes": null
+    },
+    {
+      "code": "053",
+      "unorderedChildren": null,
+      "label": {
+        "no": "53 år",
+        "en": "53 years"
+      },
+      "rank": {
+        "no": "053",
+        "en": "053"
+      },
+      "notes": null
+    },
+    {
+      "code": "054",
+      "unorderedChildren": null,
+      "label": {
+        "no": "54 år",
+        "en": "54 years"
+      },
+      "rank": {
+        "no": "054",
+        "en": "054"
+      },
+      "notes": null
+    },
+    {
+      "code": "055",
+      "unorderedChildren": null,
+      "label": {
+        "no": "55 år",
+        "en": "55 years"
+      },
+      "rank": {
+        "no": "055",
+        "en": "055"
+      },
+      "notes": null
+    },
+    {
+      "code": "056",
+      "unorderedChildren": null,
+      "label": {
+        "no": "56 år",
+        "en": "56 years"
+      },
+      "rank": {
+        "no": "056",
+        "en": "056"
+      },
+      "notes": null
+    },
+    {
+      "code": "057",
+      "unorderedChildren": null,
+      "label": {
+        "no": "57 år",
+        "en": "57 years"
+      },
+      "rank": {
+        "no": "057",
+        "en": "057"
+      },
+      "notes": null
+    },
+    {
+      "code": "058",
+      "unorderedChildren": null,
+      "label": {
+        "no": "58 år",
+        "en": "58 years"
+      },
+      "rank": {
+        "no": "058",
+        "en": "058"
+      },
+      "notes": null
+    },
+    {
+      "code": "059",
+      "unorderedChildren": null,
+      "label": {
+        "no": "59 år",
+        "en": "59 years"
+      },
+      "rank": {
+        "no": "059",
+        "en": "059"
+      },
+      "notes": null
+    },
+    {
+      "code": "060",
+      "unorderedChildren": null,
+      "label": {
+        "no": "60 år",
+        "en": "60 years"
+      },
+      "rank": {
+        "no": "060",
+        "en": "060"
+      },
+      "notes": null
+    },
+    {
+      "code": "061",
+      "unorderedChildren": null,
+      "label": {
+        "no": "61 år",
+        "en": "61 years"
+      },
+      "rank": {
+        "no": "061",
+        "en": "061"
+      },
+      "notes": null
+    },
+    {
+      "code": "062",
+      "unorderedChildren": null,
+      "label": {
+        "no": "62 år",
+        "en": "62 years"
+      },
+      "rank": {
+        "no": "062",
+        "en": "062"
+      },
+      "notes": null
+    },
+    {
+      "code": "063",
+      "unorderedChildren": null,
+      "label": {
+        "no": "63 år",
+        "en": "63 years"
+      },
+      "rank": {
+        "no": "063",
+        "en": "063"
+      },
+      "notes": null
+    },
+    {
+      "code": "064",
+      "unorderedChildren": null,
+      "label": {
+        "no": "64 år",
+        "en": "64 years"
+      },
+      "rank": {
+        "no": "064",
+        "en": "064"
+      },
+      "notes": null
+    },
+    {
+      "code": "065",
+      "unorderedChildren": null,
+      "label": {
+        "no": "65 år",
+        "en": "65 years"
+      },
+      "rank": {
+        "no": "065",
+        "en": "065"
+      },
+      "notes": null
+    },
+    {
+      "code": "066",
+      "unorderedChildren": null,
+      "label": {
+        "no": "66 år",
+        "en": "66 years"
+      },
+      "rank": {
+        "no": "066",
+        "en": "066"
+      },
+      "notes": null
+    },
+    {
+      "code": "067",
+      "unorderedChildren": null,
+      "label": {
+        "no": "67 år",
+        "en": "67 years"
+      },
+      "rank": {
+        "no": "067",
+        "en": "067"
+      },
+      "notes": null
+    },
+    {
+      "code": "068",
+      "unorderedChildren": null,
+      "label": {
+        "no": "68 år",
+        "en": "68 years"
+      },
+      "rank": {
+        "no": "068",
+        "en": "068"
+      },
+      "notes": null
+    },
+    {
+      "code": "069",
+      "unorderedChildren": null,
+      "label": {
+        "no": "69 år",
+        "en": "69 years"
+      },
+      "rank": {
+        "no": "069",
+        "en": "069"
+      },
+      "notes": null
+    },
+    {
+      "code": "070",
+      "unorderedChildren": null,
+      "label": {
+        "no": "70 år",
+        "en": "70 years"
+      },
+      "rank": {
+        "no": "070",
+        "en": "070"
+      },
+      "notes": null
+    },
+    {
+      "code": "071",
+      "unorderedChildren": null,
+      "label": {
+        "no": "71 år",
+        "en": "71 years"
+      },
+      "rank": {
+        "no": "071",
+        "en": "071"
+      },
+      "notes": null
+    },
+    {
+      "code": "072",
+      "unorderedChildren": null,
+      "label": {
+        "no": "72 år",
+        "en": "72 years"
+      },
+      "rank": {
+        "no": "072",
+        "en": "072"
+      },
+      "notes": null
+    },
+    {
+      "code": "073",
+      "unorderedChildren": null,
+      "label": {
+        "no": "73 år",
+        "en": "73 years"
+      },
+      "rank": {
+        "no": "073",
+        "en": "073"
+      },
+      "notes": null
+    },
+    {
+      "code": "074",
+      "unorderedChildren": null,
+      "label": {
+        "no": "74 år",
+        "en": "74 years"
+      },
+      "rank": {
+        "no": "074",
+        "en": "074"
+      },
+      "notes": null
+    },
+    {
+      "code": "075",
+      "unorderedChildren": null,
+      "label": {
+        "no": "75 år",
+        "en": "75 years"
+      },
+      "rank": {
+        "no": "075",
+        "en": "075"
+      },
+      "notes": null
+    },
+    {
+      "code": "076",
+      "unorderedChildren": null,
+      "label": {
+        "no": "76 år",
+        "en": "76 years"
+      },
+      "rank": {
+        "no": "076",
+        "en": "076"
+      },
+      "notes": null
+    },
+    {
+      "code": "077",
+      "unorderedChildren": null,
+      "label": {
+        "no": "77 år",
+        "en": "77 years"
+      },
+      "rank": {
+        "no": "077",
+        "en": "077"
+      },
+      "notes": null
+    },
+    {
+      "code": "078",
+      "unorderedChildren": null,
+      "label": {
+        "no": "78 år",
+        "en": "78 years"
+      },
+      "rank": {
+        "no": "078",
+        "en": "078"
+      },
+      "notes": null
+    },
+    {
+      "code": "079",
+      "unorderedChildren": null,
+      "label": {
+        "no": "79 år",
+        "en": "79 years"
+      },
+      "rank": {
+        "no": "079",
+        "en": "079"
+      },
+      "notes": null
+    },
+    {
+      "code": "080",
+      "unorderedChildren": null,
+      "label": {
+        "no": "80 år",
+        "en": "80 years"
+      },
+      "rank": {
+        "no": "080",
+        "en": "080"
+      },
+      "notes": null
+    },
+    {
+      "code": "081",
+      "unorderedChildren": null,
+      "label": {
+        "no": "81 år",
+        "en": "81 years"
+      },
+      "rank": {
+        "no": "081",
+        "en": "081"
+      },
+      "notes": null
+    },
+    {
+      "code": "082",
+      "unorderedChildren": null,
+      "label": {
+        "no": "82 år",
+        "en": "82 years"
+      },
+      "rank": {
+        "no": "082",
+        "en": "082"
+      },
+      "notes": null
+    },
+    {
+      "code": "083",
+      "unorderedChildren": null,
+      "label": {
+        "no": "83 år",
+        "en": "83 years"
+      },
+      "rank": {
+        "no": "083",
+        "en": "083"
+      },
+      "notes": null
+    },
+    {
+      "code": "084",
+      "unorderedChildren": null,
+      "label": {
+        "no": "84 år",
+        "en": "84 years"
+      },
+      "rank": {
+        "no": "084",
+        "en": "084"
+      },
+      "notes": null
+    },
+    {
+      "code": "085",
+      "unorderedChildren": null,
+      "label": {
+        "no": "85 år",
+        "en": "85 years"
+      },
+      "rank": {
+        "no": "085",
+        "en": "085"
+      },
+      "notes": null
+    },
+    {
+      "code": "086",
+      "unorderedChildren": null,
+      "label": {
+        "no": "86 år",
+        "en": "86 years"
+      },
+      "rank": {
+        "no": "086",
+        "en": "086"
+      },
+      "notes": null
+    },
+    {
+      "code": "087",
+      "unorderedChildren": null,
+      "label": {
+        "no": "87 år",
+        "en": "87 years"
+      },
+      "rank": {
+        "no": "087",
+        "en": "087"
+      },
+      "notes": null
+    },
+    {
+      "code": "088",
+      "unorderedChildren": null,
+      "label": {
+        "no": "88 år",
+        "en": "88 years"
+      },
+      "rank": {
+        "no": "088",
+        "en": "088"
+      },
+      "notes": null
+    },
+    {
+      "code": "089",
+      "unorderedChildren": null,
+      "label": {
+        "no": "89 år",
+        "en": "89 years"
+      },
+      "rank": {
+        "no": "089",
+        "en": "089"
+      },
+      "notes": null
+    },
+    {
+      "code": "090",
+      "unorderedChildren": null,
+      "label": {
+        "no": "90 år",
+        "en": "90 years"
+      },
+      "rank": {
+        "no": "090",
+        "en": "090"
+      },
+      "notes": null
+    },
+    {
+      "code": "091",
+      "unorderedChildren": null,
+      "label": {
+        "no": "91 år",
+        "en": "91 years"
+      },
+      "rank": {
+        "no": "091",
+        "en": "091"
+      },
+      "notes": null
+    },
+    {
+      "code": "092",
+      "unorderedChildren": null,
+      "label": {
+        "no": "92 år",
+        "en": "92 years"
+      },
+      "rank": {
+        "no": "092",
+        "en": "092"
+      },
+      "notes": null
+    },
+    {
+      "code": "093",
+      "unorderedChildren": null,
+      "label": {
+        "no": "93 år",
+        "en": "93 years"
+      },
+      "rank": {
+        "no": "093",
+        "en": "093"
+      },
+      "notes": null
+    },
+    {
+      "code": "094",
+      "unorderedChildren": null,
+      "label": {
+        "no": "94 år",
+        "en": "94 years"
+      },
+      "rank": {
+        "no": "094",
+        "en": "094"
+      },
+      "notes": null
+    },
+    {
+      "code": "095",
+      "unorderedChildren": null,
+      "label": {
+        "no": "95 år",
+        "en": "95 years"
+      },
+      "rank": {
+        "no": "095",
+        "en": "095"
+      },
+      "notes": null
+    },
+    {
+      "code": "096",
+      "unorderedChildren": null,
+      "label": {
+        "no": "96 år",
+        "en": "96 years"
+      },
+      "rank": {
+        "no": "096",
+        "en": "096"
+      },
+      "notes": null
+    },
+    {
+      "code": "097",
+      "unorderedChildren": null,
+      "label": {
+        "no": "97 år",
+        "en": "97 years"
+      },
+      "rank": {
+        "no": "097",
+        "en": "097"
+      },
+      "notes": null
+    },
+    {
+      "code": "098",
+      "unorderedChildren": null,
+      "label": {
+        "no": "98 år",
+        "en": "98 years"
+      },
+      "rank": {
+        "no": "098",
+        "en": "098"
+      },
+      "notes": null
+    },
+    {
+      "code": "099",
+      "unorderedChildren": null,
+      "label": {
+        "no": "99 år",
+        "en": "99 years"
+      },
+      "rank": {
+        "no": "099",
+        "en": "099"
+      },
+      "notes": null
+    },
+    {
+      "code": "100",
+      "unorderedChildren": null,
+      "label": {
+        "no": "100 år",
+        "en": "100 years"
+      },
+      "rank": {
+        "no": "100",
+        "en": "100"
+      },
+      "notes": null
+    },
+    {
+      "code": "101",
+      "unorderedChildren": null,
+      "label": {
+        "no": "101 år",
+        "en": "101 years"
+      },
+      "rank": {
+        "no": "101",
+        "en": "101"
+      },
+      "notes": null
+    },
+    {
+      "code": "102",
+      "unorderedChildren": null,
+      "label": {
+        "no": "102 år",
+        "en": "102 years"
+      },
+      "rank": {
+        "no": "102",
+        "en": "102"
+      },
+      "notes": null
+    },
+    {
+      "code": "103",
+      "unorderedChildren": null,
+      "label": {
+        "no": "103 år",
+        "en": "103 years"
+      },
+      "rank": {
+        "no": "103",
+        "en": "103"
+      },
+      "notes": null
+    },
+    {
+      "code": "104",
+      "unorderedChildren": null,
+      "label": {
+        "no": "104 år",
+        "en": "104 years"
+      },
+      "rank": {
+        "no": "104",
+        "en": "104"
+      },
+      "notes": null
+    },
+    {
+      "code": "105+",
+      "unorderedChildren": null,
+      "label": {
+        "no": "105 år eller eldre",
+        "en": "105 years or older"
+      },
+      "rank": {
+        "no": "105+",
+        "en": "105?"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": null,
+  "groupings": [
+    {
+      "label": {
+        "no": "5-årige aldersgrupper",
+        "en": "5-years groups"
+      },
+      "rank": {
+        "no": "05B",
+        "en": "05B"
+      },
+      "codes": [
+        {
+          "code": "F00-04",
+          "unorderedChildren": [
+            "002",
+            "003",
+            "004",
+            "000",
+            "001"
+          ],
+          "label": {
+            "no": "0-4 år",
+            "en": "0-4 years"
+          },
+          "rank": {
+            "no": "00-04",
+            "en": "00-04"
+          },
+          "notes": null
+        },
+        {
+          "code": "F05-09",
+          "unorderedChildren": [
+            "005",
+            "006",
+            "007",
+            "008",
+            "009"
+          ],
+          "label": {
+            "no": "5-9 år",
+            "en": "5-9 years"
+          },
+          "rank": {
+            "no": "05-09",
+            "en": "05-09"
+          },
+          "notes": null
+        },
+        {
+          "code": "F10-14",
+          "unorderedChildren": [
+            "010",
+            "011",
+            "012",
+            "013",
+            "014"
+          ],
+          "label": {
+            "no": "10-14 år",
+            "en": "10-14 years"
+          },
+          "rank": {
+            "no": "10-14",
+            "en": "10-14"
+          },
+          "notes": null
+        },
+        {
+          "code": "F15-19",
+          "unorderedChildren": [
+            "015",
+            "016",
+            "017",
+            "018",
+            "019"
+          ],
+          "label": {
+            "no": "15-19 år",
+            "en": "15-19 years"
+          },
+          "rank": {
+            "no": "15-19",
+            "en": "15-19"
+          },
+          "notes": null
+        },
+        {
+          "code": "F20-24",
+          "unorderedChildren": [
+            "020",
+            "021",
+            "022",
+            "023",
+            "024"
+          ],
+          "label": {
+            "no": "20-24 år",
+            "en": "20-24 years"
+          },
+          "rank": {
+            "no": "20-24",
+            "en": "20-24"
+          },
+          "notes": null
+        },
+        {
+          "code": "F25-29",
+          "unorderedChildren": [
+            "025",
+            "026",
+            "027",
+            "028",
+            "029"
+          ],
+          "label": {
+            "no": "25-29 år",
+            "en": "25-29 years"
+          },
+          "rank": {
+            "no": "25-29",
+            "en": "25-29"
+          },
+          "notes": null
+        },
+        {
+          "code": "F30-34",
+          "unorderedChildren": [
+            "032",
+            "033",
+            "034",
+            "030",
+            "031"
+          ],
+          "label": {
+            "no": "30-34 år",
+            "en": "30-34 years"
+          },
+          "rank": {
+            "no": "30-34",
+            "en": "30-34"
+          },
+          "notes": null
+        },
+        {
+          "code": "F35-39",
+          "unorderedChildren": [
+            "035",
+            "036",
+            "037",
+            "038",
+            "039"
+          ],
+          "label": {
+            "no": "35-39 år",
+            "en": "35-39 years"
+          },
+          "rank": {
+            "no": "35-39",
+            "en": "35-39"
+          },
+          "notes": null
+        },
+        {
+          "code": "F40-44",
+          "unorderedChildren": [
+            "040",
+            "041",
+            "042",
+            "043",
+            "044"
+          ],
+          "label": {
+            "no": "40-44 år",
+            "en": "40-44 years"
+          },
+          "rank": {
+            "no": "40-44",
+            "en": "40-44"
+          },
+          "notes": null
+        },
+        {
+          "code": "F45-49",
+          "unorderedChildren": [
+            "045",
+            "046",
+            "047",
+            "048",
+            "049"
+          ],
+          "label": {
+            "no": "45-49 år",
+            "en": "45-49 years"
+          },
+          "rank": {
+            "no": "45-49",
+            "en": "45-49"
+          },
+          "notes": null
+        },
+        {
+          "code": "F50-54",
+          "unorderedChildren": [
+            "050",
+            "051",
+            "052",
+            "053",
+            "054"
+          ],
+          "label": {
+            "no": "50-54 år",
+            "en": "50-54 years"
+          },
+          "rank": {
+            "no": "50-54",
+            "en": "50-54"
+          },
+          "notes": null
+        },
+        {
+          "code": "F55-59",
+          "unorderedChildren": [
+            "055",
+            "056",
+            "057",
+            "058",
+            "059"
+          ],
+          "label": {
+            "no": "55-59 år",
+            "en": "55-59 years"
+          },
+          "rank": {
+            "no": "55-59",
+            "en": "55-59"
+          },
+          "notes": null
+        },
+        {
+          "code": "F60-64",
+          "unorderedChildren": [
+            "060",
+            "061",
+            "062",
+            "063",
+            "064"
+          ],
+          "label": {
+            "no": "60-64 år",
+            "en": "60-64 years"
+          },
+          "rank": {
+            "no": "60-64",
+            "en": "60-64"
+          },
+          "notes": null
+        },
+        {
+          "code": "F65-69",
+          "unorderedChildren": [
+            "065",
+            "066",
+            "067",
+            "068",
+            "069"
+          ],
+          "label": {
+            "no": "65-69 år",
+            "en": "65-69 years"
+          },
+          "rank": {
+            "no": "65-69",
+            "en": "65-69"
+          },
+          "notes": null
+        },
+        {
+          "code": "F70-74",
+          "unorderedChildren": [
+            "070",
+            "071",
+            "072",
+            "073",
+            "074"
+          ],
+          "label": {
+            "no": "70-74 år",
+            "en": "70-74 years"
+          },
+          "rank": {
+            "no": "70-74",
+            "en": "70-74"
+          },
+          "notes": null
+        },
+        {
+          "code": "F75-79",
+          "unorderedChildren": [
+            "075",
+            "076",
+            "077",
+            "078",
+            "079"
+          ],
+          "label": {
+            "no": "75-79 år",
+            "en": "75-79 years"
+          },
+          "rank": {
+            "no": "75-79",
+            "en": "75-79"
+          },
+          "notes": null
+        },
+        {
+          "code": "F80-84",
+          "unorderedChildren": [
+            "080",
+            "081",
+            "082",
+            "083",
+            "084"
+          ],
+          "label": {
+            "no": "80-84 år",
+            "en": "80-84 years"
+          },
+          "rank": {
+            "no": "80-84",
+            "en": "80-84"
+          },
+          "notes": null
+        },
+        {
+          "code": "F85-89",
+          "unorderedChildren": [
+            "085",
+            "086",
+            "087",
+            "088",
+            "089"
+          ],
+          "label": {
+            "no": "85-89 år",
+            "en": "85-89 years"
+          },
+          "rank": {
+            "no": "85-89",
+            "en": "85-89"
+          },
+          "notes": null
+        },
+        {
+          "code": "F90-94",
+          "unorderedChildren": [
+            "091",
+            "092",
+            "093",
+            "094",
+            "090"
+          ],
+          "label": {
+            "no": "90-94 år",
+            "en": "90-94 years"
+          },
+          "rank": {
+            "no": "90-94",
+            "en": "90-94"
+          },
+          "notes": null
+        },
+        {
+          "code": "F95-99",
+          "unorderedChildren": [
+            "096",
+            "097",
+            "098",
+            "099",
+            "095"
+          ],
+          "label": {
+            "no": "95-99 år",
+            "en": "95-99 years"
+          },
+          "rank": {
+            "no": "95-99",
+            "en": "95-99"
+          },
+          "notes": null
+        },
+        {
+          "code": "F100G5+",
+          "unorderedChildren": [
+            "101",
+            "102",
+            "103",
+            "104",
+            "100",
+            "105+"
+          ],
+          "label": {
+            "no": "100 år eller eldre",
+            "en": "100 years or older"
+          },
+          "rank": {
+            "no": "999",
+            "en": "999"
+          },
+          "notes": null
+        }
+      ]
+    },
+    {
+      "label": {
+        "no": "10-årige aldersgrupper",
+        "en": "10-years groups"
+      },
+      "rank": {
+        "no": "10B",
+        "en": "10B"
+      },
+      "codes": [
+        {
+          "code": "F00-09",
+          "unorderedChildren": [
+            "000",
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009"
+          ],
+          "label": {
+            "no": "0-9 år",
+            "en": "0-9 years"
+          },
+          "rank": {
+            "no": "00-09",
+            "en": "00-09"
+          },
+          "notes": null
+        },
+        {
+          "code": "F10-19",
+          "unorderedChildren": [
+            "010",
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019"
+          ],
+          "label": {
+            "no": "10-19 år",
+            "en": "10-19 years"
+          },
+          "rank": {
+            "no": "10-19",
+            "en": "10-19"
+          },
+          "notes": null
+        },
+        {
+          "code": "F20-29",
+          "unorderedChildren": [
+            "020",
+            "021",
+            "022",
+            "023",
+            "024",
+            "025",
+            "026",
+            "027",
+            "028",
+            "029"
+          ],
+          "label": {
+            "no": "20-29 år",
+            "en": "20-29 years"
+          },
+          "rank": {
+            "no": "20-29",
+            "en": "20-29"
+          },
+          "notes": null
+        },
+        {
+          "code": "F30-39",
+          "unorderedChildren": [
+            "030",
+            "031",
+            "032",
+            "033",
+            "034",
+            "035",
+            "036",
+            "037",
+            "038",
+            "039"
+          ],
+          "label": {
+            "no": "30-39 år",
+            "en": "30-39 years"
+          },
+          "rank": {
+            "no": "30-39",
+            "en": "30-39"
+          },
+          "notes": null
+        },
+        {
+          "code": "F40-49",
+          "unorderedChildren": [
+            "041",
+            "042",
+            "043",
+            "044",
+            "045",
+            "046",
+            "047",
+            "048",
+            "049",
+            "040"
+          ],
+          "label": {
+            "no": "40-49 år",
+            "en": "40-49 years"
+          },
+          "rank": {
+            "no": "40-49",
+            "en": "40-49"
+          },
+          "notes": null
+        },
+        {
+          "code": "F50-59",
+          "unorderedChildren": [
+            "050",
+            "051",
+            "052",
+            "053",
+            "054",
+            "055",
+            "056",
+            "057",
+            "058",
+            "059"
+          ],
+          "label": {
+            "no": "50-59 år",
+            "en": "50-59 years"
+          },
+          "rank": {
+            "no": "50-59",
+            "en": "50-59"
+          },
+          "notes": null
+        },
+        {
+          "code": "F60-69",
+          "unorderedChildren": [
+            "060",
+            "061",
+            "062",
+            "063",
+            "064",
+            "065",
+            "066",
+            "067",
+            "068",
+            "069"
+          ],
+          "label": {
+            "no": "60-69 år",
+            "en": "60-69 years"
+          },
+          "rank": {
+            "no": "60-69",
+            "en": "60-69"
+          },
+          "notes": null
+        },
+        {
+          "code": "F70-79",
+          "unorderedChildren": [
+            "070",
+            "071",
+            "072",
+            "073",
+            "074",
+            "075",
+            "076",
+            "077",
+            "078",
+            "079"
+          ],
+          "label": {
+            "no": "70-79 år",
+            "en": "70-79 years"
+          },
+          "rank": {
+            "no": "70-79",
+            "en": "70-79"
+          },
+          "notes": null
+        },
+        {
+          "code": "F80-89",
+          "unorderedChildren": [
+            "080",
+            "081",
+            "082",
+            "083",
+            "084",
+            "085",
+            "086",
+            "087",
+            "088",
+            "089"
+          ],
+          "label": {
+            "no": "80-89 år",
+            "en": "80-89 years"
+          },
+          "rank": {
+            "no": "80-89",
+            "en": "80-89"
+          },
+          "notes": null
+        },
+        {
+          "code": "F90-99",
+          "unorderedChildren": [
+            "090",
+            "091",
+            "092",
+            "093",
+            "094",
+            "095",
+            "096",
+            "097",
+            "098",
+            "099"
+          ],
+          "label": {
+            "no": "90-99 år",
+            "en": "90-99 years"
+          },
+          "rank": {
+            "no": "90-99",
+            "en": "90-99"
+          },
+          "notes": null
+        },
+        {
+          "code": "F100G10+",
+          "unorderedChildren": [
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105+"
+          ],
+          "label": {
+            "no": "100 år eller eldre",
+            "en": "100 years or older"
+          },
+          "rank": {
+            "no": "999",
+            "en": "999"
+          },
+          "notes": null
+        }
+      ]
+    },
+    {
+      "label": {
+        "no": "Todelt (0-17, 18+)",
+        "en": "Bipartite (0-17, 18+)"
+      },
+      "rank": {
+        "no": "12B",
+        "en": "12B"
+      },
+      "codes": [
+        {
+          "code": "H17",
+          "unorderedChildren": [
+            "000",
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010",
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017"
+          ],
+          "label": {
+            "no": "0-17 år",
+            "en": "0-17 years"
+          },
+          "rank": {
+            "no": "H17",
+            "en": "H17"
+          },
+          "notes": null
+        },
+        {
+          "code": "H18",
+          "unorderedChildren": [
+            "018",
+            "019",
+            "020",
+            "021",
+            "022",
+            "023",
+            "024",
+            "025",
+            "026",
+            "027",
+            "028",
+            "029",
+            "030",
+            "031",
+            "032",
+            "033",
+            "034",
+            "035",
+            "036",
+            "037",
+            "038",
+            "039",
+            "040",
+            "041",
+            "042",
+            "043",
+            "044",
+            "045",
+            "046",
+            "047",
+            "048",
+            "049",
+            "050",
+            "051",
+            "052",
+            "053",
+            "054",
+            "055",
+            "056",
+            "057",
+            "058",
+            "059",
+            "060",
+            "061",
+            "062",
+            "063",
+            "064",
+            "065",
+            "066",
+            "067",
+            "068",
+            "069",
+            "070",
+            "071",
+            "072",
+            "073",
+            "074",
+            "075",
+            "076",
+            "077",
+            "078",
+            "079",
+            "080",
+            "081",
+            "082",
+            "083",
+            "084",
+            "085",
+            "086",
+            "087",
+            "088",
+            "089",
+            "090",
+            "091",
+            "092",
+            "093",
+            "094",
+            "095",
+            "096",
+            "097",
+            "098",
+            "099",
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105+"
+          ],
+          "label": {
+            "no": "18 år eller eldre",
+            "en": "18 years or older"
+          },
+          "rank": {
+            "no": "H18",
+            "en": "H18"
+          },
+          "notes": null
+        }
+      ]
+    },
+    {
+      "label": {
+        "no": "Tredelt (0-19, 20-64, 65+)",
+        "en": "Tripartite (0-19, 20-64, 65+)"
+      },
+      "rank": {
+        "no": "13B",
+        "en": "13B"
+      },
+      "codes": [
+        {
+          "code": "F0-19",
+          "unorderedChildren": [
+            "000",
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010",
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019"
+          ],
+          "label": {
+            "no": "0-19 år",
+            "en": "0-19 years"
+          },
+          "rank": {
+            "no": "F0-19",
+            "en": "F0-19"
+          },
+          "notes": null
+        },
+        {
+          "code": "F20-64",
+          "unorderedChildren": [
+            "020",
+            "021",
+            "022",
+            "023",
+            "024",
+            "025",
+            "026",
+            "027",
+            "028",
+            "029",
+            "030",
+            "031",
+            "032",
+            "033",
+            "034",
+            "035",
+            "036",
+            "037",
+            "038",
+            "039",
+            "040",
+            "041",
+            "042",
+            "043",
+            "044",
+            "045",
+            "046",
+            "047",
+            "048",
+            "049",
+            "050",
+            "051",
+            "052",
+            "053",
+            "054",
+            "055",
+            "056",
+            "057",
+            "058",
+            "059",
+            "060",
+            "061",
+            "062",
+            "063",
+            "064"
+          ],
+          "label": {
+            "no": "20-64 år",
+            "en": "20-64 years"
+          },
+          "rank": {
+            "no": "F20-64",
+            "en": "F20-64"
+          },
+          "notes": null
+        },
+        {
+          "code": "F65+",
+          "unorderedChildren": [
+            "065",
+            "066",
+            "067",
+            "068",
+            "069",
+            "070",
+            "071",
+            "072",
+            "073",
+            "074",
+            "075",
+            "076",
+            "077",
+            "078",
+            "079",
+            "080",
+            "081",
+            "082",
+            "083",
+            "084",
+            "085",
+            "086",
+            "087",
+            "088",
+            "089",
+            "090",
+            "091",
+            "092",
+            "093",
+            "094",
+            "095",
+            "096",
+            "097",
+            "098",
+            "099",
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105+"
+          ],
+          "label": {
+            "no": "65 år eller eldre",
+            "en": "65 years or older"
+          },
+          "rank": {
+            "no": "F65+",
+            "en": "F65+"
+          },
+          "notes": null
+        }
+      ]
+    },
+    {
+      "label": {
+        "no": "0-5, 6-15, 16-66, 67+",
+        "en": "0-5, 6-15, 16-66, 67+"
+      },
+      "rank": {
+        "no": "20B",
+        "en": "20B"
+      },
+      "codes": [
+        {
+          "code": "F301",
+          "unorderedChildren": [
+            "001",
+            "000",
+            "002",
+            "003",
+            "004",
+            "005"
+          ],
+          "label": {
+            "no": "0-5 år",
+            "en": "0-5 years"
+          },
+          "rank": {
+            "no": "301",
+            "en": "301"
+          },
+          "notes": null
+        },
+        {
+          "code": "F302",
+          "unorderedChildren": [
+            "006",
+            "007",
+            "008",
+            "009",
+            "010",
+            "011",
+            "012",
+            "013",
+            "014",
+            "015"
+          ],
+          "label": {
+            "no": "6-15 år",
+            "en": "6-15 years"
+          },
+          "rank": {
+            "no": "302",
+            "en": "302"
+          },
+          "notes": null
+        },
+        {
+          "code": "F303",
+          "unorderedChildren": [
+            "016",
+            "017",
+            "018",
+            "019",
+            "020",
+            "021",
+            "022",
+            "023",
+            "024",
+            "025",
+            "026",
+            "063",
+            "064",
+            "065",
+            "066",
+            "027",
+            "028",
+            "029",
+            "030",
+            "031",
+            "032",
+            "033",
+            "034",
+            "035",
+            "036",
+            "037",
+            "038",
+            "039",
+            "040",
+            "041",
+            "042",
+            "043",
+            "044",
+            "045",
+            "046",
+            "047",
+            "048",
+            "049",
+            "050",
+            "051",
+            "052",
+            "053",
+            "054",
+            "055",
+            "056",
+            "057",
+            "058",
+            "059",
+            "060",
+            "061",
+            "062"
+          ],
+          "label": {
+            "no": "16-66 år",
+            "en": "16-66 years"
+          },
+          "rank": {
+            "no": "303",
+            "en": "303"
+          },
+          "notes": null
+        },
+        {
+          "code": "F304",
+          "unorderedChildren": [
+            "067",
+            "068",
+            "069",
+            "070",
+            "071",
+            "072",
+            "073",
+            "074",
+            "075",
+            "076",
+            "077",
+            "078",
+            "079",
+            "080",
+            "081",
+            "082",
+            "083",
+            "084",
+            "085",
+            "086",
+            "087",
+            "088",
+            "089",
+            "090",
+            "091",
+            "092",
+            "093",
+            "094",
+            "095",
+            "096",
+            "097",
+            "098",
+            "099",
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105+"
+          ],
+          "label": {
+            "no": "67 år eller eldre",
+            "en": "67 years or older"
+          },
+          "rank": {
+            "no": "304",
+            "en": "304"
+          },
+          "notes": null
+        }
+      ]
+    },
+    {
+      "label": {
+        "no": "0-5, 6-15, 16-19, 20-66, 67+",
+        "en": "0-5, 6-15, 16-19, 20-66, 67+"
+      },
+      "rank": {
+        "no": "22B",
+        "en": "22B"
+      },
+      "codes": [
+        {
+          "code": "F306",
+          "unorderedChildren": [
+            "000",
+            "001",
+            "002",
+            "003",
+            "004",
+            "005"
+          ],
+          "label": {
+            "no": "0-5 år",
+            "en": "0-5 years"
+          },
+          "rank": {
+            "no": "306",
+            "en": "306"
+          },
+          "notes": null
+        },
+        {
+          "code": "F307",
+          "unorderedChildren": [
+            "006",
+            "007",
+            "008",
+            "009",
+            "010",
+            "011",
+            "012",
+            "013",
+            "014",
+            "015"
+          ],
+          "label": {
+            "no": "6-15 år",
+            "en": "6-15 years"
+          },
+          "rank": {
+            "no": "307",
+            "en": "307"
+          },
+          "notes": null
+        },
+        {
+          "code": "F308",
+          "unorderedChildren": [
+            "016",
+            "017",
+            "018",
+            "019"
+          ],
+          "label": {
+            "no": "16-19 år",
+            "en": "16-19 years"
+          },
+          "rank": {
+            "no": "308",
+            "en": "308"
+          },
+          "notes": null
+        },
+        {
+          "code": "F309",
+          "unorderedChildren": [
+            "020",
+            "021",
+            "022",
+            "023",
+            "024",
+            "025",
+            "026",
+            "027",
+            "028",
+            "029",
+            "030",
+            "031",
+            "032",
+            "033",
+            "034",
+            "035",
+            "036",
+            "037",
+            "038",
+            "039",
+            "040",
+            "041",
+            "042",
+            "043",
+            "044",
+            "045",
+            "046",
+            "047",
+            "048",
+            "049",
+            "050",
+            "051",
+            "052",
+            "053",
+            "054",
+            "055",
+            "056",
+            "057",
+            "058",
+            "059",
+            "060",
+            "061",
+            "062",
+            "063",
+            "064",
+            "065",
+            "066"
+          ],
+          "label": {
+            "no": "20-66 år",
+            "en": "20-66 years"
+          },
+          "rank": {
+            "no": "309",
+            "en": "309"
+          },
+          "notes": null
+        },
+        {
+          "code": "F310",
+          "unorderedChildren": [
+            "067",
+            "068",
+            "069",
+            "070",
+            "071",
+            "072",
+            "073",
+            "074",
+            "075",
+            "076",
+            "077",
+            "078",
+            "079",
+            "080",
+            "081",
+            "082",
+            "083",
+            "084",
+            "085",
+            "086",
+            "087",
+            "088",
+            "089",
+            "090",
+            "091",
+            "092",
+            "093",
+            "094",
+            "095",
+            "096",
+            "097",
+            "098",
+            "099",
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105+"
+          ],
+          "label": {
+            "no": "67 år eller eldre",
+            "en": "67 years or older"
+          },
+          "rank": {
+            "no": "310",
+            "en": "310"
+          },
+          "notes": null
+        }
+      ]
+    },
+    {
+      "label": {
+        "no": "0, 1-5, 6-12, 13-15, 16-19, 20-44, 45-66, 67-79, 80-89, 90+",
+        "en": "0, 1-5, 6-12, 13-15, 16-19, 20-44, 45-66, 67-79, 80-89, 90+"
+      },
+      "rank": {
+        "no": "24B",
+        "en": "24B"
+      },
+      "codes": [
+        {
+          "code": "F311",
+          "unorderedChildren": [
+            "000"
+          ],
+          "label": {
+            "no": "0 år",
+            "en": "0 years"
+          },
+          "rank": {
+            "no": "F311",
+            "en": "F311"
+          },
+          "notes": null
+        },
+        {
+          "code": "F312",
+          "unorderedChildren": [
+            "001",
+            "002",
+            "003",
+            "004",
+            "005"
+          ],
+          "label": {
+            "no": "1-5 år",
+            "en": "1-5 years"
+          },
+          "rank": {
+            "no": "F312",
+            "en": "F312"
+          },
+          "notes": null
+        },
+        {
+          "code": "F313",
+          "unorderedChildren": [
+            "006",
+            "007",
+            "008",
+            "009",
+            "010",
+            "011",
+            "012"
+          ],
+          "label": {
+            "no": "6-12 år",
+            "en": "6-12 years"
+          },
+          "rank": {
+            "no": "F313",
+            "en": "F313"
+          },
+          "notes": null
+        },
+        {
+          "code": "F314",
+          "unorderedChildren": [
+            "013",
+            "014",
+            "015"
+          ],
+          "label": {
+            "no": "13-15 år",
+            "en": "13-15 years"
+          },
+          "rank": {
+            "no": "F314",
+            "en": "F314"
+          },
+          "notes": null
+        },
+        {
+          "code": "F315",
+          "unorderedChildren": [
+            "016",
+            "017",
+            "018",
+            "019"
+          ],
+          "label": {
+            "no": "16-19 år",
+            "en": "16-19 years"
+          },
+          "rank": {
+            "no": "F315",
+            "en": "F315"
+          },
+          "notes": null
+        },
+        {
+          "code": "F316",
+          "unorderedChildren": [
+            "020",
+            "021",
+            "022",
+            "023",
+            "024",
+            "025",
+            "026",
+            "027",
+            "028",
+            "029",
+            "030",
+            "031",
+            "032",
+            "033",
+            "034",
+            "035",
+            "036",
+            "037",
+            "038",
+            "039",
+            "040",
+            "041",
+            "042",
+            "043",
+            "044"
+          ],
+          "label": {
+            "no": "20-44 år",
+            "en": "20-44 years"
+          },
+          "rank": {
+            "no": "F316",
+            "en": "F316"
+          },
+          "notes": null
+        },
+        {
+          "code": "F317",
+          "unorderedChildren": [
+            "045",
+            "046",
+            "047",
+            "048",
+            "049",
+            "050",
+            "051",
+            "052",
+            "053",
+            "054",
+            "055",
+            "056",
+            "057",
+            "058",
+            "059",
+            "060",
+            "061",
+            "062",
+            "063",
+            "064",
+            "065",
+            "066"
+          ],
+          "label": {
+            "no": "45-66 år",
+            "en": "45-66 years"
+          },
+          "rank": {
+            "no": "F317",
+            "en": "F317"
+          },
+          "notes": null
+        },
+        {
+          "code": "F318",
+          "unorderedChildren": [
+            "067",
+            "068",
+            "069",
+            "070",
+            "071",
+            "072",
+            "073",
+            "074",
+            "075",
+            "076",
+            "077",
+            "078",
+            "079"
+          ],
+          "label": {
+            "no": "67-79 år",
+            "en": "67-79 years"
+          },
+          "rank": {
+            "no": "F318",
+            "en": "F318"
+          },
+          "notes": null
+        },
+        {
+          "code": "F319",
+          "unorderedChildren": [
+            "080",
+            "081",
+            "082",
+            "083",
+            "084",
+            "085",
+            "086",
+            "087",
+            "088",
+            "089"
+          ],
+          "label": {
+            "no": "80-89 år",
+            "en": "80-89 years"
+          },
+          "rank": {
+            "no": "F319",
+            "en": "F319"
+          },
+          "notes": null
+        },
+        {
+          "code": "F320",
+          "unorderedChildren": [
+            "092",
+            "090",
+            "091",
+            "093",
+            "094",
+            "095",
+            "096",
+            "097",
+            "098",
+            "099",
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105+"
+          ],
+          "label": {
+            "no": "90 år eller eldre",
+            "en": "90 years or older"
+          },
+          "rank": {
+            "no": "F320",
+            "en": "F320"
+          },
+          "notes": null
+        }
+      ]
+    },
+    {
+      "label": {
+        "no": "0-24, 25-34, 35-44, 45-69, 70-79, 80+",
+        "en": "0-24, 25-34, 35-44, 45-69, 70-79, 80+"
+      },
+      "rank": {
+        "no": "27B",
+        "en": "27B"
+      },
+      "codes": [
+        {
+          "code": "F1",
+          "unorderedChildren": [
+            "000",
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010",
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019",
+            "020",
+            "021",
+            "022",
+            "023",
+            "024"
+          ],
+          "label": {
+            "no": "0-24 år",
+            "en": "0-24 years"
+          },
+          "rank": {
+            "no": "F1",
+            "en": "F1"
+          },
+          "notes": null
+        },
+        {
+          "code": "F2",
+          "unorderedChildren": [
+            "025",
+            "026",
+            "027",
+            "028",
+            "029",
+            "030",
+            "031",
+            "032",
+            "033",
+            "034"
+          ],
+          "label": {
+            "no": "25-34 år",
+            "en": "25-34 years"
+          },
+          "rank": {
+            "no": "F2",
+            "en": "F2"
+          },
+          "notes": null
+        },
+        {
+          "code": "F3",
+          "unorderedChildren": [
+            "035",
+            "036",
+            "037",
+            "038",
+            "039",
+            "040",
+            "041",
+            "042",
+            "043",
+            "044"
+          ],
+          "label": {
+            "no": "35-44 år",
+            "en": "35-44 years"
+          },
+          "rank": {
+            "no": "F3",
+            "en": "F3"
+          },
+          "notes": null
+        },
+        {
+          "code": "F4",
+          "unorderedChildren": [
+            "053",
+            "054",
+            "055",
+            "056",
+            "057",
+            "058",
+            "059",
+            "060",
+            "061",
+            "062",
+            "063",
+            "064",
+            "065",
+            "066",
+            "067",
+            "068",
+            "069",
+            "045",
+            "046",
+            "047",
+            "048",
+            "049",
+            "050",
+            "051",
+            "052"
+          ],
+          "label": {
+            "no": "45-69 år",
+            "en": "45-69 years"
+          },
+          "rank": {
+            "no": "F4",
+            "en": "F4"
+          },
+          "notes": null
+        },
+        {
+          "code": "F5",
+          "unorderedChildren": [
+            "070",
+            "071",
+            "072",
+            "073",
+            "074",
+            "075",
+            "076",
+            "077",
+            "078",
+            "079"
+          ],
+          "label": {
+            "no": "70-79 år",
+            "en": "70-79 years"
+          },
+          "rank": {
+            "no": "F5",
+            "en": "F5"
+          },
+          "notes": null
+        },
+        {
+          "code": "F6",
+          "unorderedChildren": [
+            "080",
+            "081",
+            "082",
+            "083",
+            "084",
+            "085",
+            "086",
+            "087",
+            "088",
+            "089",
+            "090",
+            "091",
+            "092",
+            "093",
+            "094",
+            "095",
+            "096",
+            "097",
+            "098",
+            "099",
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105+"
+          ],
+          "label": {
+            "no": "80 år eller eldre",
+            "en": "80 years or older"
+          },
+          "rank": {
+            "no": "F6",
+            "en": "F6"
+          },
+          "notes": null
+        }
+      ]
+    },
+    {
+      "label": {
+        "no": "0-15, 16-18, 19-34, 35-66, 67-74, 75+",
+        "en": "0-15, 16-18, 19-34, 35-66, 67-74, 75+"
+      },
+      "rank": {
+        "no": "28B",
+        "en": "28B"
+      },
+      "codes": [
+        {
+          "code": "F340",
+          "unorderedChildren": [
+            "000",
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010",
+            "011",
+            "012",
+            "013",
+            "014",
+            "015"
+          ],
+          "label": {
+            "no": "0-15 år",
+            "en": "0-15 years"
+          },
+          "rank": {
+            "no": "F340",
+            "en": "F340"
+          },
+          "notes": null
+        },
+        {
+          "code": "F341",
+          "unorderedChildren": [
+            "016",
+            "017",
+            "018"
+          ],
+          "label": {
+            "no": "16-18 år",
+            "en": "16-18 years"
+          },
+          "rank": {
+            "no": "F341",
+            "en": "F341"
+          },
+          "notes": null
+        },
+        {
+          "code": "F342",
+          "unorderedChildren": [
+            "019",
+            "020",
+            "021",
+            "022",
+            "023",
+            "024",
+            "025",
+            "026",
+            "027",
+            "028",
+            "029",
+            "030",
+            "031",
+            "032",
+            "033",
+            "034"
+          ],
+          "label": {
+            "no": "19-34 år",
+            "en": "19-34 years"
+          },
+          "rank": {
+            "no": "F342",
+            "en": "F342"
+          },
+          "notes": null
+        },
+        {
+          "code": "F343",
+          "unorderedChildren": [
+            "035",
+            "036",
+            "037",
+            "038",
+            "039",
+            "040",
+            "041",
+            "042",
+            "043",
+            "044",
+            "045",
+            "046",
+            "047",
+            "048",
+            "049",
+            "050",
+            "051",
+            "052",
+            "053",
+            "054",
+            "055",
+            "056",
+            "057",
+            "058",
+            "059",
+            "060",
+            "061",
+            "062",
+            "063",
+            "064",
+            "065",
+            "066"
+          ],
+          "label": {
+            "no": "35-66 år",
+            "en": "35-66 years"
+          },
+          "rank": {
+            "no": "F343",
+            "en": "F343"
+          },
+          "notes": null
+        },
+        {
+          "code": "F344",
+          "unorderedChildren": [
+            "067",
+            "068",
+            "069",
+            "070",
+            "071",
+            "072",
+            "073",
+            "074"
+          ],
+          "label": {
+            "no": "67-74 år",
+            "en": "67-74 years"
+          },
+          "rank": {
+            "no": "F344",
+            "en": "F344"
+          },
+          "notes": null
+        },
+        {
+          "code": "F345",
+          "unorderedChildren": [
+            "076",
+            "077",
+            "075",
+            "078",
+            "079",
+            "080",
+            "081",
+            "082",
+            "083",
+            "084",
+            "085",
+            "086",
+            "087",
+            "088",
+            "089",
+            "090",
+            "091",
+            "092",
+            "093",
+            "094",
+            "095",
+            "096",
+            "097",
+            "098",
+            "099",
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105+"
+          ],
+          "label": {
+            "no": "75 år og eldre",
+            "en": "75 years or older"
+          },
+          "rank": {
+            "no": "F345",
+            "en": "F345"
+          },
+          "notes": null
+        }
+      ]
+    },
+    {
+      "label": {
+        "no": "0-1, 2-5, 6-15, 16-22, 23-66, 67+",
+        "en": "0-1, 2-5, 6-15, 16-22, 23-66, 67+"
+      },
+      "rank": {
+        "no": "29B",
+        "en": "29B"
+      },
+      "codes": [
+        {
+          "code": "I330",
+          "unorderedChildren": [
+            "000",
+            "001"
+          ],
+          "label": {
+            "no": "0-1 år",
+            "en": "0-1 year"
+          },
+          "rank": {
+            "no": "I330",
+            "en": "I330"
+          },
+          "notes": null
+        },
+        {
+          "code": "I331",
+          "unorderedChildren": [
+            "002",
+            "003",
+            "004",
+            "005"
+          ],
+          "label": {
+            "no": "2-5 år",
+            "en": "2-5 years"
+          },
+          "rank": {
+            "no": "I331",
+            "en": "I331"
+          },
+          "notes": null
+        },
+        {
+          "code": "I332",
+          "unorderedChildren": [
+            "006",
+            "007",
+            "008",
+            "009",
+            "010",
+            "011",
+            "012",
+            "013",
+            "014",
+            "015"
+          ],
+          "label": {
+            "no": "6-15 år",
+            "en": "6-15 years"
+          },
+          "rank": {
+            "no": "I332",
+            "en": "I332"
+          },
+          "notes": null
+        },
+        {
+          "code": "I333",
+          "unorderedChildren": [
+            "016",
+            "017",
+            "018",
+            "019",
+            "020",
+            "021",
+            "022"
+          ],
+          "label": {
+            "no": "16-22 år",
+            "en": "16-22 years"
+          },
+          "rank": {
+            "no": "I333",
+            "en": "I333"
+          },
+          "notes": null
+        },
+        {
+          "code": "I334",
+          "unorderedChildren": [
+            "023",
+            "024",
+            "025",
+            "026",
+            "027",
+            "028",
+            "029",
+            "030",
+            "031",
+            "032",
+            "033",
+            "034",
+            "035",
+            "036",
+            "037",
+            "038",
+            "039",
+            "040",
+            "041",
+            "042",
+            "043",
+            "044",
+            "045",
+            "046",
+            "047",
+            "048",
+            "049",
+            "050",
+            "051",
+            "052",
+            "053",
+            "054",
+            "055",
+            "056",
+            "057",
+            "058",
+            "059",
+            "060",
+            "061",
+            "062",
+            "063",
+            "064",
+            "065",
+            "066"
+          ],
+          "label": {
+            "no": "23-66 år",
+            "en": "23-66 years"
+          },
+          "rank": {
+            "no": "I334",
+            "en": "I334"
+          },
+          "notes": null
+        },
+        {
+          "code": "I335",
+          "unorderedChildren": [
+            "067",
+            "068",
+            "069",
+            "070",
+            "071",
+            "072",
+            "073",
+            "074",
+            "075",
+            "076",
+            "077",
+            "078",
+            "079",
+            "080",
+            "081",
+            "082",
+            "083",
+            "084",
+            "085",
+            "086",
+            "087",
+            "088",
+            "089",
+            "090",
+            "091",
+            "092",
+            "093",
+            "094",
+            "095",
+            "096",
+            "097",
+            "098",
+            "099",
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105+"
+          ],
+          "label": {
+            "no": "67 år og eldre",
+            "en": "67 years or older"
+          },
+          "rank": {
+            "no": "I335",
+            "en": "I335"
+          },
+          "notes": null
+        }
+      ]
+    },
+    {
+      "label": {
+        "no": "0-17, 18-49, 50-66, 67-79, 80-89, 90+",
+        "en": "0-17, 18-49, 50-66, 67-79, 80-89, 90+"
+      },
+      "rank": {
+        "no": "30B",
+        "en": "30B"
+      },
+      "codes": [
+        {
+          "code": "I340",
+          "unorderedChildren": [
+            "000",
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010",
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017"
+          ],
+          "label": {
+            "no": "0-17 år",
+            "en": "0-17 years"
+          },
+          "rank": {
+            "no": "I340",
+            "en": "I340"
+          },
+          "notes": null
+        },
+        {
+          "code": "I341",
+          "unorderedChildren": [
+            "018",
+            "019",
+            "020",
+            "021",
+            "022",
+            "023",
+            "024",
+            "025",
+            "026",
+            "027",
+            "028",
+            "029",
+            "030",
+            "031",
+            "032",
+            "033",
+            "034",
+            "035",
+            "036",
+            "037",
+            "038",
+            "039",
+            "040",
+            "041",
+            "042",
+            "043",
+            "044",
+            "045",
+            "046",
+            "047",
+            "048",
+            "049"
+          ],
+          "label": {
+            "no": "18-49 år",
+            "en": "18-49 years"
+          },
+          "rank": {
+            "no": "I341",
+            "en": "I341"
+          },
+          "notes": null
+        },
+        {
+          "code": "I342",
+          "unorderedChildren": [
+            "050",
+            "051",
+            "052",
+            "053",
+            "054",
+            "055",
+            "056",
+            "057",
+            "058",
+            "059",
+            "060",
+            "061",
+            "062",
+            "063",
+            "064",
+            "065",
+            "066"
+          ],
+          "label": {
+            "no": "50-66 år",
+            "en": "50-66 years"
+          },
+          "rank": {
+            "no": "I342",
+            "en": "I342"
+          },
+          "notes": null
+        },
+        {
+          "code": "I343",
+          "unorderedChildren": [
+            "067",
+            "068",
+            "069",
+            "070",
+            "071",
+            "072",
+            "073",
+            "074",
+            "075",
+            "076",
+            "077",
+            "078",
+            "079"
+          ],
+          "label": {
+            "no": "67-79 år",
+            "en": "67-79 years"
+          },
+          "rank": {
+            "no": "I343",
+            "en": "I343"
+          },
+          "notes": null
+        },
+        {
+          "code": "I344",
+          "unorderedChildren": [
+            "080",
+            "081",
+            "082",
+            "083",
+            "084",
+            "085",
+            "086",
+            "087",
+            "088",
+            "089"
+          ],
+          "label": {
+            "no": "80-89 år",
+            "en": "80-89 years"
+          },
+          "rank": {
+            "no": "I344",
+            "en": "I344"
+          },
+          "notes": null
+        },
+        {
+          "code": "I345",
+          "unorderedChildren": [
+            "090",
+            "091",
+            "092",
+            "093",
+            "094",
+            "095",
+            "096",
+            "097",
+            "098",
+            "099",
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105+"
+          ],
+          "label": {
+            "no": "90 år og eldre",
+            "en": "90 years or older"
+          },
+          "rank": {
+            "no": "I345",
+            "en": "I345"
+          },
+          "notes": null
+        }
+      ]
+    }
+  ]
+}

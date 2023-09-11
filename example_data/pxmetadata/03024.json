@@ -1,0 +1,100 @@
+﻿{
+  "dataset": {
+    "documnetId": null,
+    "tableId": "03024",
+    "storedDecimals": null,
+    "statisticsId": "8246",
+    "dataFile": null,
+    "baseTitle": {
+      "no": "Eksport av oppalen laks",
+      "en": "Export of salmon, fish-farm bred"
+    },
+    "searchKeywords": {
+      "no": [
+        "ord",
+        "til",
+        "søk"
+      ],
+      "en": [
+        "Words",
+        "for",
+        "search"
+      ]
+    },
+    "notes": null,
+    "cellNotes": null,
+    "timeDimension": {
+      "columnName": "periode_kolonne",
+      "timePeriodFormat": "ååååUuu",
+      "label": {
+        "no": "uke",
+        "en": "week"
+      }
+    },
+    "codedDimensions": [
+      {
+        "columnName": "VareGrupper2",
+        "code": "VareGrupper2",
+        "isGeoVariableType": false,
+        "codelistId": "tab03024_LaksEksport",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "varegruppe",
+          "en": "commodity group"
+        },
+        "notes": null
+      }
+    ],
+    "measurements": [
+      {
+        "columnName": "Vekt",
+        "code": "Vekt",
+        "showDecimals": 0,
+        "priceType": null,
+        "isSeasonallyAdjusted": false,
+        "isWorkingdaysAdjusted": false,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "Vekt (tonn)",
+          "en": "Weight (tonnes)"
+        },
+        "basePeriod": {},
+        "referencePeriod": {
+          "no": "Utgangen av veka",
+          "en": "End of week"
+        },
+        "rank": null,
+        "unitOfMeasure": {
+          "no": "tonn",
+          "en": "tonnes"
+        },
+        "notes": null
+      },
+      {
+        "columnName": "Kilopris",
+        "code": "Kilopris",
+        "showDecimals": 2,
+        "priceType": null,
+        "isSeasonallyAdjusted": false,
+        "isWorkingdaysAdjusted": false,
+        "aggregationAllowed": false,
+        "label": {
+          "no": "Kilopris (kr)",
+          "en": "Price per kilo (NOK)"
+        },
+        "basePeriod": {},
+        "referencePeriod": {
+          "no": "Utgangen av veka",
+          "en": "End of week"
+        },
+        "rank": null,
+        "unitOfMeasure": {
+          "no": "kr",
+          "en": "NOK"
+        },
+        "notes": null
+      }
+    ],
+    "attributes": null
+  }
+}

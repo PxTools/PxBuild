@@ -1,0 +1,85 @@
+﻿{
+  "id": "tab12576_Kjoretoykm",
+  "admin": {
+    "isFinal": true,
+    "tags": [
+      "til",
+      "søk"
+    ],
+    "todoCreation": "her må det vel lagres noe om hvordan dette har oppstått. Vil tro man trenger det"
+  },
+  "label": {
+    "no": "Hovedkjøretøy",
+    "en": "Main vehicle"
+  },
+  "codes": [
+    {
+      "code": "0",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Kjøretøy i alt",
+        "en": "All vehicles"
+      },
+      "rank": {
+        "no": "0",
+        "en": "0"
+      },
+      "notes": null
+    },
+    {
+      "code": "15",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Personbiler i alt",
+        "en": "All passenger cars"
+      },
+      "rank": {
+        "no": "15",
+        "en": "15"
+      },
+      "notes": null
+    },
+    {
+      "code": "16",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Busser i alt",
+        "en": "All buses"
+      },
+      "rank": {
+        "no": "16",
+        "en": "16"
+      },
+      "notes": null
+    },
+    {
+      "code": "00",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Små godsbiler i alt",
+        "en": "All vans and small lorries"
+      },
+      "rank": {
+        "no": "16b",
+        "en": "16b"
+      },
+      "notes": null
+    },
+    {
+      "code": "17",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Store lastebiler i alt",
+        "en": "All heavy lorries and road tractors"
+      },
+      "rank": {
+        "no": "17",
+        "en": "17"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": "0",
+  "groupings": null
+}

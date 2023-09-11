@@ -1,0 +1,176 @@
+﻿{
+  "id": "tab12576_DrivstoffType5",
+  "admin": {
+    "isFinal": true,
+    "tags": [
+      "til",
+      "søk"
+    ],
+    "todoCreation": "her må det vel lagres noe om hvordan dette har oppstått. Vil tro man trenger det"
+  },
+  "label": {
+    "no": "Drivstofftype",
+    "en": "Type of fuel"
+  },
+  "codes": [
+    {
+      "code": "0",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Alle typer drivstoff",
+        "en": "All types of fuel"
+      },
+      "rank": {
+        "no": "0",
+        "en": "0"
+      },
+      "notes": null
+    },
+    {
+      "code": "1",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Bensin",
+        "en": "Petrol"
+      },
+      "rank": {
+        "no": "01",
+        "en": "01"
+      },
+      "notes": null
+    },
+    {
+      "code": "2",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Diesel",
+        "en": "Diesel"
+      },
+      "rank": {
+        "no": "02",
+        "en": "02"
+      },
+      "notes": null
+    },
+    {
+      "code": "18",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Elektrisitet",
+        "en": "Electricity"
+      },
+      "rank": {
+        "no": "03",
+        "en": "03"
+      },
+      "notes": null
+    },
+    {
+      "code": "14",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Bensin hybrid, ladbar",
+        "en": "Petrol hybrid, chargeable"
+      },
+      "rank": {
+        "no": "04",
+        "en": "04"
+      },
+      "notes": null
+    },
+    {
+      "code": "15",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Bensin hybrid, ikke ladbar",
+        "en": "Petrol hybrid, non-chargeable"
+      },
+      "rank": {
+        "no": "05",
+        "en": "05"
+      },
+      "notes": null
+    },
+    {
+      "code": "16",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Diesel hybrid, ladbar",
+        "en": "Diesel hybrid, chargeable"
+      },
+      "rank": {
+        "no": "06",
+        "en": "06"
+      },
+      "notes": null
+    },
+    {
+      "code": "17",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Diesel hybrid, ikke ladbar",
+        "en": "Diesel hybrid, non-chargeable"
+      },
+      "rank": {
+        "no": "07",
+        "en": "07"
+      },
+      "notes": null
+    },
+    {
+      "code": "3",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Parafin",
+        "en": "Paraffin"
+      },
+      "rank": {
+        "no": "08",
+        "en": "08"
+      },
+      "notes": null
+    },
+    {
+      "code": "4",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Gass",
+        "en": "Gas"
+      },
+      "rank": {
+        "no": "09",
+        "en": "09"
+      },
+      "notes": null
+    },
+    {
+      "code": "13",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Hydrogen",
+        "en": "Hydrogen"
+      },
+      "rank": {
+        "no": "10",
+        "en": "10"
+      },
+      "notes": null
+    },
+    {
+      "code": "7",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Andre drivstoff",
+        "en": "Other fuels"
+      },
+      "rank": {
+        "no": "11",
+        "en": "11"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": "0",
+  "groupings": null
+}

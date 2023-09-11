@@ -1,0 +1,593 @@
+﻿{
+  "id": "tab12576_Region",
+  "admin": {
+    "isFinal": true,
+    "tags": [
+      "til",
+      "søk"
+    ],
+    "todoCreation": "her må det vel lagres noe om hvordan dette har oppstått. Vil tro man trenger det"
+  },
+  "label": {
+    "no": "region",
+    "en": "region"
+  },
+  "codes": [
+    {
+      "code": "0",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Hele landet",
+        "en": "The whole country"
+      },
+      "rank": {
+        "no": "0.0",
+        "en": "0.0"
+      },
+      "notes": null
+    },
+    {
+      "code": "30",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Viken",
+        "en": "Viken"
+      },
+      "rank": {
+        "no": "01",
+        "en": "01"
+      },
+      "notes": null
+    },
+    {
+      "code": "01",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Østfold (-2019)",
+        "en": "Østfold (-2019)"
+      },
+      "rank": {
+        "no": "010",
+        "en": "010"
+      },
+      "notes": null
+    },
+    {
+      "code": "02",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Akershus (-2019)",
+        "en": "Akershus (-2019)"
+      },
+      "rank": {
+        "no": "02",
+        "en": "02"
+      },
+      "notes": null
+    },
+    {
+      "code": "03",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Oslo",
+        "en": "Oslo"
+      },
+      "rank": {
+        "no": "03",
+        "en": "03"
+      },
+      "notes": null
+    },
+    {
+      "code": "34",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Innlandet",
+        "en": "Innlandet"
+      },
+      "rank": {
+        "no": "04",
+        "en": "04"
+      },
+      "notes": null
+    },
+    {
+      "code": "04",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Hedmark (-2019)",
+        "en": "Hedmark (-2019)"
+      },
+      "rank": {
+        "no": "040",
+        "en": "040"
+      },
+      "notes": null
+    },
+    {
+      "code": "05",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Oppland (-2019)",
+        "en": "Oppland (-2019)"
+      },
+      "rank": {
+        "no": "05",
+        "en": "05"
+      },
+      "notes": null
+    },
+    {
+      "code": "06",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Buskerud (-2019)",
+        "en": "Buskerud (-2019)"
+      },
+      "rank": {
+        "no": "06",
+        "en": "06"
+      },
+      "notes": null
+    },
+    {
+      "code": "38",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Vestfold og Telemark",
+        "en": "Vestfold og Telemark"
+      },
+      "rank": {
+        "no": "07",
+        "en": "07"
+      },
+      "notes": null
+    },
+    {
+      "code": "07",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Vestfold (-2019)",
+        "en": "Vestfold (-2019)"
+      },
+      "rank": {
+        "no": "070",
+        "en": "070"
+      },
+      "notes": null
+    },
+    {
+      "code": "08",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Telemark (-2019)",
+        "en": "Telemark (-2019)"
+      },
+      "rank": {
+        "no": "08",
+        "en": "08"
+      },
+      "notes": null
+    },
+    {
+      "code": "42",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Agder",
+        "en": "Agder"
+      },
+      "rank": {
+        "no": "09",
+        "en": "09"
+      },
+      "notes": null
+    },
+    {
+      "code": "09",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Aust-Agder (-2019)",
+        "en": "Aust-Agder (-2019)"
+      },
+      "rank": {
+        "no": "090",
+        "en": "090"
+      },
+      "notes": null
+    },
+    {
+      "code": "10",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Vest-Agder (-2019)",
+        "en": "Vest-Agder (-2019)"
+      },
+      "rank": {
+        "no": "10",
+        "en": "10"
+      },
+      "notes": null
+    },
+    {
+      "code": "11",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Rogaland",
+        "en": "Rogaland"
+      },
+      "rank": {
+        "no": "11",
+        "en": "11"
+      },
+      "notes": null
+    },
+    {
+      "code": "46",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Vestland",
+        "en": "Vestland"
+      },
+      "rank": {
+        "no": "12",
+        "en": "12"
+      },
+      "notes": null
+    },
+    {
+      "code": "12",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Hordaland (-2019)",
+        "en": "Hordaland (-2019)"
+      },
+      "rank": {
+        "no": "120",
+        "en": "120"
+      },
+      "notes": null
+    },
+    {
+      "code": "13",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Bergen (-1971)",
+        "en": "Bergen (-1971)"
+      },
+      "rank": {
+        "no": "13",
+        "en": "13"
+      },
+      "notes": null
+    },
+    {
+      "code": "14",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Sogn og Fjordane (-2019)",
+        "en": "Sogn og Fjordane (-2019)"
+      },
+      "rank": {
+        "no": "14",
+        "en": "14"
+      },
+      "notes": null
+    },
+    {
+      "code": "15",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Møre og Romsdal",
+        "en": "Møre og Romsdal"
+      },
+      "rank": {
+        "no": "15",
+        "en": "15"
+      },
+      "notes": [
+        {
+          "text": {
+            "no": "1.1. 2019 ble kommunen 1567 Rindal flyttet fra Møre og Romsdal til Trøndelag. 1.1.2020 ble kommunen 1571 Halsa flyttet fra Møre og Romsdal til Trøndelag. 1.1.2020 ble kommunen 1444 Hornindal flyttet fra Sogn og Fjordane til Møre og Romsdal.",
+            "en": "1 January 2019, the municipality 1567 Rindal was moved from Møre og Romsdal to Trøndelag. 1 January 2020, the municipality 1571 Halsa was moved from Møre og Romsdal to Trøndelag. 1 January 2020, the municipality 1444 Hornindal was moved from Sogn og Fjordane to Møre og Romsdal."
+          },
+          "isMandatory": false
+        }
+      ]
+    },
+    {
+      "code": "50",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Trøndelag - Trööndelage",
+        "en": "Trøndelag - Trööndelage"
+      },
+      "rank": {
+        "no": "16",
+        "en": "16"
+      },
+      "notes": [
+        {
+          "text": {
+            "no": "1.1. 2019 ble kommunen 1567 Rindal flyttet fra Møre og Romsdal til Trøndelag. 1.1.2020 ble kommunen 1571 Halsa flyttet fra Møre og Romsdal til Trøndelag.",
+            "en": "1 January 2019, the municipality 1567 Rindal was moved from Møre og Romsdal to Trøndelag. 1 January 2020, the municipality 1571 Halsa was moved from Møre og Romsdal to Trøndelag."
+          },
+          "isMandatory": false
+        }
+      ]
+    },
+    {
+      "code": "16",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Sør-Trøndelag (-2017)",
+        "en": "Sør-Trøndelag (-2017)"
+      },
+      "rank": {
+        "no": "160",
+        "en": "160"
+      },
+      "notes": null
+    },
+    {
+      "code": "17",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Nord-Trøndelag (-2017)",
+        "en": "Nord-Trøndelag (-2017)"
+      },
+      "rank": {
+        "no": "17",
+        "en": "17"
+      },
+      "notes": null
+    },
+    {
+      "code": "18",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Nordland - Nordlánnda",
+        "en": "Nordland - Nordlánnda"
+      },
+      "rank": {
+        "no": "18",
+        "en": "18"
+      },
+      "notes": [
+        {
+          "text": {
+            "no": "1.1.2020 ble kommunen 1852 Tjeldsund flyttet fra Nordland til Troms og Finnmark.",
+            "en": "1 January 2020, the municipality 1852 Tjeldsund was moved from Nordland to Troms og Finnmark."
+          },
+          "isMandatory": false
+        }
+      ]
+    },
+    {
+      "code": "54",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Troms og Finnmark - Romsa ja Finnmárku",
+        "en": "Troms og Finnmark - Romsa ja Finnmárku"
+      },
+      "rank": {
+        "no": "19",
+        "en": "19"
+      },
+      "notes": null
+    },
+    {
+      "code": "19",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Troms - Romsa (-2019)",
+        "en": "Troms - Romsa (-2019)"
+      },
+      "rank": {
+        "no": "190",
+        "en": "190"
+      },
+      "notes": null
+    },
+    {
+      "code": "20",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Finnmark - Finnmárku (-2019)",
+        "en": "Finnmark - Finnmárku (-2019)"
+      },
+      "rank": {
+        "no": "20",
+        "en": "20"
+      },
+      "notes": null
+    },
+    {
+      "code": "21",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Svalbard",
+        "en": "Svalbard"
+      },
+      "rank": {
+        "no": "21",
+        "en": "21"
+      },
+      "notes": [
+        {
+          "text": {
+            "no": "Svalbard er ikke definert som fylke i lovens forstand, men i offisiell statistikk behandles Svalbard på lik linje med de andre fylkene i Norge.",
+            "en": "Svalbard is not defined as a county in the legal sense, but in official statistics Svalbard is treated in the same way as the other counties in Norway."
+          },
+          "isMandatory": false
+        }
+      ]
+    },
+    {
+      "code": "22",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Jan Mayen",
+        "en": "Jan Mayen"
+      },
+      "rank": {
+        "no": "22",
+        "en": "22"
+      },
+      "notes": null
+    },
+    {
+      "code": "23",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Kontinentalsokkelen",
+        "en": "The Continental Shelf"
+      },
+      "rank": {
+        "no": "23",
+        "en": "23"
+      },
+      "notes": null
+    },
+    {
+      "code": "25",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Utlandet",
+        "en": "Abroad"
+      },
+      "rank": {
+        "no": "25",
+        "en": "25"
+      },
+      "notes": null
+    },
+    {
+      "code": "26",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Havområder",
+        "en": "Ocean areas"
+      },
+      "rank": {
+        "no": "26",
+        "en": "26"
+      },
+      "notes": null
+    },
+    {
+      "code": "88",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Ikke bosatt i Norge",
+        "en": "Not resident in Norway"
+      },
+      "rank": {
+        "no": "88",
+        "en": "88"
+      },
+      "notes": null
+    },
+    {
+      "code": "99",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Uoppgitt fylke",
+        "en": "County not stated"
+      },
+      "rank": {
+        "no": "99",
+        "en": "99"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": "0",
+  "groupings": [
+    {
+      "label": {
+        "no": "Fylker 2020-",
+        "en": "Counties 2020-"
+      },
+      "rank": {
+        "no": "02",
+        "en": "02"
+      },
+      "codes": [
+        {
+          "code": "FylkeGjeld",
+          "unorderedChildren": [
+            "30",
+            "34",
+            "38",
+            "42",
+            "46",
+            "54",
+            "03",
+            "11",
+            "15",
+            "18",
+            "21",
+            "50"
+          ],
+          "label": {
+            "no": "Fylker",
+            "en": "Counties"
+          },
+          "rank": {
+            "no": "FylkeGjeld",
+            "en": "FylkeGjeld"
+          },
+          "notes": null
+        }
+      ]
+    },
+    {
+      "label": {
+        "no": "Fylker 1972-2019",
+        "en": "Counties 1972-2019"
+      },
+      "rank": {
+        "no": "02b",
+        "en": "02b"
+      },
+      "codes": [
+        {
+          "code": "Fylker19",
+          "unorderedChildren": [
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08",
+            "09",
+            "10",
+            "11",
+            "12",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "50"
+          ],
+          "label": {
+            "no": "Fylker 1972-2019",
+            "en": "Counties 1972-2019"
+          },
+          "rank": {
+            "no": "Fylker19",
+            "en": "Fylker19"
+          },
+          "notes": null
+        }
+      ]
+    }
+  ]
+}

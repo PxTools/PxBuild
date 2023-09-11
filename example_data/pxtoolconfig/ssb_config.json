@@ -1,0 +1,16 @@
+﻿{
+  "charset": "ANSI",
+  "axisVersion": "2013",
+  "codePage": "WINDOWS-1252",
+  "descriptionDefault": false,
+  "contvariable": "Statistikkvariabel",
+  "datasymbol1": "..",
+  "datasymbol2": "...",
+  "datasymbol3": ":",
+  "datasymbol4": null,
+  "datasymbol5": null,
+  "datasymbol6": null,
+  "datasymbolNil": "-",
+  "datasymbolSum": null,
+  "source": "SSB"
+}

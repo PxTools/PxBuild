@@ -1,0 +1,161 @@
+﻿{
+  "dataset": {
+    "documnetId": null,
+    "tableId": "12576",
+    "storedDecimals": null,
+    "statisticsId": "8790",
+    "dataFile": null,
+    "baseTitle": {
+      "no": "Kjørelengder",
+      "en": "Road traffic volumes"
+    },
+    "searchKeywords": {
+      "no": [
+        "ord",
+        "til",
+        "søk"
+      ],
+      "en": [
+        "Words",
+        "for",
+        "search"
+      ]
+    },
+    "notes": [
+      {
+        "text": {
+          "no": "En mer detaljert modell for beregning av kjørelengder ble utviklet i 2018 (se Om statistikken). 21. mars 2019 ble det publisert nye tall for 2018 og justerte tall for 2016 og 2017 beregnet med den nye modellen. Selv om omleggingen fra gammel til ny modell generelt sett har begrenset virkning på kjørelengdene i statistikken, vil det være noen avvik i forhold til tidligere publiserte tall for 2016 og 2017.",
+          "en": "A more detailed model for calculating road traffic volumes was developed in 2018 (see About the statistics). On 21 March 2019, new figures for 2018 and adjusted figures for 2016 and 2017 were published based on the new model. Although the change in method generally has limited effect on the statistics, there are some deviations from previously published figures for 2016 and 2017."
+        },
+        "isMandatory": false
+      },
+      {
+        "text": {
+          "no": "<b>Drivstofftype</b><br></br>\n\n<b>Andre drivstoff:</b>\nInkluderer parafin, gass og hydrogen fram til og med 2015.<br></br>\n\n<b>Bensin- og dieselhybrider:</b>\nBensin- og dieselhybrider ble i hovedsak registrert som ordinære bensin- og dieselbiler fram til og med 2015.",
+          "en": "<b>Type of fuel</b><br></br>\n\n<b>Other fuels:</b>\nIncludes paraffin, gas and hydrogen up to and including 2015.<br></br>\n\n<b>Petrol and diesel hybrids:</b>\nPetrol and diesel hybrids were generally registered as regular petrol and diesel vehicles up to and including 2015."
+        },
+        "isMandatory": false
+      },
+      {
+        "text": {
+          "no": "2018-tallene ble oppdatert 24. mars 2020 som følge av endringer i beregningen av kjørelengder for kjøretøy i Rindal kommune.",
+          "en": "The 2018 figures were updated on 24 March 2020 as a result of changes in the calculation of mileage for vehicles in the municipality of Rindal."
+        },
+        "isMandatory": false
+      },
+      {
+        "text": {
+          "no": "I mars 2020 ble det 40 år gamle Motorvognregisteret til Statens vegvesen erstattet av et nytt Kjøretøyregister med ny teknologi og til dels nytt innhold. Endringer i bruk av variabler og kodelister i det nye registeret har medført at det vil kunne være avvik i kjørelengdestatistikken mellom 2019 og 2020 på de mest detaljerte nivåene.\n<br>\nFør 2020 var ikke kjøretøyer på Svalbard som kun var registrert for bruk utenfor offentlig vei med i statistikken.",
+          "en": "In March 2020, the 40-year-old Motor Vehicle Register of the Norwegian Public Roads Administration was replaced by a new Vehicle Register based on new technology and partly new content. Changes in the use of variables and code lists in the new register have resulted in some discrepancies between 2019 and 2020 at the most detailed levels of the statistics.\n<br>\nPrior to 2020, vehicles on Svalbard not registered for use on public roads were not included in the statistics."
+        },
+        "isMandatory": false
+      }
+    ],
+    "cellNotes": null,
+    "timeDimension": {
+      "columnName": "periode_kolonne",
+      "timePeriodFormat": "åååå",
+      "label": {
+        "no": "år",
+        "en": "year"
+      }
+    },
+    "codedDimensions": [
+      {
+        "columnName": "Kjoretoytype",
+        "code": "Kjoretoytype",
+        "isGeoVariableType": false,
+        "codelistId": "tab12576_Kjoretoykm",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "kjøretøytype",
+          "en": "vehicle type"
+        },
+        "notes": null
+      },
+      {
+        "columnName": "Region",
+        "code": "Region",
+        "isGeoVariableType": false,
+        "codelistId": "tab12576_Region",
+        "labelConstructionOption": "code_text",
+        "label": {
+          "no": "region",
+          "en": "region"
+        },
+        "notes": [
+          {
+            "text": {
+              "no": "<a href='https://www.ssb.no/offentlig-sektor/kommunekatalog/endringer-i-de-regionale-inndelingene' target='footnote'><b>Se liste over endringer i de regionale inndelingene.</b></a>",
+              "en": "<a href='https://www.ssb.no/offentlig-sektor/kommunekatalog/endringer-i-de-regionale-inndelingene' target='footnote'><b>See list over changes in regional classifications (in Norwegian).</b></a>"
+            },
+            "isMandatory": false
+          }
+        ]
+      },
+      {
+        "columnName": "DrivstoffType",
+        "code": "DrivstoffType",
+        "isGeoVariableType": false,
+        "codelistId": "tab12576_DrivstoffType5",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "drivstofftype",
+          "en": "type of fuel"
+        },
+        "notes": null
+      }
+    ],
+    "measurements": [
+      {
+        "columnName": "Kjorelengde",
+        "code": "Kjorelengde",
+        "showDecimals": 1,
+        "priceType": null,
+        "isSeasonallyAdjusted": false,
+        "isWorkingdaysAdjusted": false,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "Kjørelengde (mill. km)",
+          "en": "Road traffic volumes (million km)"
+        },
+        "basePeriod": {},
+        "referencePeriod": {
+          "no": "31.12",
+          "en": "31.12"
+        },
+        "rank": null,
+        "unitOfMeasure": {
+          "no": "mill. km",
+          "en": "million km"
+        },
+        "notes": null
+      },
+      {
+        "columnName": "GjsnittKjorelengde",
+        "code": "GjsnittKjorelengde",
+        "showDecimals": 0,
+        "priceType": null,
+        "isSeasonallyAdjusted": false,
+        "isWorkingdaysAdjusted": false,
+        "aggregationAllowed": false,
+        "label": {
+          "no": "Gjennomsnittlig kjørelengde per kjøretøy (km)",
+          "en": "Average road traffic volumes per vehicle (km)"
+        },
+        "basePeriod": {},
+        "referencePeriod": {
+          "no": "31.12",
+          "en": "31.12"
+        },
+        "rank": null,
+        "unitOfMeasure": {
+          "no": "km",
+          "en": "km"
+        },
+        "notes": null
+      }
+    ],
+    "attributes": null
+  }
+}

@@ -1,5 +1,6 @@
 print("loading root init..")
 from .controll.load_from_pxfile import Loader
+from .controll.from_pxmetadata_file import LoadFromPxmetadata
 
 
 from .models.output.pxfile.px_file_model import PXFileModel

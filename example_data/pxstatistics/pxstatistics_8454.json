@@ -1,0 +1,15 @@
+{
+  "id": "8454",
+  "updateFrequency":{"no":"År","en":"Year"},
+  "metaId":"KORTNAVN:folkemengde",
+  "subjectCode":"be",
+  "subjectText":{"no": "Befolkning", "en": "Population"},
+  "upcomingReleases": [],
+  "contacts":[
+  {
+    "phone": "+47 4080000",
+    "email": "mgh@ssb.no",              
+    "name": {"no":"Magnus Haug, Statistisk sentralbyrå","en":"Magnus Haug, Statistics Norway"}  
+  }
+  ]
+}
