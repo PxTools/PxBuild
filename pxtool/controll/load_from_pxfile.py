@@ -1,7 +1,8 @@
 import re
-import pxtool
-import pxtool.model.util.constants as constants
-from pxtool.model.px_file_model import PXFileModel
+
+from pxtool.models.output.pxfile.px_file_model import PXFileModel
+import pxtool.models.output.pxfile.util.constants as constants
+
 
 
 class QuotedItem:
