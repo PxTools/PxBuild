@@ -1,6 +1,7 @@
-from pxtool.model.px_file_model import PXFileModel
-from pxtool.operations_on_model.validator.validationResult import ValidationResult
-import pxtool.model.util.constants as const
+from pxtool.models.output.pxfile.px_file_model import PXFileModel
+from ...validator.validationResult import ValidationResult
+import pxtool.models.output.pxfile.util.constants as const
+
 
 def check_language(model:PXFileModel) -> ValidationResult:
         val_result = ValidationResult(desc="Check if default languge is defined in languages keyword")

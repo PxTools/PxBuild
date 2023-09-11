@@ -1,8 +1,7 @@
-from pxtool.model.px_file_model import PXFileModel
-from pxtool.operations_on_model.validator.validationResult import ValidationResult
-from pxtool.operations_on_model.validator.checks.check_mandatory import  check_mandatory
-import pxtool.model.util.constants as const
-
+from pxtool.models.output.pxfile.px_file_model import PXFileModel
+from ...validator.validationResult import ValidationResult
+import pxtool.models.output.pxfile.util.constants as const
+from .check_mandatory import check_mandatory
    
 def check_showdecimals(model:PXFileModel) -> ValidationResult:
         val_result = ValidationResult(desc="Check if value for showdecimals is greater than value for decimals")

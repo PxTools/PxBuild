@@ -5,7 +5,7 @@ These classes have 2 purposes:
 
 They used to be just namedTuples, but we wanted to use pydantic for validation  
 """
-from pxtool.model.util._line_validator import LineValidator
+from ._line_validator import LineValidator
 
 class _KeytypeLang():
     lang:str = None

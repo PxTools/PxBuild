@@ -115,12 +115,12 @@ class MyKeyword:
     #Writers
 
     def imports_writer(self, fileHandle) -> None:
-        fileHandle.write(f"from pxtool.model.util._px_super import {self.classnames['Super']}\n")
+        fileHandle.write(f"from pxtool.models.output.pxfile.util._px_super import {self.classnames['Super']}\n")
         if self.classnames["Value"] != "int" :
-             fileHandle.write(f"from pxtool.model.util._px_valuetype import {self.classnames['Value']}\n")
+             fileHandle.write(f"from pxtool.models.output.pxfile.util._px_valuetype import {self.classnames['Value']}\n")
         if self.classnames["Key"]:
-            fileHandle.write(f"from pxtool.model.util._px_keytypes import { self.classnames['Key']}\n")
-        fileHandle.write("from pxtool.model.util._line_validator import LineValidator\n\n")
+            fileHandle.write(f"from pxtool.models.output.pxfile.util._px_keytypes import { self.classnames['Key']}\n")
+        fileHandle.write("from pxtool.models.output.pxfile.util._line_validator import LineValidator\n\n")
 
 
     def class_and_init_writer(self, fileHandle) -> None:
@@ -236,9 +236,11 @@ class SpecReader:
 
 my_spec_reader = SpecReader()
 
+file_path_to_pxfiledir = "../pxtool/models/output/pxfile"
+
 # make <Keyword classes>.py
 for kw in my_spec_reader.data:
-    with open("../pxtool/model/keywords/"+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
+    with open(file_path_to_pxfiledir+"/keywords/"+kw.module_name+".py", "wt",encoding="utf-8-sig", newline="\n" ) as classPy:
         kw.imports_writer(classPy)
         kw.class_and_init_writer(classPy)
         kw.set_writer(classPy)
@@ -265,7 +267,7 @@ for kw in my_spec_reader.data:
 
 
 
-with open("../pxtool/model/util/constants.py", "wt",encoding="utf-8-sig", newline="\n" ) as constant_module:
+with open(file_path_to_pxfiledir+"/util/constants.py", "wt",encoding="utf-8-sig", newline="\n" ) as constant_module:
     constant_module.write("\"\"\"Module for holding constants\"\"\""+"\n\n")
     constant_module.write(f"MANDATORY_KEYWORDS = {str(mandatory_keys)}\n")
     constant_module.write(f"LANGDEPENDENT_KEYWORDS = {str(langdependent_keys)}\n")
@@ -277,7 +279,7 @@ myDict= {}
 the_imports=[]
 the_attributes = []
 for kw in my_spec_reader.data:
-    the_imports.append(f"from pxtool.model.keywords.{kw.module_name} import {kw.classnames['This']}")
+    the_imports.append(f"from pxtool.models.output.pxfile.keywords.{kw.module_name} import {kw.classnames['This']}")
     if kw.keyword == "DATA":
         the_attributes.append("self.unknown_keywords = \"\"")
     the_attributes.append(f"self.{to_python_case(kw.keyword)} = {kw.classnames['This']}()\n        \"\"\"{kw.px_comment}\"\"\"")
@@ -286,10 +288,10 @@ for kw in my_spec_reader.data:
 #
 #self.axisversion = _PX_AXIS_VERSION()
 
-with open("../pxtool/model/px_file_model.py", "wt",encoding="utf-8-sig", newline="\n") as model_py:
+with open(file_path_to_pxfiledir+"/px_file_model.py", "wt",encoding="utf-8-sig", newline="\n") as model_py:
   #', '.join(kw.
   model_py.write("\n".join(the_imports)+"\n")
-  model_py.write("from pxtool.model.util._px_super import _SuperKeyword\n\n")
+  model_py.write("from pxtool.models.output.pxfile.util._px_super import _SuperKeyword\n\n")
   model_py.write("class PXFileModel:\n")
   model_py.write("    \"\"\"\n")
   model_py.write("    This class holds the information of a PxFile\n")

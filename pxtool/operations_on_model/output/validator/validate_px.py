@@ -1,16 +1,16 @@
-from pxtool.model.px_file_model import PXFileModel
-from pxtool.operations_on_model.validator.validationResult import ValidationResult
-from pxtool.operations_on_model.validator.checks.check_mandatory import  check_mandatory
-from pxtool.operations_on_model.validator.checks.check_language import check_language
-from pxtool.operations_on_model.validator.checks.check_lang_keys import check_lang_keys
-from pxtool.operations_on_model.validator.checks.check_decimals import check_decimals
-from pxtool.operations_on_model.validator.checks.check_showdecimals import check_showdecimals
-from pxtool.operations_on_model.validator.checks.check_codes_values_equal_count import check_codes_values_equal_count
-from pxtool.operations_on_model.validator.checks.check_stub_and_heading import check_stub_and_heading
-from pxtool.operations_on_model.validator.checks.check_contentsvariable_is_present import check_contentsvariable_is_present
-from pxtool.operations_on_model.validator.checks.check_values import check_values
-from pxtool.operations_on_model.validator.checks.check_subkeys import check_valuebased_subkeys
-from pxtool.operations_on_model.validator.checks.check_completeness import check_completeness
+from pxtool.models.output.pxfile.px_file_model import PXFileModel
+from .validationResult import ValidationResult
+from .checks.check_mandatory import  check_mandatory
+from .checks.check_language import check_language
+from .checks.check_lang_keys import check_lang_keys
+from .checks.check_decimals import check_decimals
+from .checks.check_showdecimals import check_showdecimals
+from .checks.check_codes_values_equal_count import check_codes_values_equal_count
+from .checks.check_stub_and_heading import check_stub_and_heading
+from .checks.check_contentsvariable_is_present import check_contentsvariable_is_present
+from .checks.check_values import check_values
+from .checks.check_subkeys import check_valuebased_subkeys
+from .checks.check_completeness import check_completeness
 
 class Validate:
     

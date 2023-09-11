@@ -1,6 +1,6 @@
-﻿from pxtool.model.util._px_super import _PxSingle
-from pxtool.model.util._px_valuetype import _PxString
-from pxtool.model.util._line_validator import LineValidator
+﻿from pxtool.models.output.pxfile.util._px_super import _PxSingle
+from pxtool.models.output.pxfile.util._px_valuetype import _PxString
+from pxtool.models.output.pxfile.util._line_validator import LineValidator
 
 class _Matrix(_PxSingle): 
 
