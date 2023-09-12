@@ -8,7 +8,5 @@ print ("paths",sys.path[0],sys.path[1])
 #Create empty model:
 import pxtool
 
-
-
 asdas = pxtool.LoadFromPxmetadata('03024', "enum.LOCAL_FOLDER")
 #asdas = pxtool.LoadFromPxmetadata('03024', API)
