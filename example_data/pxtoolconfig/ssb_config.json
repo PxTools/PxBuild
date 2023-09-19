@@ -1,16 +1,23 @@
 ﻿{
+  "admin": {
+	"validLanguages": ["no","en"],
+	"theWordAnd": { "no": "og", "en": "and" },
+	"theWordBy": { "no": "etter", "en": "by" }
+  },	
   "charset": "ANSI",
   "axisVersion": "2013",
   "codePage": "WINDOWS-1252",
   "descriptionDefault": false,
-  "contvariable": "statistikkvariabel",
-  "datasymbol1": "..",
-  "datasymbol2": "...",
-  "datasymbol3": ":",
+  "contvariable": { "no": "statistikkvariabel" , "en": "contents"  } ,
+  "contvariableCode": "ContentsCode",
+  "timevariableCode": "Tid",
+  "datasymbol1": { "no": "..", "en": ".."  },
+  "datasymbol2": { "no": "...", "en": "..."  },
+  "datasymbol3": { "no": ":", "en": ":"  },
   "datasymbol4": null,
   "datasymbol5": null,
   "datasymbol6": null,
-  "datasymbolNil": "-",
-  "datasymbolSum": null,
-  "source": "SSB"
+  "datasymbolNil": { "no": "-", "en": "-"  },
+  "datasymbolSum": { "no": ".", "en": "."  },
+  "source": { "no": "SSB", "en": "Statistics Norway"  } 
 }

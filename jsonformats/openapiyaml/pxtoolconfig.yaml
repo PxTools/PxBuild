@@ -39,7 +39,35 @@ components:
   schemas:
     pxtoolconfig:
       type: object
+      required:
+        - admin
       properties:
+            admin:
+              type: object
+              required: 
+                - validLanguages
+                - theWordAnd
+                - theWordBy
+              properties:
+                   validLanguages:
+                     type: array
+                     items:
+                        type: string
+                     description: The 2-letter languagecodes
+                   theWordAnd:
+                     type: object
+                     additionalProperties:
+                        type: string
+                        description: For title creation, the word *and* separating variable n and n-1
+                        example: "no:og,en:and"                         
+                   theWordBy:
+                     type: object
+                     additionalProperties:
+                        type: string
+                        description: For title creation, the word *by* just before the variable list 
+                        example: "no:etter,en:by"
+              description: These properties does not enter the pxfile directly 
+              
             charset:
               type: string
               maxLength: 20            
@@ -68,8 +96,13 @@ components:
             contvariableCode:  
               type: string
               description: Code for content variable
-              example: contentVariable
-              default: contentVariable                
+              example: ContentVariableCode
+              default: ContentCode
+            timevariableCode:  
+              type: string
+              description: Code for the time variable
+              example: Time
+              default: Time  
             datasymbol1:
               type: object
               additionalProperties:
