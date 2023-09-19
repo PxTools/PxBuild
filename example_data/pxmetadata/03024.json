@@ -24,7 +24,7 @@
     "notes": null,
     "cellNotes": null,
     "timeDimension": {
-      "columnName": "periode_kolonne",
+      "columnName": "TID",
       "timePeriodFormat": "ååååUuu",
       "label": {
         "no": "uke",

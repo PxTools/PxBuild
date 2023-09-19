@@ -1,0 +1,290 @@
+openapi: 3.0.3
+info:
+  title: PxMetadata
+  description: |-
+    This is an abuse of OpenAPI 3.0 just to make a json schema specification for PxMetadata.  
+  version: 0.0.1
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+tags:
+  - name: PxMetadata
+    description: Everything about your PxMetadata
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+paths:
+  /PxMetadata/{id}:
+    get:
+      tags:
+        - PxMetadata
+      summary: Find PxMetadata by ID
+      description: Returns a single PxMetadata
+      operationId: getPxMetadataById
+      parameters:
+        - name: id
+          in: path
+          description: ID of PxMetadata to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PxMetadata'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PxMetadata'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: PxMetadata not found
+components:
+  schemas:
+    PxMetadata:
+      required:
+        - dataset
+      type: object
+      description: Outer class
+      properties:
+        dataset:
+          description: Payload
+          type: object
+          required:
+            - tableId
+            - baseTitle
+            - timeDimension
+            - measurements
+          properties:
+            documnetId:
+              type: string
+              example: "TODO: Trenger vi denne?"
+            tableId:
+              type: string
+              example: 07459
+              description: To be used as id in PxWeb Url
+            storedDecimals:
+              type: integer
+              example: 6
+              description: How many decimals should be stored in the PxFile. Default is the max number of decimals shown.
+            statisticsId:
+               type: string
+               example: "8765"
+               description: Id of group of tables in the registry of statistics.
+            dataFile:
+               type: string
+               example: "TODO: Er dette en filsti eller en url. Visning av metadata. required?"
+               description: Adress to the parquet-file with datadata
+            baseTitle:
+              type: object
+              additionalProperties:
+                type: string
+              example: no Utenrikshandel med varer
+              description: Text to which tableid is prefixed and _by_ variable list is appended. Is used for the CONTENTS keyword
+            searchKeywords:
+              type: object
+              additionalProperties:
+                type: array
+                items: 
+                  type: string
+                  example: External trade
+              example: "{en: [External trade, export]}"
+              description: Array of keywords by language for search. Is used for the SYNONYMS keyword.
+            notes:
+              $ref: '#/components/schemas/Notes'
+            cellNotes:
+              type: array
+              items:
+                $ref: '#/components/schemas/CellNote'
+            timeDimension:
+              type: object
+              properties:
+                columnName:
+                  type: string
+                  description: name of column in dataset
+                timePeriodFormat:
+                  type: string
+                  example: yyyy
+                label:
+                  $ref: '#/components/schemas/StringByLanguage'
+            codedDimensions:
+              type: array
+              description: Also known as classification variables
+              items:
+                 $ref: '#/components/schemas/CodedDimension'
+            measurements:
+              type: array
+              description: Also known as content variables
+              items:
+                $ref: '#/components/schemas/Measurement'
+            metaId:
+              type: array
+              description: For MetaId keyword
+              items:
+                type: string
+            attributes:
+              type: array
+              items:
+                type: object
+                properties:
+                  columnName:
+                    type: string
+                    description: name of column in dataset
+                  code:
+                    type: string
+                    description: the code of the measurement
+                  codelistId:
+                    type: string
+                    example: Link to PxCodes document
+                    description: A Link to a PxCodes document
+                    
+                    
+    CodedDimension:
+                type: object
+                required:
+                  - columnName
+                  - codelistId
+                properties:
+                  columnName:
+                    type: string
+                    description: name of column in dataset
+                  code:
+                    type: string
+                    description: the code of the variable. Defaults to columName if missing
+                  isGeoVariableType:
+                    type: boolean
+                    default: false
+                    example: false
+                    description: Geo variable or not 
+                  codelistId:
+                    type: string
+                    example: Link to PxCodes document
+                    description: A Link to a PxCodes document
+                  labelConstructionOption:
+                    type: string
+                    enum:
+                      - text
+                      - code
+                      - text_code
+                      - code_text
+                    default: text
+                    description: Construct label for codelist entry as text or code or text then code or code then text
+                  label:
+                    $ref: '#/components/schemas/StringByLanguage'
+                  notes:
+                    $ref: '#/components/schemas/Notes'
+                  metaId:
+                    type: array
+                    description: For MetaId keyword
+                    items:
+                      type: string
+   
+    Measurement:
+            type: object
+            required:
+              - columnName
+              - label
+              - showDecimals
+              - aggregationAllowed
+              - unitOfMeasure
+            properties:
+              columnName:
+                type: string
+                description: name of column in dataset
+              code:
+                type: string
+                description: the code of the measurement. Defaults to columName if missing
+              label:
+                $ref: '#/components/schemas/StringByLanguage'
+              showDecimals:
+                type: integer
+                description: number of decimal to use in output
+              priceType: 
+                type: string
+                enum:
+                  - Current
+                  - Fixed
+                description: Empty if not a price
+              isSeasonallyAdjusted:
+                type: boolean
+                default: false
+              isWorkingdaysAdjusted:
+                type: boolean
+                default: false
+              aggregationAllowed:
+                type: boolean
+                description: Is it meaningfull to sum this measurement 
+              basePeriod:
+                type: object
+                additionalProperties:
+                  type: string 
+                example: 1. kvartal 2010
+                description: For index
+              referencePeriod:
+                type: object
+                additionalProperties:
+                  type: string 
+                example: Text with information on the exact period for the statistics.
+                description: TODO
+              rank:
+                type: object
+                additionalProperties:
+                  type: string 
+                example: Text with information on the exact period for the statistics.
+                description: Sort order for measurement in dimension, document order is default                
+              unitOfMeasure:
+                type: object
+                additionalProperties:
+                  type: string 
+                example: Text including unit multiplier
+              notes:
+                $ref: '#/components/schemas/Notes'
+              metaId:
+                type: array
+                description: For MetaId keyword
+                items:
+                  type: string
+                
+    CellNote:
+      type: object
+      required:
+        - text
+        - isMandatory
+      properties:
+        todo:
+          type: string
+          default: "Hvordan løser vi tilkobling til celle?"
+        text: 
+           $ref: '#/components/schemas/StringByLanguage'
+        isMandatory:
+          type: boolean 
+                    
+    Notes:
+      type: array
+      items:
+        $ref: '#/components/schemas/Note'
+    Note:
+      type: object
+      required:
+        - text
+        - isMandatory
+      properties:
+        text: 
+           $ref: '#/components/schemas/StringByLanguage'
+        isMandatory:
+          type: boolean
+          
+    StringByLanguage:
+      type: object
+      additionalProperties:
+        type: string 
+  
+                
+
+
+
+
+

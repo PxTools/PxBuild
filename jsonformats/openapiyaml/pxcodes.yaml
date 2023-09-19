@@ -1,0 +1,140 @@
+openapi: 3.0.3
+info:
+  title: Klass uttrekk for PXCodes
+  description: |-
+    This is a sample PxCodes Store Server based on the OpenAPI 3.0 specification.  
+  version: 0.0.1
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+tags:
+  - name: PxCodes
+    description: Everything about your PxCodess
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+paths:
+  /PxCodes/{id}:
+    get:
+      tags:
+        - PxCodes
+      summary: Find PxCodes by ID
+      description: Returns a single PxCodes
+      operationId: getPxCodesById
+      parameters:
+        - name: id
+          in: path
+          description: ID of PxCodes to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PxCodes'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PxCodes'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: PxCodes not found
+components:
+  schemas:
+    PxCodes:
+      required:
+        - id
+        - labels
+        - codes
+      type: object
+      properties:
+        id:
+          type: string
+          example: 123234a
+        admin:
+          type: object
+          properties:
+            isFinal:
+              type: boolean
+              example: true
+            tags:
+              type: array
+              items:
+                 type: string
+            todoCreation:
+              type: string 
+        label:
+          $ref: '#/components/schemas/StringByLanguage'
+        codes:
+           type: array
+           items:
+               $ref: '#/components/schemas/Code'
+        eliminationPossible:
+                    type: boolean
+                    example: True
+                    description: May this variable be eliminnated. If True and eliminationCode is empty use Sum.
+        eliminationCode:
+                    type: string
+                    example: tot
+                    description: Value is the code to use for eliminnating the variable
+        groupings:
+          type: array
+          required:
+            - label
+            - codes
+          items:
+             type: object
+             properties:
+                label:
+                   $ref: '#/components/schemas/StringByLanguage'
+                rank:
+                   $ref: '#/components/schemas/StringByLanguage'
+                codes:
+                  type: array
+                  items:
+                     $ref: '#/components/schemas/Code'        
+    Code:
+      type: object
+      properties:
+          code:
+            type: string
+            example: 123234a
+          unorderedChildren:
+            description: "Any children in random order. The children MUST exist in /codes/code"
+            type: array
+            items:
+              type: string
+          label:
+            $ref: '#/components/schemas/StringByLanguage'
+          rank:
+            $ref: '#/components/schemas/StringByLanguage'
+          notes:
+            $ref: '#/components/schemas/Notes'          
+            
+    Notes:
+      type: array
+      items:
+        $ref: '#/components/schemas/Note'
+    Note:
+      type: object
+      required:
+        - text
+        - isMandatory
+      properties:
+        text: 
+           $ref: '#/components/schemas/StringByLanguage'
+        isMandatory:
+          type: boolean
+    StringByLanguage:
+      type: object
+      additionalProperties:
+        type: string   
+                
+
+
+
+
+

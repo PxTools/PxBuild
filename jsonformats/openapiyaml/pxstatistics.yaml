@@ -1,0 +1,105 @@
+openapi: 3.0.3
+info:
+  title: PxStatistics
+  description: |-
+    This is a sample PxStatistics Store Server based on the OpenAPI 3.0 specification.  
+  version: 0.0.1
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+tags:
+  - name: PxStatistics
+    description: Gets data from your registry of statistics. <br>
+       The underlying model is that tables are put on the web in groups. All tables in the group
+       are published at the same time and with the same frequensy. They also share subject in the "menutree" and may share contact info. They have the same Information about the statistics page.
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+paths:
+  /PxStatistics/{id}:
+    get:
+      tags:
+        - PxStatistics
+      summary: Find PxStatistics by ID
+      description: Returns a single PxStatistics
+      operationId: getPxStatisticsById
+      parameters:
+        - name: id
+          in: path
+          description: ID of PxStatistics to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PxStatistics'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PxStatistics'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: PxStatistics not found
+components:
+  schemas:
+    PxStatistics:
+      required:
+        - id
+      type: object
+      properties:
+            id:
+              type: string
+              example: 8765
+              description: Id of a group of tables in the registry of statistics.
+            updateFrequency:
+              type: object
+              additionalProperties:
+                type: string
+                example: Quarterly
+                description: Must mean the same in all languages
+            metaId:
+              type: string
+              example: KORTNAVN:kpi
+              description: Will be added to metaid on table level. lead to https://www.ssb.no/en/priser-og-prisindekser/konsumpriser/statistikk/konsumprisindeksen#om-statistikken 
+            subjectCode:
+              type: string
+              example: be
+            subjectText:
+              type: object
+              additionalProperties:
+                type: string
+                example: kpi
+                description: Population
+            upcomingReleases:
+              type: array
+              items:
+                type: string
+                example: 2024-02-05 08:00:00.0 TODO sjekk at dato i riktig format
+            contacts:
+              type: array
+              items:     
+                  type: object
+                  properties:
+                    phone:
+                      type: string
+                      example:                     
+                    email:                   
+                      type: string
+                      example: epost@epost.no
+                      description: Personal or functional
+                    name:
+                      type: object
+                      additionalProperties:                    
+                        type: string
+                        example: Jens Jensen
+                        description: Personal or functional 
+                    raw:
+                      type: object
+                      additionalProperties:
+                          type: string
+                          description: If this has value it replaces the 3 other fields, so they are ignored. Anything, will be put under contact as is. 
+            

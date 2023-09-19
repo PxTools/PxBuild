@@ -1,0 +1,100 @@
+openapi: 3.0.3
+info:
+  title: pxtoolconfig
+  description: |-
+    This is a sample pxtoolconfig Store Server based on the OpenAPI 3.0 specification.  
+  version: 0.0.1
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+tags:
+  - name: pxtoolconfig
+    description: Gets data from your registry of statistics. <br>
+       The underlying model is that tables are put on the web in groups. All tables in the group
+       are published at the same time and with the same frequensy. They also share subject in the "menutree" and may share contact info. They have the same Information about the statistics page.
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+paths:
+  /pxtoolconfig:
+    get:
+      tags:
+        - pxtoolconfig
+      summary: Find pxtoolconfig by ID
+      description: Returns a single pxtoolconfig
+      operationId: getpxtoolconfig
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pxtoolconfig'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/pxtoolconfig'
+        '404':
+          description: pxtoolconfig not found
+components:
+  schemas:
+    pxtoolconfig:
+      type: object
+      properties:
+            charset:
+              type: string
+              maxLength: 20            
+              example: ANSI
+            axisVersion:
+              type: string
+              maxLength: 20
+              example: "2013"
+              description: Version of px-file format 
+            codePage:
+              type: string
+              maxLength: 20
+              default: iso-8859-1
+              example: iso-8859-1
+            descriptionDefault:
+              type: boolean
+              default: false
+              example: false
+            contvariable:
+              type: string
+              maxLength: 256
+              description: Name for content variable
+            datasymbol1:
+              type: string
+              maxLength: 20
+              description: How dots are shown on screen
+            datasymbol2:
+              type: string
+              maxLength: 20
+              description: How dots are shown on screen
+            datasymbol3:
+              type: string
+              maxLength: 20
+              description: How dots are shown on screen
+            datasymbol4:
+              type: string
+              maxLength: 20
+              description: How dots are shown on screen
+            datasymbol5:
+              type: string
+              maxLength: 20
+              description: How dots are shown on screen
+            datasymbol6:
+              type: string
+              maxLength: 20
+              description: How dots are shown on screen
+            datasymbolNil:
+              type: string
+              maxLength: 20
+              description: How stored - are shown on screen  
+            datasymbolSum:
+              type: string
+              maxLength: 20
+              description: This if used to indicate how a sum of differing numbers of dots will be shown. The sum is stored as “…….”.
+            source:
+              type: string
+              maxLength: 256
+              description: Name for content variable

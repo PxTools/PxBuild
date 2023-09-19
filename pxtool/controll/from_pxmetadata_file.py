@@ -8,58 +8,70 @@ from pxtool.models.input.pydantic_pxstatistics import PxStatistics
 
 from pxtool.models.output.pxfile.px_file_model import PXFileModel
 
+from .datafile import ParquetDatasource
 
 class LoadFromPxmetadata():
    def __init__(self, filename: str, sourceType:str) -> None:
-    self._filename = filename
-    print(self._filename)
+      self._filename = filename
+      print(self._filename)
 
-    with open('example_data/pxtoolconfig/ssb_config.json', encoding="utf-8-sig") as f:
+      with open('example_data/pxtoolconfig/ssb_config.json', encoding="utf-8-sig") as f:
         config_json = json.loads(f.read())
-    self._config = Pxtoolconfig(**config_json)
+      self._config = Pxtoolconfig(**config_json)
 
-    #todo if sourceType==File
-    pxmetadataFormat="example_data/pxmetadata/{id}.json"
-    pxmetadataFil=pxmetadataFormat.format(id=self._filename)
-    with open(pxmetadataFil, encoding="utf-8-sig") as f:
+
+      #todo if sourceType==File
+      pxmetadataFormat="example_data/pxmetadata/{id}.json"
+      pxmetadataFil=pxmetadataFormat.format(id=self._filename)
+
+      with open(pxmetadataFil, encoding="utf-8-sig") as f:
         pxmetadata_json = json.loads(f.read())
-    #endif
+      #endif
 
-    self._pxmetadata_model = PxMetadata(**pxmetadata_json)
+      self._pxmetadata_model = PxMetadata(**pxmetadata_json)
 
-    #todo if sourceType==File  Hmm må det være enten api eller fil, ikke pxcodes på file og statistics på api?
-    pxstatisticsFormat="example_data/pxstatistics/pxstatistics_{id}.json"
-    pxstatisticsFil=pxstatisticsFormat.format(id=self._pxmetadata_model.dataset.statistics_id)
-    with open(pxstatisticsFil, encoding="utf-8-sig") as f:
+      #todo if sourceType==File  Hmm må det være enten api eller fil, ikke pxcodes på file og statistics på api?
+      pxstatisticsFormat="example_data/pxstatistics/pxstatistics_{id}.json"
+      pxstatisticsFil=pxstatisticsFormat.format(id=self._pxmetadata_model.dataset.statistics_id)
+
+      with open(pxstatisticsFil, encoding="utf-8-sig") as f:
         json1 = json.loads(f.read())
-    self._pxstatistics = PxStatistics(**json1)
+      self._pxstatistics = PxStatistics(**json1)
 
-    if self._pxmetadata_model.dataset.coded_dimensions:
-      self._resolved_pxcodes_ids={}
-      pxcodesFormat="example_data/pxcodes/{id}.json"
-      for myVar in self._pxmetadata_model.dataset.coded_dimensions:
+      if self._pxmetadata_model.dataset.coded_dimensions:
+        self._resolved_pxcodes_ids={}
+        pxcodesFormat="example_data/pxcodes/{id}.json"
+        for myVar in self._pxmetadata_model.dataset.coded_dimensions:
 
-        if not myVar.codelist_id in self._resolved_pxcodes_ids:
-           tmpPath= pxcodesFormat.format(id=myVar.codelist_id)
-           with open(tmpPath, encoding="utf-8-sig") as f:
-              json1 = json.loads(f.read())
-           self._resolved_pxcodes_ids[myVar.codelist_id] = PxCodes(**json1)
+          if not myVar.codelist_id in self._resolved_pxcodes_ids:
+             tmpPath= pxcodesFormat.format(id=myVar.codelist_id)
+             with open(tmpPath, encoding="utf-8-sig") as f:
+                json1 = json.loads(f.read())
+             self._resolved_pxcodes_ids[myVar.codelist_id] = PxCodes(**json1)
+
+    
+      filePath='example_data/parquet_files/output_file03024.parquet' 
+      self._parquet = ParquetDatasource(filePath)
+      #self._parquet.PrintColumns()
+
+      ##################
+      ## loop in languages
+      self._current_lang="no" #todo
+
+      self._stub=[]
+      self._heading=[self._config.contvariable]
+      out_model = PXFileModel()
+      out_model.language.set(self._current_lang)
+
+      self.MapPxtoolconfigToPXFileModel(self._config, out_model)
+
+      self.AddPxMetadataToPXFileModel(self._pxmetadata_model, out_model)
 
 
-    ## loop in languages
-    self._current_lang="no" #todo
-    out_model = PXFileModel()
-    out_model.language.set(self._current_lang)
-
-    self.MapPxtoolconfigToPXFileModel(self._config, out_model)
-
-    self.AddPxMetadataToPXFileModel(self._pxmetadata_model, out_model)
-
-
-    if self._pxmetadata_model.dataset.coded_dimensions:
-      for my_var in self._pxmetadata_model.dataset.coded_dimensions: 
-          
+      if self._pxmetadata_model.dataset.coded_dimensions:
+        for my_var in self._pxmetadata_model.dataset.coded_dimensions: 
           my_funny_var_id = my_var.label[self._current_lang]
+          self._stub.append(my_funny_var_id)
           my_var_code = my_var.code if my_var.code is not None else my_var.column_name
           out_model.variablecode.set(my_var_code, my_funny_var_id ,self._current_lang)
           my_codes:PxCodes = self._resolved_pxcodes_ids[my_var.codelist_id]
@@ -76,50 +88,92 @@ class LoadFromPxmetadata():
           
         #self.AddPxCodesToPXFileModel(self._pxmetadata_model, out_model)
 
-    if self._pxmetadata_model.dataset.measurements:
-        my_funny_var_id = self._config.contvariable # TODO må ha en dict her 
+
+
+      if self._pxmetadata_model.dataset.measurements:
+        my_funny_var_id = self._config.contvariable # TODO må ha en no/en dict her 
         out_codes=[]
         out_values =[]
         for my_cont in self._pxmetadata_model.dataset.measurements: 
+          my_funny_cont_id = my_cont.label[self._current_lang]
           my_cont_code = my_cont.code if my_cont.code is not None else my_cont.column_name
           out_codes.append(my_cont_code)
           out_values.append(my_cont.label[self._current_lang])
+          out_model.seasadj.set(my_cont.is_seasonally_adjusted or False,  my_funny_cont_id,self._current_lang)
+          out_model.dayadj.set(my_cont.is_workingdays_adjusted or False,  my_funny_cont_id,self._current_lang)
+          out_model.units.set(my_cont.unit_of_measure[self._current_lang], my_funny_cont_id,self._current_lang)
+
+          if my_cont.show_decimals > 0 :
+             out_model.precision.set(my_cont.show_decimals, my_funny_var_id,  my_funny_cont_id,self._current_lang)
+
+          #optional with no default
+          if my_cont.price_type:
+             #todo str(my_cont.price_type) should yield C or F
+             out_model.cfprices.set(str(my_cont.price_type),  my_funny_cont_id,self._current_lang)
 
         out_model.values.set(out_values, my_funny_var_id, self._current_lang)
-        out_model.codes.set(out_codes, my_funny_var_id,self._current_lang)  
+        out_model.codes.set(out_codes, my_funny_var_id,self._current_lang) 
+
+        
+
+        print("show_decimals_values",)
+        
+      #decimals
+      show_decimals_values = [instance.show_decimals for instance in self._pxmetadata_model.dataset.measurements]
+
+      if self._pxmetadata_model.dataset.stored_decimals:
+         out_model.decimals.set( max(self._pxmetadata_model.dataset.stored_decimals,max(show_decimals_values)) )
+      else: 
+         out_model.decimals.set(max(show_decimals_values))
+
+      out_model.showdecimals.set(min(show_decimals_values)) 
+
+      # Check if all values in the array are True
+      all_true = all(instance.aggregation_allowed for instance in self._pxmetadata_model.dataset.measurements)
+      out_model.aggregallowed.set(all_true)
+     
+
+      #its time
+      #
+      my_periods = self._parquet.GetTimePeriodes(self._pxmetadata_model.dataset.time_dimension.column_name) 
+   #    self._pxmetadata_model.dataset.time_dimension.column_name
+  #    self._pxmetadata_model.dataset.time_dimension.label
+
+      my_funny_var_id=self._pxmetadata_model.dataset.time_dimension.label[self._current_lang]
+
+      self._heading.append(my_funny_var_id)
+      out_model.values.set(my_periods, my_funny_var_id, self._current_lang)
+      out_model.codes.set(my_periods, my_funny_var_id,self._current_lang) 
+
+      #STUB and or HEADING
+      if self._heading:
+         out_model.heading.set(self._heading, self._current_lang)
+
+      if self._stub:
+         out_model.stub.set(self._stub, self._current_lang)
+
+      if not self._stub and not self._heading:
+         raise Exception("Sorry, both stub and heading are empty.")
 
 
-    #its time
-    my_periods = self.GetTimePeriodes(self._pxmetadata_model)
+      self.AddPxStatisticsToPXFileModel(self._pxstatistics, out_model)
+      print("outmodel:\n",out_model)
 
 
-#    self._pxmetadata_model.dataset.time_dimension.column_name
-#    self._pxmetadata_model.dataset.time_dimension.label
+   def  AddPxStatisticsToPXFileModel(self, in_model:PxStatistics , out_model:PXFileModel):
+      lang=self._current_lang
+      out_model.subject_area.set("Todo: get from PxStatistics",lang)
+      out_model.subject_code.set("Todo: get from PxStatistics")
 
-    my_funny_var_id=self._pxmetadata_model.dataset.time_dimension.label[self._current_lang]
-    out_model.values.set(my_periods, my_funny_var_id, self._current_lang)
-    out_model.codes.set(my_periods, my_funny_var_id,self._current_lang) 
-
-
-    print("outmodel:\n",out_model)
-
-    
-
-
-
-    #def  AddPxCodesToPXFileModel(self, in_model:PxMetadata , out_model:PXFileModel):
-    #  lang=self._current_lang
+      #out_model.update_frequency.set() Hmm ikke lang dep i pdf
     #  out_model.tableid.set(in_model.dataset.table_id)
     #  out_model.contents.set(in_model.dataset.base_title[lang],lang)
 
    def  AddPxMetadataToPXFileModel(self, in_model:PxMetadata , out_model:PXFileModel):
       lang=self._current_lang
       out_model.tableid.set(in_model.dataset.table_id)
-      out_model.contents.set(in_model.dataset.base_title[lang],lang)
+      out_model.contents.set( in_model.dataset.table_id + ":" + in_model.dataset.base_title[lang]+",",lang)
 
-   def GetTimePeriodes(self, in_model:PxMetadata) -> List[str]:
-       #todo: in python 3.11 using best practises, I want to select all distinct values from a given column in a parquet file?
-       return ["T1","T2"]
 
    def MapPxtoolconfigToPXFileModel(self, in_config:Pxtoolconfig , out_model:PXFileModel):
 

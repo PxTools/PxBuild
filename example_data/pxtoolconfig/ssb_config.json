@@ -3,7 +3,7 @@
   "axisVersion": "2013",
   "codePage": "WINDOWS-1252",
   "descriptionDefault": false,
-  "contvariable": "Statistikkvariabel",
+  "contvariable": "statistikkvariabel",
   "datasymbol1": "..",
   "datasymbol2": "...",
   "datasymbol3": ":",
