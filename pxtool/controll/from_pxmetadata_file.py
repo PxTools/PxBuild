@@ -189,19 +189,28 @@ class LoadFromPxmetadata():
       tmp_string = ", ".join(vari_list[:-1]) 
 
       title = model.table_id + ": " + model.base_title[lang] + ", " +self._config.admin.the_word_by[lang]+ " " + tmp_string +" " + self._config.admin.the_word_and[lang] + " "+ vari_list[-1];  
-      
 
       out_model.title.set(title,self._current_lang)
       print("outmodel:\n",out_model)
 
 
    def GetContactString(self, in_model:PxStatistics) -> str:
-       return "Todo: get from PxStatistics"
+       contact_string = ""
+
+       if(in_model.contacts is None):
+         return contact_string
+       
+       for contact in in_model.contacts:
+          if(contact.name is None):
+            return contact_string
+          contact_string += f"{contact.name[self._current_lang]}#{contact.phone}#{contact.email}##"
+
+       return contact_string[:-2]
    
    def GetLastUpdated(self, in_model:PxStatistics) -> str:
        return "Todo: get from PxStatistics"
 
-   def  AddPxStatisticsToPXFileModel(self, in_model:PxStatistics , out_model:PXFileModel):
+   def AddPxStatisticsToPXFileModel(self, in_model:PxStatistics , out_model:PXFileModel):
       lang=self._current_lang
       out_model.subject_area.set("Todo: get from PxStatistics",lang)
       out_model.subject_code.set("Todo: get from PxStatistics")
