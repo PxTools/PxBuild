@@ -8,11 +8,12 @@
     ],
     "todoCreation": "her må det vel lagres noe om hvordan dette har oppstått. Vil tro man trenger det"
   },
+  "sortValueitemsOn": "rank",
   "label": {
     "no": "region",
     "en": "region"
   },
-  "codes": [
+  "valueitems": [
     {
       "code": "30",
       "unorderedChildren": null,
@@ -11192,8 +11193,10 @@
   ],
   "eliminationPossible": true,
   "eliminationCode": "0",
+  "sortGroupingsOn": "rank",
   "groupings": [
     {
+      "filenameBase": "Fylker1972",
       "label": {
         "no": "Fylker 1972-2019",
         "en": "Counties 1972-2019"
@@ -11202,7 +11205,8 @@
         "no": "03b",
         "en": "03b"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "Fylker72",
           "unorderedChildren": [
@@ -11241,6 +11245,7 @@
       ]
     },
     {
+      "filenameBase": "Fylker2020",
       "label": {
         "no": "Fylker 2020-",
         "en": "Counties 2020-"
@@ -11249,7 +11254,8 @@
         "no": "03c",
         "en": "03c"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "Fylker20",
           "unorderedChildren": [
@@ -11279,6 +11285,7 @@
       ]
     },
     {
+      "filenameBase": "KommFylker",
       "label": {
         "no": "Fylker 2020, sammenslåtte tidsserier",
         "en": "Counties 2020, aggregated time series"
@@ -11287,7 +11294,8 @@
         "no": "07",
         "en": "07"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "F-30",
           "unorderedChildren": [
@@ -12331,6 +12339,7 @@
       ]
     },
     {
+      "filenameBase": "KommSummer",
       "label": {
         "no": "Kommuner 2020, sammenslåtte tidsserier",
         "en": "Municipalities 2020, aggregated time series"
@@ -12339,7 +12348,8 @@
         "no": "08",
         "en": "14"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "K-3001",
           "unorderedChildren": [
@@ -18461,6 +18471,7 @@
       ]
     },
     {
+      "filenameBase": "KommNyeste",
       "label": {
         "no": "Kommuner 2018-2019",
         "en": "Municipalities 2018-2019"
@@ -18469,7 +18480,8 @@
         "no": "10",
         "en": "10"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "01-Komm",
           "unorderedChildren": [
@@ -19148,6 +19160,7 @@
       ]
     },
     {
+      "filenameBase": "LandsdelKommun",
       "label": {
         "no": "Landsdeler 2020",
         "en": "Regions 2020"
@@ -19156,7 +19169,8 @@
         "no": "25a",
         "en": "25a"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "LK01",
           "unorderedChildren": [
@@ -20067,6 +20081,7 @@
       ]
     },
     {
+      "filenameBase": "Politidistrikt16",
       "label": {
         "no": "Politidistrikt 2016",
         "en": "Police district 2016"
@@ -20075,7 +20090,8 @@
         "no": "26",
         "en": "26"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "pd01",
           "unorderedChildren": [
@@ -20986,6 +21002,7 @@
       ]
     },
     {
+      "filenameBase": "RegionerBVF",
       "label": {
         "no": "Regioner (Barne- og familievern)",
         "en": "Regions (Child welfare and family counselling)"
@@ -20994,7 +21011,8 @@
         "no": "29",
         "en": "29"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "Reg01",
           "unorderedChildren": [
@@ -21921,6 +21939,7 @@
       ]
     },
     {
+      "filenameBase": "SentralIndeksA",
       "label": {
         "no": "Sentralitet (kan ikke brukes før 1986)",
         "en": "Centrality (can not be used before 1986)"
@@ -21929,7 +21948,8 @@
         "no": "33a",
         "en": "33a"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "Sentr1",
           "unorderedChildren": [
@@ -22780,6 +22800,7 @@
       ]
     },
     {
+      "filenameBase": "OkonomRegion2020",
       "label": {
         "no": "Økonomiske regioner 2020",
         "en": "Economic regions 2020"
@@ -22788,7 +22809,8 @@
         "no": "56",
         "en": "56"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "O-30001",
           "unorderedChildren": [
@@ -24832,6 +24854,7 @@
       ]
     },
     {
+      "filenameBase": "Valgdistrikt",
       "label": {
         "no": "Valgdistrikt",
         "en": "Electoral district"
@@ -24840,7 +24863,8 @@
         "no": "75",
         "en": "75"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "V-01",
           "unorderedChildren": [

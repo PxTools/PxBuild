@@ -8,11 +8,12 @@
     ],
     "todoCreation": "her må det vel lagres noe om hvordan dette har oppstått. Vil tro man trenger det"
   },
+  "sortValueitemsOn": "rank",
   "label": {
     "no": "region",
     "en": "region"
   },
-  "codes": [
+  "valueitems": [
     {
       "code": "0",
       "unorderedChildren": null,
@@ -503,8 +504,10 @@
   ],
   "eliminationPossible": true,
   "eliminationCode": "0",
+  "sortGroupingsOn": "rank",
   "groupings": [
     {
+      "filenameBase": "FylkerGjeldende",
       "label": {
         "no": "Fylker 2020-",
         "en": "Counties 2020-"
@@ -513,7 +516,8 @@
         "no": "02",
         "en": "02"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "FylkeGjeld",
           "unorderedChildren": [
@@ -543,6 +547,7 @@
       ]
     },
     {
+      "filenameBase": "Fylker2019",
       "label": {
         "no": "Fylker 1972-2019",
         "en": "Counties 1972-2019"
@@ -551,7 +556,8 @@
         "no": "02b",
         "en": "02b"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "Fylker19",
           "unorderedChildren": [

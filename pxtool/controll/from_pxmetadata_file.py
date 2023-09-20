@@ -141,7 +141,7 @@ class LoadFromPxmetadata():
           out_codes=[]
           out_values =[]
           #todo  sortert liste
-          for code in my_codes.codes:
+          for code in my_codes.valueitems:
              out_codes.append(code.code)
              out_values.append(code.label[self._current_lang])
 

@@ -8,11 +8,12 @@
     ],
     "todoCreation": "her må det vel lagres noe om hvordan dette har oppstått. Vil tro man trenger det"
   },
+  "sortValueitemsOn": "rank",
   "label": {
     "no": "Drivstofftype",
     "en": "Type of fuel"
   },
-  "codes": [
+  "valueitems": [
     {
       "code": "0",
       "unorderedChildren": null,
@@ -172,5 +173,6 @@
   ],
   "eliminationPossible": true,
   "eliminationCode": "0",
+  "sortGroupingsOn": null,
   "groupings": null
 }

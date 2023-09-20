@@ -8,11 +8,12 @@
     ],
     "todoCreation": "her må det vel lagres noe om hvordan dette har oppstått. Vil tro man trenger det"
   },
+  "sortValueitemsOn": "rank",
   "label": {
     "no": "1-årige aldersgrupper  # til og med 105+. AGG. GRUPPERING",
     "en": "Age 1-year groups # 0 - 105+"
   },
-  "codes": [
+  "valueitems": [
     {
       "code": "000",
       "unorderedChildren": null,
@@ -1394,8 +1395,10 @@
   ],
   "eliminationPossible": true,
   "eliminationCode": null,
+  "sortGroupingsOn": "rank",
   "groupings": [
     {
+      "filenameBase": "FemAarigGruppering",
       "label": {
         "no": "5-årige aldersgrupper",
         "en": "5-years groups"
@@ -1404,7 +1407,8 @@
         "no": "05B",
         "en": "05B"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "F00-04",
           "unorderedChildren": [
@@ -1808,6 +1812,7 @@
       ]
     },
     {
+      "filenameBase": "TiAarigGruppering",
       "label": {
         "no": "10-årige aldersgrupper",
         "en": "10-years groups"
@@ -1816,7 +1821,8 @@
         "no": "10B",
         "en": "10B"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "F00-09",
           "unorderedChildren": [
@@ -2080,6 +2086,7 @@
       ]
     },
     {
+      "filenameBase": "TodeltGrupperingB",
       "label": {
         "no": "Todelt (0-17, 18+)",
         "en": "Bipartite (0-17, 18+)"
@@ -2088,7 +2095,8 @@
         "no": "12B",
         "en": "12B"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "H17",
           "unorderedChildren": [
@@ -2226,6 +2234,7 @@
       ]
     },
     {
+      "filenameBase": "TredeltGrupperingB2",
       "label": {
         "no": "Tredelt (0-19, 20-64, 65+)",
         "en": "Tripartite (0-19, 20-64, 65+)"
@@ -2234,7 +2243,8 @@
         "no": "13B",
         "en": "13B"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "F0-19",
           "unorderedChildren": [
@@ -2386,6 +2396,7 @@
       ]
     },
     {
+      "filenameBase": "Funksjonell1a",
       "label": {
         "no": "0-5, 6-15, 16-66, 67+",
         "en": "0-5, 6-15, 16-66, 67+"
@@ -2394,7 +2405,8 @@
         "no": "20B",
         "en": "20B"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "F301",
           "unorderedChildren": [
@@ -2560,6 +2572,7 @@
       ]
     },
     {
+      "filenameBase": "Funksjonell2a",
       "label": {
         "no": "0-5, 6-15, 16-19, 20-66, 67+",
         "en": "0-5, 6-15, 16-19, 20-66, 67+"
@@ -2568,7 +2581,8 @@
         "no": "22B",
         "en": "22B"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "F306",
           "unorderedChildren": [
@@ -2748,6 +2762,7 @@
       ]
     },
     {
+      "filenameBase": "Funksjonell4",
       "label": {
         "no": "0, 1-5, 6-12, 13-15, 16-19, 20-44, 45-66, 67-79, 80-89, 90+",
         "en": "0, 1-5, 6-12, 13-15, 16-19, 20-44, 45-66, 67-79, 80-89, 90+"
@@ -2756,7 +2771,8 @@
         "no": "24B",
         "en": "24B"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "F311",
           "unorderedChildren": [
@@ -3006,6 +3022,7 @@
       ]
     },
     {
+      "filenameBase": "Funksjonell5",
       "label": {
         "no": "0-24, 25-34, 35-44, 45-69, 70-79, 80+",
         "en": "0-24, 25-34, 35-44, 45-69, 70-79, 80+"
@@ -3014,7 +3031,8 @@
         "no": "27B",
         "en": "27B"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "F1",
           "unorderedChildren": [
@@ -3208,6 +3226,7 @@
       ]
     },
     {
+      "filenameBase": "Funksjonell6a",
       "label": {
         "no": "0-15, 16-18, 19-34, 35-66, 67-74, 75+",
         "en": "0-15, 16-18, 19-34, 35-66, 67-74, 75+"
@@ -3216,7 +3235,8 @@
         "no": "28B",
         "en": "28B"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "F340",
           "unorderedChildren": [
@@ -3410,6 +3430,7 @@
       ]
     },
     {
+      "filenameBase": "Funkjsonell7",
       "label": {
         "no": "0-1, 2-5, 6-15, 16-22, 23-66, 67+",
         "en": "0-1, 2-5, 6-15, 16-22, 23-66, 67+"
@@ -3418,7 +3439,8 @@
         "no": "29B",
         "en": "29B"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "I330",
           "unorderedChildren": [
@@ -3612,6 +3634,7 @@
       ]
     },
     {
+      "filenameBase": "Funksjonell8",
       "label": {
         "no": "0-17, 18-49, 50-66, 67-79, 80-89, 90+",
         "en": "0-17, 18-49, 50-66, 67-79, 80-89, 90+"
@@ -3620,7 +3643,8 @@
         "no": "30B",
         "en": "30B"
       },
-      "codes": [
+      "sortValueitemsOn": "rank",
+      "valueitems": [
         {
           "code": "I340",
           "unorderedChildren": [

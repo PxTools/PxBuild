@@ -45,10 +45,13 @@ paths:
 components:
   schemas:
     PxCodes:
+      description: For one variable, this should hold all the information needed to create vs and agg files and the VALUES and CODES px-keywords, and partially for elimination. 
       required:
         - id
         - labels
-        - codes
+        - sortValueitemsOn
+        - valueitems
+        - eliminationPossible
       type: object
       properties:
         id:
@@ -65,13 +68,15 @@ components:
               items:
                  type: string
             todoCreation:
-              type: string 
+              type: string
+        sortValueitemsOn:
+          $ref: '#/components/schemas/SortValueitemsOn'
         label:
           $ref: '#/components/schemas/StringByLanguage'
-        codes:
+        valueitems:
            type: array
            items:
-               $ref: '#/components/schemas/Code'
+               $ref: '#/components/schemas/Valueitem'
         eliminationPossible:
                     type: boolean
                     example: True
@@ -80,30 +85,49 @@ components:
                     type: string
                     example: tot
                     description: Value is the code to use for eliminnating the variable
+        sortGroupingsOn:
+           type: string
+           enum:
+              - filenameBase
+              - label
+              - rank
+           description: Sets the order of the groupings in the dropdown  
         groupings:
           type: array
+          description: List where an element is a grouping. A grouping is a list of mothers. The code of a mother must not be present in the root-valueitems.
+            The children of a mother must be present in the root-valueitems and must be a unique list.
+            The child may have many mothers.
           required:
+            - filenameBase
             - label
-            - codes
+            - sortValueitemsOn
+            - valueitems
           items:
              type: object
              properties:
+                filenameBase:
+                  type: string
                 label:
                    $ref: '#/components/schemas/StringByLanguage'
                 rank:
                    $ref: '#/components/schemas/StringByLanguage'
-                codes:
+                sortValueitemsOn:
+                   $ref: '#/components/schemas/SortValueitemsOn'
+                   description: How to sort the list of mothers. The children will be sorted by the root-sortValueitemsOn  
+                valueitems:
                   type: array
                   items:
-                     $ref: '#/components/schemas/Code'        
-    Code:
+                     $ref: '#/components/schemas/Valueitem'
+                  description: The mothers
+    Valueitem:
       type: object
       properties:
           code:
             type: string
             example: 123234a
           unorderedChildren:
-            description: "Any children in random order. The children MUST exist in /codes/code"
+            description: "Any children in random order. The children MUST exist in 
+               root-valueitems"
             type: array
             items:
               type: string
@@ -128,6 +152,14 @@ components:
            $ref: '#/components/schemas/StringByLanguage'
         isMandatory:
           type: boolean
+            
+    SortValueitemsOn:  
+            type: string
+            enum:
+              - code
+              - label
+              - rank        
+          
     StringByLanguage:
       type: object
       additionalProperties:
