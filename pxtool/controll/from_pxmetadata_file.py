@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 from typing import List
 
 from pxtool.models.input.pydantic_pxmetadata import PxMetadata
@@ -60,10 +61,11 @@ class LoadFromPxmetadata():
       ##################
       ## loop in languages
       self._current_lang="no" #todo
-
-
+      self._contact_string = self.GetContactString(self._pxstatistics)
+      self._last_updated = self.GetLastUpdated(self._pxstatistics) 
       self._stub=[]
       self._heading=[self._config.contvariable[self._current_lang] ]
+
       out_model = PXFileModel()
       out_model.language.set(self._current_lang)
 
@@ -71,12 +73,65 @@ class LoadFromPxmetadata():
 
       self.AddPxMetadataToPXFileModel(self._pxmetadata_model, out_model)
 
+      self.AddPxStatisticsToPXFileModel(self._pxstatistics, out_model)
 
+      self.MapCodedDimensions(out_model)
+
+      self.MapMeasurements(out_model)
+   
+      self.MapDecimals(out_model)
+
+      self.MapTimeDimension(out_model)
+
+      self.MapStubHeading(out_model)
+
+      self.MapTitle(out_model)
+
+      self.MapAggregallowed(out_model)
+      
+      print("outmodel:\n",out_model)
+
+   def MapAggregallowed(self, out_model:PXFileModel):
+      # Check if all values in the array are True
+      all_true = all(instance.aggregation_allowed for instance in self._pxmetadata_model.dataset.measurements)
+      out_model.aggregallowed.set(all_true)
+
+   def MapTitle(self, out_model:PXFileModel):
+      lang = self._current_lang
+      model = self._pxmetadata_model.dataset 
+
+      vari_list = self._stub + self._heading 
+
+      tmp_string = ", ".join(vari_list[:-1]) 
+
+      title = model.table_id + ": " + model.base_title[lang] + ", " +self._config.admin.the_word_by[lang]+ " " + tmp_string +" " + self._config.admin.the_word_and[lang] + " "+ vari_list[-1];  
+
+      out_model.title.set(title,self._current_lang)
+
+   def MapStubHeading(self, out_model:PXFileModel):
+      if self._heading:
+         out_model.heading.set(self._heading, self._current_lang)
+
+      if self._stub:
+         out_model.stub.set(self._stub, self._current_lang)
+
+      if not self._stub and not self._heading:
+         raise Exception("Sorry, both stub and heading are empty.")
+      
+   def MapTimeDimension(self, out_model:PXFileModel):
+      my_periods = self._parquet.GetTimePeriodes(self._pxmetadata_model.dataset.time_dimension.column_name) 
+
+      my_funny_var_id=self._pxmetadata_model.dataset.time_dimension.label[self._current_lang]
+
+      self._heading.append(my_funny_var_id)
+      out_model.values.set(my_periods, my_funny_var_id, self._current_lang)
+      out_model.codes.set(my_periods, my_funny_var_id,self._current_lang) 
+      out_model.variablecode.set(self._config.timevariable_code, my_funny_var_id, self._current_lang)  
+      out_model.variable_type.set("T", my_funny_var_id,self._current_lang)  
+
+   def MapCodedDimensions(self, out_model:PXFileModel):
       if self._pxmetadata_model.dataset.coded_dimensions:
         for my_var in self._pxmetadata_model.dataset.coded_dimensions: 
-          
-
-
           my_funny_var_id = my_var.label[self._current_lang]
           self._stub.append(my_funny_var_id)
           my_var_code = my_var.code if my_var.code is not None else my_var.column_name
@@ -98,52 +153,43 @@ class LoadFromPxmetadata():
              out_model.variable_type.set("N", my_funny_var_id,self._current_lang) 
 
           out_model.prestext.set( self.LabelConstructionOptionDict[str(my_var.label_construction_option)], my_funny_var_id,self._current_lang) 
-                
-        #self.AddPxCodesToPXFileModel(self._pxmetadata_model, out_model)
 
-
-
-      self._contact_string = self.GetContactString(self._pxstatistics)
-      self._last_updated = self.GetLastUpdated(self._pxstatistics) 
-
-      if self._pxmetadata_model.dataset.measurements:
-        my_funny_var_id = self._config.contvariable[self._current_lang]
+   def MapMeasurements(self, out_model:PXFileModel):
+      if not self._pxmetadata_model.dataset.measurements:
+         raise Exception("Sorry, dataset is missing measurment.")
+      
+      my_funny_var_id = self._config.contvariable[self._current_lang]
          
-        out_codes=[]
-        out_values =[]
-        for my_cont in self._pxmetadata_model.dataset.measurements: 
-          my_funny_cont_id = my_cont.label[self._current_lang]
-          my_cont_code = my_cont.code if my_cont.code is not None else my_cont.column_name
-          out_codes.append(my_cont_code)
-          out_values.append(my_cont.label[self._current_lang])
-          out_model.seasadj.set(my_cont.is_seasonally_adjusted or False,  my_funny_cont_id,self._current_lang)
-          out_model.dayadj.set(my_cont.is_workingdays_adjusted or False,  my_funny_cont_id,self._current_lang)
-          out_model.units.set(my_cont.unit_of_measure[self._current_lang], my_funny_cont_id,self._current_lang)
-          out_model.contact.set(self._contact_string, my_funny_cont_id,self._current_lang) 
-          out_model.last_updated.set(self._last_updated, my_funny_cont_id,self._current_lang) 
+      out_codes=[]
+      out_values =[]
+      for my_cont in self._pxmetadata_model.dataset.measurements: 
+         my_funny_cont_id = my_cont.label[self._current_lang]
+         my_cont_code = my_cont.code if my_cont.code is not None else my_cont.column_name
+         out_codes.append(my_cont_code)
+         out_values.append(my_cont.label[self._current_lang])
+         out_model.seasadj.set(my_cont.is_seasonally_adjusted or False,  my_funny_cont_id,self._current_lang)
+         out_model.dayadj.set(my_cont.is_workingdays_adjusted or False,  my_funny_cont_id,self._current_lang)
+         out_model.units.set(my_cont.unit_of_measure[self._current_lang], my_funny_cont_id,self._current_lang)
+         out_model.contact.set(self._contact_string, my_funny_cont_id,self._current_lang) 
+         out_model.last_updated.set(self._last_updated, my_funny_cont_id,self._current_lang) 
 
-          if my_cont.reference_period[self._current_lang]:
+         if my_cont.reference_period[self._current_lang]:
             out_model.refperiod.set(my_cont.reference_period[self._current_lang], my_funny_cont_id,self._current_lang)
 
+         if my_cont.show_decimals > 0 :
+            out_model.precision.set(my_cont.show_decimals, my_funny_var_id,  my_funny_cont_id,self._current_lang)
 
-          if my_cont.show_decimals > 0 :
-             out_model.precision.set(my_cont.show_decimals, my_funny_var_id,  my_funny_cont_id,self._current_lang)
+         #optional with no default
+         if my_cont.price_type:
+            #todo str(my_cont.price_type) should yield C or F
+            out_model.cfprices.set(str(my_cont.price_type),  my_funny_cont_id,self._current_lang)
 
-          #optional with no default
-          if my_cont.price_type:
-             #todo str(my_cont.price_type) should yield C or F
-             out_model.cfprices.set(str(my_cont.price_type),  my_funny_cont_id,self._current_lang)
+      out_model.values.set(out_values, my_funny_var_id, self._current_lang)
+      out_model.codes.set(out_codes, my_funny_var_id,self._current_lang)
+      out_model.variablecode.set(self._config.contvariable_code, my_funny_var_id, self._current_lang) 
+      out_model.variable_type.set("C", my_funny_var_id, self._current_lang) 
 
-        out_model.values.set(out_values, my_funny_var_id, self._current_lang)
-        out_model.codes.set(out_codes, my_funny_var_id,self._current_lang)
-        out_model.variablecode.set(self._config.contvariable_code, my_funny_var_id, self._current_lang) 
-        out_model.variable_type.set("C", my_funny_var_id, self._current_lang) 
-
-        
-
-        print("show_decimals_values",)
-        
-      #decimals
+   def MapDecimals(self, out_model:PXFileModel):
       show_decimals_values = [instance.show_decimals for instance in self._pxmetadata_model.dataset.measurements]
 
       if self._pxmetadata_model.dataset.stored_decimals:
@@ -152,47 +198,6 @@ class LoadFromPxmetadata():
          out_model.decimals.set(max(show_decimals_values))
 
       out_model.showdecimals.set(min(show_decimals_values)) 
-
-      # Check if all values in the array are True
-      all_true = all(instance.aggregation_allowed for instance in self._pxmetadata_model.dataset.measurements)
-      out_model.aggregallowed.set(all_true)
-     
-
-      #its time
-
-      my_periods = self._parquet.GetTimePeriodes(self._pxmetadata_model.dataset.time_dimension.column_name) 
-
-      my_funny_var_id=self._pxmetadata_model.dataset.time_dimension.label[self._current_lang]
-
-      self._heading.append(my_funny_var_id)
-      out_model.values.set(my_periods, my_funny_var_id, self._current_lang)
-      out_model.codes.set(my_periods, my_funny_var_id,self._current_lang) 
-      out_model.variablecode.set(self._config.timevariable_code, my_funny_var_id, self._current_lang)  
-      out_model.variable_type.set("T", my_funny_var_id,self._current_lang)  
-      #STUB and or HEADING
-      if self._heading:
-         out_model.heading.set(self._heading, self._current_lang)
-
-      if self._stub:
-         out_model.stub.set(self._stub, self._current_lang)
-
-      if not self._stub and not self._heading:
-         raise Exception("Sorry, both stub and heading are empty.")
-      
-      self.AddPxStatisticsToPXFileModel(self._pxstatistics, out_model)
-
-      lang = self._current_lang
-      model = self._pxmetadata_model.dataset 
-
-      vari_list = self._stub + self._heading 
-
-      tmp_string = ", ".join(vari_list[:-1]) 
-
-      title = model.table_id + ": " + model.base_title[lang] + ", " +self._config.admin.the_word_by[lang]+ " " + tmp_string +" " + self._config.admin.the_word_and[lang] + " "+ vari_list[-1];  
-
-      out_model.title.set(title,self._current_lang)
-      print("outmodel:\n",out_model)
-
 
    def GetContactString(self, in_model:PxStatistics) -> str:
        contact_string = ""
@@ -208,7 +213,15 @@ class LoadFromPxmetadata():
        return contact_string[:-2]
    
    def GetLastUpdated(self, in_model:PxStatistics) -> str:
-       return "Todo: get from PxStatistics"
+      last_updated_date = ""
+      if in_model.upcoming_releases is None:
+         return last_updated_date
+      
+      last_updated_date = in_model.upcoming_releases[0]
+ 
+      formatted_string = ConvertToPxdateString(last_updated_date, f"%Y-%m-%d %H:%M:%S.%f")
+
+      return formatted_string
 
    def AddPxStatisticsToPXFileModel(self, in_model:PxStatistics , out_model:PXFileModel):
       lang=self._current_lang
@@ -245,3 +258,8 @@ class LoadFromPxmetadata():
        #out_model.source.set("en") = ...
 
         
+def ConvertToPxdateString(date_string:str, date_format:str) -> str:
+   dtm_date = datetime.strptime(date_string, date_format)
+   px_date_string = dtm_date.strftime(f"%Y%m%d %H:%M")
+   
+   return px_date_string
