@@ -45,7 +45,7 @@ paths:
 components:
   schemas:
     PxCodes:
-      description: For one variable, this should hold all the information needed to create vs and agg files and the VALUES and CODES px-keywords, and partially for elimination. 
+      description: For one variable, this should hold all the information needed for the VALUES and CODES px-keywords (aka the codelist), and to create any vs and agg files (aka the groupings) if such is desired. In addition this contains partial information on elimination. 
       required:
         - id
         - labels
@@ -56,13 +56,13 @@ components:
       properties:
         id:
           type: string
-          example: 123234a
+          description: "Id of this document, example: 123234a"
         admin:
           type: object
           properties:
             isFinal:
               type: boolean
-              example: true
+              description: todo. ignored for now
             tags:
               type: array
               items:
@@ -71,27 +71,29 @@ components:
               type: string
         sortValueitemsOn:
           $ref: '#/components/schemas/SortValueitemsOn'
+          description: How the items in the codelist is sorted.
         label:
           $ref: '#/components/schemas/StringByLanguage'
+          description: Texts for 'the dropdown' where you select which grouping to use or return to this codelist
         valueitems:
            type: array
+           description: "These are the 'root-entries' describe what is in the data." 
            items:
                $ref: '#/components/schemas/Valueitem'
+               description: Denne er en sibbling av ref. 
         eliminationPossible:
                     type: boolean
-                    example: True
                     description: May this variable be eliminnated. If True and eliminationCode is empty use Sum.
         eliminationCode:
                     type: string
-                    example: tot
-                    description: Value is the code to use for eliminnating the variable
+                    description: "example: 'tot'. Value of the code to use for eliminnating the variable. Must be from root-entries, not from a grouping."
         sortGroupingsOn:
            type: string
            enum:
               - filenameBase
               - label
               - rank
-           description: Sets the order of the groupings in the dropdown  
+           description: Sets the order of the groupings in the dropdown. (So only needed if you have groupings.  
         groupings:
           type: array
           description: List where an element is a grouping. A grouping is a list of mothers. The code of a mother must not be present in the root-valueitems.
@@ -107,10 +109,13 @@ components:
              properties:
                 filenameBase:
                   type: string
+                  description: To this filenameBase the language and filetype will be added.   
                 label:
                    $ref: '#/components/schemas/StringByLanguage'
+                   description: Texts for 'the dropdown' where you select which grouping to use
                 rank:
                    $ref: '#/components/schemas/StringByLanguage'
+                   description: Strings to sort by when code or label is not sufficient 
                 sortValueitemsOn:
                    $ref: '#/components/schemas/SortValueitemsOn'
                    description: How to sort the list of mothers. The children will be sorted by the root-sortValueitemsOn  
@@ -118,25 +123,28 @@ components:
                   type: array
                   items:
                      $ref: '#/components/schemas/Valueitem'
-                  description: The mothers
+                  description: The list of mothers.
     Valueitem:
       type: object
       properties:
           code:
             type: string
-            example: 123234a
+            description: "Code of the item example: 123234a"
           unorderedChildren:
             description: "Any children in random order. The children MUST exist in 
-               root-valueitems"
+               root-valueitems and will be sorted as they are there."
             type: array
             items:
               type: string
           label:
             $ref: '#/components/schemas/StringByLanguage'
+            description: "Texts of the item example: en:Total, no: I alt"
           rank:
             $ref: '#/components/schemas/StringByLanguage'
+            description: Strings to sort by when code or label is not sufficient 
           notes:
-            $ref: '#/components/schemas/Notes'          
+            $ref: '#/components/schemas/Notes'
+            description: Any fotnotes
             
     Notes:
       type: array
