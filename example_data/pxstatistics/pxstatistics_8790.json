@@ -1,7 +1,7 @@
 {
   "id": "8790",
   "updateFrequency":{"no":"År","en":"Year"},
-  "metaId":"KORTNAVN:klreg",
+  "metaId":["KORTNAVN:klreg"],
   "subjectCode":"tr",
   "subjectText":{"no": "transport og reiseliv", "en": "transport and tourism"},
   "upcomingReleases": [],

@@ -47,59 +47,62 @@ paths:
 components:
   schemas:
     PxStatistics:
+      description: Holds information of a publishing system nature, or registry of statistics if you like. The asumption behind subjectCode and subjectText is that your tables may be put in a menu tree. Subject is the first level in that tree. 
       required:
         - id
+        - subjectCode
+        - subjectText
+        - contacts
       type: object
       properties:
             id:
               type: string
-              example: 8765
-              description: Id of a group of tables in the registry of statistics.
+              description: "Id of a group of tables in the registry of statistics. example: 8765"
             updateFrequency:
               type: object
               additionalProperties:
                 type: string
-                example: Quarterly
-                description: Must mean the same in all languages
+              description: "Must mean the same in all languages. example: Quarterly"
             metaId:
-              type: string
-              example: KORTNAVN:kpi
-              description: Will be added to metaid on table level. lead to https://www.ssb.no/en/priser-og-prisindekser/konsumpriser/statistikk/konsumprisindeksen#om-statistikken 
+                type: array
+                description: "Will be added to metaid on table level. 'KORTNAVN:kpi' lead to https://www.ssb.no/en/priser-og-prisindekser/konsumpriser/statistikk/konsumprisindeksen#om-statistikken "
+                externalDocs:
+                   description: This does not appear in pydantic 
+                   url: https://swagger.io
+                items:
+                  type: string
             subjectCode:
               type: string
-              example: be
+              description: "example: be"
             subjectText:
               type: object
+              minProperties: 1
               additionalProperties:
                 type: string
-                example: kpi
-                description: Population
+              description: "example en:Population"
             upcomingReleases:
               type: array
               items:
                 type: string
-                example: 2024-02-05 08:00:00.0 TODO sjekk at dato i riktig format
+              description: "example: 2024-02-05 08:00:00.0 TODO sjekk at dato i riktig format"
             contacts:
               type: array
               items:     
                   type: object
                   properties:
                     phone:
-                      type: string
-                      example:                     
+                      type: string               
                     email:                   
                       type: string
-                      example: epost@epost.no
                       description: Personal or functional
                     name:
                       type: object
+                      description: Name of contact in all languages. Personal or functional
                       additionalProperties:                    
                         type: string
-                        example: Jens Jensen
-                        description: Personal or functional 
                     raw:
                       type: object
                       additionalProperties:
                           type: string
-                          description: If this has value it replaces the 3 other fields, so they are ignored. Anything, will be put under contact as is. 
+                      description: If this has value it replaces the 3 other fields, so they are ignored. Anything, will be put under contact as is. 
             

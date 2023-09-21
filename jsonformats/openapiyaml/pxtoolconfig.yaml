@@ -58,34 +58,30 @@ components:
                      type: object
                      additionalProperties:
                         type: string
-                        description: For title creation, the word *and* separating variable n and n-1
-                        example: "no:og,en:and"                         
+                        description: "For title creation, the word *and* separating variable n and n-1. Example: 'no:og,en:and'"                         
                    theWordBy:
                      type: object
                      additionalProperties:
                         type: string
-                        description: For title creation, the word *by* just before the variable list 
-                        example: "no:etter,en:by"
+                        description: "For title creation, the word *by* just before the variable list. example: 'no:etter,en:by'"
               description: These properties does not enter the pxfile directly 
               
             charset:
               type: string
               maxLength: 20            
-              example: ANSI
+              description: "example: ANSI"
             axisVersion:
               type: string
               maxLength: 20
-              example: "2013"
-              description: Version of px-file format 
+              description: "Version of px-file format.  example: '2013'"
             codePage:
               type: string
               maxLength: 20
               default: iso-8859-1
-              example: iso-8859-1
+              description: "example: iso-8859-1"
             descriptionDefault:
               type: boolean
               default: false
-              example: false
             contvariable:
               type: object
               minProperties: 1
@@ -96,12 +92,10 @@ components:
             contvariableCode:  
               type: string
               description: Code for content variable
-              example: ContentVariableCode
               default: ContentCode
             timevariableCode:  
               type: string
               description: Code for the time variable
-              example: Time
               default: Time  
             datasymbol1:
               type: object

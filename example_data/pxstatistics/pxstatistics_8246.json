@@ -1,7 +1,7 @@
 {
   "id": "8246",
   "updateFrequency":{"no":"Uke","en":"Week"},
-  "metaId":"KORTNAVN:laks",
+  "metaId":["KORTNAVN:laks"],
   "subjectCode":"uh",
   "subjectText":{"no":"Utenriksøkonomi","en":"External economy"},
   "upcomingReleases": ["2023-09-06 08:00:00.0",

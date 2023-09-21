@@ -61,38 +61,31 @@ components:
           properties:
             documnetId:
               type: string
-              example: "TODO: Trenger vi denne?"
+              description: "TODO: Trenger vi denne?"
             tableId:
               type: string
-              example: 07459
-              description: To be used as id in PxWeb Url
+              description: "example: '07459' To be used as id in PxWeb Url"
             storedDecimals:
               type: integer
-              example: 6
-              description: How many decimals should be stored in the PxFile. Default is the max number of decimals shown.
+              description: "How many decimals should be stored in the PxFile. Default is the max number of decimals shown."
             statisticsId:
                type: string
-               example: "8765"
-               description: Id of group of tables in the registry of statistics.
+               description: "Id of group of tables in the registry of statistics. example: '8765'"
             dataFile:
                type: string
-               example: "TODO: Er dette en filsti eller en url. Visning av metadata. required?"
-               description: Adress to the parquet-file with datadata
+               description: "TODO: Er dette en filsti eller en url. required? Adress to the parquet-file with datadata" 
             baseTitle:
               type: object
               additionalProperties:
                 type: string
-              example: no Utenrikshandel med varer
-              description: Text to which tableid is prefixed and _by_ variable list is appended. Is used for the CONTENTS keyword
+              description: "Text to which tableid is prefixed and _by_ variable list is appended. Is used for the CONTENTS keyword. example: no Utenrikshandel med varer"
             searchKeywords:
               type: object
               additionalProperties:
                 type: array
                 items: 
                   type: string
-                  example: External trade
-              example: "{en: [External trade, export]}"
-              description: Array of keywords by language for search. Is used for the SYNONYMS keyword.
+              description: "Array of keywords by language for search. Is used for the SYNONYMS keyword. example:'{en: [External trade, export]}'"
             notes:
               $ref: '#/components/schemas/Notes'
             cellNotes:
@@ -107,7 +100,7 @@ components:
                   description: name of column in dataset
                 timePeriodFormat:
                   type: string
-                  example: yyyy
+                  description: "example: yyyy"
                 label:
                   $ref: '#/components/schemas/StringByLanguage'
             codedDimensions:
@@ -138,7 +131,6 @@ components:
                     description: the code of the measurement
                   codelistId:
                     type: string
-                    example: Link to PxCodes document
                     description: A Link to a PxCodes document
                     
                     
@@ -157,11 +149,9 @@ components:
                   isGeoVariableType:
                     type: boolean
                     default: false
-                    example: false
                     description: Geo variable or not 
                   codelistId:
                     type: string
-                    example: Link to PxCodes document
                     description: A Link to a PxCodes document
                   labelConstructionOption:
                     type: string
@@ -221,25 +211,22 @@ components:
                 type: object
                 additionalProperties:
                   type: string 
-                example: 1. kvartal 2010
-                description: For index
+                description: "For index example: '1. kvartal 2010'"
               referencePeriod:
                 type: object
                 additionalProperties:
                   type: string 
-                example: Text with information on the exact period for the statistics.
-                description: TODO
+                description: Text with information on the reference period for the statistics.
               rank:
                 type: object
                 additionalProperties:
                   type: string 
-                example: Text with information on the exact period for the statistics.
-                description: Sort order for measurement in dimension, document order is default                
+                description: Sort order for measurement in dimension, document order is default 
               unitOfMeasure:
                 type: object
                 additionalProperties:
                   type: string 
-                example: Text including unit multiplier
+                description: Text including unit multiplier
               notes:
                 $ref: '#/components/schemas/Notes'
               metaId:
