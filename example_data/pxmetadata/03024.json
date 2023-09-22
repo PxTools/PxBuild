@@ -33,7 +33,7 @@
     },
     "codedDimensions": [
       {
-        "columnName": "VareGrupper2",
+        "columnName": "VAREGRUPPER2",
         "code": "VareGrupper2",
         "isGeoVariableType": false,
         "codelistId": "tab03024_LaksEksport",
@@ -47,7 +47,7 @@
     ],
     "measurements": [
       {
-        "columnName": "Vekt",
+        "columnName": "VEKT",
         "code": "Vekt",
         "showDecimals": 0,
         "priceType": null,
@@ -71,7 +71,7 @@
         "notes": null
       },
       {
-        "columnName": "Kilopris",
+        "columnName": "KILOPRIS",
         "code": "Kilopris",
         "showDecimals": 2,
         "priceType": null,

@@ -10,6 +10,7 @@ from pxtool.models.input.pydantic_pxstatistics import PxStatistics
 from pxtool.models.output.pxfile.px_file_model import PXFileModel
 
 from .datafile import ParquetDatasource
+from .for_get_data import ForGetData
 
 class LoadFromPxmetadata():
    LabelConstructionOptionDict={"LabelConstructionOption.text":0, "LabelConstructionOption.code":1,"LabelConstructionOption.text_code":3, "LabelConstructionOption.code_text":2}
@@ -58,6 +59,8 @@ class LoadFromPxmetadata():
       self._parquet = ParquetDatasource(filePath)
       #self._parquet.PrintColumns()
 
+      self._for_get_data_by_varid = {} 
+
       ##################
       ## loop in languages
       self._current_lang="no" #todo
@@ -88,8 +91,80 @@ class LoadFromPxmetadata():
       self.MapTitle(out_model)
 
       self.MapAggregallowed(out_model)
+
+      self.GetData(out_model)
       
       print("outmodel:\n",out_model)
+
+
+   def GetData(self, out_model:PXFileModel) -> None:
+
+    #/// MINDEX:
+    #/// We need to convert a point(one value for each variable) in 
+    #/// the cube to a number(the index of the array).
+    #///
+    #/// k,j, i... 1-based counters
+    #/// Nx number of values for x
+    #/// Factor_k=Nj*Ni
+    #/// Factor_j= Ni
+    #/// Factor_i = 1
+    #/// index = Factor_k*(k-1) + Factor_j*(j-1) + Factor_i(i-1) </remarks>
+    #  in python things are zero-based but the idea is the same
+    #/// </summary>
+
+     # print(self._parquet.GetTidyDF(self._config.contvariable_code))
+
+      
+
+      variables_in_output_order = self.GetVariList()
+      reversed_list = variables_in_output_order[::-1]
+      curr_factor = 1 
+      for vari in reversed(variables_in_output_order):
+         temp_for_get_data:ForGetData = self._for_get_data_by_varid[vari]
+         temp_for_get_data.factor = curr_factor
+         prevN = temp_for_get_data._length_of_codelist
+         curr_factor = curr_factor*prevN 
+
+      array_size = curr_factor
+
+
+      out_data = ['...']*array_size 
+
+
+      df =  self._parquet.GetTidyDF(self._config.contvariable_code)
+
+      #print(df.columns)
+      #for col in self._for_get_data_by_varid.values():
+      #   print(col.GetDebugString())
+
+
+
+      for _ , row in df.iterrows():
+         m_index = 0
+         #print ("row:",row)
+         for col in self._for_get_data_by_varid.values():
+            tmp_int = col.getIndexContrib(row)
+            m_index = m_index + tmp_int
+            
+           
+         if row["VALUE"]: 
+           the_data = str(row['VALUE'])
+           #TODO: decimals
+         else:
+           the_data = row['SYMBOL']
+         out_data[m_index] = the_data   
+
+      out_model.data.set(out_data)
+      
+
+      
+
+
+
+
+   def GetVariList(self) -> List[str]:
+      return self._stub + self._heading  
+
 
    def MapAggregallowed(self, out_model:PXFileModel):
       # Check if all values in the array are True
@@ -100,7 +175,7 @@ class LoadFromPxmetadata():
       lang = self._current_lang
       model = self._pxmetadata_model.dataset 
 
-      vari_list = self._stub + self._heading 
+      vari_list = self.GetVariList()
 
       tmp_string = ", ".join(vari_list[:-1]) 
 
@@ -127,7 +202,10 @@ class LoadFromPxmetadata():
       out_model.values.set(my_periods, my_funny_var_id, self._current_lang)
       out_model.codes.set(my_periods, my_funny_var_id,self._current_lang) 
       out_model.variablecode.set(self._config.timevariable_code, my_funny_var_id, self._current_lang)  
-      out_model.variable_type.set("T", my_funny_var_id,self._current_lang)  
+      out_model.variable_type.set("T", my_funny_var_id,self._current_lang)
+
+      for_get_data = ForGetData(self._pxmetadata_model.dataset.time_dimension.column_name,  my_periods)
+      self._for_get_data_by_varid[my_funny_var_id] = for_get_data 
 
    def MapCodedDimensions(self, out_model:PXFileModel):
       if self._pxmetadata_model.dataset.coded_dimensions:
@@ -140,19 +218,24 @@ class LoadFromPxmetadata():
 
           out_codes=[]
           out_values =[]
-          #todo  sortert liste
+          #TODO:  sortert liste
           for code in my_codes.valueitems:
              out_codes.append(code.code)
              out_values.append(code.label[self._current_lang])
 
           out_model.values.set(out_values,my_funny_var_id,self._current_lang)   
           out_model.codes.set(out_codes,my_funny_var_id,self._current_lang) 
+
           if my_var.is_geo_variable_type:
              out_model.variable_type.set("G", my_funny_var_id,self._current_lang) 
           else:
              out_model.variable_type.set("N", my_funny_var_id,self._current_lang) 
 
           out_model.prestext.set( self.LabelConstructionOptionDict[str(my_var.label_construction_option)], my_funny_var_id,self._current_lang) 
+
+          for_get_data = ForGetData(my_var.column_name, out_codes)
+          self._for_get_data_by_varid[my_funny_var_id] = for_get_data 
+
 
    def MapMeasurements(self, out_model:PXFileModel):
       if not self._pxmetadata_model.dataset.measurements:
@@ -188,6 +271,9 @@ class LoadFromPxmetadata():
       out_model.codes.set(out_codes, my_funny_var_id,self._current_lang)
       out_model.variablecode.set(self._config.contvariable_code, my_funny_var_id, self._current_lang) 
       out_model.variable_type.set("C", my_funny_var_id, self._current_lang) 
+
+      for_get_data = ForGetData(self._config.contvariable_code, out_codes)
+      self._for_get_data_by_varid[my_funny_var_id] = for_get_data 
 
    def MapDecimals(self, out_model:PXFileModel):
       show_decimals_values = [instance.show_decimals for instance in self._pxmetadata_model.dataset.measurements]

@@ -48,5 +48,10 @@ result_df.rename(columns={'CONT': 'STATVAR', 'symbol': 'MAGI'}, inplace=True)
 print("Statistikk variablen som kolonne:")
 print(result_df)
 
+for index, row in result_df.iterrows():
+    print(f"Index: {index}, Name: {row['KJONN']}, Age: {row['ALDER']}")
+
+    
+
 
 
