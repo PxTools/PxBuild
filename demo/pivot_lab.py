@@ -42,6 +42,8 @@ result_df = pd.wide_to_long(df, stubnames=['value', 'symbol'], i=['KJONN', 'ALDE
 # Reset the index and rename columns
 result_df.reset_index(inplace=True)
 
+result_df.rename(columns={'CONT': 'STATVAR', 'symbol': 'MAGI'}, inplace=True)
+
 # Print or save the result
 print("Statistikk variablen som kolonne:")
 print(result_df)
