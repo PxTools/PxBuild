@@ -96,9 +96,21 @@ class LoadFromPxmetadata():
       
       print("outmodel:\n",out_model)
 
+   def CalculateFactor(self) -> int:
+      variables_in_output_order = self.GetVariList()
+      curr_factor = 1 
+      for vari in reversed(variables_in_output_order):
+         temp_for_get_data:ForGetData = self._for_get_data_by_varid[vari]
+         temp_for_get_data.factor = curr_factor
+         prevN = temp_for_get_data._length_of_codelist
+         curr_factor = curr_factor*prevN 
+
+      array_size = curr_factor
+
+      return array_size
 
    def GetData(self, out_model:PXFileModel) -> None:
-
+      
     #/// MINDEX:
     #/// We need to convert a point(one value for each variable) in 
     #/// the cube to a number(the index of the array).
@@ -114,30 +126,17 @@ class LoadFromPxmetadata():
 
      # print(self._parquet.GetTidyDF(self._config.contvariable_code))
 
-      
+      matrix_size = self.CalculateFactor()
 
-      variables_in_output_order = self.GetVariList()
-      reversed_list = variables_in_output_order[::-1]
-      curr_factor = 1 
-      for vari in reversed(variables_in_output_order):
-         temp_for_get_data:ForGetData = self._for_get_data_by_varid[vari]
-         temp_for_get_data.factor = curr_factor
-         prevN = temp_for_get_data._length_of_codelist
-         curr_factor = curr_factor*prevN 
+      out_data = ['...']*matrix_size 
 
-      array_size = curr_factor
+      column_code_map = self.GetMeasurementColumnCodeMapping()
 
-
-      out_data = ['...']*array_size 
-
-
-      df =  self._parquet.GetTidyDF(self._config.contvariable_code)
+      df =  self._parquet.GetTidyDF(self._config.contvariable_code, column_code_map)
 
       #print(df.columns)
       #for col in self._for_get_data_by_varid.values():
       #   print(col.GetDebugString())
-
-
 
       for _ , row in df.iterrows():
          m_index = 0
@@ -146,7 +145,6 @@ class LoadFromPxmetadata():
             tmp_int = col.getIndexContrib(row)
             m_index = m_index + tmp_int
             
-           
          if row["VALUE"]: 
            the_data = str(row['VALUE'])
            #TODO: decimals
@@ -154,17 +152,17 @@ class LoadFromPxmetadata():
            the_data = row['SYMBOL']
          out_data[m_index] = the_data   
 
-      out_model.data.set(out_data)
-      
-
-      
-
-
-
+      out_model.data.set(out_data)      
 
    def GetVariList(self) -> List[str]:
       return self._stub + self._heading  
 
+   def GetMeasurementColumnCodeMapping(self) -> dict:
+      column_code_map = {}
+      for measurement_var in self._pxmetadata_model.dataset.measurements:
+         column_code_map[measurement_var.column_name] = measurement_var.code
+
+      return column_code_map
 
    def MapAggregallowed(self, out_model:PXFileModel):
       # Check if all values in the array are True

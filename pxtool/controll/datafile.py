@@ -26,26 +26,43 @@ class ParquetDatasource:
        asList=distinct_values.tolist()
        asSortedList=sorted(asList)
        return asSortedList
+
+   def GetIdentifierColumns(self, all_columns:list, measurement_map:dict) -> List[str]:
+      identifier_columns = []
+      for column in all_columns:
+         if not (column in measurement_map.keys()):
+            identifier_columns.append(column)
+
+      return identifier_columns
    
-   def GetTidyDF(self, measure_dim_name:str) -> pd.DataFrame:
+   def AddMissingSymbolColumns(self, measurement_codes:list[str], df:pd.DataFrame):
+      for code in measurement_codes:   
+         if not (f"SYMBOL_{code}" in df):
+            df[f"SYMBOL_{code}"] = ''
+   
+   def AddValuePrefix(self, measures_code_dict:dict) -> dict:
+      columns_with_value = {}
+      for key in measures_code_dict:
+         columns_with_value[key] = f"VALUE_{measures_code_dict[key]}"
+
+      return columns_with_value
+
+   def GetTidyDF(self, measure_dim_name:str, column_code_map:dict) -> pd.DataFrame:
       print("Debug cols:",self._parquet_file.schema.names)
-      raw_data = self._parquet_file.read().to_pandas()
+      raw_data: pd.DataFrame = self._parquet_file.read().to_pandas()
       print("raw_data",raw_data)
-      #if laks
-      raw_data.rename(columns={'VEKT': 'VALUE_Vekt', 'KILOPRIS': 'VALUE_Kilopris'}, inplace=True)
-      raw_data['SYMBOL_Vekt'] = ''
-      raw_data['SYMBOL_Kilopris'] = ''
 
-      # end if
-    
-      ok_df = pd.wide_to_long(raw_data, stubnames=['VALUE', 'SYMBOL'], i=['VAREGRUPPER2', 'TID'], j=measure_dim_name, sep='_', suffix='(!?Vekt|Kilopris)')
-      ok_df.reset_index(inplace=True)
+      measurement_codes = list(column_code_map.values())
+      column_with_value_prefix = self.AddValuePrefix(column_code_map)
+      identifier_columns = self.GetIdentifierColumns(raw_data.columns.values.tolist(), column_with_value_prefix)
 
+      raw_data.rename(columns=column_with_value_prefix, inplace=True)      
+      self.AddMissingSymbolColumns(measurement_codes, raw_data)
 
+      tidy_df = pd.wide_to_long(raw_data, stubnames=['VALUE', 'SYMBOL'], i=identifier_columns, j=measure_dim_name, sep='_', suffix=f"(!?{'|'.join(measurement_codes)})")
+      tidy_df.reset_index(inplace=True)
 
-      #melted_df = pd.melt(raw_data, id_vars=['VAREGRUPPER2', 'TID'], value_vars=['VEKT', 'KILOPRIS'], var_name='n', value_name='value')
-
-      return ok_df
+      return tidy_df
 
 
 
