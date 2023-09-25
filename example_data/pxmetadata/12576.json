@@ -53,16 +53,16 @@
     ],
     "cellNotes": null,
     "timeDimension": {
-      "columnName": "periode_kolonne",
+      "columnName": "TID",
       "timePeriodFormat": "åååå",
       "label": {
         "no": "år",
         "en": "year"
       }
-    },
+    },  
     "codedDimensions": [
       {
-        "columnName": "Kjoretoytype",
+        "columnName": "KJORETOYTYPE",
         "code": "Kjoretoytype",
         "isGeoVariableType": false,
         "codelistId": "tab12576_Kjoretoykm",
@@ -74,7 +74,7 @@
         "notes": null
       },
       {
-        "columnName": "Region",
+        "columnName": "REGION",
         "code": "Region",
         "isGeoVariableType": false,
         "codelistId": "tab12576_Region",
@@ -94,7 +94,7 @@
         ]
       },
       {
-        "columnName": "DrivstoffType",
+        "columnName": "DRIVSTOFFTYPE",
         "code": "DrivstoffType",
         "isGeoVariableType": false,
         "codelistId": "tab12576_DrivstoffType5",

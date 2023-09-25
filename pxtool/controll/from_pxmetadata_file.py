@@ -55,8 +55,12 @@ class LoadFromPxmetadata():
              self._resolved_pxcodes_ids[myVar.codelist_id] = PxCodes(**json1)
 
     
-      filePath='example_data/parquet_files/output_file03024.parquet' 
-      self._parquet = ParquetDatasource(filePath)
+
+      data_file_path_format="example_data/parquet_files/output_file{id}.parquet"
+      data_file_path=data_file_path_format.format(id=self._pxmetadata_model.dataset.data_file)
+
+      #filePath='example_data/parquet_files/output_file03024.parquet' 
+      self._parquet = ParquetDatasource(data_file_path)
       #self._parquet.PrintColumns()
 
       self._for_get_data_by_varid = {} 
@@ -94,7 +98,12 @@ class LoadFromPxmetadata():
 
       self.GetData(out_model)
       
-      print("outmodel:\n",out_model)
+      temp_tabid= self._filename
+      out_file= 'example_data/pxtool_output/output_'+temp_tabid+'/tab_'+temp_tabid+'.px'
+      with open(out_file, 'w') as f:
+             print(out_model, file=f)
+
+      print("File written to:",out_file)
 
    def CalculateFactor(self) -> int:
       variables_in_output_order = self.GetVariList()
@@ -152,7 +161,9 @@ class LoadFromPxmetadata():
            the_data = row['SYMBOL']
          out_data[m_index] = the_data   
 
-      out_model.data.set(out_data)      
+      out_model.data.set(out_data)
+
+
 
    def GetVariList(self) -> List[str]:
       return self._stub + self._heading  
@@ -301,6 +312,10 @@ class LoadFromPxmetadata():
       if in_model.upcoming_releases is None:
          return last_updated_date
       
+      if len(in_model.upcoming_releases) < 1:
+         return last_updated_date
+      
+
       last_updated_date = in_model.upcoming_releases[0]
  
       formatted_string = ConvertToPxdateString(last_updated_date, f"%Y-%m-%d %H:%M:%S.%f")

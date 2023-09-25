@@ -24,7 +24,7 @@
     "notes": null,
     "cellNotes": null,
     "timeDimension": {
-      "columnName": "periode_kolonne",
+      "columnName": "TID",
       "timePeriodFormat": "åååå",
       "label": {
         "no": "år",
@@ -33,7 +33,7 @@
     },
     "codedDimensions": [
       {
-        "columnName": "Alder",
+        "columnName": "ALDER",
         "code": "Alder",
         "isGeoVariableType": false,
         "codelistId": "tab07459_AlleAldre00B",
@@ -45,7 +45,7 @@
         "notes": null
       },
       {
-        "columnName": "Region",
+        "columnName": "REGION",
         "code": "Region",
         "isGeoVariableType": false,
         "codelistId": "tab07459_Region",
@@ -65,7 +65,7 @@
         ]
       },
       {
-        "columnName": "Kjonn",
+        "columnName": "KJONN",
         "code": "Kjonn",
         "isGeoVariableType": false,
         "codelistId": "tab07459_Kjonn",
@@ -79,7 +79,7 @@
     ],
     "measurements": [
       {
-        "columnName": "Personer1",
+        "columnName": "PERSONER1",
         "code": "Personer1",
         "showDecimals": 0,
         "priceType": null,

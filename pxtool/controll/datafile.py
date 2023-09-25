@@ -10,6 +10,8 @@ class ParquetDatasource:
    def __init__(self,filepath:str) -> None:
      print("Debug: Reading",filepath)
      self._parquet_file = pq.ParquetFile(filepath)
+     self.PrintColumns()
+     
 
 
    def PrintColumns(self) -> None:
