@@ -4,7 +4,7 @@
     "tableId": "12576",
     "storedDecimals": null,
     "statisticsId": "8790",
-    "dataFile": null,
+    "dataFile": "12576",
     "baseTitle": {
       "no": "Kjørelengder",
       "en": "Road traffic volumes"
