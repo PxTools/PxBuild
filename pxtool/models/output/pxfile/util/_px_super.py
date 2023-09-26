@@ -62,7 +62,7 @@ class _PxValueByKey(_SuperKeyword):
         
         if self.is_present():
           for keypart in self._value_by_key.keys() :
-              myOut.append(f"{self._keyword}{keypart} = {self._value_by_key[keypart]};") 
+              myOut.append(f"{self._keyword}{keypart}={self._value_by_key[keypart]};") 
           return "\n".join(myOut)
         else:
             return ""  

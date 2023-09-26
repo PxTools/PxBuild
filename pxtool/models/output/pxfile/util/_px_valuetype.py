@@ -83,7 +83,7 @@ class _PxInt:
         self._int = _int
 
     def __str__(self):
-            return f"\"{self._int}\""
+            return f"{self._int}"
     
     def get_value(self) -> int:
         return self._int        
