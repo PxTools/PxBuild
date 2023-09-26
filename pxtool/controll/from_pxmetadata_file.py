@@ -346,14 +346,24 @@ class LoadFromPxmetadata():
 
        out_model.descriptiondefault.set((in_config.description_default or False))
        out_model.contvariable.set(str(in_config.contvariable[self._current_lang] ))
-       out_model.datasymbol1.set(str(in_config.datasymbol1))
-       out_model.datasymbol2.set(str(in_config.datasymbol2))
-       out_model.datasymbol3.set(str(in_config.datasymbol3))
-       out_model.datasymbol4.set(str(in_config.datasymbol4))
-       out_model.datasymbol5.set(str(in_config.datasymbol5))
-       out_model.datasymbol6.set(str(in_config.datasymbol6))
-       out_model.datasymbolnil.set(str(in_config.datasymbol_nil))
-       out_model.datasymbolsum.set(str(in_config.datasymbol_sum))
+
+       if in_config.datasymbol1 and in_config.datasymbol1[self._current_lang]:
+         out_model.datasymbol1.set(str(in_config.datasymbol1[self._current_lang]),self._current_lang)
+       if in_config.datasymbol2 and in_config.datasymbol2[self._current_lang]:
+         out_model.datasymbol2.set(str(in_config.datasymbol2[self._current_lang]),self._current_lang)
+       if in_config.datasymbol3 and in_config.datasymbol3[self._current_lang]:
+         out_model.datasymbol3.set(str(in_config.datasymbol3[self._current_lang]),self._current_lang)
+       if in_config.datasymbol4 and in_config.datasymbol4[self._current_lang]:
+         out_model.datasymbol4.set(str(in_config.datasymbol4[self._current_lang]),self._current_lang)     
+       if in_config.datasymbol5 and in_config.datasymbol5[self._current_lang]:
+         out_model.datasymbol5.set(str(in_config.datasymbol5[self._current_lang]),self._current_lang)  
+       if in_config.datasymbol6 and in_config.datasymbol6[self._current_lang]:
+         out_model.datasymbol6.set(str(in_config.datasymbol6[self._current_lang]),self._current_lang)  
+       if in_config.datasymbol_nil and in_config.datasymbol_nil[self._current_lang]:
+         out_model.datasymbolnil.set(str(in_config.datasymbol_nil[self._current_lang]),self._current_lang)     
+       if in_config.datasymbol_sum and in_config.datasymbol_sum[self._current_lang]:
+         out_model.datasymbolsum.set(str(in_config.datasymbol_sum[self._current_lang]),self._current_lang)  
+
        #out_model.source.set("en") = ...
 
         
