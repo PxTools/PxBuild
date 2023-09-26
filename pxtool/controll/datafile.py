@@ -11,7 +11,7 @@ class ParquetDatasource:
      print("Debug: Reading",filepath)
      self._parquet_file = pq.ParquetFile(filepath)
      self.PrintColumns()
-     
+
 
 
    def PrintColumns(self) -> None:
@@ -50,19 +50,24 @@ class ParquetDatasource:
       return columns_with_value
 
    def GetTidyDF(self, measure_dim_name:str, column_code_map:dict) -> pd.DataFrame:
-      print("Debug cols:",self._parquet_file.schema.names)
+
+      print("Debug in parquet cols:",self._parquet_file.schema.names)
+
       raw_data: pd.DataFrame = self._parquet_file.read().to_pandas()
-      print("raw_data",raw_data)
+      print("raw_data",raw_data.columns)
 
       measurement_codes = list(column_code_map.values())
       column_with_value_prefix = self.AddValuePrefix(column_code_map)
       identifier_columns = self.GetIdentifierColumns(raw_data.columns.values.tolist(), column_with_value_prefix)
-
-      raw_data.rename(columns=column_with_value_prefix, inplace=True)      
+      print("Renaming:",column_with_value_prefix) 
+      raw_data.rename(columns=column_with_value_prefix, inplace=True) 
+      print("Post renaming:", raw_data.columns)   
       self.AddMissingSymbolColumns(measurement_codes, raw_data)
-
+      print("Cols before wide_to_long:",raw_data.columns)
       tidy_df = pd.wide_to_long(raw_data, stubnames=['VALUE', 'SYMBOL'], i=identifier_columns, j=measure_dim_name, sep='_', suffix=f"(!?{'|'.join(measurement_codes)})")
       tidy_df.reset_index(inplace=True)
+      print("Cols after wide_to_long:", tidy_df.columns)
+      
 
       return tidy_df
 

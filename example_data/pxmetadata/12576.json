@@ -108,7 +108,7 @@
     ],
     "measurements": [
       {
-        "columnName": "Kjorelengde",
+        "columnName": "KJORELENGDE",
         "code": "Kjorelengde",
         "showDecimals": 1,
         "priceType": null,
@@ -132,7 +132,7 @@
         "notes": null
       },
       {
-        "columnName": "GjsnittKjorelengde",
+        "columnName": "GJSNITTKJORELENGDE",
         "code": "GjsnittKjorelengde",
         "showDecimals": 0,
         "priceType": null,
