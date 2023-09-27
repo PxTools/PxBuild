@@ -14,8 +14,8 @@ import pyarrow as pa
 import pandas as pd
 
 
-asdas = pxtool.LoadFromPxmetadata('12576', "enum.LOCAL_FOLDER")
-#asdas = pxtool.LoadFromPxmetadata('07459', "enum.LOCAL_FOLDER")
+#asdas = pxtool.LoadFromPxmetadata('12576', "enum.LOCAL_FOLDER")
+asdas = pxtool.LoadFromPxmetadata('07459', "enum.LOCAL_FOLDER")
 #asdas = pxtool.LoadFromPxmetadata('03024', "enum.LOCAL_FOLDER")
 #asdas = pxtool.LoadFromPxmetadata('03024', API)
 

@@ -64,14 +64,22 @@ class LoadFromPxmetadata():
       #self._parquet.PrintColumns()
 
       self._for_get_data_by_varid = {} 
+      
+     
 
+   
       ##################
       ## loop in languages
+
       self._current_lang="no" #todo
       self._contact_string = self.GetContactString(self._pxstatistics)
       self._last_updated = self.GetLastUpdated(self._pxstatistics) 
       self._stub=[]
       self._heading=[self._config.contvariable[self._current_lang] ]
+
+      self._metaid_table:List[str]=[]
+      self._metaid_valiable:dict={}
+      
 
       out_model = PXFileModel()
       out_model.language.set(self._current_lang)
@@ -96,6 +104,10 @@ class LoadFromPxmetadata():
 
       self.MapAggregallowed(out_model)
 
+
+      self.AddMetaIds(out_model)
+      
+
       self.GetData(out_model)
       
       temp_tabid= self._filename
@@ -105,6 +117,10 @@ class LoadFromPxmetadata():
 
       print("File written to:",out_file)
 
+
+
+
+          
    def CalculateFactor(self) -> int:
       variables_in_output_order = self.GetVariList()
       curr_factor = 1 
@@ -117,6 +133,8 @@ class LoadFromPxmetadata():
       array_size = curr_factor
 
       return array_size
+   
+
 
    def GetData(self, out_model:PXFileModel) -> None:
       
@@ -163,6 +181,14 @@ class LoadFromPxmetadata():
 
       out_model.data.set(out_data)
 
+
+   def AddMetaIds(self, out_model:PXFileModel) -> None:
+     
+     if self._metaid_table:
+       out_model.meta_id.set( " ".join(self._metaid_table) )
+     
+     for vari in self._metaid_valiable:
+        out_model.meta_id.set(" ".join(self._metaid_valiable[vari]),vari, None,self._current_lang)
 
 
    def GetVariList(self) -> List[str]:
@@ -241,6 +267,28 @@ class LoadFromPxmetadata():
              out_model.variable_type.set("N", my_funny_var_id,self._current_lang) 
 
           out_model.prestext.set( self.LabelConstructionOptionDict[str(my_var.label_construction_option)], my_funny_var_id,self._current_lang) 
+           
+          if not my_codes.elimination_possible:
+             out_model.elimination.set("NO", my_funny_var_id,self._current_lang)
+          else:
+             if my_codes.elimination_code:
+                #need to find label ...
+                for item in my_codes.valueitems:
+                   if item.code == my_codes.elimination_code:
+                      out_model.elimination.set(item.label[self._current_lang], my_funny_var_id,self._current_lang)
+                      break
+             else:
+                out_model.elimination.set("YES", my_funny_var_id,self._current_lang)
+         
+          if my_var.meta_id:
+             if not my_funny_var_id in self._metaid_valiable:
+                self._metaid_valiable[my_funny_var_id] = []
+
+             self._metaid_valiable[my_funny_var_id] += my_var.meta_id
+             
+          
+             
+
 
           for_get_data = ForGetData(my_var.column_name, out_codes)
           self._for_get_data_by_varid[my_funny_var_id] = for_get_data 
@@ -324,18 +372,23 @@ class LoadFromPxmetadata():
 
    def AddPxStatisticsToPXFileModel(self, in_model:PxStatistics , out_model:PXFileModel):
       lang=self._current_lang
-      out_model.subject_area.set("Todo: get from PxStatistics",lang)
-      out_model.subject_code.set("Todo: get from PxStatistics")
+      
+      out_model.subject_area.set(in_model.subject_text[lang],lang)
+      out_model.subject_code.set(in_model.subject_code)
+
+      
+      self._metaid_table += in_model.meta_id
+       
 
       #out_model.update_frequency.set() Hmm ikke lang dep i pdf
-    #  out_model.tableid.set(in_model.dataset.table_id)
-    #  out_model.contents.set(in_model.dataset.base_title[lang],lang)
+
 
    def  AddPxMetadataToPXFileModel(self, in_model:PxMetadata , out_model:PXFileModel):
       lang=self._current_lang
       out_model.tableid.set(in_model.dataset.table_id)
       out_model.matrix.set("tab_"+in_model.dataset.table_id)
-      out_model.contents.set( in_model.dataset.table_id + ":" + in_model.dataset.base_title[lang]+",",lang)
+      out_model.contents.set( in_model.dataset.table_id + ": " + in_model.dataset.base_title[lang]+",",lang)
+      
 
 
    def MapPxtoolconfigToPXFileModel(self, in_config:Pxtoolconfig , out_model:PXFileModel):
@@ -364,7 +417,8 @@ class LoadFromPxmetadata():
        if in_config.datasymbol_sum and in_config.datasymbol_sum[self._current_lang]:
          out_model.datasymbolsum.set(str(in_config.datasymbol_sum[self._current_lang]),self._current_lang)  
 
-       #out_model.source.set("en") = ...
+
+       out_model.source.set(in_config.source[self._current_lang],self._current_lang)  
 
         
 def ConvertToPxdateString(date_string:str, date_format:str) -> str:
