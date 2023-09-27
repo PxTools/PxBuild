@@ -13,9 +13,9 @@ class _Data(_PxSingle):
     def __init__(self) -> None:
         super().__init__("DATA")
 
-    def set(self, data:list) -> None:
+    def set(self, data:list, columns_per_line:int) -> None:
         """ Numbers and quoted dots """
-        my_value = _PxData(data)
+        my_value = _PxData(data, columns_per_line)
         try:
             super().set(my_value)
         except Exception as e:
