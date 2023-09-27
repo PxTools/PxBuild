@@ -1,11 +1,11 @@
 ﻿from pxtool.models.output.pxfile.util._px_super import _PxValueByKey
-from pxtool.models.output.pxfile.util._px_valuetype import _PxString
+from pxtool.models.output.pxfile.util._px_valuetype import _PxBString
 from pxtool.models.output.pxfile.util._px_keytypes import _KeytypeVariableLang
 from pxtool.models.output.pxfile.util._line_validator import LineValidator
 
 class _Elimination(_PxValueByKey): 
 
-    pxvalue_type:str = "_PxString"
+    pxvalue_type:str = "_PxBString"
     has_subkey:bool = True
     subkey_optional:bool = False
     completeness_type:str = "Lang"
@@ -19,7 +19,7 @@ class _Elimination(_PxValueByKey):
         """ bool eller string """
         LineValidator.is_not_None( self._keyword, elimination)
         LineValidator.is_string( self._keyword, elimination)
-        my_value = _PxString(elimination)
+        my_value = _PxBString(elimination)
         my_key = _KeytypeVariableLang(variable, lang)
         try:
             super().set(my_value,my_key)

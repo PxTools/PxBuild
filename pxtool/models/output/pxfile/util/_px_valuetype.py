@@ -55,6 +55,20 @@ class _PxString:
     def get_value(self):
         return self._string
     
+class _PxBString:
+    """ Holdes a sting or bool and prints it in quotes only if string """
+    def __init__(self, _string:str) -> None:
+        self._string = _string
+
+    def __str__(self):
+            if self._string == "YES" or self._string == "NO":
+                  return self._string
+
+            return f"\"{self._string}\""
+    
+    def get_value(self):
+        return self._string    
+    
 class _PxBool:
     """ Holdes a bool and prints it as YES or NO """
     def __init__(self, _bool:bool) -> None:
