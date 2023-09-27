@@ -118,6 +118,14 @@ components:
               description: For MetaId keyword
               items:
                 type: string
+            rowMissing:
+               type: string
+               description: Value to insert in data when row is missing. 
+               default: "."
+            cellMissing:
+               type: string
+               description: Value to insert in data when cell is missing. 
+               default: "."               
             attributes:
               type: array
               items:

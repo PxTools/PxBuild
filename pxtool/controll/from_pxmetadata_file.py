@@ -155,32 +155,46 @@ class LoadFromPxmetadata():
 
       matrix_size = self.CalculateFactor()
 
-      out_data = ['...']*matrix_size 
+
+      init_value = self._pxmetadata_model.dataset.row_missing
+      missing_cell_value = self._pxmetadata_model.dataset.cell_missing
+
+      out_data = [init_value]*matrix_size 
+      
 
       column_code_map = self.GetMeasurementColumnCodeMapping()
-
+      print("DEBUG: before GetTidyDF", datetime.now())
       df =  self._parquet.GetTidyDF(self._config.contvariable_code, column_code_map)
-
+      print("DEBUG: after GetTidyDF", datetime.now())
       #print(df.columns)
       #for col in self._for_get_data_by_varid.values():
       #   print(col.GetDebugString())
 
       for _ , row in df.iterrows():
-         m_index = 0
+         #m_index = 0
          #print ("row:",row)
-         for col in self._for_get_data_by_varid.values():
-            tmp_int = col.getIndexContrib(row)
-            m_index = m_index + tmp_int
-            
+         #for col in self._for_get_data_by_varid.values():
+         #   tmp_int = col.getIndexContrib(row)
+         #   m_index = m_index + tmp_int
+         
+         #chat suggested this to speed up, but the effect is not huge
+         m_index = sum(col.getIndexContrib(row) for col in self._for_get_data_by_varid.values())
+
+
+
          if row["VALUE"]: 
            the_data = str(row['VALUE'])
            #TODO: decimals
          else:
-           the_data = row['SYMBOL']
+           if row['SYMBOL']:
+              the_data = row['SYMBOL']
+           else:
+               the_data = missing_cell_value
+
          out_data[m_index] = the_data   
 
       out_model.data.set(out_data)
-
+      print("DEBUG: GetData done", datetime.now())
 
    def AddMetaIds(self, out_model:PXFileModel) -> None:
      
