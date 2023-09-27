@@ -42,7 +42,8 @@
           "no": "alder",
           "en": "age"
         },
-        "notes": null
+        "notes": null,
+		"metaId": ["urn:ssb:classification:klass:282"]
       },
       {
         "columnName": "REGION",
@@ -74,7 +75,8 @@
           "no": "kjønn",
           "en": "sex"
         },
-        "notes": null
+        "notes": null,
+		"metaId": ["urn:ssb:classification:klass:2"]
       }
     ],
     "measurements": [
