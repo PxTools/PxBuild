@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-from typing import List
+from typing import List, Dict
 
 from pxtool.models.input.pydantic_pxmetadata import PxMetadata
 from pxtool.models.input.pydantic_pxtoolconfig import Pxtoolconfig
@@ -10,7 +10,7 @@ from pxtool.models.input.pydantic_pxstatistics import PxStatistics
 from pxtool.models.output.pxfile.px_file_model import PXFileModel
 
 from .datafile import ParquetDatasource
-from .for_get_data import ForGetData
+from .for_get_data import ForGetData, DataFormatter
 
 class LoadFromPxmetadata():
    LabelConstructionOptionDict={"LabelConstructionOption.text":0, "LabelConstructionOption.code":1,"LabelConstructionOption.text_code":3, "LabelConstructionOption.code_text":2}
@@ -63,7 +63,7 @@ class LoadFromPxmetadata():
       self._parquet = ParquetDatasource(data_file_path)
       #self._parquet.PrintColumns()
 
-      self._for_get_data_by_varid = {} 
+      self._for_get_data_by_varid:Dict[str, ForGetData] = dict()
       
      
 
@@ -193,7 +193,10 @@ class LoadFromPxmetadata():
 
          out_data[m_index] = the_data   
 
-      out_model.data.set(out_data)
+      formatter = DataFormatter(self._heading, self._for_get_data_by_varid)
+      number_of_columns_per_line = formatter.CalculateLineBreak()
+
+      out_model.data.set(out_data, number_of_columns_per_line)
       print("DEBUG: GetData done", datetime.now())
 
    def AddMetaIds(self, out_model:PXFileModel) -> None:

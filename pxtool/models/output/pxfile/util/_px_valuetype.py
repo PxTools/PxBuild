@@ -81,12 +81,22 @@ class _PxBool:
         return self._bool
 
 class _PxData:
-    def __init__(self, the_data:list) -> None:
+    def __init__(self, the_data:list, columns_per_line:int) -> None:
         self._data = the_data
+        self._columns_per_line = columns_per_line
 
 
     def __str__(self):
-            return " ".join(self._data)
+        data_string = ""
+        for i, data_cell in enumerate(self._data):
+            if i > 0:
+                if i % self._columns_per_line == 0:
+                    data_string += "\n"
+                else:
+                    data_string += " "
+            data_string += data_cell
+
+        return data_string
     
     def get_value(self):
         return self._data
