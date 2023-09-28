@@ -40,10 +40,10 @@ def getKeyType(has_lang:bool,subkeys:dict,multi:bool) -> str:
 SpecRow = namedtuple("SpecRow", ['px_keyword', 'is_lang_dependent', 'is_Mandatory', 'completeness_type','med_ut','ut_default', 'px_SubKey', 'is_SubKey_Optional', 'is_duplicate_keypart_allowed_', 'px_valuetype', 'px_valuetype_params', 'linevalidate', 'px_comment','from_pdf'] )
 
 #Tja, de er jo python typer alle sammen. Så det er vel typen til parameter i set funksjonen vs den typen som lagres value i super klassen
-to_native_types={"_PxStringList":"list[str]","_PxString":"str","_PxBool":"bool","_PxInt":"int","_PxData":"list"}
+to_native_types={"_PxStringList":"list[str]","_PxString":"str","_PxBString":"str","_PxBool":"bool","_PxInt":"int","_PxData":"list"}
 
 #contains list of validation method-stubs for valueTypes. The keyWord and inputvalue is added in generation. 
-valuetype_line_val = {"_PxStringList":["is_not_None(","is_list_of_strings("],"_PxString":["is_not_None(","is_string("],"_PxBool":["is_not_None(","is_bool("],"_PxInt":["is_not_None(","is_int("]}
+valuetype_line_val = {"_PxStringList":["is_not_None(","is_list_of_strings("],"_PxString":["is_not_None(","is_string("],"_PxBString":["is_not_None(","is_string("],"_PxBool":["is_not_None(","is_bool("],"_PxInt":["is_not_None(","is_int("]}
 
 
 class MyKeyword:

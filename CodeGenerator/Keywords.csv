@@ -23,7 +23,7 @@ SUBJECT-CODE;;X;;J;;;;;_PxString;;;Subject area code. It is used to create files
 SUBJECT-AREA;True;X;Lang;J;;;;;_PxString;;;Text  for Subject area code;"The name of the subject area in plain text, as shown in the menu ""Select subject area"". The text must not exceed 256 characters (new length in 2008)."
 CONFIDENTIAL;;;;N;;;;;_PxInt;;;Not in use.  ;
 COPYRIGHT;;;;F;;;;;_PxBool;;;If true the copyright refers to the organization given in SOURCE;
-DESCRIPTION;True;X;Lang;J;;;;;_PxString;;;Use title instead?;If a file contains DESCRIPTION, when fetching from a disk, this text is used to show the contents of the disk. C.f. TITLE. If the user wants to save a file in PC-AXIS and writes a text that describes the file, this text will be saved as DESCRIPTION. The text will be used to show the contents of tables in the SUBJECT AREA. The text is not presented as a note nor in any other way when the table is presented on the screen unless the keyword DESCRIPTIONDEFAULT is used. In this case the description is shown instead of the title
+DESCRIPTION;True;;Lang;J;;;;;_PxString;;;Use title instead?;If a file contains DESCRIPTION, when fetching from a disk, this text is used to show the contents of the disk. C.f. TITLE. If the user wants to save a file in PC-AXIS and writes a text that describes the file, this text will be saved as DESCRIPTION. The text will be used to show the contents of tables in the SUBJECT AREA. The text is not presented as a note nor in any other way when the table is presented on the screen unless the keyword DESCRIPTIONDEFAULT is used. In this case the description is shown instead of the title
 TITLE;True;X;Lang;J;;;;;_PxString;;;The title of the table, reflecting its contents and variables;"The title of the table, reflecting its contents and variables. Is not needed if the file contains DESCRIPTION, in that case the text belonging to description is used. How the heading of a table will look depends on which variables the user chooses; the heading thus created will then be saved as TITLE. (Compare also DESCRIPTIONDEFAULT)If the file contains DESCRIPTION the text for this key word will be used."
 DESCRIPTIONDEFAULT;;;;F;;;;;_PxBool;;;Not in normal use.;"For some languages it is difficult to build a table title dynamically. The keyword DESCRIPTIONDEFAULT=YES; means that the text after keyword Description will be used as title for the table."
 CONTVARIABLE;True;;X;J;;;;;_PxString;;;which variable is the content variable;
@@ -44,7 +44,7 @@ HIERARCHYLEVELSOPEN;True;;EachVariable;F;;variable:str;;;_PxInt;;;Not in normal 
 HIERARCHYNAMES;True;;EachVariable;F;;variable:str;;;_PxStringList;;;Not in normal use. See pdf;
 MAP;True;;Lang;?;;variable:str;;;_PxString;;;"Used for a geographic variable for which maps can be made. Example: ""Sweden_municipality"".";
 PARTITIONED;True;;TODO;N;;variable:str;;y;_PxStringList;;;string , int (,int) , see pdf;
-ELIMINATION;True;;Lang;J;;variable:str;;;_PxString;;;bool eller string;
+ELIMINATION;True;;Lang;J;;variable:str;;;_PxBString;;;bool eller string;
 PRECISION;True;;EachVarVal;F;;variable:str, value:str;;;_PxInt;;in_range(1,6,;Determines that the value shall be presented with a number of decimals that differs from the keyword SHOWDECIMALS;
 LAST-UPDATED;True;;AllContent;J?;;content:str=None;;;_PxString;;;latest update  in pxdate format;
 STOCKFA;True;;AllContent;F;;content:str=None;;;_PxString;;"regexp_string(""^(S|F|A)$"",";Indicates if data is stock, flow or average.  Used characters: S (stock), F (flow) and A (average) ;
