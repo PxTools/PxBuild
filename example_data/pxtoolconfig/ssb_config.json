@@ -11,13 +11,13 @@
   "contvariable": { "no": "statistikkvariabel" , "en": "contents"  } ,
   "contvariableCode": "ContentsCode",
   "timevariableCode": "Tid",
-  "datasymbol1": { "no": "..", "en": ".."  },
-  "datasymbol2": { "no": "...", "en": "..."  },
+  "datasymbol1": { "no": ".", "en": "."  },
+  "datasymbol2": { "no": "..", "en": ".."  },
   "datasymbol3": { "no": ":", "en": ":"  },
   "datasymbol4": null,
   "datasymbol5": null,
   "datasymbol6": null,
-  "datasymbolNil": { "no": "-", "en": "-"  },
+  "datasymbolNil": { "no": ".", "en": "."  },
   "datasymbolSum": { "no": ".", "en": "."  },
   "source": { "no": "Statistisk sentralbyrå", "en": "Statistics Norway"  } 
 }
