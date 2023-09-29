@@ -10,8 +10,9 @@ from pxtool.models.input.pydantic_pxstatistics import PxStatistics
 
 from pxtool.models.output.pxfile.px_file_model import PXFileModel
 
-from .datafile import ParquetDatasource
-from .for_get_data import ForGetData, DataFormatter
+from .helpers.parquet_datasource import ParquetDatasource
+from .helpers.for_get_data import ForGetData
+from .helpers.data_formatter import DataFormatter
 
 class LoadFromPxmetadata():
    LabelConstructionOptionDict={"LabelConstructionOption.text":0, "LabelConstructionOption.code":1,"LabelConstructionOption.text_code":3, "LabelConstructionOption.code_text":2}
