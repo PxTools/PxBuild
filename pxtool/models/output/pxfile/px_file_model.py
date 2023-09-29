@@ -25,14 +25,14 @@ from pxtool.models.output.pxfile.keywords._copyright import _Copyright
 from pxtool.models.output.pxfile.keywords._description import _Description
 from pxtool.models.output.pxfile.keywords._title import _Title
 from pxtool.models.output.pxfile.keywords._descriptiondefault import _Descriptiondefault
-from pxtool.models.output.pxfile.keywords._contvariable import _Contvariable
 from pxtool.models.output.pxfile.keywords._contents import _Contents
-from pxtool.models.output.pxfile.keywords._units import _Units
 from pxtool.models.output.pxfile.keywords._stub import _Stub
 from pxtool.models.output.pxfile.keywords._heading import _Heading
+from pxtool.models.output.pxfile.keywords._contvariable import _Contvariable
 from pxtool.models.output.pxfile.keywords._values import _Values
 from pxtool.models.output.pxfile.keywords._timeval import _Timeval
 from pxtool.models.output.pxfile.keywords._codes import _Codes
+from pxtool.models.output.pxfile.keywords._units import _Units
 from pxtool.models.output.pxfile.keywords._doublecolumn import _Doublecolumn
 from pxtool.models.output.pxfile.keywords._prestext import _Prestext
 from pxtool.models.output.pxfile.keywords._domain import _Domain
@@ -147,22 +147,22 @@ class PXFileModel:
         """The title of the table, reflecting its contents and variables"""
         self.descriptiondefault = _Descriptiondefault()
         """Not in normal use."""
-        self.contvariable = _Contvariable()
-        """which variable is the content variable"""
         self.contents = _Contents()
         """Sort of a base title?"""
-        self.units = _Units()
-        """Unit text, e.g. ton, NOK"""
         self.stub = _Stub()
         """Variables in stub"""
         self.heading = _Heading()
         """Variables in heading"""
+        self.contvariable = _Contvariable()
+        """which variable is the content variable"""
         self.values = _Values()
         """Labels of the values for the variable."""
         self.timeval = _Timeval()
         """See pdf. TLIST(A1, ”1994”-”1996”);  eller TLIST(A1), ”1994”, ”1995”,"1996”; """
         self.codes = _Codes()
         """Codes of the values for the variable."""
+        self.units = _Units()
+        """Unit text, e.g. ton, NOK"""
         self.doublecolumn = _Doublecolumn()
         """This keyword is used to get code and text in separate columns for the specified variable """
         self.prestext = _Prestext()

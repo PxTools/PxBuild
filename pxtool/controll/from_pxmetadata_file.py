@@ -87,7 +87,7 @@ class LoadFromPxmetadata():
 
       out_model = PXFileModel()
       out_model.language.set(self._current_lang)
-
+      
       self.MapPxtoolconfigToPXFileModel(self._config, out_model)
 
       self.AddPxMetadataToPXFileModel(self._pxmetadata_model, out_model)
