@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._autopen import _Autopen
+from pxtool.models.output.pxfile.keywords._autopen import _Autopen
     
 def test_Autopen_set_valid():
     obj = _Autopen()

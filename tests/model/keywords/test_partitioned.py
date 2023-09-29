@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._partitioned import _Partitioned
+from pxtool.models.output.pxfile.keywords._partitioned import _Partitioned
     
 def test_Partitioned_set_valid():
     obj = _Partitioned()

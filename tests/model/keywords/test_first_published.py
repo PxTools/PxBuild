@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._first_published import _FirstPublished
+from pxtool.models.output.pxfile.keywords._first_published import _FirstPublished
     
 def test_FirstPublished_set_valid():
     obj = _FirstPublished()

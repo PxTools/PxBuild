@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._codepage import _Codepage
+from pxtool.models.output.pxfile.keywords._codepage import _Codepage
     
 def test_Codepage_set_valid():
     obj = _Codepage()

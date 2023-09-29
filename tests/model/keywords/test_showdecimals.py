@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._showdecimals import _Showdecimals
+from pxtool.models.output.pxfile.keywords._showdecimals import _Showdecimals
     
 def test_Showdecimals_set_valid():
     obj = _Showdecimals()

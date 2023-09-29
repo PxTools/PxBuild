@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._tableid import _Tableid
+from pxtool.models.output.pxfile.keywords._tableid import _Tableid
     
 def test_Tableid_set_valid():
     obj = _Tableid()

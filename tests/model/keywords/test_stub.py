@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._stub import _Stub
+from pxtool.models.output.pxfile.keywords._stub import _Stub
     
 def test_Stub_set_valid():
     obj = _Stub()

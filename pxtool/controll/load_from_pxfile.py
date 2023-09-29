@@ -238,7 +238,8 @@ class Loader:
             data_list = []
             for item in items:
                 data_list.append(item.string)
-            self.outModel.data.set(data_list)
+            #self.outModel.data.set()    
+            self.outModel.data.set(data_list,1)
             do_run_exec = False
 
         if do_run_exec:

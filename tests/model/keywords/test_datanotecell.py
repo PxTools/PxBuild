@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._datanotecell import _Datanotecell
+from pxtool.models.output.pxfile.keywords._datanotecell import _Datanotecell
     
 def test_Datanotecell_set_valid():
     obj = _Datanotecell()

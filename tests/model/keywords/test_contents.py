@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._contents import _Contents
+from pxtool.models.output.pxfile.keywords._contents import _Contents
     
 def test_Contents_set_valid():
     obj = _Contents()

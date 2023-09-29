@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._px_server import _PxServer
+from pxtool.models.output.pxfile.keywords._px_server import _PxServer
     
 def test_PxServer_set_valid():
     obj = _PxServer()

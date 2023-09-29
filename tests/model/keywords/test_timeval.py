@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._timeval import _Timeval
+from pxtool.models.output.pxfile.keywords._timeval import _Timeval
     
 def test_Timeval_set_valid():
     obj = _Timeval()

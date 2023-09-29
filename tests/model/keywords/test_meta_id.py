@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._meta_id import _MetaId
+from pxtool.models.output.pxfile.keywords._meta_id import _MetaId
     
 def test_MetaId_set_valid():
     obj = _MetaId()

@@ -1,14 +1,14 @@
-from pxtool.model.px_file_model import PXFileModel
-from pxtool.model.keywords._dayadj import _Dayadj
-from pxtool.operations_on_model.refine.fix_the_variable_type_keyword import (
+from pxtool.models.output.pxfile.px_file_model import PXFileModel
+from pxtool.models.output.pxfile.keywords._dayadj import _Dayadj
+from pxtool.operations_on_model.output.refine.fix_the_variable_type_keyword import (
     fix_the_variable_type_keyword,
 )
-from pxtool.operations_on_model.validator.validate_px import Validate
-from pxtool.operations_on_model.loaders.loader_pxfile import Loader
-from pxtool.operations_on_model.refine.apply_default_language import (
+from pxtool.operations_on_model.output.validator.validate_px import Validate
+from pxtool.controll.load_from_pxfile import Loader
+from pxtool.operations_on_model.output.refine.apply_default_language import (
     apply_default_language,
 )
-from pxtool.operations_on_model.refine.trickle_measurement_to_contentsvalues import (
+from pxtool.operations_on_model.output.refine.trickle_measurement_to_contentsvalues import (
     trickle_measurement_to_contentsvalues,
 )
 

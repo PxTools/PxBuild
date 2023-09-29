@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._note import _Note
+from pxtool.models.output.pxfile.keywords._note import _Note
     
 def test_Note_set_valid():
     obj = _Note()

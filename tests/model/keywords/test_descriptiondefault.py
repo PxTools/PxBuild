@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._descriptiondefault import _Descriptiondefault
+from pxtool.models.output.pxfile.keywords._descriptiondefault import _Descriptiondefault
     
 def test_Descriptiondefault_set_valid():
     obj = _Descriptiondefault()

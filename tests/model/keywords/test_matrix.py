@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._matrix import _Matrix
+from pxtool.models.output.pxfile.keywords._matrix import _Matrix
     
 def test_Matrix_set_valid():
     obj = _Matrix()

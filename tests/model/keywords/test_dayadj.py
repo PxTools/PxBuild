@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._dayadj import _Dayadj
+from pxtool.models.output.pxfile.keywords._dayadj import _Dayadj
     
 def test_Dayadj_set_valid():
     obj = _Dayadj()

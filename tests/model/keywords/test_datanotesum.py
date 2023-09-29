@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._datanotesum import _Datanotesum
+from pxtool.models.output.pxfile.keywords._datanotesum import _Datanotesum
     
 def test_Datanotesum_set_valid():
     obj = _Datanotesum()

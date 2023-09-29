@@ -1,5 +1,5 @@
-from pxtool.operations_on_model.loaders.loader_pxfile import Loader
-from pxtool.model.px_file_model import PXFileModel
+from pxtool.controll.load_from_pxfile import Loader
+from pxtool.models.output.pxfile.px_file_model import PXFileModel
 import pytest
 
 class TestBadStart:

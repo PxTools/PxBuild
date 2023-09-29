@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._cfprices import _Cfprices
+from pxtool.models.output.pxfile.keywords._cfprices import _Cfprices
     
 def test_Cfprices_set_valid():
     obj = _Cfprices()

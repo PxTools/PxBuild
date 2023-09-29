@@ -2,7 +2,7 @@ from SpecReader import SpecReader
 
 intro_fstring ="""\
 import pytest
-from pxtool.model.keywords.{kw.module_name} import {my_class}
+from pxtool.models.output.pxfile.keywords.{kw.module_name} import {my_class}
 """
 
 set_valid_fstring="""    

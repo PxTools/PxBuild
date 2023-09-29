@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._refperiod import _Refperiod
+from pxtool.models.output.pxfile.keywords._refperiod import _Refperiod
     
 def test_Refperiod_set_valid():
     obj = _Refperiod()

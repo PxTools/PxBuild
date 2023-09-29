@@ -1,5 +1,5 @@
-from pxtool.operations_on_model.loaders.loader_pxfile import Loader
-from pxtool.operations_on_model.refine.trickle_measurement_to_contentsvalues import trickle_measurement_to_contentsvalues
+from pxtool.controll.load_from_pxfile import Loader
+from pxtool.operations_on_model.output.refine.trickle_measurement_to_contentsvalues import trickle_measurement_to_contentsvalues
 import pytest
 
 def test_trickle_measurement_to_contentsvalues_raises():

@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._official_statistics import _OfficialStatistics
+from pxtool.models.output.pxfile.keywords._official_statistics import _OfficialStatistics
     
 def test_OfficialStatistics_set_valid():
     obj = _OfficialStatistics()

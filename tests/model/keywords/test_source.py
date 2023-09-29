@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._source import _Source
+from pxtool.models.output.pxfile.keywords._source import _Source
     
 def test_Source_set_valid():
     obj = _Source()

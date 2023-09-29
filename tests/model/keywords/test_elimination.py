@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._elimination import _Elimination
+from pxtool.models.output.pxfile.keywords._elimination import _Elimination
     
 def test_Elimination_set_valid():
     obj = _Elimination()

@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._variable_type import _VariableType
+from pxtool.models.output.pxfile.keywords._variable_type import _VariableType
     
 def test_VariableType_set_valid():
     obj = _VariableType()

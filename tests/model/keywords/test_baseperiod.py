@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._baseperiod import _Baseperiod
+from pxtool.models.output.pxfile.keywords._baseperiod import _Baseperiod
     
 def test_Baseperiod_set_valid():
     obj = _Baseperiod()

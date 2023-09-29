@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._stockfa import _Stockfa
+from pxtool.models.output.pxfile.keywords._stockfa import _Stockfa
     
 def test_Stockfa_set_valid():
     obj = _Stockfa()

@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._database import _Database
+from pxtool.models.output.pxfile.keywords._database import _Database
     
 def test_Database_set_valid():
     obj = _Database()

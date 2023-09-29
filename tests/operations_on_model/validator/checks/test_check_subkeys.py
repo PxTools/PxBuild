@@ -1,5 +1,5 @@
-from pxtool.model.px_file_model import PXFileModel
-from pxtool.operations_on_model.validator.checks.check_subkeys import check_valuebased_subkeys 
+from pxtool.models.output.pxfile.px_file_model import PXFileModel
+from pxtool.operations_on_model.output.validator.checks.check_subkeys import check_valuebased_subkeys 
 
 import pytest
 

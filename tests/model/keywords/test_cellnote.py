@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._cellnote import _Cellnote
+from pxtool.models.output.pxfile.keywords._cellnote import _Cellnote
     
 def test_Cellnote_set_valid():
     obj = _Cellnote()

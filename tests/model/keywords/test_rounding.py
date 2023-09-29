@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._rounding import _Rounding
+from pxtool.models.output.pxfile.keywords._rounding import _Rounding
     
 def test_Rounding_set_valid():
     obj = _Rounding()

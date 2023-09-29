@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._notex import _Notex
+from pxtool.models.output.pxfile.keywords._notex import _Notex
     
 def test_Notex_set_valid():
     obj = _Notex()

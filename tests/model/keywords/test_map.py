@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._map import _Map
+from pxtool.models.output.pxfile.keywords._map import _Map
     
 def test_Map_set_valid():
     obj = _Map()

@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._datanote import _Datanote
+from pxtool.models.output.pxfile.keywords._datanote import _Datanote
     
 def test_Datanote_set_valid():
     obj = _Datanote()

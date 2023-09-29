@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._confidential import _Confidential
+from pxtool.models.output.pxfile.keywords._confidential import _Confidential
     
 def test_Confidential_set_valid():
     obj = _Confidential()

@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.util._line_validator import LineValidator
+from pxtool.models.output.pxfile.util._line_validator import LineValidator
 
 def test_is_not_None_raises():
     with pytest.raises(Exception, match="MY_KEYWORD: value is empty"):

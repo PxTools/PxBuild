@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._prestext import _Prestext
+from pxtool.models.output.pxfile.keywords._prestext import _Prestext
     
 def test_Prestext_set_valid():
     obj = _Prestext()

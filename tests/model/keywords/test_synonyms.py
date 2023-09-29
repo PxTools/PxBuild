@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._synonyms import _Synonyms
+from pxtool.models.output.pxfile.keywords._synonyms import _Synonyms
     
 def test_Synonyms_set_valid():
     obj = _Synonyms()

@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._directory_path import _DirectoryPath
+from pxtool.models.output.pxfile.keywords._directory_path import _DirectoryPath
     
 def test_DirectoryPath_set_valid():
     obj = _DirectoryPath()

@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._charset import _Charset
+from pxtool.models.output.pxfile.keywords._charset import _Charset
     
 def test_Charset_set_valid():
     obj = _Charset()

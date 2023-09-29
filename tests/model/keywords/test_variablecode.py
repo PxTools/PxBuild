@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._variablecode import _Variablecode
+from pxtool.models.output.pxfile.keywords._variablecode import _Variablecode
     
 def test_Variablecode_set_valid():
     obj = _Variablecode()

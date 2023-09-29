@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.util._px_valuetype import _PxStringList
+from pxtool.models.output.pxfile.util._px_valuetype import _PxStringList
 
 def test_PxStringList_wrong_type_raises():
     with pytest.raises(ValueError, match="list_of_strings must be list not <class 'str'>"):

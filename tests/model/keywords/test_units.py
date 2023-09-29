@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._units import _Units
+from pxtool.models.output.pxfile.keywords._units import _Units
     
 def test_Units_set_valid():
     obj = _Units()

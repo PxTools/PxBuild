@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._doublecolumn import _Doublecolumn
+from pxtool.models.output.pxfile.keywords._doublecolumn import _Doublecolumn
     
 def test_Doublecolumn_set_valid():
     obj = _Doublecolumn()

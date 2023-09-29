@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._subject_code import _SubjectCode
+from pxtool.models.output.pxfile.keywords._subject_code import _SubjectCode
     
 def test_SubjectCode_set_valid():
     obj = _SubjectCode()

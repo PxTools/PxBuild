@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.model.keywords._hierarchylevelsopen import _Hierarchylevelsopen
+from pxtool.models.output.pxfile.keywords._hierarchylevelsopen import _Hierarchylevelsopen
     
 def test_Hierarchylevelsopen_set_valid():
     obj = _Hierarchylevelsopen()
