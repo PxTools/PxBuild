@@ -17,7 +17,7 @@ class _KeytypeLang():
         self.lang=lang
         
     def __str__(self):
-        return  f"[\"{self.lang}\"]" if self.lang else "" 
+        return  f"[{self.lang}]" if self.lang else "" 
 
     def __eq__(self, other):
         if type(self) == type(other):

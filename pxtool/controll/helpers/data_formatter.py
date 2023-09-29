@@ -1,4 +1,5 @@
 from typing import List, Dict
+from pxtool.controll.helpers.for_get_data import ForGetData
 
 class DataFormatter:
   def __init__(self, heading:List[str], variables:Dict[str, ForGetData]) -> None:
