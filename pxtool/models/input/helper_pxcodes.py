@@ -49,11 +49,11 @@ class HelperPxCodes:
         return myOut
     
 
-    def getNotes(self):
+    def getNotes(self, language:str):
         my_out:Dict[str, List[Note]] = dict()
 
         for valueitem in self._pxcodes.valueitems:
             if valueitem.notes:
-                my_out[str(valueitem.code)] = valueitem.notes
+                my_out[str(valueitem.label[language])] = valueitem.notes
        
         return my_out 

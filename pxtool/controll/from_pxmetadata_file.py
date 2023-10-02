@@ -311,7 +311,7 @@ class LoadFromPxmetadata():
                else:
                   out_model.note.set(note.text[lang], my_funny_var_id, lang)
           #Note on a value in variale
-          my_value_notes = my_pxcodes_helper.getNotes()
+          my_value_notes = my_pxcodes_helper.getNotes(lang)
           if my_value_notes:
               for code in my_value_notes: 
                   for note in my_value_notes[code]:
