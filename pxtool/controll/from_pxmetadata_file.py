@@ -303,13 +303,22 @@ class LoadFromPxmetadata():
 
              self._metaid_valiable[my_funny_var_id] += my_var.meta_id
 
+          #Note on variable
           if my_var.notes:
              for note in my_var.notes:
                if note.is_mandatory:
                   out_model.notex.set(note.text[lang], my_funny_var_id, lang)
                else:
                   out_model.note.set(note.text[lang], my_funny_var_id, lang)
- 
+          #Note on a value in variale
+          my_value_notes = my_pxcodes_helper.getNotes()
+          if my_value_notes:
+              for code in my_value_notes: 
+                  for note in my_value_notes[code]:
+                     if note.is_mandatory:
+                        out_model.valuenotex.set(note.text[lang], my_funny_var_id, code, lang)
+                     else:
+                        out_model.valuenote.set(note.text[lang], my_funny_var_id, code, lang)
 
           for_get_data = ForGetData(my_var.column_name, my_pxcodes_helper.getCodes( lang))
           self._for_get_data_by_varid[my_funny_var_id] = for_get_data 

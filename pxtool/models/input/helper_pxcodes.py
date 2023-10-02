@@ -1,4 +1,4 @@
-from .pydantic_pxcodes import PxCodes, Valueitem
+from .pydantic_pxcodes import PxCodes, Valueitem, Note
 from typing import Dict, List, Optional
 
 
@@ -47,4 +47,13 @@ class HelperPxCodes:
                     myOut = item.label[language]
                     break  
         return myOut
+    
 
+    def getNotes(self):
+        my_out:Dict[str, List[Note]] = dict()
+
+        for valueitem in self._pxcodes.valueitems:
+            if valueitem.notes:
+                my_out[str(valueitem.code)] = valueitem.notes
+       
+        return my_out 
