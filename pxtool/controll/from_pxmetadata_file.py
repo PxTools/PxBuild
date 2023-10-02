@@ -265,39 +265,37 @@ class LoadFromPxmetadata():
 
    def MapCodedDimensions(self, out_model:PXFileModel):
       if self._pxmetadata_model.dataset.coded_dimensions:
+        lang = self._current_lang
         for my_var in self._pxmetadata_model.dataset.coded_dimensions: 
-          my_funny_var_id = my_var.label[self._current_lang]
+          my_funny_var_id = my_var.label[lang]
           self._stub.append(my_funny_var_id)
           my_var_code = my_var.code if my_var.code is not None else my_var.column_name
-          out_model.variablecode.set(my_var_code, my_funny_var_id ,self._current_lang)
+          out_model.variablecode.set(my_var_code, my_funny_var_id, lang)
           my_codes:PxCodes = self._resolved_pxcodes_ids[my_var.codelist_id]
 
           my_pxcodes_helper = self._pxcodes_helper[my_var.codelist_id]
 
-          temp_codes = my_pxcodes_helper.getCodes(self._current_lang)
-          out_model.codes.set(temp_codes,my_funny_var_id,self._current_lang) 
+          temp_codes = my_pxcodes_helper.getCodes(lang)
+          out_model.codes.set(temp_codes,my_funny_var_id, lang) 
 
-          temp_values = my_pxcodes_helper.getLabels(self._current_lang)
-          out_model.values.set(temp_values,my_funny_var_id,self._current_lang)   
+          temp_values = my_pxcodes_helper.getLabels(lang)
+          out_model.values.set(temp_values,my_funny_var_id, lang)   
 
           if my_var.is_geo_variable_type:
-             out_model.variable_type.set("G", my_funny_var_id,self._current_lang) 
+             out_model.variable_type.set("G", my_funny_var_id, lang) 
           else:
-             out_model.variable_type.set("N", my_funny_var_id,self._current_lang) 
+             out_model.variable_type.set("N", my_funny_var_id, lang) 
 
-          out_model.prestext.set( self.LabelConstructionOptionDict[str(my_var.label_construction_option)], my_funny_var_id,self._current_lang) 
+          out_model.prestext.set( self.LabelConstructionOptionDict[str(my_var.label_construction_option)], my_funny_var_id, lang) 
            
-          #my_pxcodes_helper.elimination_possible
-          #my_pxcodes_helper.elimination_label
-
           if not my_pxcodes_helper.elimination_possible:
-             out_model.elimination.set("NO", my_funny_var_id,self._current_lang)
+             out_model.elimination.set("NO", my_funny_var_id, lang)
           else:
-             label = my_pxcodes_helper.getEliminationLabel(self._current_lang)
+             label = my_pxcodes_helper.getEliminationLabel( lang)
              if label:
-               out_model.elimination.set(label, my_funny_var_id,self._current_lang)
+               out_model.elimination.set(label, my_funny_var_id, lang)
              else:
-                out_model.elimination.set("YES", my_funny_var_id,self._current_lang)
+                out_model.elimination.set("YES", my_funny_var_id, lang)
          
           if my_var.meta_id:
              if not my_funny_var_id in self._metaid_valiable:
@@ -305,7 +303,15 @@ class LoadFromPxmetadata():
 
              self._metaid_valiable[my_funny_var_id] += my_var.meta_id
 
-          for_get_data = ForGetData(my_var.column_name, my_pxcodes_helper.getCodes(self._current_lang))
+          if my_var.notes:
+             for note in my_var.notes:
+               if note.is_mandatory:
+                  out_model.notex.set(note.text[lang], my_funny_var_id, lang)
+               else:
+                  out_model.note.set(note.text[lang], my_funny_var_id, lang)
+ 
+
+          for_get_data = ForGetData(my_var.column_name, my_pxcodes_helper.getCodes( lang))
           self._for_get_data_by_varid[my_funny_var_id] = for_get_data 
 
 
