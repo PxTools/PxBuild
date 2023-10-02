@@ -94,7 +94,11 @@ class MyKeyword:
             self.valueParams.update({"TODO":"str"})
           
         
+        if(self.keyword == "DATA"):
+            self.valueParams.update({"columns_per_line":"int"})
+
         params_in_setDict = self.valueParams.copy()
+
         if self.keyParams:
             params_in_setDict.update(self.keyParams.items())
 
@@ -152,6 +156,9 @@ class MyKeyword:
 
         # valuetype_contructor
         fileHandle.write(f"        my_value = {self.classnames['Value']}({DictAsCall(self.valueParams)})\n")
+
+        if(self.keyword == "DATA"):
+            self.valueParams.pop("columns_per_line")
 
         # keytype_contructor (except for "pure" keywords )
         if self.classnames["Key"]:
