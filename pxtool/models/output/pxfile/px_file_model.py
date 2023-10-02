@@ -270,7 +270,7 @@ class PXFileModel:
     def __str__(self):
         attrs = vars(self)
         attr_strings = [str(value) for value in attrs.values() if str(value) != ""]
-        return "\n".join(attr_strings)
+        return "UNITS=\"This file was created from pxtool.\";\n" + "\n".join(attr_strings)
 
     def get_attribute(self, name:str) -> _SuperKeyword:
         return getattr(self, name)
