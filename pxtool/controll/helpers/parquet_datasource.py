@@ -26,7 +26,7 @@ class ParquetDatasource:
        # Get distinct values from the column
        distinct_values = column_data.unique()
        asList=distinct_values.tolist()
-       asSortedList=sorted(asList)
+       asSortedList=sorted(asList, reverse=True)
        return asSortedList
 
    def GetIdentifierColumns(self, all_columns:list, measurement_map:dict) -> List[str]:
