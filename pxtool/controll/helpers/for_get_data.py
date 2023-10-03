@@ -14,18 +14,6 @@ class ForGetData:
        self.factor:int = -1
        """This depends on the desired output order of the variables. Is the (math) product of _length_of_codelist of the previous variables """
 
-    def getIndexContrib(self,row) -> int:
-        myCode = row[self._colname_in_dataframe]
-        if not myCode in self._position_of_value:
-          print("Cant find ",myCode, "in", self._position_of_value.keys())
-
-        myPos = self._position_of_value[myCode]
-
-        #print("faktor:",self.factor, "myPos", myPos )
-
-        return self.factor*myPos
-    
-
     def GetDebugString(self) -> List:
        return ["colname", self._colname_in_dataframe, "N:", self._length_of_codelist, "self.factor", self.factor]
 

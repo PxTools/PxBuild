@@ -1,5 +1,8 @@
 import json
 from datetime import datetime
+import time
+import pandas as pd
+import numpy as np
 from typing import List, Dict
 
 from pxtool.models.input.pydantic_pxmetadata import PxMetadata
@@ -155,54 +158,74 @@ class LoadFromPxmetadata():
     #/// index = Factor_k*(k-1) + Factor_j*(j-1) + Factor_i(i-1) </remarks>
     #  in python things are zero-based but the idea is the same
     #/// </summary>
-
-     # print(self._parquet.GetTidyDF(self._config.contvariable_code))
+      start_GetData = time.time()
 
       matrix_size = self.CalculateFactor()
 
-
       init_value = self._pxmetadata_model.dataset.row_missing
-      missing_cell_value = self._pxmetadata_model.dataset.cell_missing
+      missing_cell_symbol = self._pxmetadata_model.dataset.cell_missing
 
-      out_data = [init_value]*matrix_size 
-      
-
+    
       column_code_map = self.GetMeasurementColumnCodeMapping()
-      print("DEBUG: before GetTidyDF", datetime.now())
+
+      start_tidy = time.time()
       df =  self._parquet.GetTidyDF(self._config.contvariable_code, column_code_map)
-      print("DEBUG: after GetTidyDF", datetime.now())
-      #print(df.columns)
-      #for col in self._for_get_data_by_varid.values():
-      #   print(col.GetDebugString())
+ 
+      end_tidy = time.time()
+      time_used_tidy = end_tidy-start_tidy
+      print('Time: GetTidyDF:', time_used_tidy)
 
-      for _ , row in df.iterrows():
-         #m_index = 0
-         #print ("row:",row)
-         #for col in self._for_get_data_by_varid.values():
-         #   tmp_int = col.getIndexContrib(row)
-         #   m_index = m_index + tmp_int
-         
-         #chat suggested this to speed up, but the effect is not notisable. But it reads better?
-         m_index = sum(col.getIndexContrib(row) for col in self._for_get_data_by_varid.values())
+      self.add_out_index(df)
+      self.add_out_value(missing_cell_symbol, df)
+      merged_df = self.add_missing_rows(matrix_size, init_value, df)
 
+      out_data = merged_df['out_value'].tolist()
 
-
-         if row["VALUE"]: 
-           the_data = str(row['VALUE'])
-           #TODO: decimals
-         else:
-           if row['SYMBOL']:
-              the_data = row['SYMBOL']
-           else:
-               the_data = missing_cell_value
-
-         out_data[m_index] = the_data   
-
+      merged_df = merged_df.sort_values(by=['out_index'])
       formatter = DataFormatter(self._heading, self._for_get_data_by_varid)
       number_of_columns_per_line = formatter.CalculateLineBreak()
 
       out_model.data.set(out_data, number_of_columns_per_line)
-      print("DEBUG: GetData done", datetime.now())
+
+      end_GetData = time.time()
+      time_used_GetData = end_GetData-start_GetData
+      print('Time: GetData:', time_used_GetData)
+
+   def add_missing_rows(self, matrix_size, init_value, df):
+       matrix_df = pd.DataFrame({'out_index': range(matrix_size)})
+
+
+      # Merge the two DataFrames
+       merged_df = pd.merge(matrix_df, df, on='out_index', how='left')
+
+      # Fill missing values with "MISSING"
+       merged_df['out_value'].fillna(init_value, inplace=True)
+       return merged_df
+
+   def add_out_value(self, missing_cell_symbol, df):
+       conditions = [df['VALUE'] != "", 
+                    df['SYMBOL'] != ""
+                    ]
+
+       choices = [
+         df['VALUE'].astype(str),
+         df['SYMBOL'].astype(str)
+      ]
+
+       start = time.time()
+       df['out_value'] = np.select(conditions, choices, missing_cell_symbol)
+       end = time.time()
+       time_used = end-start
+       print('Time: numpy select in:', time_used)
+
+   def add_out_index(self, df):
+       columns_to_sum = []
+       for col in self._for_get_data_by_varid.values():
+         # Mapping the values using the dictionary 
+          contribColName=  'int_'+col._colname_in_dataframe
+          df[contribColName] = df[col._colname_in_dataframe].map(col._position_of_value) * col.factor
+          columns_to_sum.append(contribColName)
+       df['out_index'] = df[columns_to_sum].sum(axis=1)
 
    def AddMetaIds(self, out_model:PXFileModel) -> None:
      
