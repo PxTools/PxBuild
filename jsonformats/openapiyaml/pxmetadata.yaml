@@ -164,10 +164,10 @@ components:
                   labelConstructionOption:
                     type: string
                     enum:
-                      - text
                       - code
-                      - text_code
+                      - text
                       - code_text
+                      - text_code
                     default: text
                     description: Construct label for codelist entry as text or code or text then code or code then text
                   label:

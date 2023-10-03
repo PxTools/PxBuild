@@ -15,7 +15,8 @@ from .helpers.for_get_data import ForGetData
 from .helpers.data_formatter import DataFormatter
 
 class LoadFromPxmetadata():
-   LabelConstructionOptionDict={"LabelConstructionOption.text":0, "LabelConstructionOption.code":1,"LabelConstructionOption.text_code":3, "LabelConstructionOption.code_text":2}
+   LabelConstructionOptionDict={"LabelConstructionOption.code":0,"LabelConstructionOption.text":1, "LabelConstructionOption.code_text":2, "LabelConstructionOption.text_code":3}
+
 
 
    def __init__(self, filename: str, sourceType:str) -> None:
