@@ -12,6 +12,7 @@ from pxtool.models.input.helper_pxcodes import HelperPxCodes
 from pxtool.models.input.pydantic_pxstatistics import PxStatistics
 
 from pxtool.models.output.pxfile.px_file_model import PXFileModel
+from pxtool.models.output.agg_vs.vs_file_model import _VSFileModel
 
 from .helpers.parquet_datasource import ParquetDatasource
 from .helpers.for_get_data import ForGetData
@@ -116,7 +117,7 @@ class LoadFromPxmetadata():
       self.AddMetaIds(out_model)
       
 
-      self.GetData(out_model)
+  #    self.GetData(out_model)
       
       temp_tabid= self._pxmetadata_id
       out_file= 'example_data/pxtool_output/output_'+temp_tabid+'/tab_'+temp_tabid+'.px'
@@ -124,6 +125,11 @@ class LoadFromPxmetadata():
              print(out_model, file=f)
 
       print("File written to:",out_file)
+      
+      #out_vs_model=_VSFileModel()
+      #self.makeVsFile(out_vs_model)
+
+      self.makeVsFile()      
 
 
 
@@ -304,6 +310,12 @@ class LoadFromPxmetadata():
 
           temp_values = my_pxcodes_helper.getLabels(lang)
           out_model.values.set(temp_values,my_funny_var_id, lang)   
+          if my_codes.groupings:
+             
+             my_domain_id=MakeDomainId(my_var.codelist_id,self._current_lang)
+             out_model.domain.set(my_domain_id,my_funny_var_id,self._current_lang)
+          
+
 
           if my_var.is_geo_variable_type:
              out_model.variable_type.set("G", my_funny_var_id, lang) 
@@ -473,6 +485,45 @@ class LoadFromPxmetadata():
 
 
        out_model.source.set(in_config.source[self._current_lang],self._current_lang)  
+   #def makeVsFile(self,out_vs_model:_VSFileModel):
+   def makeVsFile(self):
+          if self._pxmetadata_model.dataset.coded_dimensions:             
+            for my_var in self._pxmetadata_model.dataset.coded_dimensions: 
+               out_vs_model= _VSFileModel()
+               my_var_code = my_var.code
+               #out_model.variablecode.set(my_var_code, my_funny_var_id ,self._current_lang)
+               my_codes:PxCodes = self._resolved_pxcodes_ids[my_var.codelist_id]
+               if my_codes.groupings:
+                  my_funny_var_id = my_var.label[self._current_lang]
+                  vs_name= MakeDomainId(my_var.codelist_id,self._current_lang)
+                  vs_type = "G" if my_var.is_geo_variable_type else "V"
+                  out_vs_model.description.set("Name",vs_name)
+                  out_vs_model.description.set("Type",vs_type)
+                  # if my_codes.groupings:
+                  group_conter=0
+                  for groups in my_codes.groupings:
+                     group_conter = group_conter +1
+                     group_key = str(group_conter)
+                     out_vs_model.aggreg.set(group_key,groups.filename_base + "_" + self._current_lang + ".agg")
+                  my_domain =MakeDomainId(my_var.codelist_id,self._current_lang)  
+                  out_vs_model.domain.set("1",my_domain) 
+                  
+                  my_sorted_value_items = self._pxcodes_helper[my_var.codelist_id] 
+                  value_item_counter=0
+                  for my_item in my_sorted_value_items._sorted_valueitems[self._current_lang]:
+                     value_item_counter = value_item_counter+1
+                     value_item_key = str(value_item_counter)
+                     my_stripped_code=my_item.code.strip("'")
+                     out_vs_model.valuecode.set(value_item_key,my_stripped_code)
+                     my_stripped_text = my_item.label[self._current_lang].strip("'")
+                     out_vs_model.valuetext.set(value_item_key,my_stripped_text)
+                  out_file= 'example_data/pxtool_output/' + my_codes.id + "_" + self._current_lang + ".vs"
+                  with open(out_file, 'w', encoding="utf-8") as f:
+                     print(out_vs_model, file=f)
+                     print("File written to:",out_file)               
+
+
+      
 
         
 def ConvertToPxdateString(date_string:str, date_format:str) -> str:
@@ -480,3 +531,7 @@ def ConvertToPxdateString(date_string:str, date_format:str) -> str:
    px_date_string = dtm_date.strftime(f"%Y%m%d %H:%M")
    
    return px_date_string
+
+def MakeDomainId(code_list_id:str, lang:str) -> str:
+   domain_id = code_list_id + "_" + lang 
+   return domain_id 
