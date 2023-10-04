@@ -508,6 +508,15 @@ class LoadFromPxmetadata():
                   my_domain =MakeDomainId(my_var.codelist_id,self._current_lang)  
                   out_vs_model.domain.set("1",my_domain) 
                   
+                  my_sorted_value_items = self._pxcodes_helper[my_var.codelist_id] 
+                  value_item_counter=0
+                  for my_item in my_sorted_value_items._sorted_valueitems[self._current_lang]:
+                     value_item_counter = value_item_counter+1
+                     value_item_key = str(value_item_counter)
+                     my_stripped_code=my_item.code.strip("'")
+                     out_vs_model.valuecode.set(value_item_key,my_stripped_code)
+                     my_stripped_text = my_item.label[self._current_lang].strip("'")
+                     out_vs_model.valuetext.set(value_item_key,my_stripped_text)
                   out_file= 'example_data/pxtool_output/' + my_codes.id + "_" + self._current_lang + ".vs"
                   with open(out_file, 'w', encoding="utf-8") as f:
                      print(out_vs_model, file=f)

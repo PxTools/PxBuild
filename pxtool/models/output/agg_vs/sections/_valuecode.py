@@ -1,5 +1,5 @@
 from pxtool.models.output.agg_vs.sections._VS_super import _VS_super
-class _Domain(_VS_super): 
+class _Valuecode(_VS_super): 
     key_value_rows:list = []
     
     def __init__(self) -> None:
