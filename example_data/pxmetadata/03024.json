@@ -4,7 +4,7 @@
     "tableId": "03024",
     "storedDecimals": null,
     "statisticsId": "8246",
-    "dataFile": "03024",
+    "dataFile": "output_file03024.parquet",
     "baseTitle": {
       "no": "Eksport av oppalen laks",
       "en": "Export of salmon, fish-farm bred"

@@ -16,7 +16,7 @@ def sort_valueitems_by_field(objects:List[Valueitem], sort_by:str, lang:str):
     return sorted(objects, key=get_sort_key)
 
 class HelperPxCodes:
-    def __init__(self,inPxCodes:PxCodes) -> None:
+    def __init__(self, inPxCodes:PxCodes, inLanguages:List[str]) -> None:
         self._pxcodes= inPxCodes
         self.elimination_possible = inPxCodes.elimination_possible
 
@@ -24,7 +24,7 @@ class HelperPxCodes:
         #print("sortby",sortby,"inPxCodes.sort_valueitems_on",str(inPxCodes.sort_valueitems_on))
 
         self._sorted_valueitems = {}
-        for lang in ["no","en"]: 
+        for lang in inLanguages: 
           self._sorted_valueitems[lang] = sort_valueitems_by_field(inPxCodes.valueitems, sortby,lang)
 
 

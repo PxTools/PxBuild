@@ -2,7 +2,19 @@
   "admin": {
 	"validLanguages": ["no","en"],
 	"theWordAnd": { "no": "og", "en": "and" },
-	"theWordBy": { "no": "etter", "en": "by" }
+	"theWordBy": { "no": "etter", "en": "by" },
+	"pxMetadataResource": {
+		"adressFormat": "example_data/pxmetadata/{id}.json"
+	},
+	"pxStatisticsResource": {
+		"adressFormat": "example_data/pxstatistics/pxstatistics_{id}.json"
+	},
+	"pxCodesResource": {
+		"adressFormat": "example_data/pxcodes/{id}.json"
+	},
+	"pxDataResource": {
+		"adressFormat": "example_data/parquet_files/{id}"
+	}
   },	
   "charset": "ANSI",
   "axisVersion": "2013",
