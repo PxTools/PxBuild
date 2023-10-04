@@ -14,7 +14,7 @@ from pxtool.models.input.pydantic_pxstatistics import PxStatistics
 from pxtool.models.output.pxfile.px_file_model import PXFileModel
 from pxtool.models.output.agg_vs.vs_file_model import _VSFileModel
 
-from .helpers.parquet_datasource import ParquetDatasource
+from .helpers.datadatasource import Datadatasource
 from .helpers.for_get_data import ForGetData
 from .helpers.data_formatter import DataFormatter
 
@@ -66,10 +66,9 @@ class LoadFromPxmetadata():
              self._resolved_pxcodes_ids[myVar.codelist_id] = PxCodes(**json1)
              self._pxcodes_helper[myVar.codelist_id] = HelperPxCodes(self._resolved_pxcodes_ids[myVar.codelist_id], self._config.admin.valid_languages)
 
-      data_file_path_format=self._config.admin.px_data_resource.adress_format
-      data_file_path=data_file_path_format.format(id=self._pxmetadata_model.dataset.data_file)
+      
 
-      self._parquet = ParquetDatasource(data_file_path)
+      self._datadata = Datadatasource(self._pxmetadata_model.dataset.data_file, self._config)
       #self._parquet.PrintColumns()
 
       self._for_get_data_by_varid:Dict[str, ForGetData] = dict()
@@ -176,7 +175,7 @@ class LoadFromPxmetadata():
       column_code_map = self.GetMeasurementColumnCodeMapping()
 
       start_tidy = time.time()
-      df =  self._parquet.GetTidyDF(self._config.contvariable_code, column_code_map)
+      df =  self._datadata.GetTidyDF(self._config.contvariable_code, column_code_map)
  
       end_tidy = time.time()
       time_used_tidy = end_tidy-start_tidy
@@ -281,7 +280,7 @@ class LoadFromPxmetadata():
          raise Exception("Sorry, both stub and heading are empty.")
       
    def MapTimeDimension(self, out_model:PXFileModel):
-      my_periods = self._parquet.GetTimePeriodes(self._pxmetadata_model.dataset.time_dimension.column_name) 
+      my_periods = self._datadata.GetTimePeriodes(self._pxmetadata_model.dataset.time_dimension.column_name) 
 
       my_funny_var_id=self._pxmetadata_model.dataset.time_dimension.label[self._current_lang]
 
