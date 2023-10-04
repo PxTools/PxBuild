@@ -91,6 +91,7 @@ class LoadFromPxmetadata():
       
 
       out_model = PXFileModel()
+      self._out_model = out_model
       out_model.language.set(self._current_lang)
       
       self.MapPxtoolconfigToPXFileModel(self._config, out_model)
@@ -117,7 +118,7 @@ class LoadFromPxmetadata():
       self.AddMetaIds(out_model)
       
 
-  #    self.GetData(out_model)
+      self.GetData(out_model)
       
       temp_tabid= self._pxmetadata_id
       out_file= 'example_data/pxtool_output/output_'+temp_tabid+'/tab_'+temp_tabid+'.px'
