@@ -2,14 +2,14 @@ openapi: 3.0.3
 info:
   title: pxtoolconfig
   description: |-
-    This is a sample pxtoolconfig Store Server based on the OpenAPI 3.0 specification.  
+    This is a sample pxtoolconfig based on the OpenAPI 3.0 specification. We just use the schema, so it is perhaps an abuse, but I like the editor.  
   version: 0.0.1
 externalDocs:
   description: Find out more about Swagger
   url: https://swagger.io
 tags:
   - name: pxtoolconfig
-    description: Gets data from your registry of statistics. <br>
+    description: Holds data from your registry of statistics. <br>
        The underlying model is that tables are put on the web in groups. All tables in the group
        are published at the same time and with the same frequensy. They also share subject in the "menutree" and may share contact info. They have the same Information about the statistics page.
     externalDocs:
@@ -48,18 +48,90 @@ components:
                 - validLanguages
                 - theWordAnd
                 - theWordBy
+                - pxMetadataResource
+                - pxStatisticsResource
+                - pxCodesResource
+                - pxDataResource
               properties:
-                   validLanguages:
+                  pxMetadataResource:
+                      type: object
+                      description: What resource provides the pxmetdata-json
+                      required: 
+                        - adressFormat
+                      properties:
+                        resourceType:
+                            type: string
+                            enum:
+                              - file
+                              - s3_todo
+                              - api_todo
+                            default: file
+                        adressFormat:
+                            type: string
+                            example: "example_data/pxmetadata/{id}.json"
+                            description: "the path or url to the json, given its id" 
+                  pxStatisticsResource:
+                      type: object
+                      description: What resource provides the pxstatistics-json
+                      required: 
+                        - adressFormat
+                      properties:
+                        resourceType:
+                            type: string
+                            enum:
+                              - file
+                              - s3_todo
+                              - api_todo
+                            default: file
+                        adressFormat:
+                            type: string
+                            example: "example_data/pxstatistics/pxstatistics_{id}.json"
+                            description: "the path or url to the json, given its id" 
+                  pxCodesResource:
+                      type: object
+                      description: What resource provides the pxcodes-json
+                      required: 
+                        - adressFormat
+                      properties:
+                        resourceType:
+                            type: string
+                            enum:
+                              - file
+                              - s3_todo
+                              - api_todo
+                            default: file
+                        adressFormat:
+                            type: string
+                            example: "example_data/pxcodes/{id}.json"
+                            description: "the path or url to the json, given its id"
+                  pxDataResource:
+                      type: object
+                      description: What resource provides the datadata
+                      required: 
+                        - adressFormat
+                      properties:
+                        resourceType:
+                            type: string
+                            enum:
+                              - file
+                              - s3_todo
+                              - api_todo
+                            default: file
+                        adressFormat:
+                            type: string
+                            example: "example_data/parquet_files/{id}"
+                            description: "the path or url to the json, given its id"
+                  validLanguages:
                      type: array
                      items:
                         type: string
                      description: The 2-letter languagecodes
-                   theWordAnd:
+                  theWordAnd:
                      type: object
                      additionalProperties:
                         type: string
-                        description: "For title creation, the word *and* separating variable n and n-1. Example: 'no:og,en:and'"                         
-                   theWordBy:
+                        description: "For title creation, the word *and* separating variable n and n-1.     Example: 'no:og,en:and'"                         
+                  theWordBy:
                      type: object
                      additionalProperties:
                         type: string

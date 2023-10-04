@@ -22,18 +22,20 @@ class LoadFromPxmetadata():
 
 
 
-   def __init__(self, filename: str, sourceType:str) -> None:
-      self._filename = filename
-      print(self._filename)
-
-      with open('example_data/pxtoolconfig/ssb_config.json', encoding="utf-8-sig") as f:
+   def __init__(self, pxmetadata_id: str, config_file:str) -> None:
+      self._pxmetadata_id = pxmetadata_id
+      print("For pxmetadata_id:",self._pxmetadata_id, ", with config:", config_file)
+      
+      #'example_data/pxtoolconfig/ssb_config.json'
+      with open(config_file, encoding="utf-8-sig") as f:
         config_json = json.loads(f.read())
       self._config = Pxtoolconfig(**config_json)
 
 
       #todo if sourceType==File
-      pxmetadataFormat="example_data/pxmetadata/{id}.json"
-      pxmetadataFil=pxmetadataFormat.format(id=self._filename)
+#      pxmetadataFormat="example_data/pxmetadata/{id}.json"
+      pxmetadataFormat= self._config.admin.px_metadata_resource.adress_format
+      pxmetadataFil=pxmetadataFormat.format(id=self._pxmetadata_id)
 
       with open(pxmetadataFil, encoding="utf-8-sig") as f:
         pxmetadata_json = json.loads(f.read())
@@ -41,8 +43,8 @@ class LoadFromPxmetadata():
 
       self._pxmetadata_model = PxMetadata(**pxmetadata_json)
 
-      #todo if sourceType==File  Hmm må det være enten api eller fil, ikke pxcodes på file og statistics på api?
-      pxstatisticsFormat="example_data/pxstatistics/pxstatistics_{id}.json"
+      #pxstatisticsFormat="example_data/pxstatistics/pxstatistics_{id}.json"
+      pxstatisticsFormat=self._config.admin.px_statistics_resource.adress_format
       pxstatisticsFil=pxstatisticsFormat.format(id=self._pxmetadata_model.dataset.statistics_id)
 
       with open(pxstatisticsFil, encoding="utf-8-sig") as f:
@@ -52,7 +54,8 @@ class LoadFromPxmetadata():
       if self._pxmetadata_model.dataset.coded_dimensions:
         self._resolved_pxcodes_ids={}
         self._pxcodes_helper = {}
-        pxcodesFormat="example_data/pxcodes/{id}.json"
+        #pxcodesFormat="example_data/pxcodes/{id}.json"
+        pxcodesFormat=self._config.admin.px_codes_resource.adress_format
         for myVar in self._pxmetadata_model.dataset.coded_dimensions:
 
           if not myVar.codelist_id in self._resolved_pxcodes_ids:
@@ -60,14 +63,11 @@ class LoadFromPxmetadata():
              with open(tmpPath, encoding="utf-8-sig") as f:
                 json1 = json.loads(f.read())
              self._resolved_pxcodes_ids[myVar.codelist_id] = PxCodes(**json1)
-             self._pxcodes_helper[myVar.codelist_id] = HelperPxCodes(self._resolved_pxcodes_ids[myVar.codelist_id])
+             self._pxcodes_helper[myVar.codelist_id] = HelperPxCodes(self._resolved_pxcodes_ids[myVar.codelist_id], self._config.admin.valid_languages)
 
-    
-
-      data_file_path_format="example_data/parquet_files/output_file{id}.parquet"
+      data_file_path_format=self._config.admin.px_data_resource.adress_format
       data_file_path=data_file_path_format.format(id=self._pxmetadata_model.dataset.data_file)
 
-      #filePath='example_data/parquet_files/output_file03024.parquet' 
       self._parquet = ParquetDatasource(data_file_path)
       #self._parquet.PrintColumns()
 
@@ -118,7 +118,7 @@ class LoadFromPxmetadata():
 
       self.GetData(out_model)
       
-      temp_tabid= self._filename
+      temp_tabid= self._pxmetadata_id
       out_file= 'example_data/pxtool_output/output_'+temp_tabid+'/tab_'+temp_tabid+'.px'
       with open(out_file, 'w') as f:
              print(out_model, file=f)
@@ -434,7 +434,7 @@ class LoadFromPxmetadata():
       self._metaid_table += in_model.meta_id
        
 
-      #out_model.update_frequency.set() Hmm ikke lang dep i pdf
+      #out_model.update_frequency.set() Hmm is not listed as language dependent in pdf
 
 
    def  AddPxMetadataToPXFileModel(self, in_model:PxMetadata , out_model:PXFileModel):
