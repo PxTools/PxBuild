@@ -2,17 +2,22 @@ import pyarrow.parquet as pq
 import pyarrow as pa
 import pandas as pd
 from typing import List
+from pxtool.models.input.pydantic_pxtoolconfig import Pxtoolconfig
+from .parquet_datasource import ParquetDatasource
+from .abstract_datasource import AbstractDatasource
 
 # Open and read the Parquet file
 
 class Datadatasource:
 
-   def __init__(self,file_id:str, config) -> None:
-     print("Debug: Reading",file_id)
+   def __init__(self,file_id:str, config:Pxtoolconfig) -> None:
      data_file_path_format= config.admin.px_data_resource.adress_format
      data_file_path=data_file_path_format.format(id=file_id)
-
-     self._parquet_file = pq.ParquetFile(data_file_path)
+     if data_file_path.endswith(".parquet"): 
+          self._my_datasource:AbstractDatasource = ParquetDatasource(data_file_path)
+          self._parquet_file = pq.ParquetFile(data_file_path)
+     else:
+         raise Exception("Sorry, not implemented yet. Files must end with .parquet")
      self.PrintColumns()
 
 
@@ -24,8 +29,7 @@ class Datadatasource:
        #chat: Parquet files are designed for efficient columnar storage and retrieval but do not inherently support reading only distinct values
 
        # Read the entire column into a Pandas Series
-       column_data = self._parquet_file.read(columns=[column_name]).to_pandas()[column_name]
-
+       column_data = self._my_datasource.GetTimePeriodesPandas(column_name)
        # Get distinct values from the column
        distinct_values = column_data.unique()
        asList=distinct_values.tolist()
@@ -56,8 +60,8 @@ class Datadatasource:
 
       print("Debug in parquet cols:",self._parquet_file.schema.names)
 
-      raw_data: pd.DataFrame = self._parquet_file.read().to_pandas()
-      print("raw_data",raw_data.columns)
+      raw_data: pd.DataFrame = self._my_datasource.GetRawPandas()
+      print("raw_data.columns:",raw_data.columns)
 
       measurement_codes = list(column_code_map.values())
       column_with_value_prefix = self.AddValuePrefix(column_code_map)
