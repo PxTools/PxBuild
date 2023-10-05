@@ -69,8 +69,7 @@ components:
                             default: file
                         adressFormat:
                             type: string
-                            example: "example_data/pxmetadata/{id}.json"
-                            description: "the path or url to the json, given its id" 
+                            description: "The path or url to the json, given its id. Example: example_data/pxmetadata/{id}.json" 
                   pxStatisticsResource:
                       type: object
                       description: What resource provides the pxstatistics-json
@@ -86,8 +85,7 @@ components:
                             default: file
                         adressFormat:
                             type: string
-                            example: "example_data/pxstatistics/pxstatistics_{id}.json"
-                            description: "the path or url to the json, given its id" 
+                            description: "The path or url to the json, given its id. Example: example_data/pxstatistics/pxstatistics_{id}.json" 
                   pxCodesResource:
                       type: object
                       description: What resource provides the pxcodes-json
@@ -103,8 +101,7 @@ components:
                             default: file
                         adressFormat:
                             type: string
-                            example: "example_data/pxcodes/{id}.json"
-                            description: "the path or url to the json, given its id"
+                            description: "The path or url to the json, given its id. Example: example_data/pxcodes/{id}.json"
                   pxDataResource:
                       type: object
                       description: What resource provides the datadata
@@ -120,8 +117,7 @@ components:
                             default: file
                         adressFormat:
                             type: string
-                            example: "example_data/parquet_files/{id}"
-                            description: "the path or url to the json, given its id"
+                            description: "The path or url to the json, given its id. Example: example_data/parquet_files/{id}"
                   outputDestination:
                       type: object
                       description: Where to send the output
@@ -135,12 +131,10 @@ components:
                             default: folders
                         pxFolderFormat:
                             type: string
-                            example: "example_data/pxtool_output/{id}/"
-                            description: "Aplies to resourcetype=folders. The folder where the .px-files are written. id is the tableID"
+                            description: "Aplies to resourcetype=folders. The folder where the .px-files are written. id is the tableID. Example: example_data/pxtool_output/{id}"
                         aggFolderFormat:
                             type: string
-                            example: "example_data/pxtool_output/id}/"
-                            description: "Aplies to resourcetype=folders. The folder where the .vs- and .agg-files are written. id is the tableID"                                
+                            description: "Aplies to resourcetype=folders. The folder where the .vs- and .agg-files are written. id is the tableID. Example: example_data/pxtool_output/id}"                                
                   validLanguages:
                      type: array
                      items:
