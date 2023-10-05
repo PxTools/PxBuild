@@ -168,7 +168,7 @@ class LoadFromPxmetadata():
 
       matrix_size = self.CalculateFactor()
 
-      init_value = self._pxmetadata_model.dataset.row_missing
+      missing_row_symbol = self._pxmetadata_model.dataset.row_missing
       missing_cell_symbol = self._pxmetadata_model.dataset.cell_missing
 
     
@@ -183,7 +183,7 @@ class LoadFromPxmetadata():
 
       self.add_out_index(df)
       self.add_out_value(missing_cell_symbol, df)
-      merged_df = self.add_missing_rows(matrix_size, init_value, df)
+      merged_df = self.add_missing_rows(matrix_size, missing_row_symbol, df)
 
       out_data = merged_df['out_value'].tolist()
 
@@ -197,7 +197,7 @@ class LoadFromPxmetadata():
       time_used_GetData = end_GetData-start_GetData
       print('Time: GetData:', time_used_GetData)
 
-   def add_missing_rows(self, matrix_size, init_value, df):
+   def add_missing_rows(self, matrix_size, missing_row_symbol, df):
        matrix_df = pd.DataFrame({'out_index': range(matrix_size)})
 
 
@@ -205,7 +205,7 @@ class LoadFromPxmetadata():
        merged_df = pd.merge(matrix_df, df, on='out_index', how='left')
 
       # Fill missing values with "MISSING"
-       merged_df['out_value'].fillna(init_value, inplace=True)
+       merged_df['out_value'].fillna(missing_row_symbol, inplace=True)
        return merged_df
 
    def add_out_value(self, missing_cell_symbol, df):
