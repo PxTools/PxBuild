@@ -4,6 +4,7 @@ import pandas as pd
 from typing import List
 from pxtool.models.input.pydantic_pxtoolconfig import Pxtoolconfig
 from .parquet_datasource import ParquetDatasource
+from .csv_datasource import CsvDatasource
 from .abstract_datasource import AbstractDatasource
 
 # Open and read the Parquet file
@@ -15,7 +16,10 @@ class Datadatasource:
      data_file_path=data_file_path_format.format(id=file_id)
      if data_file_path.endswith(".parquet"): 
           self._my_datasource:AbstractDatasource = ParquetDatasource(data_file_path)
-          self._parquet_file = pq.ParquetFile(data_file_path)
+          #self._parquet_file = pq.ParquetFile(data_file_path)
+     elif data_file_path.endswith(".csv"): 
+          self._my_datasource:AbstractDatasource = CsvDatasource(data_file_path)
+        
      else:
          raise Exception("Sorry, not implemented yet. Files must end with .parquet")
      self.PrintColumns()
@@ -23,7 +27,7 @@ class Datadatasource:
 
 
    def PrintColumns(self) -> None:
-      print("Debug cols:",self._parquet_file.schema.names)
+      self._my_datasource.PrintColumns()
     
    def GetTimePeriodes(self, column_name:str) -> List[str]:
        #chat: Parquet files are designed for efficient columnar storage and retrieval but do not inherently support reading only distinct values
@@ -57,8 +61,6 @@ class Datadatasource:
       return columns_with_value
 
    def GetTidyDF(self, measure_dim_name:str, column_code_map:dict) -> pd.DataFrame:
-
-      print("Debug in parquet cols:",self._parquet_file.schema.names)
 
       raw_data: pd.DataFrame = self._my_datasource.GetRawPandas()
       print("raw_data.columns:",raw_data.columns)

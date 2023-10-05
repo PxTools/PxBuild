@@ -120,7 +120,12 @@ class LoadFromPxmetadata():
       self.GetData(out_model)
       
       temp_tabid= self._pxmetadata_id
-      out_file= 'example_data/pxtool_output/output_'+temp_tabid+'/tab_'+temp_tabid+'.px'
+
+      out_folder_format:str = self._config.admin.output_destination.px_folder_format
+      out_folder = out_folder_format.format(id=temp_tabid) 
+      out_file = out_folder +'/tab_'+temp_tabid+'.px'
+
+      #out_file= 'example_data/pxtool_output/output_'+temp_tabid+'/tab_'+temp_tabid+'.px'
       with open(out_file, 'w') as f:
              print(out_model, file=f)
 
@@ -517,7 +522,11 @@ class LoadFromPxmetadata():
                      out_vs_model.valuecode.set(value_item_key,my_stripped_code)
                      my_stripped_text = my_item.label[self._current_lang].strip("'")
                      out_vs_model.valuetext.set(value_item_key,my_stripped_text)
-                  out_file= 'example_data/pxtool_output/' + my_codes.id + "_" + self._current_lang + ".vs"
+
+                  out_folder_format:str = self._config.admin.output_destination.agg_folder_format
+                  out_folder = out_folder_format.format(id=self._pxmetadata_id) 
+                  out_file = out_folder +'/' + my_codes.id + "_" + self._current_lang + ".vs"
+                  #out_file= 'example_data/pxtool_output/' + my_codes.id + "_" + self._current_lang + ".vs"
                   with open(out_file, 'w', encoding="utf-8") as f:
                      print(out_vs_model, file=f)
                      print("File written to:",out_file)               

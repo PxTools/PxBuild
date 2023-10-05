@@ -17,6 +17,7 @@ class ParquetDatasource(AbstractDatasource):
    def GetTimePeriodesPandas(self, column_name:str) -> pd.Series:
        #chat: Parquet files are designed for efficient columnar storage and retrieval but do not inherently support reading only distinct values
        # Read the entire column into a Pandas Series
+       
        return self._parquet_file.read(columns=[column_name]).to_pandas()[column_name]
 
        

@@ -52,6 +52,7 @@ components:
                 - pxStatisticsResource
                 - pxCodesResource
                 - pxDataResource
+                - outputDestination
               properties:
                   pxMetadataResource:
                       type: object
@@ -121,6 +122,25 @@ components:
                             type: string
                             example: "example_data/parquet_files/{id}"
                             description: "the path or url to the json, given its id"
+                  outputDestination:
+                      type: object
+                      description: Where to send the output
+                      properties:
+                        resourceType:
+                            type: string
+                            enum:
+                              - folders
+                              - s3_todo
+                              - dictionary_todo
+                            default: folders
+                        pxFolderFormat:
+                            type: string
+                            example: "example_data/pxtool_output/{id}/"
+                            description: "Aplies to resourcetype=folders. The folder where the .px-files are written. id is the tableID"
+                        aggFolderFormat:
+                            type: string
+                            example: "example_data/pxtool_output/id}/"
+                            description: "Aplies to resourcetype=folders. The folder where the .vs- and .agg-files are written. id is the tableID"                                
                   validLanguages:
                      type: array
                      items:
