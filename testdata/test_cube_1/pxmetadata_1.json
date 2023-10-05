@@ -48,7 +48,7 @@
         "columnName": "CODED_DIM2",
         "code": "coded_dim2",
         "isGeoVariableType": false,
-        "codelistId": "pxcodes_dim1",
+        "codelistId": "pxcodes_dim2",
         "labelConstructionOption": "text",
         "label": {
           "no": "Dimensjon 2",
@@ -60,7 +60,7 @@
         "columnName": "CODED_DIM1",
         "code": "coded_dim3",
         "isGeoVariableType": false,
-        "codelistId": "pxcodes_dim1",
+        "codelistId": "pxcodes_dim3",
         "labelConstructionOption": "text",
         "label": {
           "no": "Dimensjon 3",

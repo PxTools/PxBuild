@@ -5,7 +5,7 @@ from pxtool.models.output.pxfile.px_file_model import PXFileModel
 
 
 class TestCube1:
-    def test_ok_odd_usage_read_ok(self):
+    def test_cube_1_ok(self):
       dummy = pxtool.LoadFromPxmetadata('1', 'testdata/test_cube_1/test_config.json')
       
 

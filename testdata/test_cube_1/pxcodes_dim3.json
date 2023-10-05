@@ -38,5 +38,36 @@
   "eliminationPossible": true,
   "eliminationCode": null,
   "sortGroupingsOn": null,
-  "groupings": null
+  "groupings": [
+    {
+      "filenameBase": "dim3_grouping1",
+      "label": {
+        "no": "dim3_grouping1",
+        "en": "dim3_grouping1"
+      },
+      "rank": {
+        "no": "1",
+        "en": "1"
+      },
+      "sortValueitemsOn": "rank",
+      "valueitems": [
+        {
+          "code": "TOT",
+          "unorderedChildren": [
+            "01",
+            "02"
+          ],
+          "label": {
+            "no": "Total dim 3",
+            "en": "Total of dim 3"
+          },
+          "rank": {
+            "no": "1",
+            "en": "1"
+          },
+          "notes": null
+        }
+      ]
+    }
+	]
 }
