@@ -1,16 +1,16 @@
-from pxtool.models.output.agg_vs.sections._description import _Description
-from pxtool.models.output.agg_vs.sections._aggreg import _Aggreg
-from pxtool.models.output.agg_vs.sections._domain import _Domain
-from pxtool.models.output.agg_vs.sections._valuecode import _Valuecode
-from pxtool.models.output.agg_vs.sections._valuetext import _Valuetext
+from pxtool.models.output.agg_vs.sections._description import Description
+from pxtool.models.output.agg_vs.sections._aggreg import Aggreg
+from pxtool.models.output.agg_vs.sections._domain import Domain
+from pxtool.models.output.agg_vs.sections._valuecode import Valuecode
+from pxtool.models.output.agg_vs.sections._valuetext import Valuetext
 
 class _VSFileModel():
     def __init__(self) -> None:
-        self.description = _Description()
-        self.aggreg = _Aggreg() 
-        self.domain = _Domain()
-        self.valuecode = _Valuecode()
-        self.valuetext = _Valuetext()
+        self.description = Description()
+        self.aggreg = Aggreg() 
+        self.domain = Domain()
+        self.valuecode = Valuecode()
+        self.valuetext = Valuetext()
     
     def __str__(self):
         attrs = vars(self)

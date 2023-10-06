@@ -14,7 +14,7 @@ from pxtool.models.input.pydantic_pxstatistics import PxStatistics
 
 from pxtool.models.output.pxfile.px_file_model import PXFileModel
 from pxtool.models.output.agg_vs.vs_file_model import _VSFileModel
-from pxtool.models.output.agg.agg_file_model import _AggFileModel
+from pxtool.models.output.agg.agg_file_model import AggFileModel
 
 from .helpers.datadatasource import Datadatasource
 from .helpers.for_get_data import ForGetData
@@ -537,7 +537,7 @@ class LoadFromPxmetadata():
 
       
    def makeAggFile(self,grouping:Grouping,vs_name:str):
-      out_agg_model= _AggFileModel()
+      out_agg_model= AggFileModel()
       aggreg_name= grouping.filename_base + "_" + self._current_lang
       out_agg_model.set("Aggreg","Name",aggreg_name)
       out_agg_model.set("Aggreg","Valueset",vs_name)
