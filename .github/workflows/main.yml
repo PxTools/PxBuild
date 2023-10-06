@@ -25,3 +25,7 @@ jobs:
 
     - name: Run Black pxtool/models/input
       run: black pxtool/models/input
+
+    - name: Check for modified files
+      id: git-check
+      run: echo "modified=$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
