@@ -11,9 +11,9 @@ from pydantic import BaseModel, Field, constr
 
 
 class ResourceType(Enum):
-    file = 'file'
-    s3_todo = 's3_todo'
-    api_todo = 'api_todo'
+    file = "file"
+    s3_todo = "s3_todo"
+    api_todo = "api_todo"
 
 
 class PxMetadataResource(BaseModel):
@@ -21,8 +21,8 @@ class PxMetadataResource(BaseModel):
     What resource provides the pxmetdata-json
     """
 
-    resource_type: Optional[ResourceType] = Field('file', alias='resourceType')
-    adress_format: str = Field(..., alias='adressFormat')
+    resource_type: Optional[ResourceType] = Field("file", alias="resourceType")
+    adress_format: str = Field(..., alias="adressFormat")
     """
     The path or url to the json, given its id. Example: example_data/pxmetadata/{id}.json
     """
@@ -33,8 +33,8 @@ class PxStatisticsResource(BaseModel):
     What resource provides the pxstatistics-json
     """
 
-    resource_type: Optional[ResourceType] = Field('file', alias='resourceType')
-    adress_format: str = Field(..., alias='adressFormat')
+    resource_type: Optional[ResourceType] = Field("file", alias="resourceType")
+    adress_format: str = Field(..., alias="adressFormat")
     """
     The path or url to the json, given its id. Example: example_data/pxstatistics/pxstatistics_{id}.json
     """
@@ -45,8 +45,8 @@ class PxCodesResource(BaseModel):
     What resource provides the pxcodes-json
     """
 
-    resource_type: Optional[ResourceType] = Field('file', alias='resourceType')
-    adress_format: str = Field(..., alias='adressFormat')
+    resource_type: Optional[ResourceType] = Field("file", alias="resourceType")
+    adress_format: str = Field(..., alias="adressFormat")
     """
     The path or url to the json, given its id. Example: example_data/pxcodes/{id}.json
     """
@@ -57,17 +57,17 @@ class PxDataResource(BaseModel):
     What resource provides the datadata
     """
 
-    resource_type: Optional[ResourceType] = Field('file', alias='resourceType')
-    adress_format: str = Field(..., alias='adressFormat')
+    resource_type: Optional[ResourceType] = Field("file", alias="resourceType")
+    adress_format: str = Field(..., alias="adressFormat")
     """
     The path or url to the json, given its id. Example: example_data/parquet_files/{id}
     """
 
 
 class ResourceType4(Enum):
-    folders = 'folders'
-    s3_todo = 's3_todo'
-    dictionary_todo = 'dictionary_todo'
+    folders = "folders"
+    s3_todo = "s3_todo"
+    dictionary_todo = "dictionary_todo"
 
 
 class OutputDestination(BaseModel):
@@ -75,12 +75,12 @@ class OutputDestination(BaseModel):
     Where to send the output
     """
 
-    resource_type: Optional[ResourceType4] = Field('folders', alias='resourceType')
-    px_folder_format: Optional[str] = Field(None, alias='pxFolderFormat')
+    resource_type: Optional[ResourceType4] = Field("folders", alias="resourceType")
+    px_folder_format: Optional[str] = Field(None, alias="pxFolderFormat")
     """
     Aplies to resourcetype=folders. The folder where the .px-files are written. id is the tableID. Example: example_data/pxtool_output/{id}
     """
-    agg_folder_format: Optional[str] = Field(None, alias='aggFolderFormat')
+    agg_folder_format: Optional[str] = Field(None, alias="aggFolderFormat")
     """
     Aplies to resourcetype=folders. The folder where the .vs- and .agg-files are written. id is the tableID. Example: example_data/pxtool_output/id}
     """
@@ -91,34 +91,34 @@ class Admin(BaseModel):
     These properties does not enter the pxfile directly
     """
 
-    px_metadata_resource: PxMetadataResource = Field(..., alias='pxMetadataResource')
+    px_metadata_resource: PxMetadataResource = Field(..., alias="pxMetadataResource")
     """
     What resource provides the pxmetdata-json
     """
     px_statistics_resource: PxStatisticsResource = Field(
-        ..., alias='pxStatisticsResource'
+        ..., alias="pxStatisticsResource"
     )
     """
     What resource provides the pxstatistics-json
     """
-    px_codes_resource: PxCodesResource = Field(..., alias='pxCodesResource')
+    px_codes_resource: PxCodesResource = Field(..., alias="pxCodesResource")
     """
     What resource provides the pxcodes-json
     """
-    px_data_resource: PxDataResource = Field(..., alias='pxDataResource')
+    px_data_resource: PxDataResource = Field(..., alias="pxDataResource")
     """
     What resource provides the datadata
     """
-    output_destination: OutputDestination = Field(..., alias='outputDestination')
+    output_destination: OutputDestination = Field(..., alias="outputDestination")
     """
     Where to send the output
     """
-    valid_languages: List[str] = Field(..., alias='validLanguages')
+    valid_languages: List[str] = Field(..., alias="validLanguages")
     """
     The 2-letter languagecodes
     """
-    the_word_and: Dict[str, str] = Field(..., alias='theWordAnd')
-    the_word_by: Dict[str, str] = Field(..., alias='theWordBy')
+    the_word_and: Dict[str, str] = Field(..., alias="theWordAnd")
+    the_word_by: Dict[str, str] = Field(..., alias="theWordBy")
 
 
 class Pxtoolconfig(BaseModel):
@@ -130,24 +130,24 @@ class Pxtoolconfig(BaseModel):
     """
     example: ANSI
     """
-    axis_version: Optional[constr(max_length=20)] = Field(None, alias='axisVersion')
+    axis_version: Optional[constr(max_length=20)] = Field(None, alias="axisVersion")
     """
     Version of px-file format.  example: '2013'
     """
-    code_page: Optional[constr(max_length=20)] = Field('iso-8859-1', alias='codePage')
+    code_page: Optional[constr(max_length=20)] = Field("iso-8859-1", alias="codePage")
     """
     example: iso-8859-1
     """
-    description_default: Optional[bool] = Field(False, alias='descriptionDefault')
+    description_default: Optional[bool] = Field(False, alias="descriptionDefault")
     contvariable: Optional[Dict[str, constr(max_length=256)]] = None
     """
     Name for content variable
     """
-    contvariable_code: Optional[str] = Field('ContentCode', alias='contvariableCode')
+    contvariable_code: Optional[str] = Field("ContentCode", alias="contvariableCode")
     """
     Code for content variable
     """
-    timevariable_code: Optional[str] = Field('Time', alias='timevariableCode')
+    timevariable_code: Optional[str] = Field("Time", alias="timevariableCode")
     """
     Code for the time variable
     """
@@ -176,13 +176,13 @@ class Pxtoolconfig(BaseModel):
     How 1-6 dots in data, are shown on screen
     """
     datasymbol_nil: Optional[Dict[str, constr(max_length=20)]] = Field(
-        None, alias='datasymbolNil'
+        None, alias="datasymbolNil"
     )
     """
     How stored - are shown on screen
     """
     datasymbol_sum: Optional[Dict[str, constr(max_length=20)]] = Field(
-        None, alias='datasymbolSum'
+        None, alias="datasymbolSum"
     )
     """
     This if used to indicate how a sum of differing numbers of dots will be shown. The sum is stored as “…….”.

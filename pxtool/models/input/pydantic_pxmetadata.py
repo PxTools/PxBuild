@@ -11,7 +11,7 @@ from pydantic import BaseModel, Field
 
 
 class Attribute(BaseModel):
-    column_name: Optional[str] = Field(None, alias='columnName')
+    column_name: Optional[str] = Field(None, alias="columnName")
     """
     name of column in dataset
     """
@@ -19,7 +19,7 @@ class Attribute(BaseModel):
     """
     the code of the measurement
     """
-    codelist_id: Optional[str] = Field(None, alias='codelistId')
+    codelist_id: Optional[str] = Field(None, alias="codelistId")
     """
     A Link to a PxCodes document
     """
@@ -30,10 +30,10 @@ class LabelConstructionOption(Enum):
     Construct label for codelist entry as text or code or text then code or code then text
     """
 
-    code = 'code'
-    text = 'text'
-    code_text = 'code_text'
-    text_code = 'text_code'
+    code = "code"
+    text = "text"
+    code_text = "code_text"
+    text_code = "text_code"
 
 
 class PriceType(Enum):
@@ -41,16 +41,16 @@ class PriceType(Enum):
     Empty if not a price
     """
 
-    current = 'Current'
-    fixed = 'Fixed'
+    current = "Current"
+    fixed = "Fixed"
 
 
 class TimeDimension(BaseModel):
-    column_name: Optional[str] = Field(None, alias='columnName')
+    column_name: Optional[str] = Field(None, alias="columnName")
     """
     name of column in dataset
     """
-    time_period_format: Optional[str] = Field(None, alias='timePeriodFormat')
+    time_period_format: Optional[str] = Field(None, alias="timePeriodFormat")
     """
     example: yyyy
     """
@@ -58,18 +58,18 @@ class TimeDimension(BaseModel):
 
 
 class CellNote(BaseModel):
-    todo: Optional[str] = 'Hvordan løser vi tilkobling til celle?'
+    todo: Optional[str] = "Hvordan løser vi tilkobling til celle?"
     text: Dict[str, str]
-    is_mandatory: bool = Field(..., alias='isMandatory')
+    is_mandatory: bool = Field(..., alias="isMandatory")
 
 
 class Note(BaseModel):
     text: Dict[str, str]
-    is_mandatory: bool = Field(..., alias='isMandatory')
+    is_mandatory: bool = Field(..., alias="isMandatory")
 
 
 class CodedDimension(BaseModel):
-    column_name: str = Field(..., alias='columnName')
+    column_name: str = Field(..., alias="columnName")
     """
     name of column in dataset
     """
@@ -77,30 +77,30 @@ class CodedDimension(BaseModel):
     """
     the code of the variable. Defaults to columName if missing
     """
-    is_geo_variable_type: Optional[bool] = Field(False, alias='isGeoVariableType')
+    is_geo_variable_type: Optional[bool] = Field(False, alias="isGeoVariableType")
     """
     Geo variable or not
     """
-    codelist_id: str = Field(..., alias='codelistId')
+    codelist_id: str = Field(..., alias="codelistId")
     """
     A Link to a PxCodes document
     """
     label_construction_option: Optional[LabelConstructionOption] = Field(
-        'text', alias='labelConstructionOption'
+        "text", alias="labelConstructionOption"
     )
     """
     Construct label for codelist entry as text or code or text then code or code then text
     """
     label: Optional[Dict[str, str]] = None
     notes: Optional[List[Note]] = None
-    meta_id: Optional[List[str]] = Field(None, alias='metaId')
+    meta_id: Optional[List[str]] = Field(None, alias="metaId")
     """
     For MetaId keyword
     """
 
 
 class Measurement(BaseModel):
-    column_name: str = Field(..., alias='columnName')
+    column_name: str = Field(..., alias="columnName")
     """
     name of column in dataset
     """
@@ -109,27 +109,27 @@ class Measurement(BaseModel):
     the code of the measurement. Defaults to columName if missing
     """
     label: Dict[str, str]
-    show_decimals: int = Field(..., alias='showDecimals')
+    show_decimals: int = Field(..., alias="showDecimals")
     """
     number of decimal to use in output
     """
-    price_type: Optional[PriceType] = Field(None, alias='priceType')
+    price_type: Optional[PriceType] = Field(None, alias="priceType")
     """
     Empty if not a price
     """
-    is_seasonally_adjusted: Optional[bool] = Field(False, alias='isSeasonallyAdjusted')
+    is_seasonally_adjusted: Optional[bool] = Field(False, alias="isSeasonallyAdjusted")
     is_workingdays_adjusted: Optional[bool] = Field(
-        False, alias='isWorkingdaysAdjusted'
+        False, alias="isWorkingdaysAdjusted"
     )
-    aggregation_allowed: bool = Field(..., alias='aggregationAllowed')
+    aggregation_allowed: bool = Field(..., alias="aggregationAllowed")
     """
     Is it meaningfull to sum this measurement
     """
-    base_period: Optional[Dict[str, str]] = Field(None, alias='basePeriod')
+    base_period: Optional[Dict[str, str]] = Field(None, alias="basePeriod")
     """
     For index example: '1. kvartal 2010'
     """
-    reference_period: Optional[Dict[str, str]] = Field(None, alias='referencePeriod')
+    reference_period: Optional[Dict[str, str]] = Field(None, alias="referencePeriod")
     """
     Text with information on the reference period for the statistics.
     """
@@ -137,12 +137,12 @@ class Measurement(BaseModel):
     """
     Sort order for measurement in dimension, document order is default
     """
-    unit_of_measure: Dict[str, str] = Field(..., alias='unitOfMeasure')
+    unit_of_measure: Dict[str, str] = Field(..., alias="unitOfMeasure")
     """
     Text including unit multiplier
     """
     notes: Optional[List[Note]] = None
-    meta_id: Optional[List[str]] = Field(None, alias='metaId')
+    meta_id: Optional[List[str]] = Field(None, alias="metaId")
     """
     For MetaId keyword
     """
@@ -153,41 +153,41 @@ class Dataset(BaseModel):
     Payload
     """
 
-    documnet_id: Optional[str] = Field(None, alias='documnetId')
+    documnet_id: Optional[str] = Field(None, alias="documnetId")
     """
     TODO: Trenger vi denne?
     """
-    table_id: str = Field(..., alias='tableId')
+    table_id: str = Field(..., alias="tableId")
     """
     example: '07459' To be used as id in PxWeb Url
     """
-    stored_decimals: Optional[int] = Field(None, alias='storedDecimals')
+    stored_decimals: Optional[int] = Field(None, alias="storedDecimals")
     """
     How many decimals should be stored in the PxFile. Default is the max number of decimals shown.
     """
-    statistics_id: Optional[str] = Field(None, alias='statisticsId')
+    statistics_id: Optional[str] = Field(None, alias="statisticsId")
     """
     Id of group of tables in the registry of statistics. example: '8765'
     """
-    data_file: Optional[str] = Field(None, alias='dataFile')
+    data_file: Optional[str] = Field(None, alias="dataFile")
     """
     TODO: Er dette en filsti eller en url. required? Adress to the parquet-file with datadata
     """
-    base_title: Dict[str, str] = Field(..., alias='baseTitle')
+    base_title: Dict[str, str] = Field(..., alias="baseTitle")
     """
     Text to which tableid is prefixed and _by_ variable list is appended. Is used for the CONTENTS keyword. example: no Utenrikshandel med varer
     """
     search_keywords: Optional[Dict[str, List[str]]] = Field(
-        None, alias='searchKeywords'
+        None, alias="searchKeywords"
     )
     """
     Array of keywords by language for search. Is used for the SYNONYMS keyword. example:'{en: [External trade, export]}'
     """
     notes: Optional[List[Note]] = None
-    cell_notes: Optional[List[CellNote]] = Field(None, alias='cellNotes')
-    time_dimension: TimeDimension = Field(..., alias='timeDimension')
+    cell_notes: Optional[List[CellNote]] = Field(None, alias="cellNotes")
+    time_dimension: TimeDimension = Field(..., alias="timeDimension")
     coded_dimensions: Optional[List[CodedDimension]] = Field(
-        None, alias='codedDimensions'
+        None, alias="codedDimensions"
     )
     """
     Also known as classification variables
@@ -196,15 +196,15 @@ class Dataset(BaseModel):
     """
     Also known as content variables
     """
-    meta_id: Optional[List[str]] = Field(None, alias='metaId')
+    meta_id: Optional[List[str]] = Field(None, alias="metaId")
     """
     For MetaId keyword
     """
-    row_missing: Optional[str] = Field('.', alias='rowMissing')
+    row_missing: Optional[str] = Field(".", alias="rowMissing")
     """
     Value to insert in data when row is missing.
     """
-    cell_missing: Optional[str] = Field('.', alias='cellMissing')
+    cell_missing: Optional[str] = Field(".", alias="cellMissing")
     """
     Value to insert in data when cell is missing.
     """
