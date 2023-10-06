@@ -8,11 +8,13 @@ from typing import List, Dict
 from pxtool.models.input.pydantic_pxmetadata import PxMetadata
 from pxtool.models.input.pydantic_pxtoolconfig import Pxtoolconfig
 from pxtool.models.input.pydantic_pxcodes import PxCodes
+from pxtool.models.input.pydantic_pxcodes import Grouping
 from pxtool.models.input.helper_pxcodes import HelperPxCodes
 from pxtool.models.input.pydantic_pxstatistics import PxStatistics
 
 from pxtool.models.output.pxfile.px_file_model import PXFileModel
 from pxtool.models.output.agg_vs.vs_file_model import _VSFileModel
+from pxtool.models.output.agg.agg_file_model import _AggFileModel
 
 from .helpers.datadatasource import Datadatasource
 from .helpers.for_get_data import ForGetData
@@ -510,6 +512,7 @@ class LoadFromPxmetadata():
                      group_conter = group_conter +1
                      group_key = str(group_conter)
                      out_vs_model.aggreg.set(group_key,groups.filename_base + "_" + self._current_lang + ".agg")
+                     self.makeAggFile(groups,vs_name)
                   my_domain =MakeDomainId(my_var.codelist_id,self._current_lang)  
                   out_vs_model.domain.set("1",my_domain) 
                   
@@ -533,7 +536,31 @@ class LoadFromPxmetadata():
 
 
       
-
+   def makeAggFile(self,grouping:Grouping,vs_name:str):
+      out_agg_model= _AggFileModel()
+      aggreg_name= grouping.filename_base + "_" + self._current_lang
+      out_agg_model.set("Aggreg","Name",aggreg_name)
+      out_agg_model.set("Aggreg","Valueset",vs_name)
+      item_counter=0
+      #section= "Aggreg"
+      for item in grouping.valueitems:
+         item_counter=item_counter + 1
+         item_key = str(item_counter)
+         groupcode=item.code
+         valuetext = item.label[self._current_lang] 
+         out_agg_model.set("Aggreg",item_key,groupcode)
+         out_agg_model.set("Aggtext",item_key,valuetext)
+         child_code_conter = 0
+         for child_code in item.unordered_children:
+            child_code_conter = child_code_conter + 1
+            child_code_key = str(child_code_conter)
+            out_agg_model.set(groupcode,child_code_key,child_code)
+      out_file= 'example_data/pxtool_output/' + aggreg_name + ".agg"
+      with open(out_file, 'w', encoding="utf-8") as f:
+         print(out_agg_model, file=f)
+         print("File written to:",out_file)        
+      print("i agg")
+      print(grouping.filename_base)
         
 def ConvertToPxdateString(date_string:str, date_format:str) -> str:
    dtm_date = datetime.strptime(date_string, date_format)
