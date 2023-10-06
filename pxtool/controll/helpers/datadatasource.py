@@ -7,7 +7,7 @@ from .parquet_datasource import ParquetDatasource
 from .csv_datasource import CsvDatasource
 from .abstract_datasource import AbstractDatasource
 
-# Open and read the Parquet file
+# Open and read the Parquet file  (or csv for small tests)
 
 class Datadatasource:
 
@@ -16,12 +16,11 @@ class Datadatasource:
      data_file_path=data_file_path_format.format(id=file_id)
      if data_file_path.endswith(".parquet"): 
           self._my_datasource:AbstractDatasource = ParquetDatasource(data_file_path)
-          #self._parquet_file = pq.ParquetFile(data_file_path)
      elif data_file_path.endswith(".csv"): 
           self._my_datasource:AbstractDatasource = CsvDatasource(data_file_path)
-        
      else:
          raise Exception("Sorry, not implemented yet. Files must end with .parquet")
+     
      self.PrintColumns()
 
 
@@ -30,6 +29,7 @@ class Datadatasource:
       self._my_datasource.PrintColumns()
     
    def GetTimePeriodes(self, column_name:str) -> List[str]:
+       """Reads all values from a column, applies unique and sorts descending."""
        #chat: Parquet files are designed for efficient columnar storage and retrieval but do not inherently support reading only distinct values
 
        # Read the entire column into a Pandas Series
@@ -64,6 +64,9 @@ class Datadatasource:
 
       raw_data: pd.DataFrame = self._my_datasource.GetRawPandas()
       print("raw_data.columns:",raw_data.columns)
+      for col in raw_data.columns:
+          if "SYMBOL" in col:
+              raise Exception("Sorry, not implemented yet. Cant have SYMBOL in colname")
 
       measurement_codes = list(column_code_map.values())
       column_with_value_prefix = self.AddValuePrefix(column_code_map)
