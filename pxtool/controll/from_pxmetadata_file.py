@@ -486,7 +486,8 @@ class LoadFromPxmetadata:
                 my_codes: PxCodes = self._resolved_pxcodes_ids[my_var.codelist_id]
                 if my_codes.groupings:
                     vs_name = make_domain_id(my_var.codelist_id, self._current_lang)
-                    vs_type = "G" if my_var.is_geo_variable_type else "V"
+                    #vs_type = "G" if my_var.is_geo_variable_type else "V"
+                    vs_type = "V" # TODO type could be V,H or N
                     out_vs_model.description.set("Name", vs_name)
                     out_vs_model.description.set("Type", vs_type)
                     # if my_codes.groupings:
