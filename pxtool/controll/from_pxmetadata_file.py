@@ -513,7 +513,7 @@ class LoadFromPxmetadata:
                     out_folder = out_folder_format.format(id=self._pxmetadata_id)
                     out_file = out_folder + "/" + my_codes.id + "_" + self._current_lang + ".vs"
                     # out_file= 'example_data/pxtool_output/' + my_codes.id + "_" + self._current_lang + ".vs"
-                    with open(out_file, "w", encoding="utf-8") as f:
+                    with open(out_file, "w") as f:
                         print(out_vs_model, file=f)
                         print("File written to:", out_file)
 
@@ -537,7 +537,7 @@ class LoadFromPxmetadata:
                 child_code_key = str(child_code_conter)
                 out_agg_model.set(groupcode, child_code_key, child_code)
         out_file = "example_data/pxtool_output/" + aggreg_name + ".agg"
-        with open(out_file, "w", encoding="utf-8") as f:
+        with open(out_file, "w") as f:
             print(out_agg_model, file=f)
             print("File written to:", out_file)
         print("i agg")
