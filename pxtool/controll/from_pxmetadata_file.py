@@ -490,19 +490,20 @@ class LoadFromPxmetadata:
                     vs_type = "V" # TODO type could be V,H or N
                     out_vs_model.description.set("Name", vs_name)
                     out_vs_model.description.set("Type", vs_type)
-                    # if my_codes.groupings:
+
+                    my_pxcodes_helper = self._pxcodes_helper[my_var.codelist_id]
                     group_conter = 0
                     for groups in my_codes.groupings:
                         group_conter = group_conter + 1
                         group_key = str(group_conter)
                         out_vs_model.aggreg.set(group_key, groups.filename_base + "_" + self._current_lang + ".agg")
-                        self.make_agg_file(groups, vs_name)
+                        self.make_agg_file(groups, vs_name, my_pxcodes_helper)
                     my_domain = make_domain_id(my_var.codelist_id, self._current_lang)
                     out_vs_model.domain.set("1", my_domain)
 
-                    my_sorted_value_items = self._pxcodes_helper[my_var.codelist_id]
+                    
                     value_item_counter = 0
-                    for my_item in my_sorted_value_items._sorted_valueitems[self._current_lang]:
+                    for my_item in my_pxcodes_helper._sorted_valueitems[self._current_lang]:
                         value_item_counter = value_item_counter + 1
                         value_item_key = str(value_item_counter)
                         my_stripped_code = my_item.code.strip("'")
@@ -518,10 +519,10 @@ class LoadFromPxmetadata:
                         print(out_vs_model, file=f)
                         print("File written to:", out_file)
 
-    def make_agg_file(self, grouping: Grouping, vs_name: str):
+    def make_agg_file(self, grouping: Grouping, vs_name: str,my_pxcodes_helper:HelperPxCodes):
         out_agg_model = AggFileModel()
         #aggreg_name = grouping.filename_base + "_" + self._current_lang
-        aggreg_name = grouping.filename_base
+        aggreg_name = grouping.label[self._current_lang]
         out_agg_model.set("Aggreg", "Name", aggreg_name)
         out_agg_model.set("Aggreg", "Valueset", vs_name)
         item_counter = 0
@@ -533,12 +534,22 @@ class LoadFromPxmetadata:
             valuetext = item.label[self._current_lang]
             out_agg_model.set("Aggreg", item_key, groupcode)
             out_agg_model.set("Aggtext", item_key, valuetext)
+
             child_code_conter = 0
-            for child_code in item.unordered_children:
+
+
+            #ordered_children = [code for code in my_pxcodes_helper.getCodes(self._current_lang) if item.unordered_children and code in item.unordered_children]
+
+            ordered_children:List[str] = []
+            for code in my_pxcodes_helper.getCodes(self._current_lang):
+                if item.unordered_children and code in item.unordered_children:
+                   ordered_children.append(code) 
+            
+            for child_code in ordered_children:
                 child_code_conter = child_code_conter + 1
                 child_code_key = str(child_code_conter)
                 out_agg_model.set(groupcode, child_code_key, child_code)
-        out_file = "example_data/pxtool_output/" + aggreg_name + "_" + self._current_lang + ".agg"
+        out_file = "example_data/pxtool_output/" + grouping.filename_base + "_" + self._current_lang + ".agg"
         with open(out_file, "w") as f:
             print(out_agg_model, file=f)
             print("File written to:", out_file)
