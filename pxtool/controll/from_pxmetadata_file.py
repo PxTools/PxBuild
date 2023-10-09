@@ -520,7 +520,8 @@ class LoadFromPxmetadata:
 
     def make_agg_file(self, grouping: Grouping, vs_name: str):
         out_agg_model = AggFileModel()
-        aggreg_name = grouping.filename_base + "_" + self._current_lang
+        #aggreg_name = grouping.filename_base + "_" + self._current_lang
+        aggreg_name = grouping.filename_base
         out_agg_model.set("Aggreg", "Name", aggreg_name)
         out_agg_model.set("Aggreg", "Valueset", vs_name)
         item_counter = 0
@@ -537,7 +538,7 @@ class LoadFromPxmetadata:
                 child_code_conter = child_code_conter + 1
                 child_code_key = str(child_code_conter)
                 out_agg_model.set(groupcode, child_code_key, child_code)
-        out_file = "example_data/pxtool_output/" + aggreg_name + ".agg"
+        out_file = "example_data/pxtool_output/" + aggreg_name + "_" + self._current_lang + ".agg"
         with open(out_file, "w") as f:
             print(out_agg_model, file=f)
             print("File written to:", out_file)
