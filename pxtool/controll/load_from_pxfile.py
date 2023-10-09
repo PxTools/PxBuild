@@ -4,24 +4,23 @@ from pxtool.models.output.pxfile.px_file_model import PXFileModel
 import pxtool.models.output.pxfile.util.constants as constants
 
 
-
 class QuotedItem:
     def __init__(self, string: str) -> None:
         self.string: str = '"""' + string + '"""'
 
-    def hasPxPartSeparator(self) -> bool:
+    def has_px_part_separator(self) -> bool:
         return False
 
-    def hasPxEndline(self) -> bool:
+    def has_px_endline(self) -> bool:
         return False
 
-    def hasSubkeyStart(self) -> bool:
+    def has_subkey_start(self) -> bool:
         return False
 
-    def trimWhitespace(self) -> None:
+    def trim_whitespace(self) -> None:
         pass
 
-    def isTypeQuoted(self) -> bool:
+    def is_type_quoted(self) -> bool:
         return True
 
     def __str__(self) -> str:
@@ -32,23 +31,23 @@ class UnQuotedItem:
     def __init__(self, string: str) -> None:
         self.string: str = string
 
-    def hasPxPartSeparator(self) -> bool:
+    def has_px_part_separator(self) -> bool:
         return "=" in self.string
 
-    def hasPxEndline(self) -> bool:
+    def has_px_endline(self) -> bool:
         return ";" in self.string
 
-    def hasSubkeyStart(self) -> bool:
+    def has_subkey_start(self) -> bool:
         return "(" in self.string
 
     def get_before_and_after(self, split_char: str) -> tuple:
         string1, _, string2 = self.string.partition(split_char)
         return string1, string2
 
-    def trimWhitespace(self) -> None:
+    def trim_whitespace(self) -> None:
         self.string = re.sub(r"\s+", "", self.string)
 
-    def isTypeQuoted(self) -> bool:
+    def is_type_quoted(self) -> bool:
         return False
 
     def __str__(self):
@@ -58,194 +57,182 @@ class UnQuotedItem:
 class Keypart:
     keyword: str
     language: str
-    subKeys: list[str]
+    sub_keys: list[str]
 
-    def __init__(self, keyword: str, language: str, subKeys: list[str]) -> None:
+    def __init__(self, keyword: str, language: str, sub_keys: list[str]) -> None:
         self.keyword = keyword
         self.language = language
-        self.subKeys = subKeys
+        self.sub_keys = sub_keys
 
     def __str__(self):
-        langPart = f"[{self.language}]" if self.language else ""
-        subkeyPart = "(" + ",".join(self.subKeys) + ")" if self.subKeys else ""
-        return f"{self.keyword}{langPart}{subkeyPart}"
+        lang_part = f"[{self.language}]" if self.language else ""
+        subkey_part = "(" + ",".join(self.sub_keys) + ")" if self.sub_keys else ""
+        return f"{self.keyword}{lang_part}{subkey_part}"
 
 
 class Loader:
-    @staticmethod 
-    def isEven(value: int) -> bool:
+    @staticmethod
+    def is_even(value: int) -> bool:
         if value % 2 == 0:
             return True
         else:
             return False
 
     def digest_keypart_valuepart_pair(self, key_items: list, value_items: list) -> None:
-        keypart = self.getKeypart(key_items)
+        keypart = self.get_keypart(key_items)
         if keypart.keyword in constants.KEYWORDS_PYTHONIC_MAP.keys():
-            self.fixValuePart(keypart, value_items)
+            self.fix_value_part(keypart, value_items)
         else:
             self.when_unknown_keyword(keypart, value_items)
 
-    def getKeypart(self, items: list) -> Keypart:
+    def get_keypart(self, items: list) -> Keypart:
         # keypart: KEYWORD[lang]( quotedsubkeys sep by ",")
         # only KEYWORD ismandatory, lang may be quoted
 
         # split items into before and after start subkey
-        itemsBeforeSubkey = []
-        itemsAfterSubkey = []
-        foundSubkey = False
+        items_before_subkey = []
+        items_after_subkey = []
+        found_subkey = False
 
         for item in items:
-            item.trimWhitespace()
-            if item.hasSubkeyStart():
-                stringBefore, stringAfter = item.get_before_and_after("(")
-                if stringBefore:
-                    itemsBeforeSubkey.append(UnQuotedItem(stringBefore))
-                if stringAfter:
-                    raise Exception(
-                        f'Hmm, there is something:{stringAfter} between ( and first " in keypart.'
-                    )
-                foundSubkey = True
+            item.trim_whitespace()
+            if item.has_subkey_start():
+                string_before, string_after = item.get_before_and_after("(")
+                if string_before:
+                    items_before_subkey.append(UnQuotedItem(string_before))
+                if string_after:
+                    raise Exception(f'Hmm, there is something:{string_after} between ( and first " in keypart.')
+                found_subkey = True
             else:
-                if foundSubkey:
-                    itemsAfterSubkey.append(item)
+                if found_subkey:
+                    items_after_subkey.append(item)
                 else:
-                    itemsBeforeSubkey.append(item)
+                    items_before_subkey.append(item)
 
-        subKeys = [x.string for x in itemsAfterSubkey if x.isTypeQuoted()]
+        sub_keys = [x.string for x in items_after_subkey if x.is_type_quoted()]
 
         # The spec in unclear on  if both ["en"] and [en]  is allowed.
         # first item will be UnQuoted and will contain the "[" if language is present in the keypart.
         keyword = ""
-        langValue = ""
-        if itemsBeforeSubkey[0].isTypeQuoted() or itemsBeforeSubkey[0].string == "":
+        lang_value = ""
+        if items_before_subkey[0].is_type_quoted() or items_before_subkey[0].string == "":
             raise Exception(f"Hmm, expected non-empty UnquotedItem.")
         else:
-            if "[" in itemsBeforeSubkey[0].string:
-                keyword, stringAfter = itemsBeforeSubkey[0].get_before_and_after("[")
-                if "]" in stringAfter:  # stringAfter must be: en]
-                    langValue = '"""' + stringAfter[:2] + '"""'
+            if "[" in items_before_subkey[0].string:
+                keyword, string_after = items_before_subkey[0].get_before_and_after("[")
+                if "]" in string_after:  # stringAfter must be: en]
+                    lang_value = '"""' + string_after[:2] + '"""'
                 else:
-                    langValue = itemsBeforeSubkey[1].string
+                    lang_value = items_before_subkey[1].string
             else:
-                keyword = itemsBeforeSubkey[0].string
+                keyword = items_before_subkey[0].string
 
-        return Keypart(keyword, langValue, subKeys)
+        return Keypart(keyword, lang_value, sub_keys)
 
     def when_unknown_keyword(self, keypart: Keypart, valueitems: list) -> None:
-        very_quoted_string = (
-            f"{keypart}={''.join([str(x.string) for x in valueitems])};"
-        )
-        addString = very_quoted_string.replace('"""', '"')  # .replace("\"\"","\"")
+        very_quoted_string = f"{keypart}={''.join([str(x.string) for x in valueitems])};"
+        add_string = very_quoted_string.replace('"""', '"')  # .replace("\"\"","\"")
         # strings are """ quoted for strings with newline to survive in a exec
 
         if self.outModel.unknown_keywords:
-            self.outModel.unknown_keywords = (
-                self.outModel.unknown_keywords + "\n" + addString
-            )
+            self.outModel.unknown_keywords = self.outModel.unknown_keywords + "\n" + add_string
         else:
-            self.outModel.unknown_keywords = addString
+            self.outModel.unknown_keywords = add_string
 
-    def fixValuePart(self, keypart: Keypart, items: list) -> None:
-        attrName = constants.KEYWORDS_PYTHONIC_MAP[keypart.keyword]
-        print(f"    Valuepart for {attrName}")
+    def fix_value_part(self, keypart: Keypart, items: list) -> None:
+        attr_name = constants.KEYWORDS_PYTHONIC_MAP[keypart.keyword]
+        print(f"    Valuepart for {attr_name}")
 
-        myAttri = vars(self.outModel)[attrName]
+        my_attri = vars(self.outModel)[attr_name]
         # "MADE-WITH"
 
-        outLangPart = ""
+        out_lang_part = ""
         if keypart.language:
-            outLangPart = f", lang={keypart.language}"
+            out_lang_part = f", lang={keypart.language}"
 
-        outSubkeyPart = ""
-        if len(keypart.subKeys) > 0:
-            outSubkeyPart = f", {', '.join(keypart.subKeys)}"
+        out_subkey_part = ""
+        if len(keypart.sub_keys) > 0:
+            out_subkey_part = f", {', '.join(keypart.sub_keys)}"
 
-        outValue = ""
+        out_value = ""
         do_run_exec = True
 
-        if myAttri.pxvalue_type == "_PxString":
+        if my_attri.pxvalue_type == "_PxString":
             if len(items) != 1:
                 raise ValueError(
                     f"Value for keypart {keypart}: Excepting single quoted string, but items has not len = 1 "
                 )
-            outValue = items[0].string
-        elif myAttri.pxvalue_type == "_PxBool":
+            out_value = items[0].string
+        elif my_attri.pxvalue_type == "_PxBool":
             if len(items) != 1:
                 raise ValueError(
                     f"Value for keypart {keypart}: Excepting single unquoted string YES or NO, but items has not len = 1"
                 )
-            outValue = "True"
+            out_value = "True"
             if items[0].string not in ["YES", "NO"]:
                 raise ValueError(
                     f"Value for keypart {keypart}: Boolean values must be YES or NO, not:{items[0].string}"
                 )
             if items[0].string == "NO":
-                outValue = "False"
-        elif myAttri.pxvalue_type == "_PxInt":
+                out_value = "False"
+        elif my_attri.pxvalue_type == "_PxInt":
             if len(items) != 1:
                 raise ValueError(
                     f"Value for keypart {keypart}: Excepting an integer as single unquoted string, but items has not len = 1"
                 )
 
             if not items[0].string.isdecimal():
-                raise ValueError(
-                    f"Value for keypart {keypart}: integer value convertion"
-                )
+                raise ValueError(f"Value for keypart {keypart}: integer value convertion")
 
-            outValue = "False"
-        elif myAttri.pxvalue_type == "_PxStringList":
+            out_value = "False"
+        elif my_attri.pxvalue_type == "_PxStringList":
             print("Stringlist")
-            if Loader.isEven(len(items)):
+            if Loader.is_even(len(items)):
                 raise ValueError(f"Bad list")
-            if not items[0].isTypeQuoted():
-                raise ValueError(
-                    f"Value for keypart {keypart}: List must start with quoted string"
-                )
+            if not items[0].is_type_quoted():
+                raise ValueError(f"Value for keypart {keypart}: List must start with quoted string")
 
-            myStrings = []
+            my_strings = []
             for idx, x in enumerate(items):
-                if Loader.isEven(idx):
-                    myStrings.append(x.string)
+                if Loader.is_even(idx):
+                    my_strings.append(x.string)
                 else:
-                    x.trimWhitespace()
+                    x.trim_whitespace()
                     if x.string != ",":
                         raise ValueError(
                             f"Value for keypart {keypart}: Bad list, at item-index{idx}: expected comma found {x.string}"
                         )
 
-            outValue = "[" + ",".join(myStrings) + "]"
+            out_value = "[" + ",".join(my_strings) + "]"
 
             for item in items:
                 print(f"      {item}")
             print("    --------")
-        elif myAttri.pxvalue_type == "_PxTlist":
+        elif my_attri.pxvalue_type == "_PxTlist":
             # TLIST(A1, ”1994”-”1996”);  or TLIST(A1), ”1994”, ”1995”,"1996”;
-            firstItem = items.pop(0)
-            tmp = firstItem.string.replace("TLIST(", "").strip()
+            first_item = items.pop(0)
+            tmp = first_item.string.replace("TLIST(", "").strip()
             timescale = tmp[0:2]
 
-            outValue = f'"{timescale}", '
+            out_value = f'"{timescale}", '
 
             if len(items) > 2 and items[1].string.strip() == "-":
-                outValue = outValue + f'{items[0].string} "-" {items[2].string}'
+                out_value = out_value + f'{items[0].string} "-" {items[2].string}'
             else:
-                outValue = outValue + "["
+                out_value = out_value + "["
                 for item in items:
-                    outValue = outValue + item.string
-                outValue = outValue + "]"
-        elif myAttri.pxvalue_type == "_PxData":
+                    out_value = out_value + item.string
+                out_value = out_value + "]"
+        elif my_attri.pxvalue_type == "_PxData":
             data_list = []
             for item in items:
                 data_list.append(item.string)
-            #self.outModel.data.set()    
-            self.outModel.data.set(data_list,1)
+            # self.outModel.data.set()
+            self.outModel.data.set(data_list, 1)
             do_run_exec = False
 
         if do_run_exec:
-            string_to_exec = (
-                f"self.outModel.{attrName}.set({outValue}{outSubkeyPart}{outLangPart})"
-            )
+            string_to_exec = f"self.outModel.{attr_name}.set({out_value}{out_subkey_part}{out_lang_part})"
             print("do_exec:" + string_to_exec)
             exec(string_to_exec)
 
@@ -262,15 +249,15 @@ class Loader:
         with open(filename, "r") as file:
             file_contents1: str = file.read()
 
-        firstChars: str = file_contents1[:2]
-        if not firstChars.isalpha():
+        first_chars: str = file_contents1[:2]
+        if not first_chars.isalpha():
             raise ValueError(f"A PxFile must start with a letter. {filename} does not.")
 
         file_contents2: str = file_contents1.replace('"\n"', "")
-        splitFileOnQuote = file_contents2.split('"')
+        split_file_on_quote = file_contents2.split('"')
 
         unquoted = True
-        for item in splitFileOnQuote:
+        for item in split_file_on_quote:
             if unquoted:
                 my_out.append(UnQuotedItem(item))
             else:
@@ -280,46 +267,44 @@ class Loader:
         return my_out
 
     def __init__(self, filename: str) -> None:
-        self.outModel:PXFileModel = PXFileModel()
+        self.outModel: PXFileModel = PXFileModel()
 
         file = Loader.get_file_in_chunks(filename)
 
         current_key_items = []
         current_value_items = []
-        collectingKey = True
+        collecting_key = True
 
         while len(file) > 0:
             item = file.pop(0)
             print(f"item:{item}")
-            if collectingKey:
-                if not item.hasPxPartSeparator():
+            if collecting_key:
+                if not item.has_px_part_separator():
                     current_key_items.append(item)
                 else:
-                    stringBefore, stringAfter = item.get_before_and_after("=")
-                    if stringBefore:
-                        current_key_items.append(UnQuotedItem(stringBefore))
-                    if stringAfter:
+                    string_before, string_after = item.get_before_and_after("=")
+                    if string_before:
+                        current_key_items.append(UnQuotedItem(string_before))
+                    if string_after:
                         # put the "unused" part of the string back
-                        file.insert(0, UnQuotedItem(stringAfter))
-                    collectingKey = False
+                        file.insert(0, UnQuotedItem(string_after))
+                    collecting_key = False
             else:
                 # collection Valuepart
-                if not item.hasPxEndline():
+                if not item.has_px_endline():
                     current_value_items.append(item)
                 else:
-                    stringBefore, stringAfter = item.get_before_and_after(";")
-                    if stringBefore:
-                        current_value_items.append(UnQuotedItem(stringBefore))
-                    if stringAfter:
+                    string_before, string_after = item.get_before_and_after(";")
+                    if string_before:
+                        current_value_items.append(UnQuotedItem(string_before))
+                    if string_after:
                         # put the "unused" part of the string back
-                        file.insert(0, UnQuotedItem(stringAfter))
+                        file.insert(0, UnQuotedItem(string_after))
 
-                    self.digest_keypart_valuepart_pair(
-                        current_key_items, current_value_items
-                    )
+                    self.digest_keypart_valuepart_pair(current_key_items, current_value_items)
 
                     # get ready for next record
-                    collectingKey = True
+                    collecting_key = True
                     current_key_items = []
                     current_value_items = []
 

@@ -20,554 +20,537 @@ from .helpers.datadatasource import Datadatasource
 from .helpers.for_get_data import ForGetData
 from .helpers.data_formatter import DataFormatter
 
-class LoadFromPxmetadata():
-   LabelConstructionOptionDict={"LabelConstructionOption.code":0,"LabelConstructionOption.text":1, "LabelConstructionOption.code_text":2, "LabelConstructionOption.text_code":3}
 
+class LoadFromPxmetadata:
+    LabelConstructionOptionDict = {
+        "LabelConstructionOption.code": 0,
+        "LabelConstructionOption.text": 1,
+        "LabelConstructionOption.code_text": 2,
+        "LabelConstructionOption.text_code": 3,
+    }
 
+    def __init__(self, pxmetadata_id: str, config_file: str) -> None:
+        self._pxmetadata_id = pxmetadata_id
+        print("For pxmetadata_id:", self._pxmetadata_id, ", with config:", config_file)
 
-   def __init__(self, pxmetadata_id: str, config_file:str) -> None:
-      self._pxmetadata_id = pxmetadata_id
-      print("For pxmetadata_id:",self._pxmetadata_id, ", with config:", config_file)
-      
-      #'example_data/pxtoolconfig/ssb_config.json'
-      with open(config_file, encoding="utf-8-sig") as f:
-        config_json = json.loads(f.read())
-      self._config = Pxtoolconfig(**config_json)
+        # 'example_data/pxtoolconfig/ssb_config.json'
+        with open(config_file, encoding="utf-8-sig") as f:
+            config_json = json.loads(f.read())
+        self._config = Pxtoolconfig(**config_json)
 
+        # todo if sourceType==File
+        #      pxmetadataFormat="example_data/pxmetadata/{id}.json"
+        pxmetadata_format = self._config.admin.px_metadata_resource.adress_format
+        pxmetadata_file = pxmetadata_format.format(id=self._pxmetadata_id)
 
-      #todo if sourceType==File
-#      pxmetadataFormat="example_data/pxmetadata/{id}.json"
-      pxmetadataFormat= self._config.admin.px_metadata_resource.adress_format
-      pxmetadataFil=pxmetadataFormat.format(id=self._pxmetadata_id)
+        with open(pxmetadata_file, encoding="utf-8-sig") as f:
+            pxmetadata_json = json.loads(f.read())
+        # endif
 
-      with open(pxmetadataFil, encoding="utf-8-sig") as f:
-        pxmetadata_json = json.loads(f.read())
-      #endif
+        self._pxmetadata_model = PxMetadata(**pxmetadata_json)
 
-      self._pxmetadata_model = PxMetadata(**pxmetadata_json)
+        # pxstatisticsFormat="example_data/pxstatistics/pxstatistics_{id}.json"
+        pxstatistics_format = self._config.admin.px_statistics_resource.adress_format
+        pxstatistics_file = pxstatistics_format.format(id=self._pxmetadata_model.dataset.statistics_id)
 
-      #pxstatisticsFormat="example_data/pxstatistics/pxstatistics_{id}.json"
-      pxstatisticsFormat=self._config.admin.px_statistics_resource.adress_format
-      pxstatisticsFil=pxstatisticsFormat.format(id=self._pxmetadata_model.dataset.statistics_id)
+        with open(pxstatistics_file, encoding="utf-8-sig") as f:
+            json1 = json.loads(f.read())
+        self._pxstatistics = PxStatistics(**json1)
 
-      with open(pxstatisticsFil, encoding="utf-8-sig") as f:
-        json1 = json.loads(f.read())
-      self._pxstatistics = PxStatistics(**json1)
+        if self._pxmetadata_model.dataset.coded_dimensions:
+            self._resolved_pxcodes_ids = {}
+            self._pxcodes_helper = {}
+            # pxcodesFormat="example_data/pxcodes/{id}.json"
+            pxcodes_format = self._config.admin.px_codes_resource.adress_format
+            for variable in self._pxmetadata_model.dataset.coded_dimensions:
+                if variable.codelist_id not in self._resolved_pxcodes_ids:
+                    tmp_path = pxcodes_format.format(id=variable.codelist_id)
+                    with open(tmp_path, encoding="utf-8-sig") as f:
+                        json1 = json.loads(f.read())
+                    self._resolved_pxcodes_ids[variable.codelist_id] = PxCodes(**json1)
+                    self._pxcodes_helper[variable.codelist_id] = HelperPxCodes(
+                        self._resolved_pxcodes_ids[variable.codelist_id], self._config.admin.valid_languages
+                    )
 
-      if self._pxmetadata_model.dataset.coded_dimensions:
-        self._resolved_pxcodes_ids={}
-        self._pxcodes_helper = {}
-        #pxcodesFormat="example_data/pxcodes/{id}.json"
-        pxcodesFormat=self._config.admin.px_codes_resource.adress_format
-        for myVar in self._pxmetadata_model.dataset.coded_dimensions:
+        self._datadata = Datadatasource(self._pxmetadata_model.dataset.data_file, self._config)
+        # self._parquet.PrintColumns()
 
-          if not myVar.codelist_id in self._resolved_pxcodes_ids:
-             tmpPath= pxcodesFormat.format(id=myVar.codelist_id)
-             with open(tmpPath, encoding="utf-8-sig") as f:
-                json1 = json.loads(f.read())
-             self._resolved_pxcodes_ids[myVar.codelist_id] = PxCodes(**json1)
-             self._pxcodes_helper[myVar.codelist_id] = HelperPxCodes(self._resolved_pxcodes_ids[myVar.codelist_id], self._config.admin.valid_languages)
+        self._for_get_data_by_varid: Dict[str, ForGetData] = dict()
 
-      
+        ##################
+        # loop in languages
 
-      self._datadata = Datadatasource(self._pxmetadata_model.dataset.data_file, self._config)
-      #self._parquet.PrintColumns()
+        self._current_lang = "no"  # todo
+        self._contact_string = self.get_contact_string(self._pxstatistics)
+        self._last_updated = self.get_last_updated(self._pxstatistics)
+        self._stub = []
+        self._heading = [self._config.contvariable[self._current_lang]]
 
-      self._for_get_data_by_varid:Dict[str, ForGetData] = dict()
-      
-     
+        self._metaid_table: List[str] = []
+        self._metaid_valiable: dict = {}
 
-   
-      ##################
-      ## loop in languages
+        out_model = PXFileModel()
+        self._out_model = out_model
+        out_model.language.set(self._current_lang)
 
-      self._current_lang="no" #todo
-      self._contact_string = self.GetContactString(self._pxstatistics)
-      self._last_updated = self.GetLastUpdated(self._pxstatistics) 
-      self._stub=[]
-      self._heading=[self._config.contvariable[self._current_lang] ]
+        self.map_pxtoolconfig_to_pxfile(self._config, out_model)
 
-      self._metaid_table:List[str]=[]
-      self._metaid_valiable:dict={}
-      
+        self.add_pxmetadata_to_pxfile(self._pxmetadata_model, out_model)
 
-      out_model = PXFileModel()
-      self._out_model = out_model
-      out_model.language.set(self._current_lang)
-      
-      self.MapPxtoolconfigToPXFileModel(self._config, out_model)
+        self.add_pxstatistics_to_pxfile(self._pxstatistics, out_model)
 
-      self.AddPxMetadataToPXFileModel(self._pxmetadata_model, out_model)
+        self.map_coded_dimensions_to_pxfile(out_model)
 
-      self.AddPxStatisticsToPXFileModel(self._pxstatistics, out_model)
+        self.map_measurements_to_pxfile(out_model)
 
-      self.MapCodedDimensions(out_model)
+        self.map_decimals_to_pxfile(out_model)
 
-      self.MapMeasurements(out_model)
-   
-      self.MapDecimals(out_model)
+        self.map_time_dimension_to_pxfile(out_model)
 
-      self.MapTimeDimension(out_model)
+        self.map_stub_heading_to_pxfile(out_model)
 
-      self.MapStubHeading(out_model)
+        self.map_title_to_pxfile(out_model)
 
-      self.MapTitle(out_model)
+        self.map_aggregallowed_to_pxfile(out_model)
 
-      self.MapAggregallowed(out_model)
+        self.add_metaid_to_pxfile(out_model)
 
+        self.get_data(out_model)
 
-      self.AddMetaIds(out_model)
-      
+        temp_tabid = self._pxmetadata_id
 
-      self.GetData(out_model)
-      
-      temp_tabid= self._pxmetadata_id
+        out_folder_format: str = self._config.admin.output_destination.px_folder_format
+        out_folder = out_folder_format.format(id=temp_tabid)
+        out_file = out_folder + "/tab_" + temp_tabid + ".px"
 
-      out_folder_format:str = self._config.admin.output_destination.px_folder_format
-      out_folder = out_folder_format.format(id=temp_tabid) 
-      out_file = out_folder +'/tab_'+temp_tabid+'.px'
+        # out_file= 'example_data/pxtool_output/output_'+temp_tabid+'/tab_'+temp_tabid+'.px'
+        with open(out_file, "w") as f:
+            print(out_model, file=f)
 
-      #out_file= 'example_data/pxtool_output/output_'+temp_tabid+'/tab_'+temp_tabid+'.px'
-      with open(out_file, 'w') as f:
-             print(out_model, file=f)
+        print("File written to:", out_file)
 
-      print("File written to:",out_file)
-      
-      #out_vs_model=_VSFileModel()
-      #self.makeVsFile(out_vs_model)
+        # out_vs_model=_VSFileModel()
+        # self.makeVsFile(out_vs_model)
 
-      self.makeVsFile()      
-
-
-
+        self.make_vs_file()
 
-          
-   def CalculateFactor(self) -> int:
-      variables_in_output_order = self.GetVariList()
-      curr_factor = 1 
-      for vari in reversed(variables_in_output_order):
-         temp_for_get_data:ForGetData = self._for_get_data_by_varid[vari]
-         temp_for_get_data.factor = curr_factor
-         prevN = temp_for_get_data._length_of_codelist
-         curr_factor = curr_factor*prevN 
-
-      array_size = curr_factor
+    def calculate_factor(self) -> int:
+        variables_in_output_order = self.get_variable_list()
+        curr_factor = 1
+        for vari in reversed(variables_in_output_order):
+            temp_for_get_data: ForGetData = self._for_get_data_by_varid[vari]
+            temp_for_get_data.factor = curr_factor
+            prev_number = temp_for_get_data._length_of_codelist
+            curr_factor = curr_factor * prev_number
 
-      return array_size
-   
-
-
-   def GetData(self, out_model:PXFileModel) -> None:
-      
-    #/// MINDEX:
-    #/// We need to convert a point(one value for each variable) in 
-    #/// the cube to a number(the index of the array).
-    #///
-    #/// k,j, i... 1-based counters
-    #/// Nx number of values for x
-    #/// Factor_k=Nj*Ni
-    #/// Factor_j= Ni
-    #/// Factor_i = 1
-    #/// index = Factor_k*(k-1) + Factor_j*(j-1) + Factor_i(i-1) </remarks>
-    #  in python things are zero-based but the idea is the same
-    #/// </summary>
-      start_GetData = time.time()
+        array_size = curr_factor
 
-      matrix_size = self.CalculateFactor()
+        return array_size
 
-      missing_row_symbol = self._pxmetadata_model.dataset.row_missing
-      missing_cell_symbol = self._pxmetadata_model.dataset.cell_missing
+    def get_data(self, out_model: PXFileModel) -> None:
+        # /// MINDEX:
+        # /// We need to convert a point(one value for each variable) in
+        # /// the cube to a number(the index of the array).
+        # ///
+        # /// k,j, i... 1-based counters
+        # /// Nx number of values for x
+        # /// Factor_k=Nj*Ni
+        # /// Factor_j= Ni
+        # /// Factor_i = 1
+        # /// index = Factor_k*(k-1) + Factor_j*(j-1) + Factor_i(i-1) </remarks>
+        #  in python things are zero-based but the idea is the same
+        # /// </summary>
+        start_get_data = time.time()
 
-    
-      column_code_map = self.GetMeasurementColumnCodeMapping()
+        matrix_size = self.calculate_factor()
 
-      start_tidy = time.time()
-      df =  self._datadata.GetTidyDF(self._config.contvariable_code, column_code_map)
- 
-      end_tidy = time.time()
-      time_used_tidy = end_tidy-start_tidy
-      print('Time: GetTidyDF:', time_used_tidy)
+        missing_row_symbol = self._pxmetadata_model.dataset.row_missing
+        missing_cell_symbol = self._pxmetadata_model.dataset.cell_missing
 
-      self.add_out_index(df)
-      self.add_out_value(missing_cell_symbol, df)
-      merged_df = self.add_missing_rows(matrix_size, missing_row_symbol, df)
+        column_code_map = self.get_measurement_column_code_mapping()
 
-      out_data = merged_df['out_value'].tolist()
+        start_tidy = time.time()
+        df = self._datadata.GetTidyDF(self._config.contvariable_code, column_code_map)
 
-      merged_df = merged_df.sort_values(by=['out_index'])
-      formatter = DataFormatter(self._heading, self._for_get_data_by_varid)
-      number_of_columns_per_line = formatter.CalculateLineBreak()
+        end_tidy = time.time()
+        time_used_tidy = end_tidy - start_tidy
+        print("Time: GetTidyDF:", time_used_tidy)
 
-      out_model.data.set(out_data, number_of_columns_per_line)
+        self.add_out_index(df)
+        self.add_out_value(missing_cell_symbol, df)
+        merged_df = self.add_missing_rows(matrix_size, missing_row_symbol, df)
 
-      end_GetData = time.time()
-      time_used_GetData = end_GetData-start_GetData
-      print('Time: GetData:', time_used_GetData)
+        out_data = merged_df["out_value"].tolist()
 
-   def add_missing_rows(self, matrix_size, missing_row_symbol, df):
-       matrix_df = pd.DataFrame({'out_index': range(matrix_size)})
+        merged_df = merged_df.sort_values(by=["out_index"])
+        formatter = DataFormatter(self._heading, self._for_get_data_by_varid)
+        number_of_columns_per_line = formatter.calculate_line_break()
 
+        out_model.data.set(out_data, number_of_columns_per_line)
 
-      # Merge the two DataFrames
-       merged_df = pd.merge(matrix_df, df, on='out_index', how='left')
+        end_get_data = time.time()
+        time_used_get_data = end_get_data - start_get_data
+        print("Time: GetData:", time_used_get_data)
 
-      # Fill missing values with "MISSING"
-       merged_df['out_value'].fillna(missing_row_symbol, inplace=True)
-       return merged_df
+    def add_missing_rows(self, matrix_size, missing_row_symbol, df):
+        matrix_df = pd.DataFrame({"out_index": range(matrix_size)})
 
-   def add_out_value(self, missing_cell_symbol, df):
-       conditions = [df['VALUE'] != "", 
-                    df['SYMBOL'] != ""
-                    ]
+        # Merge the two DataFrames
+        merged_df = pd.merge(matrix_df, df, on="out_index", how="left")
 
-       choices = [
-         df['VALUE'].astype(str),
-         df['SYMBOL'].astype(str)
-      ]
+        # Fill missing values with "MISSING"
+        merged_df["out_value"].fillna(missing_row_symbol, inplace=True)
+        return merged_df
 
-       start = time.time()
-       df['out_value'] = np.select(conditions, choices, missing_cell_symbol)
-       end = time.time()
-       time_used = end-start
-       print('Time: numpy select in:', time_used)
+    def add_out_value(self, missing_cell_symbol, df):
+        conditions = [df["VALUE"] != "", df["SYMBOL"] != ""]
 
-   def add_out_index(self, df):
-       columns_to_sum = []
-       for col in self._for_get_data_by_varid.values():
-         # Mapping the values using the dictionary 
-          contribColName=  'int_'+col._colname_in_dataframe
-          df[contribColName] = df[col._colname_in_dataframe].map(col._position_of_value) * col.factor
-          columns_to_sum.append(contribColName)
-       df['out_index'] = df[columns_to_sum].sum(axis=1)
+        choices = [df["VALUE"].astype(str), df["SYMBOL"].astype(str)]
 
-   def AddMetaIds(self, out_model:PXFileModel) -> None:
-     
-     if self._metaid_table:
-       out_model.meta_id.set( " ".join(self._metaid_table) )
-     
-     for vari in self._metaid_valiable:
-        out_model.meta_id.set(" ".join(self._metaid_valiable[vari]),vari, None,self._current_lang)
+        start = time.time()
+        df["out_value"] = np.select(conditions, choices, missing_cell_symbol)
+        end = time.time()
+        time_used = end - start
+        print("Time: numpy select in:", time_used)
 
+    def add_out_index(self, df):
+        columns_to_sum = []
+        for col in self._for_get_data_by_varid.values():
+            # Mapping the values using the dictionary
+            contrib_col_name = "int_" + col._colname_in_dataframe
+            df[contrib_col_name] = df[col._colname_in_dataframe].map(col._position_of_value) * col.factor
+            columns_to_sum.append(contrib_col_name)
+        df["out_index"] = df[columns_to_sum].sum(axis=1)
 
-   def GetVariList(self) -> List[str]:
-      return self._stub + self._heading  
+    def add_metaid_to_pxfile(self, out_model: PXFileModel) -> None:
+        if self._metaid_table:
+            out_model.meta_id.set(" ".join(self._metaid_table))
 
-   def GetMeasurementColumnCodeMapping(self) -> dict:
-      column_code_map = {}
-      for measurement_var in self._pxmetadata_model.dataset.measurements:
-         column_code_map[measurement_var.column_name] = measurement_var.code
+        for vari in self._metaid_valiable:
+            out_model.meta_id.set(" ".join(self._metaid_valiable[vari]), vari, None, self._current_lang)
 
-      return column_code_map
+    def get_variable_list(self) -> List[str]:
+        return self._stub + self._heading
 
-   def MapAggregallowed(self, out_model:PXFileModel):
-      # Check if all values in the array are True
-      all_true = all(instance.aggregation_allowed for instance in self._pxmetadata_model.dataset.measurements)
-      out_model.aggregallowed.set(all_true)
+    def get_measurement_column_code_mapping(self) -> dict:
+        column_code_map = {}
+        for measurement_var in self._pxmetadata_model.dataset.measurements:
+            column_code_map[measurement_var.column_name] = measurement_var.code
 
-   def MapTitle(self, out_model:PXFileModel):
-      lang = self._current_lang
-      model = self._pxmetadata_model.dataset 
+        return column_code_map
 
-      vari_list = self.GetVariList()
+    def map_aggregallowed_to_pxfile(self, out_model: PXFileModel):
+        # Check if all values in the array are True
+        all_true = all(instance.aggregation_allowed for instance in self._pxmetadata_model.dataset.measurements)
+        out_model.aggregallowed.set(all_true)
 
-      tmp_string = ", ".join(vari_list[:-1]) 
-
-      title = model.table_id + ": " + model.base_title[lang] + ", " +self._config.admin.the_word_by[lang]+ " " + tmp_string +" " + self._config.admin.the_word_and[lang] + " "+ vari_list[-1];  
-
-      out_model.title.set(title,self._current_lang)
-
-   def MapStubHeading(self, out_model:PXFileModel):
-      if self._heading:
-         out_model.heading.set(self._heading, self._current_lang)
-
-      if self._stub:
-         out_model.stub.set(self._stub, self._current_lang)
-
-      if not self._stub and not self._heading:
-         raise Exception("Sorry, both stub and heading are empty.")
-      
-   def MapTimeDimension(self, out_model:PXFileModel):
-      my_periods = self._datadata.GetTimePeriodes(self._pxmetadata_model.dataset.time_dimension.column_name) 
-
-      my_funny_var_id=self._pxmetadata_model.dataset.time_dimension.label[self._current_lang]
-
-      self._heading.append(my_funny_var_id)
-      out_model.values.set(my_periods, my_funny_var_id, self._current_lang)
-      out_model.codes.set(my_periods, my_funny_var_id,self._current_lang) 
-      out_model.variablecode.set(self._config.timevariable_code, my_funny_var_id, self._current_lang)  
-      out_model.variable_type.set("T", my_funny_var_id,self._current_lang)
-
-      for_get_data = ForGetData(self._pxmetadata_model.dataset.time_dimension.column_name,  my_periods)
-      self._for_get_data_by_varid[my_funny_var_id] = for_get_data 
-
-   def MapCodedDimensions(self, out_model:PXFileModel):
-      if self._pxmetadata_model.dataset.coded_dimensions:
+    def map_title_to_pxfile(self, out_model: PXFileModel):
         lang = self._current_lang
-        for my_var in self._pxmetadata_model.dataset.coded_dimensions: 
-          my_funny_var_id = my_var.label[lang]
-          self._stub.append(my_funny_var_id)
-          my_var_code = my_var.code if my_var.code is not None else my_var.column_name
-          out_model.variablecode.set(my_var_code, my_funny_var_id, lang)
-          my_codes:PxCodes = self._resolved_pxcodes_ids[my_var.codelist_id]
+        model = self._pxmetadata_model.dataset
 
-          my_pxcodes_helper = self._pxcodes_helper[my_var.codelist_id]
+        vari_list = self.get_variable_list()
 
-          temp_codes = my_pxcodes_helper.getCodes(lang)
-          out_model.codes.set(temp_codes,my_funny_var_id, lang) 
+        tmp_string = ", ".join(vari_list[:-1])
 
-          temp_values = my_pxcodes_helper.getLabels(lang)
-          out_model.values.set(temp_values,my_funny_var_id, lang)   
-          if my_codes.groupings:
-             
-             my_domain_id=MakeDomainId(my_var.codelist_id,self._current_lang)
-             out_model.domain.set(my_domain_id,my_funny_var_id,self._current_lang)
-          
+        title = (
+            model.table_id
+            + ": "
+            + model.base_title[lang]
+            + ", "
+            + self._config.admin.the_word_by[lang]
+            + " "
+            + tmp_string
+            + " "
+            + self._config.admin.the_word_and[lang]
+            + " "
+            + vari_list[-1]
+        )
 
+        out_model.title.set(title, self._current_lang)
 
-          if my_var.is_geo_variable_type:
-             out_model.variable_type.set("G", my_funny_var_id, lang) 
-          else:
-             out_model.variable_type.set("N", my_funny_var_id, lang) 
+    def map_stub_heading_to_pxfile(self, out_model: PXFileModel):
+        if self._heading:
+            out_model.heading.set(self._heading, self._current_lang)
 
-          out_model.prestext.set( self.LabelConstructionOptionDict[str(my_var.label_construction_option)], my_funny_var_id, lang) 
-           
-          if not my_pxcodes_helper.elimination_possible:
-             out_model.elimination.set("NO", my_funny_var_id, lang)
-          else:
-             label = my_pxcodes_helper.getEliminationLabel( lang)
-             if label:
-               out_model.elimination.set(label, my_funny_var_id, lang)
-             else:
-                out_model.elimination.set("YES", my_funny_var_id, lang)
-         
-          if my_var.meta_id:
-             if not my_funny_var_id in self._metaid_valiable:
-                self._metaid_valiable[my_funny_var_id] = []
+        if self._stub:
+            out_model.stub.set(self._stub, self._current_lang)
 
-             self._metaid_valiable[my_funny_var_id] += my_var.meta_id
+        if not self._stub and not self._heading:
+            raise Exception("Sorry, both stub and heading are empty.")
 
-          #Note on variable
-          if my_var.notes:
-             for note in my_var.notes:
-               if note.is_mandatory:
-                  out_model.notex.set(note.text[lang], my_funny_var_id, lang)
-               else:
-                  out_model.note.set(note.text[lang], my_funny_var_id, lang)
-          #Note on a value in variale
-          my_value_notes = my_pxcodes_helper.getNotes(lang)
-          if my_value_notes:
-              for code in my_value_notes: 
-                  for note in my_value_notes[code]:
-                     if note.is_mandatory:
-                        out_model.valuenotex.set(note.text[lang], my_funny_var_id, code, lang)
-                     else:
-                        out_model.valuenote.set(note.text[lang], my_funny_var_id, code, lang)
+    def map_time_dimension_to_pxfile(self, out_model: PXFileModel):
+        my_periods = self._datadata.GetTimePeriodes(self._pxmetadata_model.dataset.time_dimension.column_name)
 
-          for_get_data = ForGetData(my_var.column_name, my_pxcodes_helper.getCodes( lang))
-          self._for_get_data_by_varid[my_funny_var_id] = for_get_data 
+        my_funny_var_id = self._pxmetadata_model.dataset.time_dimension.label[self._current_lang]
 
+        self._heading.append(my_funny_var_id)
+        out_model.values.set(my_periods, my_funny_var_id, self._current_lang)
+        out_model.codes.set(my_periods, my_funny_var_id, self._current_lang)
+        out_model.variablecode.set(self._config.timevariable_code, my_funny_var_id, self._current_lang)
+        out_model.variable_type.set("T", my_funny_var_id, self._current_lang)
 
-   def MapMeasurements(self, out_model:PXFileModel):
-      if not self._pxmetadata_model.dataset.measurements:
-         raise Exception("Sorry, dataset is missing measurment.")
-      
-      my_funny_var_id = self._config.contvariable[self._current_lang]
-         
-      out_codes=[]
-      out_values =[]
-      for my_cont in self._pxmetadata_model.dataset.measurements: 
-         my_funny_cont_id = my_cont.label[self._current_lang]
-         my_cont_code = my_cont.code if my_cont.code is not None else my_cont.column_name
-         out_codes.append(my_cont_code)
-         out_values.append(my_cont.label[self._current_lang])
-         out_model.seasadj.set(my_cont.is_seasonally_adjusted or False,  my_funny_cont_id,self._current_lang)
-         out_model.dayadj.set(my_cont.is_workingdays_adjusted or False,  my_funny_cont_id,self._current_lang)
-         out_model.units.set(my_cont.unit_of_measure[self._current_lang], my_funny_cont_id,self._current_lang)
-         out_model.contact.set(self._contact_string, my_funny_cont_id,self._current_lang) 
-         out_model.last_updated.set(self._last_updated, my_funny_cont_id,self._current_lang) 
+        for_get_data = ForGetData(self._pxmetadata_model.dataset.time_dimension.column_name, my_periods)
+        self._for_get_data_by_varid[my_funny_var_id] = for_get_data
 
-         if my_cont.reference_period[self._current_lang]:
-            out_model.refperiod.set(my_cont.reference_period[self._current_lang], my_funny_cont_id,self._current_lang)
+    def map_coded_dimensions_to_pxfile(self, out_model: PXFileModel):
+        if self._pxmetadata_model.dataset.coded_dimensions:
+            lang = self._current_lang
+            for my_var in self._pxmetadata_model.dataset.coded_dimensions:
+                my_funny_var_id = my_var.label[lang]
+                self._stub.append(my_funny_var_id)
+                my_var_code = my_var.code if my_var.code is not None else my_var.column_name
+                out_model.variablecode.set(my_var_code, my_funny_var_id, lang)
+                my_codes: PxCodes = self._resolved_pxcodes_ids[my_var.codelist_id]
 
-         if my_cont.show_decimals > 0 :
-            out_model.precision.set(my_cont.show_decimals, my_funny_var_id,  my_funny_cont_id,self._current_lang)
+                my_pxcodes_helper = self._pxcodes_helper[my_var.codelist_id]
 
-         #optional with no default
-         if my_cont.price_type:
-            #todo str(my_cont.price_type) should yield C or F
-            out_model.cfprices.set(str(my_cont.price_type),  my_funny_cont_id,self._current_lang)
+                temp_codes = my_pxcodes_helper.getCodes(lang)
+                out_model.codes.set(temp_codes, my_funny_var_id, lang)
 
-      out_model.values.set(out_values, my_funny_var_id, self._current_lang)
-      out_model.codes.set(out_codes, my_funny_var_id,self._current_lang)
-      out_model.variablecode.set(self._config.contvariable_code, my_funny_var_id, self._current_lang) 
-      out_model.variable_type.set("C", my_funny_var_id, self._current_lang) 
+                temp_values = my_pxcodes_helper.getLabels(lang)
+                out_model.values.set(temp_values, my_funny_var_id, lang)
+                if my_codes.groupings:
+                    my_domain_id = make_domain_id(my_var.codelist_id, self._current_lang)
+                    out_model.domain.set(my_domain_id, my_funny_var_id, self._current_lang)
 
-      for_get_data = ForGetData(self._config.contvariable_code, out_codes)
-      self._for_get_data_by_varid[my_funny_var_id] = for_get_data 
+                if my_var.is_geo_variable_type:
+                    out_model.variable_type.set("G", my_funny_var_id, lang)
+                else:
+                    out_model.variable_type.set("N", my_funny_var_id, lang)
 
-   def MapDecimals(self, out_model:PXFileModel):
-      show_decimals_values = [instance.show_decimals for instance in self._pxmetadata_model.dataset.measurements]
+                out_model.prestext.set(
+                    self.LabelConstructionOptionDict[str(my_var.label_construction_option)], my_funny_var_id, lang
+                )
 
-      if self._pxmetadata_model.dataset.stored_decimals:
-         out_model.decimals.set( max(self._pxmetadata_model.dataset.stored_decimals,max(show_decimals_values)) )
-      else: 
-         out_model.decimals.set(max(show_decimals_values))
+                if not my_pxcodes_helper.elimination_possible:
+                    out_model.elimination.set("NO", my_funny_var_id, lang)
+                else:
+                    label = my_pxcodes_helper.getEliminationLabel(lang)
+                    if label:
+                        out_model.elimination.set(label, my_funny_var_id, lang)
+                    else:
+                        out_model.elimination.set("YES", my_funny_var_id, lang)
 
-      out_model.showdecimals.set(min(show_decimals_values)) 
+                if my_var.meta_id:
+                    if my_funny_var_id not in self._metaid_valiable:
+                        self._metaid_valiable[my_funny_var_id] = []
 
-   def GetContactString(self, in_model:PxStatistics) -> str:
-       contact_string = ""
+                    self._metaid_valiable[my_funny_var_id] += my_var.meta_id
 
-       if(in_model.contacts is None):
-         return contact_string
-       
-       for contact in in_model.contacts:
-          if(contact.name is None):
+                # Note on variable
+                if my_var.notes:
+                    for note in my_var.notes:
+                        if note.is_mandatory:
+                            out_model.notex.set(note.text[lang], my_funny_var_id, lang)
+                        else:
+                            out_model.note.set(note.text[lang], my_funny_var_id, lang)
+                # Note on a value in variale
+                my_value_notes = my_pxcodes_helper.getNotes(lang)
+                if my_value_notes:
+                    for code in my_value_notes:
+                        for note in my_value_notes[code]:
+                            if note.is_mandatory:
+                                out_model.valuenotex.set(note.text[lang], my_funny_var_id, code, lang)
+                            else:
+                                out_model.valuenote.set(note.text[lang], my_funny_var_id, code, lang)
+
+                for_get_data = ForGetData(my_var.column_name, my_pxcodes_helper.getCodes(lang))
+                self._for_get_data_by_varid[my_funny_var_id] = for_get_data
+
+    def map_measurements_to_pxfile(self, out_model: PXFileModel):
+        if not self._pxmetadata_model.dataset.measurements:
+            raise Exception("Sorry, dataset is missing measurment.")
+
+        my_funny_var_id = self._config.contvariable[self._current_lang]
+
+        out_codes = []
+        out_values = []
+        for my_cont in self._pxmetadata_model.dataset.measurements:
+            my_funny_cont_id = my_cont.label[self._current_lang]
+            my_cont_code = my_cont.code if my_cont.code is not None else my_cont.column_name
+            out_codes.append(my_cont_code)
+            out_values.append(my_cont.label[self._current_lang])
+            out_model.seasadj.set(my_cont.is_seasonally_adjusted or False, my_funny_cont_id, self._current_lang)
+            out_model.dayadj.set(my_cont.is_workingdays_adjusted or False, my_funny_cont_id, self._current_lang)
+            out_model.units.set(my_cont.unit_of_measure[self._current_lang], my_funny_cont_id, self._current_lang)
+            out_model.contact.set(self._contact_string, my_funny_cont_id, self._current_lang)
+            out_model.last_updated.set(self._last_updated, my_funny_cont_id, self._current_lang)
+
+            if my_cont.reference_period[self._current_lang]:
+                out_model.refperiod.set(
+                    my_cont.reference_period[self._current_lang], my_funny_cont_id, self._current_lang
+                )
+
+            if my_cont.show_decimals > 0:
+                out_model.precision.set(my_cont.show_decimals, my_funny_var_id, my_funny_cont_id, self._current_lang)
+
+            # optional with no default
+            if my_cont.price_type:
+                # todo str(my_cont.price_type) should yield C or F
+                out_model.cfprices.set(str(my_cont.price_type), my_funny_cont_id, self._current_lang)
+
+        out_model.values.set(out_values, my_funny_var_id, self._current_lang)
+        out_model.codes.set(out_codes, my_funny_var_id, self._current_lang)
+        out_model.variablecode.set(self._config.contvariable_code, my_funny_var_id, self._current_lang)
+        out_model.variable_type.set("C", my_funny_var_id, self._current_lang)
+
+        for_get_data = ForGetData(self._config.contvariable_code, out_codes)
+        self._for_get_data_by_varid[my_funny_var_id] = for_get_data
+
+    def map_decimals_to_pxfile(self, out_model: PXFileModel):
+        show_decimals_values = [instance.show_decimals for instance in self._pxmetadata_model.dataset.measurements]
+
+        if self._pxmetadata_model.dataset.stored_decimals:
+            out_model.decimals.set(max(self._pxmetadata_model.dataset.stored_decimals, max(show_decimals_values)))
+        else:
+            out_model.decimals.set(max(show_decimals_values))
+
+        out_model.showdecimals.set(min(show_decimals_values))
+
+    def get_contact_string(self, in_model: PxStatistics) -> str:
+        contact_string = ""
+
+        if in_model.contacts is None:
             return contact_string
-          contact_string += f"{contact.name[self._current_lang]}#{contact.phone}#{contact.email}##"
 
-       return contact_string[:-2]
-   
-   def GetLastUpdated(self, in_model:PxStatistics) -> str:
-      last_updated_date = ""
-      if in_model.upcoming_releases is None:
-         return last_updated_date
-      
-      if len(in_model.upcoming_releases) < 1:
-         return last_updated_date
-      
+        for contact in in_model.contacts:
+            if contact.name is None:
+                return contact_string
+            contact_string += f"{contact.name[self._current_lang]}#{contact.phone}#{contact.email}##"
 
-      last_updated_date = in_model.upcoming_releases[0]
- 
-      formatted_string = ConvertToPxdateString(last_updated_date, f"%Y-%m-%d %H:%M:%S.%f")
+        return contact_string[:-2]
 
-      return formatted_string
+    def get_last_updated(self, in_model: PxStatistics) -> str:
+        last_updated_date = ""
+        if in_model.upcoming_releases is None:
+            return last_updated_date
 
-   def AddPxStatisticsToPXFileModel(self, in_model:PxStatistics , out_model:PXFileModel):
-      lang=self._current_lang
-      
-      out_model.subject_area.set(in_model.subject_text[lang],lang)
-      out_model.subject_code.set(in_model.subject_code)
+        if len(in_model.upcoming_releases) < 1:
+            return last_updated_date
 
-      
-      self._metaid_table += in_model.meta_id
-       
+        last_updated_date = in_model.upcoming_releases[0]
 
-      #out_model.update_frequency.set() Hmm is not listed as language dependent in pdf
+        formatted_string = convert_to_pxdate_string(last_updated_date, f"%Y-%m-%d %H:%M:%S.%f")
+
+        return formatted_string
+
+    def add_pxstatistics_to_pxfile(self, in_model: PxStatistics, out_model: PXFileModel):
+        lang = self._current_lang
+
+        out_model.subject_area.set(in_model.subject_text[lang], lang)
+        out_model.subject_code.set(in_model.subject_code)
+
+        self._metaid_table += in_model.meta_id
+
+        # out_model.update_frequency.set() Hmm is not listed as language dependent in pdf
+
+    def add_pxmetadata_to_pxfile(self, in_model: PxMetadata, out_model: PXFileModel):
+        lang = self._current_lang
+        out_model.tableid.set(in_model.dataset.table_id)
+        out_model.matrix.set("tab_" + in_model.dataset.table_id)
+        out_model.contents.set(in_model.dataset.table_id + ": " + in_model.dataset.base_title[lang] + ",", lang)
+
+    def map_pxtoolconfig_to_pxfile(self, in_config: Pxtoolconfig, out_model: PXFileModel):
+        out_model.axis_version.set(str(in_config.axis_version))
+        out_model.charset.set(str(in_config.charset))
+        out_model.codepage.set(str(in_config.code_page))
+
+        out_model.descriptiondefault.set((in_config.description_default or False))
+        out_model.contvariable.set(str(in_config.contvariable[self._current_lang]))
+
+        if in_config.datasymbol1 and in_config.datasymbol1[self._current_lang]:
+            out_model.datasymbol1.set(str(in_config.datasymbol1[self._current_lang]), self._current_lang)
+        if in_config.datasymbol2 and in_config.datasymbol2[self._current_lang]:
+            out_model.datasymbol2.set(str(in_config.datasymbol2[self._current_lang]), self._current_lang)
+        if in_config.datasymbol3 and in_config.datasymbol3[self._current_lang]:
+            out_model.datasymbol3.set(str(in_config.datasymbol3[self._current_lang]), self._current_lang)
+        if in_config.datasymbol4 and in_config.datasymbol4[self._current_lang]:
+            out_model.datasymbol4.set(str(in_config.datasymbol4[self._current_lang]), self._current_lang)
+        if in_config.datasymbol5 and in_config.datasymbol5[self._current_lang]:
+            out_model.datasymbol5.set(str(in_config.datasymbol5[self._current_lang]), self._current_lang)
+        if in_config.datasymbol6 and in_config.datasymbol6[self._current_lang]:
+            out_model.datasymbol6.set(str(in_config.datasymbol6[self._current_lang]), self._current_lang)
+        if in_config.datasymbol_nil and in_config.datasymbol_nil[self._current_lang]:
+            out_model.datasymbolnil.set(str(in_config.datasymbol_nil[self._current_lang]), self._current_lang)
+        if in_config.datasymbol_sum and in_config.datasymbol_sum[self._current_lang]:
+            out_model.datasymbolsum.set(str(in_config.datasymbol_sum[self._current_lang]), self._current_lang)
+
+        out_model.source.set(in_config.source[self._current_lang], self._current_lang)
+
+    # def makeVsFile(self,out_vs_model:_VSFileModel):
+    def make_vs_file(self):
+        if self._pxmetadata_model.dataset.coded_dimensions:
+            for my_var in self._pxmetadata_model.dataset.coded_dimensions:
+                out_vs_model = _VSFileModel()
+                # out_model.variablecode.set(my_var_code, my_funny_var_id ,self._current_lang)
+                my_codes: PxCodes = self._resolved_pxcodes_ids[my_var.codelist_id]
+                if my_codes.groupings:
+                    vs_name = make_domain_id(my_var.codelist_id, self._current_lang)
+                    vs_type = "G" if my_var.is_geo_variable_type else "V"
+                    out_vs_model.description.set("Name", vs_name)
+                    out_vs_model.description.set("Type", vs_type)
+                    # if my_codes.groupings:
+                    group_conter = 0
+                    for groups in my_codes.groupings:
+                        group_conter = group_conter + 1
+                        group_key = str(group_conter)
+                        out_vs_model.aggreg.set(group_key, groups.filename_base + "_" + self._current_lang + ".agg")
+                        self.make_agg_file(groups, vs_name)
+                    my_domain = make_domain_id(my_var.codelist_id, self._current_lang)
+                    out_vs_model.domain.set("1", my_domain)
+
+                    my_sorted_value_items = self._pxcodes_helper[my_var.codelist_id]
+                    value_item_counter = 0
+                    for my_item in my_sorted_value_items._sorted_valueitems[self._current_lang]:
+                        value_item_counter = value_item_counter + 1
+                        value_item_key = str(value_item_counter)
+                        my_stripped_code = my_item.code.strip("'")
+                        out_vs_model.valuecode.set(value_item_key, my_stripped_code)
+                        my_stripped_text = my_item.label[self._current_lang].strip("'")
+                        out_vs_model.valuetext.set(value_item_key, my_stripped_text)
+
+                    out_folder_format: str = self._config.admin.output_destination.agg_folder_format
+                    out_folder = out_folder_format.format(id=self._pxmetadata_id)
+                    out_file = out_folder + "/" + my_codes.id + "_" + self._current_lang + ".vs"
+                    # out_file= 'example_data/pxtool_output/' + my_codes.id + "_" + self._current_lang + ".vs"
+                    with open(out_file, "w", encoding="utf-8") as f:
+                        print(out_vs_model, file=f)
+                        print("File written to:", out_file)
+
+    def make_agg_file(self, grouping: Grouping, vs_name: str):
+        out_agg_model = AggFileModel()
+        aggreg_name = grouping.filename_base + "_" + self._current_lang
+        out_agg_model.set("Aggreg", "Name", aggreg_name)
+        out_agg_model.set("Aggreg", "Valueset", vs_name)
+        item_counter = 0
+        # section= "Aggreg"
+        for item in grouping.valueitems:
+            item_counter = item_counter + 1
+            item_key = str(item_counter)
+            groupcode = item.code
+            valuetext = item.label[self._current_lang]
+            out_agg_model.set("Aggreg", item_key, groupcode)
+            out_agg_model.set("Aggtext", item_key, valuetext)
+            child_code_conter = 0
+            for child_code in item.unordered_children:
+                child_code_conter = child_code_conter + 1
+                child_code_key = str(child_code_conter)
+                out_agg_model.set(groupcode, child_code_key, child_code)
+        out_file = "example_data/pxtool_output/" + aggreg_name + ".agg"
+        with open(out_file, "w", encoding="utf-8") as f:
+            print(out_agg_model, file=f)
+            print("File written to:", out_file)
+        print("i agg")
+        print(grouping.filename_base)
 
 
-   def  AddPxMetadataToPXFileModel(self, in_model:PxMetadata , out_model:PXFileModel):
-      lang=self._current_lang
-      out_model.tableid.set(in_model.dataset.table_id)
-      out_model.matrix.set("tab_"+in_model.dataset.table_id)
-      out_model.contents.set( in_model.dataset.table_id + ": " + in_model.dataset.base_title[lang]+",",lang)
-      
+def convert_to_pxdate_string(date_string: str, date_format: str) -> str:
+    dtm_date = datetime.strptime(date_string, date_format)
+    px_date_string = dtm_date.strftime(f"%Y%m%d %H:%M")
+
+    return px_date_string
 
 
-   def MapPxtoolconfigToPXFileModel(self, in_config:Pxtoolconfig , out_model:PXFileModel):
-
-       out_model.axis_version.set(str(in_config.axis_version))
-       out_model.charset.set(str(in_config.charset))
-       out_model.codepage.set(str(in_config.code_page))
-
-       out_model.descriptiondefault.set((in_config.description_default or False))
-       out_model.contvariable.set(str(in_config.contvariable[self._current_lang] ))
-
-       if in_config.datasymbol1 and in_config.datasymbol1[self._current_lang]:
-         out_model.datasymbol1.set(str(in_config.datasymbol1[self._current_lang]),self._current_lang)
-       if in_config.datasymbol2 and in_config.datasymbol2[self._current_lang]:
-         out_model.datasymbol2.set(str(in_config.datasymbol2[self._current_lang]),self._current_lang)
-       if in_config.datasymbol3 and in_config.datasymbol3[self._current_lang]:
-         out_model.datasymbol3.set(str(in_config.datasymbol3[self._current_lang]),self._current_lang)
-       if in_config.datasymbol4 and in_config.datasymbol4[self._current_lang]:
-         out_model.datasymbol4.set(str(in_config.datasymbol4[self._current_lang]),self._current_lang)     
-       if in_config.datasymbol5 and in_config.datasymbol5[self._current_lang]:
-         out_model.datasymbol5.set(str(in_config.datasymbol5[self._current_lang]),self._current_lang)  
-       if in_config.datasymbol6 and in_config.datasymbol6[self._current_lang]:
-         out_model.datasymbol6.set(str(in_config.datasymbol6[self._current_lang]),self._current_lang)  
-       if in_config.datasymbol_nil and in_config.datasymbol_nil[self._current_lang]:
-         out_model.datasymbolnil.set(str(in_config.datasymbol_nil[self._current_lang]),self._current_lang)     
-       if in_config.datasymbol_sum and in_config.datasymbol_sum[self._current_lang]:
-         out_model.datasymbolsum.set(str(in_config.datasymbol_sum[self._current_lang]),self._current_lang)  
-
-
-       out_model.source.set(in_config.source[self._current_lang],self._current_lang)  
-   #def makeVsFile(self,out_vs_model:_VSFileModel):
-   def makeVsFile(self):
-          if self._pxmetadata_model.dataset.coded_dimensions:             
-            for my_var in self._pxmetadata_model.dataset.coded_dimensions: 
-               out_vs_model= _VSFileModel()
-               my_var_code = my_var.code
-               #out_model.variablecode.set(my_var_code, my_funny_var_id ,self._current_lang)
-               my_codes:PxCodes = self._resolved_pxcodes_ids[my_var.codelist_id]
-               if my_codes.groupings:
-                  my_funny_var_id = my_var.label[self._current_lang]
-                  vs_name= MakeDomainId(my_var.codelist_id,self._current_lang)
-                  vs_type = "G" if my_var.is_geo_variable_type else "V"
-                  out_vs_model.description.set("Name",vs_name)
-                  out_vs_model.description.set("Type",vs_type)
-                  # if my_codes.groupings:
-                  group_conter=0
-                  for groups in my_codes.groupings:
-                     group_conter = group_conter +1
-                     group_key = str(group_conter)
-                     out_vs_model.aggreg.set(group_key,groups.filename_base + "_" + self._current_lang + ".agg")
-                     self.makeAggFile(groups,vs_name)
-                  my_domain =MakeDomainId(my_var.codelist_id,self._current_lang)  
-                  out_vs_model.domain.set("1",my_domain) 
-                  
-                  my_sorted_value_items = self._pxcodes_helper[my_var.codelist_id] 
-                  value_item_counter=0
-                  for my_item in my_sorted_value_items._sorted_valueitems[self._current_lang]:
-                     value_item_counter = value_item_counter+1
-                     value_item_key = str(value_item_counter)
-                     my_stripped_code=my_item.code.strip("'")
-                     out_vs_model.valuecode.set(value_item_key,my_stripped_code)
-                     my_stripped_text = my_item.label[self._current_lang].strip("'")
-                     out_vs_model.valuetext.set(value_item_key,my_stripped_text)
-
-                  out_folder_format:str = self._config.admin.output_destination.agg_folder_format
-                  out_folder = out_folder_format.format(id=self._pxmetadata_id) 
-                  out_file = out_folder +'/' + my_codes.id + "_" + self._current_lang + ".vs"
-                  #out_file= 'example_data/pxtool_output/' + my_codes.id + "_" + self._current_lang + ".vs"
-                  with open(out_file, 'w', encoding="utf-8") as f:
-                     print(out_vs_model, file=f)
-                     print("File written to:",out_file)               
-
-
-      
-   def makeAggFile(self,grouping:Grouping,vs_name:str):
-      out_agg_model= AggFileModel()
-      aggreg_name= grouping.filename_base + "_" + self._current_lang
-      out_agg_model.set("Aggreg","Name",aggreg_name)
-      out_agg_model.set("Aggreg","Valueset",vs_name)
-      item_counter=0
-      #section= "Aggreg"
-      for item in grouping.valueitems:
-         item_counter=item_counter + 1
-         item_key = str(item_counter)
-         groupcode=item.code
-         valuetext = item.label[self._current_lang] 
-         out_agg_model.set("Aggreg",item_key,groupcode)
-         out_agg_model.set("Aggtext",item_key,valuetext)
-         child_code_conter = 0
-         for child_code in item.unordered_children:
-            child_code_conter = child_code_conter + 1
-            child_code_key = str(child_code_conter)
-            out_agg_model.set(groupcode,child_code_key,child_code)
-      out_file= 'example_data/pxtool_output/' + aggreg_name + ".agg"
-      with open(out_file, 'w', encoding="utf-8") as f:
-         print(out_agg_model, file=f)
-         print("File written to:",out_file)        
-      print("i agg")
-      print(grouping.filename_base)
-        
-def ConvertToPxdateString(date_string:str, date_format:str) -> str:
-   dtm_date = datetime.strptime(date_string, date_format)
-   px_date_string = dtm_date.strftime(f"%Y%m%d %H:%M")
-   
-   return px_date_string
-
-def MakeDomainId(code_list_id:str, lang:str) -> str:
-   domain_id = code_list_id + "_" + lang 
-   return domain_id 
+def make_domain_id(code_list_id: str, lang: str) -> str:
+    domain_id = code_list_id + "_" + lang
+    return domain_id
