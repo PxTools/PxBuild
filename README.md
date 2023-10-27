@@ -1,18 +1,18 @@
 # disclaimer
 This is WORK IN PROGRESS and is be no means ready for production. This repo is made public so that we migth cooperate if somebody else is trying to do the same thing. (We know you are out there :-) )
 # pxtool
-Tool for creating the px-files (.px, .vs and .agg -files), which is one of the datasource-types for the awesome PxWeb ( see https://github.com/statisticssweden/PxWeb ) 
+This shall become a tool for creating the px-files (.px, .vs and .agg -files), which is one of the datasource-types for the awesome PxWeb ( see https://github.com/statisticssweden/PxWeb ) 
 
 The basic idea: the information needed to be a table in PxWeb is split in 5 parts: 
 - config, which is common to all tables for an organisation, e.g. organisation name
 - zero or more codelists, for coded variables , often shared by other tables.  
-- stuff like subject-area and possible dates of publication. The tables typically share these properties with their sibling tables.
+- stuff like subject-area and possible dates of publication. CMS/publication-prosess type of info. The tables typically share these properties with their sibling tables.
 - the rest of the metadata, table specific information, e.g. title
-- the datadata, a parquet-file (or for testing csv) with the data     
+- the datadata, a parquet-file (or for testing csv) with the data and implisitt the codelist for time.    
 
 Each part, except the datadata, has a json-schema, named: pxtoolconfig, pxcodes, pxstatistics and pxmetadata.
 
-You supply data and the jsons and pxtool generates the px-files.
+So, you supply data and the jsons and pxtool generates the px-files.
 
 ```mermaid
 flowchart TD
