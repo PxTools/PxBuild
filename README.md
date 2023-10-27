@@ -1,3 +1,6 @@
+# brand new disclaimer
+As the Px family has a new organsation called pxtools, the name of this thing "pxtool" need to change, but to what?   
+
 # disclaimer
 This is WORK IN PROGRESS and is be no means ready for production. This repo is made public so that we migth cooperate if somebody else is trying to do the same thing. (We know you are out there :-) )
 # pxtool
@@ -20,14 +23,11 @@ flowchart TD
      M1["link to dataFile and Ids for the 'api's \n and other stuff like decimals"]
    end 
    subgraph S["'api' for Statistics"]
-     PX_SR("Some storage of Pxcodes.json files\n or live call to backend")
+     PX_SR("Some storage of pxstatistics-jsons,\n in a file folder\n or live call to backend")
    end
    subgraph C["'api' for Codelists"]
      D("Some storage of Pxcodes.json files\n or live call to backend")
    end
-
-  
-   
 
    subgraph T["Pxtool"]
      T1["Generate PXfiles"]
