@@ -20,13 +20,13 @@ So, you supply data and the jsons and pxtool generates the px-files.
 ```mermaid
 flowchart TD
    subgraph M["pxmetadata.json (Startingpoint)"]
-     M1["link to dataFile and Ids for the 'api's \n and other stuff like decimals"]
+     M1["Stuff like title and decimals\n and also link to dataFile and Ids for the 'api' for shared info"]
    end 
-   subgraph S["'api' for Statistics"]
-     PX_SR("Some storage of pxstatistics-jsons,\n in a file folder\n or live call to backend")
+   subgraph S["'api' for Pxstatistics-jsons"]
+     PX_SR("Storage of Pxstatistics-json files,\n in a file folder\n or live call to backend")
    end
-   subgraph C["'api' for Codelists"]
-     D("Some storage of Pxcodes.json files\n or live call to backend")
+   subgraph C["'api' for Pxcodes-jsons"]
+     D("Storage of Pxcodes-json files\n or live call to backend")
    end
 
    subgraph T["Pxtool"]
