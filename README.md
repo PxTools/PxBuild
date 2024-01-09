@@ -3,7 +3,7 @@ As the Px family has a new organsation called pxtools, the name of this thing "p
 
 # disclaimer
 This is WORK IN PROGRESS and is be no means ready for production.
-# pxtool
+# pxbuild
 Purpose: Creating px-files (.px, .vs and .agg -files), which is one of the datasource-types for the awesome PxWeb ( see https://github.com/statisticssweden/PxWeb ) 
 
 The basic idea: the information needed to be a table in PxWeb is split in 5 parts: 
@@ -13,9 +13,9 @@ The basic idea: the information needed to be a table in PxWeb is split in 5 part
 - the rest of the metadata, table specific information, e.g. title
 - the datadata, a parquet-file (or for testing csv) with the data and implisitt the codelist for time.    
 
-Each part, except the datadata, has a json-schema, named: pxtoolconfig, pxcodes, pxstatistics and pxmetadata.
+Each part, except the datadata, has a json-schema, named: pxbuildconfig, pxcodes, pxstatistics and pxmetadata.
 
-So, you supply data and the jsons and pxtool generates the px-files.
+So, you supply data and the jsons and pxbuild generates the px-files.
 
 ```mermaid
 flowchart TD
