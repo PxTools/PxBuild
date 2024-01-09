@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._data import _Data
+from pxbuild.models.output.pxfile.keywords._data import _Data
     
 def test_Data_set_valid():
     obj = _Data()

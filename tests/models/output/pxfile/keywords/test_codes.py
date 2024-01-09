@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._codes import _Codes
+from pxbuild.models.output.pxfile.keywords._codes import _Codes
     
 def test_Codes_set_valid():
     obj = _Codes()

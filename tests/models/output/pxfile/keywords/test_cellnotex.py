@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._cellnotex import _Cellnotex
+from pxbuild.models.output.pxfile.keywords._cellnotex import _Cellnotex
     
 def test_Cellnotex_set_valid():
     obj = _Cellnotex()

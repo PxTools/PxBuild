@@ -1,6 +1,6 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.util._px_valuetype import _PxString
-from pxtool.models.output.pxfile.util._px_keytypes import _KeytypeCodes, _KeytypeValuesLangMulti, _KeytypeVariableValueLangMulti, _KeytypeVariableLangMulti, _KeytypeLang,_KeytypeVariableLang,_KeytypeContentLang, _KeytypeVariableValueLang
+from pxbuild.models.output.pxfile.util._px_valuetype import _PxString
+from pxbuild.models.output.pxfile.util._px_keytypes import _KeytypeCodes, _KeytypeValuesLangMulti, _KeytypeVariableValueLangMulti, _KeytypeVariableLangMulti, _KeytypeLang,_KeytypeVariableLang,_KeytypeContentLang, _KeytypeVariableValueLang
 
 def test_eq_returns_false():
 

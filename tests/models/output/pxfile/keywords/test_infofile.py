@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._infofile import _Infofile
+from pxbuild.models.output.pxfile.keywords._infofile import _Infofile
     
 def test_Infofile_set_valid():
     obj = _Infofile()

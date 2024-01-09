@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._contact import _Contact
+from pxbuild.models.output.pxfile.keywords._contact import _Contact
     
 def test_Contact_set_valid():
     obj = _Contact()

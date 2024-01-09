@@ -1,5 +1,5 @@
-from pxtool.models.output.pxfile.px_file_model import PXFileModel
-from pxtool.operations_on_model.output.validator.checks.check_completeness import check_completeness
+from pxbuild.models.output.pxfile.px_file_model import PXFileModel
+from pxbuild.operations_on_model.output.validator.checks.check_completeness import check_completeness
 
 import pytest
 

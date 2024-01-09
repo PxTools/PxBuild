@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._valuenotex import _Valuenotex
+from pxbuild.models.output.pxfile.keywords._valuenotex import _Valuenotex
     
 def test_Valuenotex_set_valid():
     obj = _Valuenotex()

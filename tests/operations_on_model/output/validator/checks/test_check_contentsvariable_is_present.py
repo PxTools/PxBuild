@@ -1,5 +1,5 @@
-from pxtool.models.output.pxfile.px_file_model import PXFileModel
-from pxtool.operations_on_model.output.validator.checks.check_contentsvariable_is_present import check_contentsvariable_is_present
+from pxbuild.models.output.pxfile.px_file_model import PXFileModel
+from pxbuild.operations_on_model.output.validator.checks.check_contentsvariable_is_present import check_contentsvariable_is_present
 import pytest
 
 def test_contentsvariable_is_ok_both_languages_lang():

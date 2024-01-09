@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._datasymbolsum import _Datasymbolsum
+from pxbuild.models.output.pxfile.keywords._datasymbolsum import _Datasymbolsum
     
 def test_Datasymbolsum_set_valid():
     obj = _Datasymbolsum()

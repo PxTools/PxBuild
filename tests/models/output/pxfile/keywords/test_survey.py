@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._survey import _Survey
+from pxbuild.models.output.pxfile.keywords._survey import _Survey
     
 def test_Survey_set_valid():
     obj = _Survey()

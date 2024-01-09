@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._hierarchynames import _Hierarchynames
+from pxbuild.models.output.pxfile.keywords._hierarchynames import _Hierarchynames
     
 def test_Hierarchynames_set_valid():
     obj = _Hierarchynames()

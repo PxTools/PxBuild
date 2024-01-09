@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._axis_version import _AxisVersion
+from pxbuild.models.output.pxfile.keywords._axis_version import _AxisVersion
     
 def test_AxisVersion_set_valid():
     obj = _AxisVersion()

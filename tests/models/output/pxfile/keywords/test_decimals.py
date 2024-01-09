@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._decimals import _Decimals
+from pxbuild.models.output.pxfile.keywords._decimals import _Decimals
     
 def test_Decimals_set_valid():
     obj = _Decimals()
