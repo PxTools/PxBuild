@@ -1,13 +1,13 @@
 my pc:
 C:\Users\jfi\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\Scripts\datamodel-codegen.exe 
 
-*** Scripts\datamodel-codegen.exe --input pxmetadata.yaml --input-file-type openapi --snake-case-field --encoding utf-8 --target-python-version 3.11 --collapse-root-models  --use-schema-description   --use-field-description  --output ..\..\pxtool\models\input\pydantic_pxmetadata.py
+*** Scripts\datamodel-codegen.exe --input pxmetadata.yaml --input-file-type openapi --snake-case-field --encoding utf-8 --target-python-version 3.11 --collapse-root-models  --use-schema-description   --use-field-description  --output ..\..\pxbuild\models\input\pydantic_pxmetadata.py
 
-*** Scripts\datamodel-codegen.exe --input pxcodes.yaml --input-file-type openapi --snake-case-field --encoding utf-8 --target-python-version 3.11 --collapse-root-models  --use-schema-description   --use-field-description  --output  ..\..\pxtool\models\input\pydantic_pxcodes.py 
+*** Scripts\datamodel-codegen.exe --input pxcodes.yaml --input-file-type openapi --snake-case-field --encoding utf-8 --target-python-version 3.11 --collapse-root-models  --use-schema-description   --use-field-description  --output  ..\..\pxbuild\models\input\pydantic_pxcodes.py 
 
-*** Scripts\datamodel-codegen.exe --input pxstatistics.yaml --input-file-type openapi --snake-case-field --encoding utf-8 --target-python-version 3.11 --collapse-root-models  --use-schema-description   --use-field-description  --output ..\..\pxtool\models\input\pydantic_pxstatistics.py
+*** Scripts\datamodel-codegen.exe --input pxstatistics.yaml --input-file-type openapi --snake-case-field --encoding utf-8 --target-python-version 3.11 --collapse-root-models  --use-schema-description   --use-field-description  --output ..\..\pxbuild\models\input\pydantic_pxstatistics.py
 
-*** Scripts\datamodel-codegen.exe --input pxbuildconfig.yaml --input-file-type openapi --snake-case-field --encoding utf-8 --target-python-version 3.11 --collapse-root-models  --use-schema-description   --use-field-description  --output ..\..\pxtool\models\input\pydantic_pxbuildconfig.py
+*** Scripts\datamodel-codegen.exe --input pxbuildconfig.yaml --input-file-type openapi --snake-case-field --encoding utf-8 --target-python-version 3.11 --collapse-root-models  --use-schema-description   --use-field-description  --output ..\..\pxbuild\models\input\pydantic_pxbuildconfig.py
 
 
 **\Scripts\datamodel-codegen.exe

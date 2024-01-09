@@ -2,7 +2,7 @@ import pyarrow.parquet as pq
 import pyarrow as pa
 import pandas as pd
 from typing import List
-from pxbuild.models.input.pydantic_pxbuildconfig import Pxtoolconfig
+from pxbuild.models.input.pydantic_pxbuildconfig import Pxbuildconfig
 from .parquet_datasource import ParquetDatasource
 from .csv_datasource import CsvDatasource
 from .abstract_datasource import AbstractDatasource
@@ -11,7 +11,7 @@ from .abstract_datasource import AbstractDatasource
 
 class Datadatasource:
 
-   def __init__(self,file_id:str, config:Pxtoolconfig) -> None:
+   def __init__(self,file_id:str, config:Pxbuildconfig) -> None:
      data_file_path_format= config.admin.px_data_resource.adress_format
      data_file_path=data_file_path_format.format(id=file_id)
      if data_file_path.endswith(".parquet"): 

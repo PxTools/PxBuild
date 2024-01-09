@@ -6,7 +6,7 @@ import numpy as np
 from typing import List, Dict
 
 from pxbuild.models.input.pydantic_pxmetadata import PxMetadata
-from pxbuild.models.input.pydantic_pxbuildconfig import Pxtoolconfig
+from pxbuild.models.input.pydantic_pxbuildconfig import Pxbuildconfig
 from pxbuild.models.input.pydantic_pxcodes import PxCodes
 from pxbuild.models.input.pydantic_pxcodes import Grouping
 from pxbuild.models.input.helper_pxcodes import HelperPxCodes
@@ -36,7 +36,7 @@ class LoadFromPxmetadata:
         # 'example_data/pxbuildconfig/ssb_config.json'
         with open(config_file, encoding="utf-8-sig") as f:
             config_json = json.loads(f.read())
-        self._config = Pxtoolconfig(**config_json)
+        self._config = Pxbuildconfig(**config_json)
 
         # todo if sourceType==File
         #      pxmetadataFormat="example_data/pxmetadata/{id}.json"
@@ -450,7 +450,7 @@ class LoadFromPxmetadata:
         out_model.matrix.set("tab_" + in_model.dataset.table_id)
         out_model.contents.set(in_model.dataset.table_id + ": " + in_model.dataset.base_title[lang] + ",", lang)
 
-    def map_pxbuildconfig_to_pxfile(self, in_config: Pxtoolconfig, out_model: PXFileModel):
+    def map_pxbuildconfig_to_pxfile(self, in_config: Pxbuildconfig, out_model: PXFileModel):
         out_model.axis_version.set(str(in_config.axis_version))
         out_model.charset.set(str(in_config.charset))
         out_model.codepage.set(str(in_config.code_page))

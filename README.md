@@ -29,7 +29,7 @@ flowchart TD
      D("Storage of Pxcodes-json files\n or live call to backend")
    end
 
-   subgraph T["Pxtool"]
+   subgraph T["Pxbuild"]
      T1["Generate PXfiles"]
    end
    subgraph O["Output"]

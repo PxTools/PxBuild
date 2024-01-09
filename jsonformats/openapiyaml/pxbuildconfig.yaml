@@ -1,14 +1,14 @@
 openapi: 3.0.3
 info:
-  title: pxtoolconfig
+  title: pxbuildconfig
   description: |-
-    This is a sample pxtoolconfig based on the OpenAPI 3.0 specification. We just use the schema, so it is perhaps an abuse, but I like the editor.  
+    This is a sample pxbuildconfig based on the OpenAPI 3.0 specification. We just use the schema, so it is perhaps an abuse, but I like the editor.  
   version: 0.0.1
 externalDocs:
   description: Find out more about Swagger
   url: https://swagger.io
 tags:
-  - name: pxtoolconfig
+  - name: pxbuildconfig
     description: Holds data from your registry of statistics. <br>
        The underlying model is that tables are put on the web in groups. All tables in the group
        are published at the same time and with the same frequensy. They also share subject in the "menutree" and may share contact info. They have the same Information about the statistics page.
@@ -16,28 +16,28 @@ tags:
       description: Find out more
       url: http://swagger.io
 paths:
-  /pxtoolconfig:
+  /pxbuildconfig:
     get:
       tags:
-        - pxtoolconfig
-      summary: Find pxtoolconfig by ID
-      description: Returns a single pxtoolconfig
-      operationId: getpxtoolconfig
+        - pxbuildconfig
+      summary: Find pxbuildconfig by ID
+      description: Returns a single pxbuildconfig
+      operationId: getbuildconfig
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/pxtoolconfig'          
+                $ref: '#/components/schemas/buildconfig'          
             application/xml:
               schema:
-                $ref: '#/components/schemas/pxtoolconfig'
+                $ref: '#/components/schemas/buildconfig'
         '404':
-          description: pxtoolconfig not found
+          description: pxbuildconfig not found
 components:
   schemas:
-    pxtoolconfig:
+    pxbuildconfig:
       type: object
       required:
         - admin
@@ -131,10 +131,10 @@ components:
                             default: folders
                         pxFolderFormat:
                             type: string
-                            description: "Aplies to resourcetype=folders. The folder where the .px-files are written. id is the tableID. Example: example_data/pxtool_output/{id}"
+                            description: "Aplies to resourcetype=folders. The folder where the .px-files are written. id is the tableID. Example: example_data/pxbuild_output/{id}"
                         aggFolderFormat:
                             type: string
-                            description: "Aplies to resourcetype=folders. The folder where the .vs- and .agg-files are written. id is the tableID. Example: example_data/pxtool_output/id}"                                
+                            description: "Aplies to resourcetype=folders. The folder where the .vs- and .agg-files are written. id is the tableID. Example: example_data/pxbuild_output/id}"                                
                   validLanguages:
                      type: array
                      items:
