@@ -5,16 +5,16 @@ import pandas as pd
 import numpy as np
 from typing import List, Dict
 
-from pxtool.models.input.pydantic_pxmetadata import PxMetadata
-from pxtool.models.input.pydantic_pxtoolconfig import Pxtoolconfig
-from pxtool.models.input.pydantic_pxcodes import PxCodes
-from pxtool.models.input.pydantic_pxcodes import Grouping
-from pxtool.models.input.helper_pxcodes import HelperPxCodes
-from pxtool.models.input.pydantic_pxstatistics import PxStatistics
+from pxbuild.models.input.pydantic_pxmetadata import PxMetadata
+from pxbuild.models.input.pydantic_pxbuildconfig import Pxtoolconfig
+from pxbuild.models.input.pydantic_pxcodes import PxCodes
+from pxbuild.models.input.pydantic_pxcodes import Grouping
+from pxbuild.models.input.helper_pxcodes import HelperPxCodes
+from pxbuild.models.input.pydantic_pxstatistics import PxStatistics
 
-from pxtool.models.output.pxfile.px_file_model import PXFileModel
-from pxtool.models.output.agg_vs.vs_file_model import _VSFileModel
-from pxtool.models.output.agg.agg_file_model import AggFileModel
+from pxbuild.models.output.pxfile.px_file_model import PXFileModel
+from pxbuild.models.output.agg_vs.vs_file_model import _VSFileModel
+from pxbuild.models.output.agg.agg_file_model import AggFileModel
 
 from .helpers.datadatasource import Datadatasource
 from .helpers.for_get_data import ForGetData
@@ -33,7 +33,7 @@ class LoadFromPxmetadata:
         self._pxmetadata_id = pxmetadata_id
         print("For pxmetadata_id:", self._pxmetadata_id, ", with config:", config_file)
 
-        # 'example_data/pxtoolconfig/ssb_config.json'
+        # 'example_data/pxbuildconfig/ssb_config.json'
         with open(config_file, encoding="utf-8-sig") as f:
             config_json = json.loads(f.read())
         self._config = Pxtoolconfig(**config_json)
@@ -93,7 +93,7 @@ class LoadFromPxmetadata:
         self._out_model = out_model
         out_model.language.set(self._current_lang)
 
-        self.map_pxtoolconfig_to_pxfile(self._config, out_model)
+        self.map_pxbuildconfig_to_pxfile(self._config, out_model)
 
         self.add_pxmetadata_to_pxfile(self._pxmetadata_model, out_model)
 
@@ -123,7 +123,7 @@ class LoadFromPxmetadata:
         out_folder = out_folder_format.format(id=temp_tabid)
         out_file = out_folder + "/tab_" + temp_tabid + ".px"
 
-        # out_file= 'example_data/pxtool_output/output_'+temp_tabid+'/tab_'+temp_tabid+'.px'
+        # out_file= 'example_data/pxbuild_output/output_'+temp_tabid+'/tab_'+temp_tabid+'.px'
         with open(out_file, "w") as f:
             print(out_model, file=f)
 
@@ -450,7 +450,7 @@ class LoadFromPxmetadata:
         out_model.matrix.set("tab_" + in_model.dataset.table_id)
         out_model.contents.set(in_model.dataset.table_id + ": " + in_model.dataset.base_title[lang] + ",", lang)
 
-    def map_pxtoolconfig_to_pxfile(self, in_config: Pxtoolconfig, out_model: PXFileModel):
+    def map_pxbuildconfig_to_pxfile(self, in_config: Pxtoolconfig, out_model: PXFileModel):
         out_model.axis_version.set(str(in_config.axis_version))
         out_model.charset.set(str(in_config.charset))
         out_model.codepage.set(str(in_config.code_page))
@@ -514,7 +514,7 @@ class LoadFromPxmetadata:
                     out_folder_format: str = self._config.admin.output_destination.agg_folder_format
                     out_folder = out_folder_format.format(id=self._pxmetadata_id)
                     out_file = out_folder + "/" + my_codes.id + "_" + self._current_lang + ".vs"
-                    # out_file= 'example_data/pxtool_output/' + my_codes.id + "_" + self._current_lang + ".vs"
+                    # out_file= 'example_data/pxbuild_output/' + my_codes.id + "_" + self._current_lang + ".vs"
                     with open(out_file, "w") as f:
                         print(out_vs_model, file=f)
                         print("File written to:", out_file)
@@ -549,7 +549,7 @@ class LoadFromPxmetadata:
                 child_code_conter = child_code_conter + 1
                 child_code_key = str(child_code_conter)
                 out_agg_model.set(groupcode, child_code_key, child_code)
-        out_file = "example_data/pxtool_output/" + grouping.filename_base + "_" + self._current_lang + ".agg"
+        out_file = "example_data/pxbuild_output/" + grouping.filename_base + "_" + self._current_lang + ".agg"
         with open(out_file, "w") as f:
             print(out_agg_model, file=f)
             print("File written to:", out_file)
