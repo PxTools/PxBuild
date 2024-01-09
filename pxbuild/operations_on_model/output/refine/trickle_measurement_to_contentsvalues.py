@@ -1,17 +1,17 @@
-import pxtool.models.output.pxfile.util.constants as constants
-from pxtool.models.output.pxfile.px_file_model import PXFileModel
-from pxtool.models.output.pxfile.util._px_keytypes import _KeytypeContentLang
+import pxbuild.models.output.pxfile.util.constants as constants
+from pxbuild.models.output.pxfile.px_file_model import PXFileModel
+from pxbuild.models.output.pxfile.util._px_keytypes import _KeytypeContentLang
 
 
-from pxtool.operations_on_model.output.validator.checks.check_contentsvariable_is_present import (
+from pxbuild.operations_on_model.output.validator.checks.check_contentsvariable_is_present import (
     check_contentsvariable_is_present,
 )
-from pxtool.operations_on_model.output.validator.checks.check_lang_keys import check_lang_keys
-from pxtool.operations_on_model.output.validator.checks.check_language import check_language
-from pxtool.operations_on_model.output.validator.checks.check_stub_and_heading import (
+from pxbuild.operations_on_model.output.validator.checks.check_lang_keys import check_lang_keys
+from pxbuild.operations_on_model.output.validator.checks.check_language import check_language
+from pxbuild.operations_on_model.output.validator.checks.check_stub_and_heading import (
     check_stub_and_heading,
 )
-from pxtool.operations_on_model.output.validator.checks.check_values import check_values
+from pxbuild.operations_on_model.output.validator.checks.check_values import check_values
 
 
 def trickle_measurement_to_contentsvalues(model: PXFileModel):

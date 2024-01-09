@@ -1,9 +1,9 @@
-from pxtool.models.output.pxfile.px_file_model import PXFileModel
+from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 from ...validator.validationResult import ValidationResult
-import pxtool.models.output.pxfile.util.constants as const
+import pxbuild.models.output.pxfile.util.constants as const
 
-from pxtool.models.output.pxfile.util._px_super import _PxValueByKey
-from pxtool.models.output.pxfile.util._px_keytypes import _KeytypeVariableLang, _KeytypeContentLang, _KeytypeVariableValueLang, _KeytypeValuesLangMulti, _KeytypeCodes
+from pxbuild.models.output.pxfile.util._px_super import _PxValueByKey
+from pxbuild.models.output.pxfile.util._px_keytypes import _KeytypeVariableLang, _KeytypeContentLang, _KeytypeVariableValueLang, _KeytypeValuesLangMulti, _KeytypeCodes
 
 class _Checker:
     def __init__(self, model:PXFileModel) -> None:

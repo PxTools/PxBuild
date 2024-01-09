@@ -1,17 +1,17 @@
-from pxtool.models.output.pxfile.px_file_model import PXFileModel
+from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 
-from pxtool.operations_on_model.output.validator.checks.check_contentsvariable_is_present import (
+from pxbuild.operations_on_model.output.validator.checks.check_contentsvariable_is_present import (
     check_contentsvariable_is_present,
 )
-from pxtool.operations_on_model.output.validator.checks.check_lang_keys import check_lang_keys
-from pxtool.operations_on_model.output.validator.checks.check_language import check_language
-from pxtool.operations_on_model.output.validator.checks.check_stub_and_heading import (
+from pxbuild.operations_on_model.output.validator.checks.check_lang_keys import check_lang_keys
+from pxbuild.operations_on_model.output.validator.checks.check_language import check_language
+from pxbuild.operations_on_model.output.validator.checks.check_stub_and_heading import (
     check_stub_and_heading,
 )
-from pxtool.operations_on_model.output.validator.checks.check_subkeys import (
+from pxbuild.operations_on_model.output.validator.checks.check_subkeys import (
     check_valuebased_subkeys,
 )
-from pxtool.operations_on_model.output.validator.checks.check_values import check_values
+from pxbuild.operations_on_model.output.validator.checks.check_values import check_values
 
 
 def fix_the_variable_type_keyword(model: PXFileModel):

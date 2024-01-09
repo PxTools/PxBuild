@@ -1,6 +1,6 @@
-from pxtool.models.output.pxfile.px_file_model import PXFileModel
+from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 from ...validator.validationResult import ValidationResult
-import pxtool.models.output.pxfile.util.constants as const
+import pxbuild.models.output.pxfile.util.constants as const
 
 def check_stub_and_heading(model:PXFileModel) -> ValidationResult:
     val_result = ValidationResult(desc="Check if both stub and heading has the same len for each language.")

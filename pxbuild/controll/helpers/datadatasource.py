@@ -2,7 +2,7 @@ import pyarrow.parquet as pq
 import pyarrow as pa
 import pandas as pd
 from typing import List
-from pxtool.models.input.pydantic_pxtoolconfig import Pxtoolconfig
+from pxbuild.models.input.pydantic_pxbuildconfig import Pxtoolconfig
 from .parquet_datasource import ParquetDatasource
 from .csv_datasource import CsvDatasource
 from .abstract_datasource import AbstractDatasource

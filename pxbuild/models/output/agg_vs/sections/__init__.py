@@ -1,2 +1,2 @@
 import sys
-print("hei fra __init__.py i pxtool/agg_vs keyword")
+print("hi from __init__.py in pxbuild\models\output\agg_vs\sections")

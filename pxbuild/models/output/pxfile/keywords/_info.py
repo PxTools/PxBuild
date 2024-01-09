@@ -1,7 +1,7 @@
-﻿from pxtool.models.output.pxfile.util._px_super import _PxValueByKey
-from pxtool.models.output.pxfile.util._px_valuetype import _PxString
-from pxtool.models.output.pxfile.util._px_keytypes import _KeytypeLang
-from pxtool.models.output.pxfile.util._line_validator import LineValidator
+﻿from pxbuild.models.output.pxfile.util._px_super import _PxValueByKey
+from pxbuild.models.output.pxfile.util._px_valuetype import _PxString
+from pxbuild.models.output.pxfile.util._px_keytypes import _KeytypeLang
+from pxbuild.models.output.pxfile.util._line_validator import LineValidator
 
 class _Info(_PxValueByKey): 
 

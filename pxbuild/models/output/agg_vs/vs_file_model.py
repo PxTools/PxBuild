@@ -1,8 +1,8 @@
-from pxtool.models.output.agg_vs.sections._description import Description
-from pxtool.models.output.agg_vs.sections._aggreg import Aggreg
-from pxtool.models.output.agg_vs.sections._domain import Domain
-from pxtool.models.output.agg_vs.sections._valuecode import Valuecode
-from pxtool.models.output.agg_vs.sections._valuetext import Valuetext
+from pxbuild.models.output.agg_vs.sections._description import Description
+from pxbuild.models.output.agg_vs.sections._aggreg import Aggreg
+from pxbuild.models.output.agg_vs.sections._domain import Domain
+from pxbuild.models.output.agg_vs.sections._valuecode import Valuecode
+from pxbuild.models.output.agg_vs.sections._valuetext import Valuetext
 
 class _VSFileModel():
     def __init__(self) -> None:

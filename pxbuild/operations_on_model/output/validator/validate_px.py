@@ -1,4 +1,4 @@
-from pxtool.models.output.pxfile.px_file_model import PXFileModel
+from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 from .validationResult import ValidationResult
 from .checks.check_mandatory import  check_mandatory
 from .checks.check_language import check_language

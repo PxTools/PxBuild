@@ -1,2 +1,2 @@
 import sys
-print("hei fra __init__.py i src pxtool model")
+print("hei fra __init__.py i src pxbuild model")

@@ -1,6 +1,6 @@
-from pxtool.models.output.pxfile.px_file_model import PXFileModel
+from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 from ...validator.validationResult import ValidationResult
-import pxtool.models.output.pxfile.util.constants as const
+import pxbuild.models.output.pxfile.util.constants as const
 
 from .check_mandatory import  check_mandatory
 
