@@ -2,17 +2,17 @@ import sys
 my = sys.path[0].replace("\\demo","\\")
 sys.path.insert(1,my)
 
-import pxtool
+import pxbuild
 
-#from pxtool.operations_on_model.loaders.loader_pxfile import Loader
-#from pxtool.operations_on_model.refine.apply_default_language import apply_default_language
+#from pxbuild.operations_on_model.loaders.loader_pxfile import Loader
+#from pxbuild.operations_on_model.refine.apply_default_language import apply_default_language
 
 
 
 
 #loader = Loader('testdata/testdataKort.px')
 #loader = Loader('testdata/statfin_khi_pxt_11xm.px')
-loader = pxtool.Loader('testdata/statfin_khi_pxt_11xm_full.px')
+loader = pxbuild.Loader('testdata/statfin_khi_pxt_11xm_full.px')
 
 #apply_default_language(loader.outModel)
 

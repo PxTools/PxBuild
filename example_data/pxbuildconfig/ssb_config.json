@@ -16,8 +16,8 @@
 		"adressFormat": "example_data/parquet_files/{id}"
 	},
 	"outputDestination": {
-		"pxFolderFormat": "example_data/pxtool_output/output_{id}",
-		"aggFolderFormat": "example_data/pxtool_output"
+		"pxFolderFormat": "example_data/pxbuild_output/output_{id}",
+		"aggFolderFormat": "example_data/pxbuild_output"
 	}
 	
   },	
