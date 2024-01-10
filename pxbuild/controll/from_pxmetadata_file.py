@@ -6,7 +6,7 @@ import numpy as np
 from typing import List, Dict
 
 from pxbuild.models.input.pydantic_pxmetadata import PxMetadata
-from pxbuild.models.input.pydantic_pxbuildconfig import Pxbuildconfig
+from pxbuild.models.input.pydantic_pxbuildconfig import PxbuildConfig
 from pxbuild.models.input.pydantic_pxcodes import PxCodes
 from pxbuild.models.input.pydantic_pxcodes import Grouping
 from pxbuild.models.input.helper_pxcodes import HelperPxCodes
@@ -36,7 +36,7 @@ class LoadFromPxmetadata:
         # 'example_data/pxbuildconfig/ssb_config.json'
         with open(config_file, encoding="utf-8-sig") as f:
             config_json = json.loads(f.read())
-        self._config = Pxbuildconfig(**config_json)
+        self._config = PxbuildConfig(**config_json)
 
         # todo if sourceType==File
         #      pxmetadataFormat="example_data/pxmetadata/{id}.json"
@@ -78,59 +78,49 @@ class LoadFromPxmetadata:
         self._for_get_data_by_varid: Dict[str, ForGetData] = dict()
 
         ##################
-        # loop in languages
 
-        self._current_lang = "no"  # todo
-        self._contact_string = self.get_contact_string(self._pxstatistics)
+        self.models_for_pytest: dict = {}   #Todo make perfect reader, and let the pytest read the files
+
         self._last_updated = self.get_last_updated(self._pxstatistics)
-        self._stub = []
-        self._heading = [self._config.contvariable[self._current_lang]]
-
-        self._metaid_table: List[str] = []
-        self._metaid_valiable: dict = {}
-
         out_model = PXFileModel()
-        self._out_model = out_model
-        out_model.language.set(self._current_lang)
+        # loop in languages
+        self._add_language_independent = True  # like AXIS_VERSION
+        for language in self._config.admin.valid_languages:
+           
+            self._current_lang = language
+            self._contact_string = self.get_contact_string(self._pxstatistics, self._current_lang)
+            
+            self._stub = []
+            self._heading = [self._config.contvariable[self._current_lang]]
 
-        self.map_pxbuildconfig_to_pxfile(self._config, out_model)
+            self._metaid_table: List[str] = []
+            self._metaid_valiable: dict = {}
 
-        self.add_pxmetadata_to_pxfile(self._pxmetadata_model, out_model)
+            self.map_pxbuildconfig_to_pxfile(self._config, self._current_lang , out_model)
+            self.map_pxmetadata_to_pxfile(self._pxmetadata_model, out_model)
+            self.add_pxstatistics_to_pxfile(self._pxstatistics, out_model)
+            self.map_coded_dimensions_to_pxfile(out_model)
+            self.map_measurements_to_pxfile(out_model)
+            self.map_decimals_to_pxfile(out_model)
+            self.map_time_dimension_to_pxfile(out_model)
+            self.map_stub_heading_to_pxfile(out_model)
+            self.map_title_to_pxfile(out_model)
+            self.map_aggregallowed_to_pxfile(out_model)
 
-        self.add_pxstatistics_to_pxfile(self._pxstatistics, out_model)
+            self.add_metaid_to_pxfile(out_model)
 
-        self.map_coded_dimensions_to_pxfile(out_model)
+            self.get_data(out_model)
+            if not self._config.admin.build_multilingual_files: 
+                write_output(self._pxmetadata_id, self._config.admin.output_destination.px_folder_format, out_model, language)
+                
+                self.models_for_pytest[language] = out_model 
+                out_model = PXFileModel()
+            else:
+                self._add_language_independent = False     
 
-        self.map_measurements_to_pxfile(out_model)
-
-        self.map_decimals_to_pxfile(out_model)
-
-        self.map_time_dimension_to_pxfile(out_model)
-
-        self.map_stub_heading_to_pxfile(out_model)
-
-        self.map_title_to_pxfile(out_model)
-
-        self.map_aggregallowed_to_pxfile(out_model)
-
-        self.add_metaid_to_pxfile(out_model)
-
-        self.get_data(out_model)
-
-        temp_tabid = self._pxmetadata_id
-
-        out_folder_format: str = self._config.admin.output_destination.px_folder_format
-        out_folder = out_folder_format.format(id=temp_tabid)
-        out_file = out_folder + "/tab_" + temp_tabid + ".px"
-
-        # out_file= 'example_data/pxbuild_output/output_'+temp_tabid+'/tab_'+temp_tabid+'.px'
-        with open(out_file, "w") as f:
-            print(out_model, file=f)
-
-        print("File written to:", out_file)
-
-        # out_vs_model=_VSFileModel()
-        # self.makeVsFile(out_vs_model)
+        if self._config.admin.build_multilingual_files: 
+            write_output(self._pxmetadata_id, self._config.admin.output_destination.px_folder_format, out_model)
+            self.models_for_pytest["multi"] = out_model 
 
         self.make_vs_file()
 
@@ -160,6 +150,9 @@ class LoadFromPxmetadata:
         # /// index = Factor_k*(k-1) + Factor_j*(j-1) + Factor_i(i-1) </remarks>
         #  in python things are zero-based but the idea is the same
         # /// </summary>
+        if not self._add_language_independent:
+           return
+        
         start_get_data = time.time()
 
         matrix_size = self.calculate_factor()
@@ -223,8 +216,9 @@ class LoadFromPxmetadata:
         df["out_index"] = df[columns_to_sum].sum(axis=1)
 
     def add_metaid_to_pxfile(self, out_model: PXFileModel) -> None:
-        if self._metaid_table:
-            out_model.meta_id.set(" ".join(self._metaid_table))
+        if self._add_language_independent:
+            if self._metaid_table:
+                out_model.meta_id.set(" ".join(self._metaid_table))
 
         for vari in self._metaid_valiable:
             out_model.meta_id.set(" ".join(self._metaid_valiable[vari]), vari, None, self._current_lang)
@@ -239,10 +233,14 @@ class LoadFromPxmetadata:
 
         return column_code_map
 
+
+    
+
     def map_aggregallowed_to_pxfile(self, out_model: PXFileModel):
         # Check if all values in the array are True
-        all_true = all(instance.aggregation_allowed for instance in self._pxmetadata_model.dataset.measurements)
-        out_model.aggregallowed.set(all_true)
+        if self._add_language_independent:
+            all_true = all(instance.aggregation_allowed for instance in self._pxmetadata_model.dataset.measurements)
+            out_model.aggregallowed.set(all_true)
 
     def map_title_to_pxfile(self, out_model: PXFileModel):
         lang = self._current_lang
@@ -398,25 +396,26 @@ class LoadFromPxmetadata:
         self._for_get_data_by_varid[my_funny_var_id] = for_get_data
 
     def map_decimals_to_pxfile(self, out_model: PXFileModel):
-        show_decimals_values = [instance.show_decimals for instance in self._pxmetadata_model.dataset.measurements]
+        if self._add_language_independent:
+            show_decimals_values = [instance.show_decimals for instance in self._pxmetadata_model.dataset.measurements]
 
-        if self._pxmetadata_model.dataset.stored_decimals:
-            out_model.decimals.set(max(self._pxmetadata_model.dataset.stored_decimals, max(show_decimals_values)))
-        else:
-            out_model.decimals.set(max(show_decimals_values))
+            if self._pxmetadata_model.dataset.stored_decimals:
+                out_model.decimals.set(max(self._pxmetadata_model.dataset.stored_decimals, max(show_decimals_values)))
+            else:
+                out_model.decimals.set(max(show_decimals_values))
 
-        out_model.showdecimals.set(min(show_decimals_values))
+            out_model.showdecimals.set(min(show_decimals_values))
 
-    def get_contact_string(self, in_model: PxStatistics) -> str:
+    def get_contact_string(self, in_data: PxStatistics, language:str) -> str:
         contact_string = ""
 
-        if in_model.contacts is None:
+        if in_data.contacts is None:
             return contact_string
 
-        for contact in in_model.contacts:
+        for contact in in_data.contacts:
             if contact.name is None:
                 return contact_string
-            contact_string += f"{contact.name[self._current_lang]}#{contact.phone}#{contact.email}##"
+            contact_string += f"{contact.name[language]}#{contact.phone}#{contact.email}##"
 
         return contact_string[:-2]
 
@@ -438,25 +437,31 @@ class LoadFromPxmetadata:
         lang = self._current_lang
 
         out_model.subject_area.set(in_model.subject_text[lang], lang)
-        out_model.subject_code.set(in_model.subject_code)
+        if self._add_language_independent:
+            out_model.subject_code.set(in_model.subject_code)
 
-        self._metaid_table += in_model.meta_id
+            self._metaid_table += in_model.meta_id
 
         # out_model.update_frequency.set() Hmm is not listed as language dependent in pdf
 
-    def add_pxmetadata_to_pxfile(self, in_model: PxMetadata, out_model: PXFileModel):
+    def map_pxmetadata_to_pxfile(self, in_model: PxMetadata, out_model: PXFileModel):
         lang = self._current_lang
-        out_model.tableid.set(in_model.dataset.table_id)
-        out_model.matrix.set("tab_" + in_model.dataset.table_id)
+        if self._add_language_independent:
+            out_model.tableid.set(in_model.dataset.table_id)
+            out_model.matrix.set("tab_" + in_model.dataset.table_id)
         out_model.contents.set(in_model.dataset.table_id + ": " + in_model.dataset.base_title[lang] + ",", lang)
 
-    def map_pxbuildconfig_to_pxfile(self, in_config: Pxbuildconfig, out_model: PXFileModel):
-        out_model.axis_version.set(str(in_config.axis_version))
-        out_model.charset.set(str(in_config.charset))
-        out_model.codepage.set(str(in_config.code_page))
+    def map_pxbuildconfig_to_pxfile(self, in_config: PxbuildConfig, current_lang:str , out_model: PXFileModel):
+        if self._add_language_independent:
+            out_model.language.set(current_lang)
+            if in_config.admin.build_multilingual_files:
+                out_model.languages.set(in_config.admin.valid_languages)
+            out_model.axis_version.set(str(in_config.axis_version))
+            out_model.charset.set(str(in_config.charset))
+            out_model.codepage.set(str(in_config.code_page))
+            out_model.descriptiondefault.set((in_config.description_default or False))
 
-        out_model.descriptiondefault.set((in_config.description_default or False))
-        out_model.contvariable.set(str(in_config.contvariable[self._current_lang]))
+        out_model.contvariable.set(str(in_config.contvariable[current_lang]), current_lang)
 
         if in_config.datasymbol1 and in_config.datasymbol1[self._current_lang]:
             out_model.datasymbol1.set(str(in_config.datasymbol1[self._current_lang]), self._current_lang)
@@ -549,7 +554,7 @@ class LoadFromPxmetadata:
                 child_code_conter = child_code_conter + 1
                 child_code_key = str(child_code_conter)
                 out_agg_model.set(groupcode, child_code_key, child_code)
-        out_file = "example_data/pxbuild_output/" + grouping.filename_base + "_" + self._current_lang + ".agg"
+        out_file = "example_data/pxbuild_output/" + str(grouping.filename_base) + "_" + self._current_lang + ".agg"
         with open(out_file, "w") as f:
             print(out_agg_model, file=f)
             print("File written to:", out_file)
@@ -567,3 +572,18 @@ def convert_to_pxdate_string(date_string: str, date_format: str) -> str:
 def make_domain_id(code_list_id: str, lang: str) -> str:
     domain_id = code_list_id + "_" + lang
     return domain_id
+
+def write_output(pxmetadata_id:str, px_folder_format:str, out_model:PXFileModel, language:str | None = None) -> None:
+    temp_tabid = pxmetadata_id
+    out_folder = px_folder_format.format(id=temp_tabid)
+    language_part=""
+    if language:
+        language_part="_"+language_part
+
+    out_file = f"{out_folder}/tab_{temp_tabid}{language_part}.px"
+
+    with open(out_file, "w") as f:
+        print(out_model, file=f)
+
+    print("File written to:", out_file)
+
