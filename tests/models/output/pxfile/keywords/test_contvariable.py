@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._contvariable import _Contvariable
+from pxbuild.models.output.pxfile.keywords._contvariable import _Contvariable
     
 def test_Contvariable_set_valid():
     obj = _Contvariable()

@@ -1,9 +1,9 @@
 [tool.poetry]
-name = "pxtool"
+name = "pxbuild"
 version = "0.1.0"
-description = "Tool for creating px-files"
+description = "Tool for building px-files"
 authors = ["Team Nettop"]
-license = "MIT"
+license = "Apache 2.0"
 readme = "README.md"
 
 [tool.poetry.dependencies]

@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._seasadj import _Seasadj
+from pxbuild.models.output.pxfile.keywords._seasadj import _Seasadj
     
 def test_Seasadj_set_valid():
     obj = _Seasadj()

@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._attributes import _Attributes
+from pxbuild.models.output.pxfile.keywords._attributes import _Attributes
     
 def test_set_valid():
     obj = _Attributes()

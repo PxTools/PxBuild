@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._subject_area import _SubjectArea
+from pxbuild.models.output.pxfile.keywords._subject_area import _SubjectArea
     
 def test_SubjectArea_set_valid():
     obj = _SubjectArea()

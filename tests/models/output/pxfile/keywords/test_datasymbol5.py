@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._datasymbol5 import _Datasymbol5
+from pxbuild.models.output.pxfile.keywords._datasymbol5 import _Datasymbol5
     
 def test_Datasymbol5_set_valid():
     obj = _Datasymbol5()

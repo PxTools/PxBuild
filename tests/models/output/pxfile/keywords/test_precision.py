@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._precision import _Precision
+from pxbuild.models.output.pxfile.keywords._precision import _Precision
     
 def test_Precision_set_valid():
     obj = _Precision()

@@ -1,7 +1,7 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.util._px_super import _PxSingle, _PxValueByKey,_SuperKeyword
-from pxtool.models.output.pxfile.util._px_valuetype import _PxString
-from pxtool.models.output.pxfile.util._px_keytypes import _KeytypeLang
+from pxbuild.models.output.pxfile.util._px_super import _PxSingle, _PxValueByKey,_SuperKeyword
+from pxbuild.models.output.pxfile.util._px_valuetype import _PxString
+from pxbuild.models.output.pxfile.util._px_keytypes import _KeytypeLang
 
 def test_super():
     my_str = "a string"

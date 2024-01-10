@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._last_updated import _LastUpdated
+from pxbuild.models.output.pxfile.keywords._last_updated import _LastUpdated
     
 def test_LastUpdated_set_valid():
     obj = _LastUpdated()

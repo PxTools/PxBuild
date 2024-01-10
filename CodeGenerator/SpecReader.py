@@ -119,12 +119,12 @@ class MyKeyword:
     #Writers
 
     def imports_writer(self, fileHandle) -> None:
-        fileHandle.write(f"from pxtool.models.output.pxfile.util._px_super import {self.classnames['Super']}\n")
+        fileHandle.write(f"from pxbuild.models.output.pxfile.util._px_super import {self.classnames['Super']}\n")
         if self.classnames["Value"] != "int" :
-             fileHandle.write(f"from pxtool.models.output.pxfile.util._px_valuetype import {self.classnames['Value']}\n")
+             fileHandle.write(f"from pxbuild.models.output.pxfile.util._px_valuetype import {self.classnames['Value']}\n")
         if self.classnames["Key"]:
-            fileHandle.write(f"from pxtool.models.output.pxfile.util._px_keytypes import { self.classnames['Key']}\n")
-        fileHandle.write("from pxtool.models.output.pxfile.util._line_validator import LineValidator\n\n")
+            fileHandle.write(f"from pxbuild.models.output.pxfile.util._px_keytypes import { self.classnames['Key']}\n")
+        fileHandle.write("from pxbuild.models.output.pxfile.util._line_validator import LineValidator\n\n")
 
 
     def class_and_init_writer(self, fileHandle) -> None:
@@ -243,7 +243,7 @@ class SpecReader:
 
 my_spec_reader = SpecReader()
 
-file_path_to_pxfiledir = "../pxtool/models/output/pxfile"
+file_path_to_pxfiledir = "../pxbuild/models/output/pxfile"
 
 # make <Keyword classes>.py
 for kw in my_spec_reader.data:
@@ -286,7 +286,7 @@ myDict= {}
 the_imports=[]
 the_attributes = []
 for kw in my_spec_reader.data:
-    the_imports.append(f"from pxtool.models.output.pxfile.keywords.{kw.module_name} import {kw.classnames['This']}")
+    the_imports.append(f"from pxbuild.models.output.pxfile.keywords.{kw.module_name} import {kw.classnames['This']}")
     if kw.keyword == "DATA":
         the_attributes.append("self.unknown_keywords = \"\"")
     the_attributes.append(f"self.{to_python_case(kw.keyword)} = {kw.classnames['This']}()\n        \"\"\"{kw.px_comment}\"\"\"")
@@ -298,7 +298,7 @@ for kw in my_spec_reader.data:
 with open(file_path_to_pxfiledir+"/px_file_model.py", "wt",encoding="utf-8-sig", newline="\n") as model_py:
   #', '.join(kw.
   model_py.write("\n".join(the_imports)+"\n")
-  model_py.write("from pxtool.models.output.pxfile.util._px_super import _SuperKeyword\n\n")
+  model_py.write("from pxbuild.models.output.pxfile.util._px_super import _SuperKeyword\n\n")
   model_py.write("class PXFileModel:\n")
   model_py.write("    \"\"\"\n")
   model_py.write("    This class holds the information of a PxFile\n")
@@ -311,7 +311,7 @@ with open(file_path_to_pxfiledir+"/px_file_model.py", "wt",encoding="utf-8-sig",
   model_py.write("    def __str__(self):\n")
   model_py.write("        attrs = vars(self)\n")
   model_py.write("        attr_strings = [str(value) for value in attrs.values() if str(value) != \"\"]\n")
-  model_py.write("        return \"UNITS=\\\"This file was created from pxtool.\\\";\\n\" + \"\\n\".join(attr_strings)\n\n")
+  model_py.write("        return \"UNITS=\\\"This file was created from pxbuild.\\\";\\n\" + \"\\n\".join(attr_strings)\n\n")
   model_py.write("    def get_attribute(self, name:str) -> _SuperKeyword:\n")
   model_py.write("        return getattr(self, name)\n")
 

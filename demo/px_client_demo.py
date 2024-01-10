@@ -4,8 +4,8 @@ my = sys.path[0].replace("\\demo","\\")
 sys.path.insert(1,my)
 
 #Create empty model:
-import pxtool
-model = pxtool.PXFileModel()
+import pxbuild
+model = pxbuild.PXFileModel()
 
 #Add stuff to model
 
@@ -64,7 +64,7 @@ print("\n\n--------   model before cleaner:")
 print(model)
 
 
-pxtool.apply_default_language(model)
+pxbuild.apply_default_language(model)
 print("\n\n-------- model after cleaner:")
 print(model)
 

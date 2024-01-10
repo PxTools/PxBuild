@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._domain import _Domain
+from pxbuild.models.output.pxfile.keywords._domain import _Domain
     
 def test_Domain_set_valid():
     obj = _Domain()

@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._aggregallowed import _Aggregallowed
+from pxbuild.models.output.pxfile.keywords._aggregallowed import _Aggregallowed
     
 def test_Aggregallowed_set_valid():
     obj = _Aggregallowed()

@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._language import _Language
+from pxbuild.models.output.pxfile.keywords._language import _Language
     
 def test_Language_set_valid():
     obj = _Language()

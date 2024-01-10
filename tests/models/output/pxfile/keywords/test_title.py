@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._title import _Title
+from pxbuild.models.output.pxfile.keywords._title import _Title
     
 def test_Title_set_valid():
     obj = _Title()

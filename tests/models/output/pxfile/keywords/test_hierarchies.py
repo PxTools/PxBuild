@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._hierarchies import _Hierarchies
+from pxbuild.models.output.pxfile.keywords._hierarchies import _Hierarchies
     
 def test_Hierarchies_set_valid():
     obj = _Hierarchies()

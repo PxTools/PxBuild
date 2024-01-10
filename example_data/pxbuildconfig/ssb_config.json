@@ -1,0 +1,40 @@
+﻿{
+  "admin": {
+	"validLanguages": ["no","en"],
+	"theWordAnd": { "no": "og", "en": "and" },
+	"theWordBy": { "no": "etter", "en": "by" },
+	"pxMetadataResource": {
+		"adressFormat": "example_data/pxmetadata/{id}.json"
+	},
+	"pxStatisticsResource": {
+		"adressFormat": "example_data/pxstatistics/pxstatistics_{id}.json"
+	},
+	"pxCodesResource": {
+		"adressFormat": "example_data/pxcodes/{id}.json"
+	},
+	"pxDataResource": {
+		"adressFormat": "example_data/parquet_files/{id}"
+	},
+	"outputDestination": {
+		"pxFolderFormat": "example_data/pxbuild_output/output_{id}",
+		"aggFolderFormat": "example_data/pxbuild_output"
+	}
+	
+  },	
+  "charset": "ANSI",
+  "axisVersion": "2013",
+  "codePage": "WINDOWS-1252",
+  "descriptionDefault": false,
+  "contvariable": { "no": "statistikkvariabel" , "en": "contents"  } ,
+  "contvariableCode": "ContentsCode",
+  "timevariableCode": "Tid",
+  "datasymbol1": { "no": ".", "en": "."  },
+  "datasymbol2": { "no": "..", "en": ".."  },
+  "datasymbol3": { "no": ":", "en": ":"  },
+  "datasymbol4": null,
+  "datasymbol5": null,
+  "datasymbol6": null,
+  "datasymbolNil": { "no": ".", "en": "."  },
+  "datasymbolSum": { "no": ".", "en": "."  },
+  "source": { "no": "Statistisk sentralbyrå", "en": "Statistics Norway"  } 
+}

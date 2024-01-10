@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._link import _Link
+from pxbuild.models.output.pxfile.keywords._link import _Link
     
 def test_Link_set_valid():
     obj = _Link()

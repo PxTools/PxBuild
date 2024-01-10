@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._copyright import _Copyright
+from pxbuild.models.output.pxfile.keywords._copyright import _Copyright
     
 def test_Copyright_set_valid():
     obj = _Copyright()

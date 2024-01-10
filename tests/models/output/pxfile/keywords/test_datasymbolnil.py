@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._datasymbolnil import _Datasymbolnil
+from pxbuild.models.output.pxfile.keywords._datasymbolnil import _Datasymbolnil
     
 def test_Datasymbolnil_set_valid():
     obj = _Datasymbolnil()

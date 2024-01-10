@@ -1,5 +1,5 @@
 ﻿import pytest
-from pxtool.models.output.pxfile.keywords._default_graph import _DefaultGraph
+from pxbuild.models.output.pxfile.keywords._default_graph import _DefaultGraph
     
 def test_DefaultGraph_set_valid():
     obj = _DefaultGraph()
