@@ -16,8 +16,8 @@
 		"adressFormat": "testdata/test_cube_2/{id}"
 	},
 	"outputDestination": {
-		"pxFolderFormat": "testdata/test_cube_2/",
-		"aggFolderFormat": "testdata/test_cube_2/"
+		"pxFolderFormat": "testdata/test_cube_2/actual",
+		"aggFolderFormat": "testdata/test_cube_2/actual"
 	}
   },	
   "charset": "ANSI",
