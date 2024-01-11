@@ -19,6 +19,7 @@ from pxbuild.models.output.agg.agg_file_model import AggFileModel
 from .helpers.datadatasource import Datadatasource
 from .helpers.for_get_data import ForGetData
 from .helpers.data_formatter import DataFormatter
+from .helpers.loaded_jsons import LoadedJsons 
 
 
 class LoadFromPxmetadata:
@@ -31,49 +32,23 @@ class LoadFromPxmetadata:
 
     def __init__(self, pxmetadata_id: str, config_file: str) -> None:
         self._pxmetadata_id = pxmetadata_id
-        print("For pxmetadata_id:", self._pxmetadata_id, ", with config:", config_file)
-
-        # 'example_data/pxbuildconfig/ssb_config.json'
-        with open(config_file, encoding="utf-8-sig") as f:
-            config_json = json.loads(f.read())
-        self._config = PxbuildConfig(**config_json)
-
-        # todo if sourceType==File
-        #      pxmetadataFormat="example_data/pxmetadata/{id}.json"
-        pxmetadata_format = self._config.admin.px_metadata_resource.adress_format
-        pxmetadata_file = pxmetadata_format.format(id=self._pxmetadata_id)
-
-        with open(pxmetadata_file, encoding="utf-8-sig") as f:
-            pxmetadata_json = json.loads(f.read())
-        # endif
-
-        self._pxmetadata_model = PxMetadata(**pxmetadata_json)
-
-        # pxstatisticsFormat="example_data/pxstatistics/pxstatistics_{id}.json"
-        pxstatistics_format = self._config.admin.px_statistics_resource.adress_format
-        pxstatistics_file = pxstatistics_format.format(id=self._pxmetadata_model.dataset.statistics_id)
-
-        with open(pxstatistics_file, encoding="utf-8-sig") as f:
-            json1 = json.loads(f.read())
-        self._pxstatistics = PxStatistics(**json1)
+       
+        self._loaded_jsons:LoadedJsons =  LoadedJsons (pxmetadata_id, config_file) 
+       
+        self._config = self._loaded_jsons.get_config()
+        self._pxmetadata_model = self._loaded_jsons.get_pxmetadata()
+        self._pxstatistics = self._loaded_jsons.get_pxstatistics()
 
         if self._pxmetadata_model.dataset.coded_dimensions:
-            self._resolved_pxcodes_ids = {}
-            self._pxcodes_helper = {}
-            # pxcodesFormat="example_data/pxcodes/{id}.json"
-            pxcodes_format = self._config.admin.px_codes_resource.adress_format
-            for variable in self._pxmetadata_model.dataset.coded_dimensions:
-                if variable.codelist_id not in self._resolved_pxcodes_ids:
-                    tmp_path = pxcodes_format.format(id=variable.codelist_id)
-                    with open(tmp_path, encoding="utf-8-sig") as f:
-                        json1 = json.loads(f.read())
-                    self._resolved_pxcodes_ids[variable.codelist_id] = PxCodes(**json1)
-                    self._pxcodes_helper[variable.codelist_id] = HelperPxCodes(
-                        self._resolved_pxcodes_ids[variable.codelist_id], self._config.admin.valid_languages
-                    )
+            self._resolved_pxcodes_ids = self._loaded_jsons.get_resolved_pxcodes_ids()
+            self._pxcodes_helper:Dict[str, HelperPxCodes] =  {}
+
+            for codelist_id in self._resolved_pxcodes_ids:
+                self._pxcodes_helper[codelist_id] = HelperPxCodes(
+                        self._resolved_pxcodes_ids[codelist_id], self._config.admin.valid_languages
+                )
 
         self._datadata = Datadatasource(self._pxmetadata_model.dataset.data_file, self._config)
-        # self._parquet.PrintColumns()
 
         self._for_get_data_by_varid: Dict[str, ForGetData] = dict()
 
@@ -88,17 +63,18 @@ class LoadFromPxmetadata:
         for language in self._config.admin.valid_languages:
            
             self._current_lang = language
-            self._contact_string = self.get_contact_string(self._pxstatistics, self._current_lang)
+            self._contact_string = self.get_contact_string(self._pxstatistics, language)
             
             self._stub = []
-            self._heading = [self._config.contvariable[self._current_lang]]
+            self._heading = [self._config.contvariable[language]]
 
             self._metaid_table: List[str] = []
             self._metaid_valiable: dict = {}
 
-            self.map_pxbuildconfig_to_pxfile(self._config, self._current_lang , out_model)
+            self.map_pxbuildconfig_to_pxfile(self._config, language , out_model)
             self.map_pxmetadata_to_pxfile(self._pxmetadata_model, out_model)
             self.add_pxstatistics_to_pxfile(self._pxstatistics, out_model)
+
             self.map_coded_dimensions_to_pxfile(out_model)
             self.map_measurements_to_pxfile(out_model)
             self.map_decimals_to_pxfile(out_model)
@@ -109,7 +85,14 @@ class LoadFromPxmetadata:
 
             self.add_metaid_to_pxfile(out_model)
 
+
+            #fixdata = FixData()
+            #fixdata.get_data(out_model)
             self.get_data(out_model)
+
+
+
+
             if not self._config.admin.build_multilingual_files: 
                 write_output(self._pxmetadata_id, self._config.admin.output_destination.px_folder_format, out_model, language)
                 
