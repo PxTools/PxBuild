@@ -1,26 +1,25 @@
 openapi: 3.0.3
 info:
-  title: pxbuildconfig
+  title: pxbuildConfig
   description: |-
-    This is a sample pxbuildconfig based on the OpenAPI 3.0 specification. We just use the schema, so it is perhaps an abuse, but I like the editor.  
+    This is a sample pxbuildConfig based on the OpenAPI 3.0 specification. We just use the schema, so it is perhaps an abuse, but I like the editor.  
   version: 0.0.1
 externalDocs:
   description: Find out more about Swagger
   url: https://swagger.io
 tags:
   - name: pxbuildconfig
-    description: Holds data from your registry of statistics. <br>
-       The underlying model is that tables are put on the web in groups. All tables in the group
-       are published at the same time and with the same frequensy. They also share subject in the "menutree" and may share contact info. They have the same Information about the statistics page.
+    description: Holds configuration from pxbuild. <br>
+       The admin section is typical config. After admin, you may override defaults to keywords which are assumed common to your site, like the Code for the time variable.
     externalDocs:
       description: Find out more
       url: http://swagger.io
 paths:
-  /pxbuildconfig:
+  /pxbuildConfig:
     get:
       tags:
-        - pxbuildconfig
-      summary: Find pxbuildconfig by ID
+        - pxbuildConfig
+      summary: Find pxbuildConfig by ID
       description: Returns a single pxbuildconfig
       operationId: getbuildconfig
       responses:
@@ -34,10 +33,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/buildconfig'
         '404':
-          description: pxbuildconfig not found
+          description: pxbuildConfig not found
 components:
   schemas:
-    pxbuildconfig:
+    pxbuildConfig:
       type: object
       required:
         - admin
@@ -139,7 +138,11 @@ components:
                      type: array
                      items:
                         type: string
-                     description: The 2-letter languagecodes
+                     description: The 2-letter languagecodes. Probably ISO 639, but the real constraint is that it has to match your pxweb
+                  buildMultilingualFiles:
+                     type: boolean
+                     description: make multilingual PX-files, not one for each language. If true, the first entry in validLanguages will be used for language keyword.
+                     default: true
                   theWordAnd:
                      type: object
                      additionalProperties:

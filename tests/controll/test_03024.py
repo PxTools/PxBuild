@@ -6,7 +6,7 @@ import testdata.expected.test_data_03024 as expected
 @pytest.fixture()
 def out_model():
     data_loader = pxbuild.LoadFromPxmetadata('03024', 'example_data/pxbuildconfig/ssb_config.json')
-    return data_loader._out_model
+    return data_loader.models_for_pytest["multi"]
 
 def test_03024_data(out_model:PXFileModel) -> None:
     actual_data = out_model.data.get_value()
