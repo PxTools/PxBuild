@@ -581,7 +581,7 @@ def write_output(pxmetadata_id:str, px_folder_format:str, out_model:PXFileModel,
     out_folder = px_folder_format.format(id=temp_tabid)
     language_part=""
     if language:
-        language_part="_"+language_part
+        language_part="_"+language
 
     out_file = f"{out_folder}/tab_{temp_tabid}{language_part}.px"
 
