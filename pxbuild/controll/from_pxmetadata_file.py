@@ -1,4 +1,3 @@
-import json
 from datetime import datetime
 import time
 import pandas as pd
@@ -16,9 +15,9 @@ from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 from pxbuild.models.output.agg_vs.vs_file_model import _VSFileModel
 from pxbuild.models.output.agg.agg_file_model import AggFileModel
 
-from .helpers.datadatasource import Datadatasource
-from .helpers.for_get_data import ForGetData
-from .helpers.data_formatter import DataFormatter
+from .helpers.datadata_helpers.datadatasource import Datadatasource
+from .helpers.datadata_helpers.for_get_data import ForGetData
+from .helpers.datadata_helpers.data_formatter import DataFormatter
 from .helpers.loaded_jsons import LoadedJsons 
 
 
@@ -158,7 +157,7 @@ class LoadFromPxmetadata:
 
         out_data = merged_df["out_value"].tolist()
 
-        merged_df = merged_df.sort_values(by=["out_index"])
+        #merged_df = merged_df.sort_values(by=["out_index"])
         formatter = DataFormatter(self._heading, self._for_get_data_by_varid)
         number_of_columns_per_line = formatter.calculate_line_break()
 
@@ -540,7 +539,9 @@ class LoadFromPxmetadata:
                 child_code_key = str(child_code_conter)
                 out_agg_model.set(groupcode, child_code_key, child_code)
 
-        out_file = "example_data/pxbuild_output/" + str(grouping.filename_base) + "_" + language + ".agg"
+        out_folder_format: str = self._config.admin.output_destination.agg_folder_format
+        out_folder = out_folder_format.format(id=self._pxmetadata_id)
+        out_file = out_folder + "/"  + str(grouping.filename_base) + "_" + language + ".agg"
         with open(out_file, "w") as f:
             print(out_agg_model, file=f)
             print("File written to:", out_file)

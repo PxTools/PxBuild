@@ -1,5 +1,5 @@
 from typing import List, Dict
-from pxbuild.controll.helpers.for_get_data import ForGetData
+from .for_get_data import ForGetData
 
 
 class DataFormatter:
