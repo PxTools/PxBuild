@@ -39,13 +39,7 @@ class LoadFromPxmetadata:
         self._pxstatistics = self._loaded_jsons.get_pxstatistics()
 
         if self._pxmetadata_model.dataset.coded_dimensions:
-            self._resolved_pxcodes_ids = self._loaded_jsons.get_resolved_pxcodes_ids()
-            self._pxcodes_helper:Dict[str, HelperPxCodes] =  {}
-
-            for codelist_id in self._resolved_pxcodes_ids:
-                self._pxcodes_helper[codelist_id] = HelperPxCodes(
-                        self._resolved_pxcodes_ids[codelist_id], self._config.admin.valid_languages
-                )
+            self._pxcodes_helper:Dict[str, HelperPxCodes] = self.get_pxcodes_helpers()
 
         self._datadata = Datadatasource(self._pxmetadata_model.dataset.data_file, self._config)
 
@@ -102,11 +96,17 @@ class LoadFromPxmetadata:
             write_output(self._pxmetadata_id, self._config.admin.output_destination.px_folder_format, out_model)
             self.models_for_pytest["multi"] = out_model 
 
-        support = SupportFiles(self._pxmetadata_model,self._config,self._resolved_pxcodes_ids,self._pxcodes_helper,self._pxmetadata_id)
+        support = SupportFiles(self._pxmetadata_model,self._config, self._pxcodes_helper,self._pxmetadata_id)
         support.make_vs_file()
 
 
+    def get_pxcodes_helpers(self) -> Dict[str, HelperPxCodes]:
+        my_out:Dict[str, HelperPxCodes] =  {}
+        resolved_pxcodes_ids = self._loaded_jsons.get_resolved_pxcodes_ids()
+        for codelist_id in resolved_pxcodes_ids:
+            my_out[codelist_id] = HelperPxCodes(resolved_pxcodes_ids[codelist_id], self._config.admin.valid_languages)
 
+        return my_out
 
     def add_metaid_to_pxfile(self, out_model: PXFileModel) -> None:
         if self._add_language_independent:
@@ -179,7 +179,6 @@ class LoadFromPxmetadata:
                 self._stub.append(my_funny_var_id)
                 my_var_code = my_var.code if my_var.code is not None else my_var.column_name
                 out_model.variablecode.set(my_var_code, my_funny_var_id, lang)
-                my_codes: PxCodes = self._resolved_pxcodes_ids[my_var.codelist_id]
 
                 my_pxcodes_helper = self._pxcodes_helper[my_var.codelist_id]
 
@@ -188,7 +187,7 @@ class LoadFromPxmetadata:
 
                 temp_values = my_pxcodes_helper.getLabels(lang)
                 out_model.values.set(temp_values, my_funny_var_id, lang)
-                if my_codes.groupings:
+                if my_pxcodes_helper.groupings():
                     my_domain_id = Commons.make_domain_id(my_var.codelist_id, self._current_lang)
                     out_model.domain.set(my_domain_id, my_funny_var_id, self._current_lang)
 
