@@ -9,6 +9,9 @@ from pxbuild.models.input.pydantic_pxcodes import PxCodes
 
 # Class for loading all jsons into pydantic. And nothing else. 
 class LoadedJsons:
+    """
+    Class for loading all jsons into pydantic. And nothing else. 
+    """
     def __init__(self, pxmetadata_id: str, config_file: str) -> None:
         self._pxmetadata_id = pxmetadata_id
         print("For pxmetadata_id:", self._pxmetadata_id, ", with config:", config_file)
@@ -64,6 +67,14 @@ class LoadedJsons:
     def get_pxstatistics(self) -> PxStatistics:
         return self._pxstatistics
     
-    # Will be empty if the dataset has no coded_dimensions
-    def get_resolved_pxcodes_ids(self) -> Dict[str,PxCodes] :  
-       return self._resolved_pxcodes_ids
+    def get_resolved_pxcodes_ids(self) -> Dict[str,PxCodes] :
+        """
+        PxCodes as a function of codelist_id.
+
+        Parameters:
+        a (int): The first number to add.
+        b (int): The second number to add.
+
+        Returns: Empty if the dataset has no coded_dimensions
+        """
+        return self._resolved_pxcodes_ids
