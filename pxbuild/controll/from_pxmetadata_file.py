@@ -64,15 +64,15 @@ class LoadFromPxmetadata:
             self.map_pxmetadata_to_pxfile(self._pxmetadata_model, out_model)
             self.add_pxstatistics_to_pxfile(self._pxstatistics, out_model)
 
-            self.map_coded_dimensions_to_pxfile(out_model)
-            self.map_measurements_to_pxfile(out_model)
+            self.add_coded_dimensions_to_pxfile(out_model)
+            self.add_measurements_to_pxfile(out_model)
             self.map_decimals_to_pxfile(out_model)
-            self.map_time_dimension_to_pxfile(out_model)
+            self.add_time_dimension_to_pxfile(out_model)
             self.map_stub_heading_to_pxfile(out_model)
             self.map_title_to_pxfile(out_model)
             self.map_aggregallowed_to_pxfile(out_model)
 
-            self.add_metaid_to_pxfile(out_model)
+            self.map_metaid_to_pxfile(out_model)
 
 
             fixdata = MapData(self._datadata, self._pxmetadata_model, self._config, self._for_get_data_by_varid, self._stub , self._heading)
@@ -96,6 +96,8 @@ class LoadFromPxmetadata:
         support.make_vs_file()
 
 
+    # naming convention:get_  gets a value, map_  sets on outModel, add_  changes self and sets on outModel 
+
     def get_pxcodes_helpers(self) -> Dict[str, HelperPxCodes]:
         my_out:Dict[str, HelperPxCodes] =  {}
         resolved_pxcodes_ids = self._loaded_jsons.get_resolved_pxcodes_ids()
@@ -104,7 +106,7 @@ class LoadFromPxmetadata:
 
         return my_out
 
-    def add_metaid_to_pxfile(self, out_model: PXFileModel) -> None:
+    def map_metaid_to_pxfile(self, out_model: PXFileModel) -> None:
         if self._add_language_independent:
             if self._metaid_table:
                 out_model.meta_id.set(" ".join(self._metaid_table))
@@ -153,7 +155,7 @@ class LoadFromPxmetadata:
         if not self._stub and not self._heading:
             raise Exception("Sorry, both stub and heading are empty.")
 
-    def map_time_dimension_to_pxfile(self, out_model: PXFileModel):
+    def add_time_dimension_to_pxfile(self, out_model: PXFileModel):
         my_periods = self._datadata.GetTimePeriodes(self._pxmetadata_model.dataset.time_dimension.column_name)
 
         my_funny_var_id = self._pxmetadata_model.dataset.time_dimension.label[self._current_lang]
@@ -167,7 +169,7 @@ class LoadFromPxmetadata:
         for_get_data = ForGetData(self._pxmetadata_model.dataset.time_dimension.column_name, my_periods)
         self._for_get_data_by_varid[my_funny_var_id] = for_get_data
 
-    def map_coded_dimensions_to_pxfile(self, out_model: PXFileModel):
+    def add_coded_dimensions_to_pxfile(self, out_model: PXFileModel):
         if self._pxmetadata_model.dataset.coded_dimensions:
             lang = self._current_lang
             for my_var in self._pxmetadata_model.dataset.coded_dimensions:
@@ -231,7 +233,7 @@ class LoadFromPxmetadata:
                 for_get_data = ForGetData(my_var.column_name, my_pxcodes_helper.getCodes(lang))
                 self._for_get_data_by_varid[my_funny_var_id] = for_get_data
 
-    def map_measurements_to_pxfile(self, out_model: PXFileModel):
+    def add_measurements_to_pxfile(self, out_model: PXFileModel):
         if not self._pxmetadata_model.dataset.measurements:
             raise Exception("Sorry, dataset is missing measurment.")
 
