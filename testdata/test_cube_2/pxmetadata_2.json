@@ -57,7 +57,7 @@
         "notes": null
       },
 	  {
-        "columnName": "CODED_DIM1",
+        "columnName": "CODED_DIM3",
         "code": "coded_dim3",
         "isGeoVariableType": false,
         "codelistId": "pxcodes_dim3",
