@@ -1,0 +1,126 @@
+﻿{
+  "dataset": {
+    "documnetId": null,
+	"rowMissing":"......",
+	"cellMissing":".....",
+    "tableId": "00104",
+    "storedDecimals": null,
+    "statisticsId": "1nn",
+    "dataFile": "thedata_104.csv",
+    "baseTitle": {
+      "no": "Testkube 104",
+      "en": "Test cube 104"
+    },
+    "searchKeywords": {
+      "no": [
+        "ord",
+        "til",
+        "søk"
+      ],
+      "en": [
+        "Words",
+        "for",
+        "search"
+      ]
+    },
+    "notes": null,
+    "cellNotes": null,
+    "timeDimension": {
+      "columnName": "TIME",
+      "timePeriodFormat": "åååå",
+      "label": {
+        "no": "år",
+        "en": "year"
+      }
+    },
+    "codedDimensions": [
+      {
+        "columnName": "CODED_DIM1",
+        "code": "coded_dim1",
+        "isGeoVariableType": false,
+        "codelistId": "pxcodes_dim1",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "Dimensjon 1",
+          "en": "Dimension 1"
+        },
+        "notes": null
+      },
+	  {
+        "columnName": "CODED_DIM2",
+        "code": "coded_dim2",
+        "isGeoVariableType": false,
+        "codelistId": "pxcodes_dim2",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "Dimensjon 2",
+          "en": "Dimension 2"
+        },
+        "notes": null
+      },
+	  {
+        "columnName": "CODED_DIM3",
+        "code": "coded_dim3",
+        "isGeoVariableType": false,
+        "codelistId": "pxcodes_dim3",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "Dimensjon 3",
+          "en": "Dimension 3"
+        },
+        "notes": null
+      }
+    ],
+    "measurements": [
+      {
+        "columnName": "MEASURE1",
+        "code": "Measure1",
+        "showDecimals": 0,
+        "priceType": null,
+        "isSeasonallyAdjusted": false,
+        "isWorkingdaysAdjusted": false,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "Måling 1",
+          "en": "Measure 1"
+        },
+        "basePeriod": {},
+        "referencePeriod": {
+          "no": "Utgangen av veka",
+          "en": "End of week"
+        },
+        "rank": null,
+        "unitOfMeasure": {
+          "no": "tonn",
+          "en": "tonnes"
+        },
+        "notes": null
+      },
+      {
+        "columnName": "MEASURE2",
+        "code": "Measure2",
+        "showDecimals": 2,
+        "priceType": null,
+        "isSeasonallyAdjusted": false,
+        "isWorkingdaysAdjusted": false,
+        "aggregationAllowed": false,
+        "label": {
+          "no": "Måling 2",
+          "en": "Measure 2"
+        },
+        "basePeriod": {},
+        "referencePeriod": {
+          "no": "Utgangen av veka",
+          "en": "End of week"
+        },
+        "rank": null,
+        "unitOfMeasure": {
+          "no": "kr",
+          "en": "NOK"
+        },
+        "notes": null
+      }
+    ],
+    "attributes": null
+  }
+}

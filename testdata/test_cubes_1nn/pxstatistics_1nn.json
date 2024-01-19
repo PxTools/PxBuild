@@ -1,0 +1,19 @@
+{
+  "id": "8246",
+  "updateFrequency":{"no":"Uke","en":"Week"},
+  "metaId":["KORTNAVN:laks"],
+  "subjectCode":"uh",
+  "subjectText":{"no":"Utenriksøkonomi","en":"External economy"},
+  "upcomingReleases": ["2023-09-06 08:00:00.0",
+                       "2023-09-13 08:00:00.0",
+                       "2023-09-20 08:00:00.0",
+                       "2023-09-27 08:00:00.0"
+						],
+  "contacts":[
+  {
+    "phone": "+47 1234 5678",
+    "email": "mailme@ssb.no",                  
+    "name": {"no":"En eller annen, Statistisk sentralbyrå","en":"Somebody, Statistics Norway"}  
+  }
+  ]
+}
