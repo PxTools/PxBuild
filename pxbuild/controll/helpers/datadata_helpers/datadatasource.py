@@ -9,6 +9,7 @@ from .abstract_datasource import AbstractDatasource
 
 # Open and read the Parquet file  (or csv for small tests)
 
+
 class Datadatasource:
 
    def __init__(self,file_id:str, config:PxbuildConfig) -> None:
@@ -19,7 +20,7 @@ class Datadatasource:
      elif data_file_path.endswith(".csv"): 
           self._my_datasource:AbstractDatasource = CsvDatasource(data_file_path)
      else:
-         raise Exception("Sorry, not implemented yet. Files must end with .parquet")
+         raise Exception("Sorry, not implemented yet. Files must end with .parquet or .csv")
      
      self.PrintColumns()
 
@@ -53,23 +54,38 @@ class Datadatasource:
          if not (f"SYMBOL_{code}" in df):
             df[f"SYMBOL_{code}"] = ''
    
-   def AddValuePrefix(self, measures_code_dict:dict) -> dict:
-      columns_with_value = {}
-      for key in measures_code_dict:
-         columns_with_value[key] = f"VALUE_{measures_code_dict[key]}"
+   def MakeRenameDict(self, measurement_codeBycolumn_name:dict, columns_in_datafile) -> dict:
+      my_out = {}
+      for column_name in measurement_codeBycolumn_name:
+         my_out[column_name] = f"VALUE_{measurement_codeBycolumn_name[column_name]}"
+         corresponding_symbol_column = column_name+"_SYMBOL"
+         if corresponding_symbol_column in columns_in_datafile:
+            my_out[corresponding_symbol_column] = f"SYMBOL_{measurement_codeBycolumn_name[column_name]}"
 
-      return columns_with_value
+      return my_out
 
-   def GetTidyDF(self, measure_dim_name:str, column_code_map:dict) -> pd.DataFrame:
+
+   def GetTidyDF(self, measure_dim_name:str, measurement_codeBycolumn_name:dict) -> pd.DataFrame:
+      #measure_dim_name is contvariable_code from config
+      #column_code_map is 
+      #        for measurement_var in self._pxmetadata_model.dataset.measurements:
+      #           column_code_map[measurement_var.column_name] = measurement_var.code
+      #aka measurement_codeBycolumn_name
+
+      #  CODED_DIM1;CODED_DIM2;CODED_DIM3;TIME;MEASURE1;MEASURE2;MEASURE1_SYMBOL
+      # using measurement_codeBycolumn_name    
+      #  rename all column_name to VALUE_{code}
+      #  rename all {colname}_SYMBOL -> SYMBOL_{code}
+      #  add missing SYMBOL_{code} 
+      #  it is when we do pd.wide_to_long, this strange mix of column names and code is needed: The code in the cell is the columnnane minus "VALUE" 
 
       raw_data: pd.DataFrame = self._my_datasource.GetRawPandas()
       print("raw_data.columns:",raw_data.columns)
-      for col in raw_data.columns:
-          if "SYMBOL" in col:
-              raise Exception("Sorry, not implemented yet. Cant have SYMBOL in colname")
 
-      measurement_codes = list(column_code_map.values())
-      column_with_value_prefix = self.AddValuePrefix(column_code_map)
+      measurement_codes = list(measurement_codeBycolumn_name.values())
+      column_with_value_prefix = self.MakeRenameDict(measurement_codeBycolumn_name, raw_data.columns)
+
+      #todo attributes columns should not be counted as identifier_columns
       identifier_columns = self.GetIdentifierColumns(raw_data.columns.values.tolist(), column_with_value_prefix)
       print("Renaming:",column_with_value_prefix) 
       raw_data.rename(columns=column_with_value_prefix, inplace=True) 
@@ -78,6 +94,7 @@ class Datadatasource:
       print("Cols before wide_to_long:",raw_data.columns)
       tidy_df = pd.wide_to_long(raw_data, stubnames=['VALUE', 'SYMBOL'], i=identifier_columns, j=measure_dim_name, sep='_', suffix=f"(!?{'|'.join(measurement_codes)})")
       tidy_df.reset_index(inplace=True)
+      
       print("Cols after wide_to_long:", tidy_df.columns)
       
 
