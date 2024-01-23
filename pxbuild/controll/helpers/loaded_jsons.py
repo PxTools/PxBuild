@@ -17,10 +17,7 @@ class LoadedJsons:
         print("For pxmetadata_id:", self._pxmetadata_id, ", with config:", config_file)
 
 
-        # 'example_data/pxbuildconfig/ssb_config.json'
-        with open(config_file, encoding="utf-8-sig") as f:
-            config_json = json.loads(f.read())
-        self._config = PxbuildConfig(**config_json)
+        self._config = LoadedJsons.load_config(config_file)
 
         # todo if sourceType==File
         #      pxmetadataFormat="example_data/pxmetadata/{id}.json"
@@ -78,3 +75,9 @@ class LoadedJsons:
         Returns: Empty if the dataset has no coded_dimensions
         """
         return self._resolved_pxcodes_ids
+    
+    @staticmethod
+    def load_config(config_file:str) -> PxbuildConfig:
+        with open(config_file, encoding="utf-8-sig") as f:
+            config_json = json.loads(f.read())
+        return PxbuildConfig(**config_json)

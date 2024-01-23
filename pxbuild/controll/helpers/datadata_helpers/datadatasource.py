@@ -14,27 +14,54 @@ class Datadatasource:
 
    def __init__(self,file_id:str, config:PxbuildConfig) -> None:
      data_file_path_format= config.admin.px_data_resource.adress_format
-     data_file_path=data_file_path_format.format(id=file_id)
-     if data_file_path.endswith(".parquet"): 
-          self._my_datasource:AbstractDatasource = ParquetDatasource(data_file_path)
-     elif data_file_path.endswith(".csv"): 
-          self._my_datasource:AbstractDatasource = CsvDatasource(data_file_path)
+     self._data_file_path=data_file_path_format.format(id=file_id)
+     if self._data_file_path.endswith(".parquet"): 
+          self._my_datasource:AbstractDatasource = ParquetDatasource(self._data_file_path)
+     elif self._data_file_path.endswith(".csv"): 
+          self._my_datasource:AbstractDatasource = CsvDatasource(self._data_file_path)
      else:
          raise Exception("Sorry, not implemented yet. Files must end with .parquet or .csv")
      
-     self.PrintColumns()
+     self._raw_df = self._my_datasource.GetRawPandas()
 
+     self._validate_pandas()    
 
+   def _validate_pandas(self) -> None:
+      valid_symbol_entries = ['','.','..','...','....','.....','......','-']
+      err_mess_ending = " From datafile "+ self._data_file_path
+      my_colnames: List[str] = self._raw_df.columns.to_list()
 
+      for col in my_colnames:
+         if "." in col:
+            raise Exception("Column: " + col + " has a dot, if it is not so in the datafile, there probably is a duplicate in columnname. "+ err_mess_ending )
+         #if not col.isupper():
+         #   raise Exception("Column: " + col + " is not  UPPERCASE. "+ err_mess_ending )
+         if col.endswith("_SYMBOL"):
+            col_without_symbol = col[:-7]
+            if col_without_symbol not in my_colnames:
+               raise Exception("Found "+ col +" ,but no matching " +col_without_symbol +" . " + err_mess_ending)
+
+            # Create a mask for invalid entries (not in valid_symbol_entries and not NaN)
+            mask = ~self._raw_df[col].isin(valid_symbol_entries) & self._raw_df[col].notna()
+
+            # Filter the DataFrame with the mask
+            invalid_rows = self._raw_df[mask]
+            if not invalid_rows.empty:
+                err_mess = "There are rows with bad value in "+col+" column. "+ err_mess_ending
+                print(invalid_rows.head(10))
+                raise Exception(err_mess)
+            
    def PrintColumns(self) -> None:
-      self._my_datasource.PrintColumns()
+      print("Debug cols:", self._raw_df)
     
    def GetTimePeriodes(self, column_name:str) -> List[str]:
        """Reads all values from a column, applies unique and sorts descending."""
-       #chat: Parquet files are designed for efficient columnar storage and retrieval but do not inherently support reading only distinct values
+       
+       if column_name not in self._raw_df.columns:
+            raise ValueError(f"Column '{column_name}' not found in the CSV file.")
+       
+       column_data = self._raw_df[column_name]
 
-       # Read the entire column into a Pandas Series
-       column_data = self._my_datasource.GetTimePeriodesPandas(column_name)
        # Get distinct values from the column
        distinct_values = column_data.unique()
        asList=distinct_values.tolist()
