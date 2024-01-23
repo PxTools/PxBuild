@@ -16,6 +16,8 @@ class TestCubes1nn:
     #102: missing row and value with 1 symbol_column
     #103: missing row and value with 2 symbol_column
     #104: as 103 but shuffled csv rows and cols
+    #130: as 103 but testing stupid columnnames in CSV
+    #131: as 103 but testing stupid columnnames in CSV        
 
     def test_cube_101_ok(self):
       self.set_path()
@@ -43,7 +45,21 @@ class TestCubes1nn:
       dummy = pxbuild.LoadFromPxmetadata('104', self._my_config)
       file = "tab_104.px"
       result = filecmp.cmp(self._path_expected + file, self._path_actual + file, shallow=False)
-      assert result, file + " is not as expected."        
+      assert result, file + " is not as expected."   
+
+    def test_cube_130_as_103_but_with_stupid_columnnames_csv(self):
+      self.set_path()
+      dummy = pxbuild.LoadFromPxmetadata('130', self._my_config)
+      file = "tab_130.px"
+      result = filecmp.cmp(self._path_expected + file, self._path_actual + file, shallow=False)
+      assert result, file + " is not as expected." 
+
+    def test_cube_131_as_103_but_with_stupid_columnnames_parquet(self):
+      self.set_path()
+      dummy = pxbuild.LoadFromPxmetadata('131', self._my_config)
+      file = "tab_131.px"
+      result = filecmp.cmp(self._path_expected + file, self._path_actual + file, shallow=False)
+      assert result, file + " is not as expected." 
       
 
 
