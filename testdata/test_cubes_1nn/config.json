@@ -18,7 +18,8 @@
 	"outputDestination": {
 		"pxFolderFormat": "testdata/test_cubes_1nn/actual",
 		"aggFolderFormat": "testdata/test_cubes_1nn/actual"
-	}
+	},
+	"skipCreationDate": true
   },	
   "charset": "ANSI",
   "axisVersion": "2013",
