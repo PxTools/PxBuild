@@ -1,0 +1,183 @@
+UNITS="This file was created from pxbuild.";
+CHARSET="ANSI";
+AXIS-VERSION="2013";
+CODEPAGE="WINDOWS-1252";
+LANGUAGE="no";
+LANGUAGES="no","en";
+FIRST-PUBLISHED="20001224 17:00";
+NEXT-UPDATE="20240613 08:00";
+TABLEID="00103";
+DECIMALS=2;
+SHOWDECIMALS=0;
+MATRIX="tab_00103";
+AGGREGALLOWED=NO;
+SUBJECT-CODE="uh";
+SUBJECT-AREA[no]="Utenriksøkonomi";
+SUBJECT-AREA[en]="External economy";
+COPYRIGHT=YES;
+TITLE[no]="00103: Testkube 200, etter Dimensjon 1, Dimensjon 2, Dimensjon 3, statistikkvariabel og år";
+TITLE[en]="00103: Test cube 200, by Dimension 1, Dimension 2, Dimension 3, contents and year";
+DESCRIPTIONDEFAULT=NO;
+CONTENTS[no]="00103: Testkube 200,";
+CONTENTS[en]="00103: Test cube 200,";
+STUB[no]="Dimensjon 1","Dimensjon 2","Dimensjon 3";
+STUB[en]="Dimension 1","Dimension 2","Dimension 3";
+HEADING[no]="statistikkvariabel","år";
+HEADING[en]="contents","year";
+CONTVARIABLE[no]="statistikkvariabel";
+CONTVARIABLE[en]="contents";
+VALUES[no]("Dimensjon 1")="Kode 1 for dim 1","Kode 2 for dim 1","Kode 3 for dim 1";
+VALUES[no]("Dimensjon 2")="Kode 1 for dim 2","Kode 2 for dim 2","Kode 3 for dim 2";
+VALUES[no]("Dimensjon 3")="Kode 1 for dim 3","Kode 2 for dim 3","Kode 3 for dim 3";
+VALUES[no]("statistikkvariabel")="Måling 1","Måling 2";
+VALUES[no]("år")="2000";
+VALUES[en]("Dimension 1")="Code 1 for dim 1","Code 2 for dim 1","Code 3 for dim 1";
+VALUES[en]("Dimension 2")="Code 1 for dim 2","Code 2 for dim 2","Code 3 for dim 2";
+VALUES[en]("Dimension 3")="Code 1 for dim 3","Code 2 for dim 3","Code 3 for dim 3";
+VALUES[en]("contents")="Measure 1","Measure 2";
+VALUES[en]("year")="2000";
+CODES[no]("Dimensjon 1")="01","02","03";
+CODES[no]("Dimensjon 2")="01","02","03";
+CODES[no]("Dimensjon 3")="01","02","03";
+CODES[no]("statistikkvariabel")="Measure1","Measure2";
+CODES[no]("år")="2000";
+CODES[en]("Dimension 1")="01","02","03";
+CODES[en]("Dimension 2")="01","02","03";
+CODES[en]("Dimension 3")="01","02","03";
+CODES[en]("contents")="Measure1","Measure2";
+CODES[en]("year")="2000";
+UNITS[no]("Måling 1")="tonn";
+UNITS[no]("Måling 2")="kr";
+UNITS[en]("Measure 1")="tonnes";
+UNITS[en]("Measure 2")="NOK";
+DOUBLECOLUMN[no]("Dimensjon 1")=YES;
+DOUBLECOLUMN[en]("Dimension 1")=YES;
+PRESTEXT[no]("Dimensjon 1")=1;
+PRESTEXT[no]("Dimensjon 2")=1;
+PRESTEXT[no]("Dimensjon 3")=1;
+PRESTEXT[en]("Dimension 1")=1;
+PRESTEXT[en]("Dimension 2")=1;
+PRESTEXT[en]("Dimension 3")=1;
+DOMAIN[no]("Dimensjon 3")="pxcodes_dim3_no";
+DOMAIN[en]("Dimension 3")="pxcodes_dim3_en";
+VARIABLE-TYPE[no]("Dimensjon 1")="G";
+VARIABLE-TYPE[no]("Dimensjon 2")="N";
+VARIABLE-TYPE[no]("Dimensjon 3")="N";
+VARIABLE-TYPE[no]("statistikkvariabel")="C";
+VARIABLE-TYPE[no]("år")="T";
+VARIABLE-TYPE[en]("Dimension 1")="G";
+VARIABLE-TYPE[en]("Dimension 2")="N";
+VARIABLE-TYPE[en]("Dimension 3")="N";
+VARIABLE-TYPE[en]("contents")="C";
+VARIABLE-TYPE[en]("year")="T";
+ELIMINATION[no]("Dimensjon 1")=YES;
+ELIMINATION[no]("Dimensjon 2")=YES;
+ELIMINATION[no]("Dimensjon 3")=YES;
+ELIMINATION[en]("Dimension 1")=YES;
+ELIMINATION[en]("Dimension 2")=YES;
+ELIMINATION[en]("Dimension 3")=YES;
+PRECISION[no]("statistikkvariabel","Måling 2")=2;
+PRECISION[en]("contents","Measure 2")=2;
+LAST-UPDATED[no]("Måling 1")="20240306 08:00";
+LAST-UPDATED[no]("Måling 2")="20240306 08:00";
+LAST-UPDATED[en]("Measure 1")="20240306 08:00";
+LAST-UPDATED[en]("Measure 2")="20240306 08:00";
+CFPRICES[no]("Måling 1")="C";
+CFPRICES[no]("Måling 2")="F";
+CFPRICES[en]("Measure 1")="C";
+CFPRICES[en]("Measure 2")="F";
+DAYADJ[no]("Måling 1")=NO;
+DAYADJ[no]("Måling 2")=NO;
+DAYADJ[en]("Measure 1")=NO;
+DAYADJ[en]("Measure 2")=NO;
+SEASADJ[no]("Måling 1")=NO;
+SEASADJ[no]("Måling 2")=NO;
+SEASADJ[en]("Measure 1")=NO;
+SEASADJ[en]("Measure 2")=NO;
+CONTACT[no]("Måling 1")="En eller annen, Statistisk sentralbyrå#+47 1234 5678#mailme@ssb.no";
+CONTACT[no]("Måling 2")="En eller annen, Statistisk sentralbyrå#+47 1234 5678#mailme@ssb.no";
+CONTACT[en]("Measure 1")="Somebody, Statistics Norway#+47 1234 5678#mailme@ssb.no";
+CONTACT[en]("Measure 2")="Somebody, Statistics Norway#+47 1234 5678#mailme@ssb.no";
+REFPERIOD[no]("Måling 1")="Utgangen av veka";
+REFPERIOD[no]("Måling 2")="Utgangen av veka";
+REFPERIOD[en]("Measure 1")="End of week";
+REFPERIOD[en]("Measure 2")="End of week";
+BASEPERIOD[no]("Måling 1")="1. kv 2000 ";
+BASEPERIOD[no]("Måling 2")="1. kv 2000 ";
+BASEPERIOD[en]("Measure 1")="Q1 2000";
+BASEPERIOD[en]("Measure 2")="Q1 2000";
+SOURCE[no]="Statistisk sentralbyrå";
+SOURCE[en]="Statistics Norway";
+OFFICIAL-STATISTICS=YES;
+NOTEX[no]="En fotnote til. På hele tabellen. Mandatory";
+NOTEX[no]("Dimensjon 1")="En fotnote til. På Dimensjon 1. Mandatory";
+NOTEX[en]="Another note. On all of the cube. Mandatory.";
+NOTEX[en]("Dimension 1")="Another note. On Dimension 1. Mandatory.";
+NOTE[no]="En fotnote. På hele tabellen. not Mandatory";
+NOTE[no]("Dimensjon 1")="En fotnote. På Dimensjon 1. not Mandatory";
+NOTE[en]="A note. On all of the cube. not Mandatory";
+NOTE[en]("Dimension 1")="A note. On Dimension 1. not Mandatory";
+VALUENOTEX[no]("Dimensjon 2","Kode 1 for dim 2")="En fotnote til. På Kode 1 for dim 2. Mandatory";
+VALUENOTEX[no]("Dimensjon 2","Kode 3 for dim 2")="En fotnote til. Kode 3 for dim 2. Mandatory";
+VALUENOTEX[no]("statistikkvariabel","Måling 1")="En fotnote til. På Måling 1. Mandatory";
+VALUENOTEX[en]("Dimension 2","Code 1 for dim 2")="Another note. On Code 1 for dim 2. Mandatory.";
+VALUENOTEX[en]("Dimension 2","Code 3 for dim 2")="Another note. On Code 3 for dim 2. Mandatory.";
+VALUENOTEX[en]("contents","Measure 1")="Another note. On Measure 1. Mandatory.";
+VALUENOTE[no]("Dimensjon 2","Kode 1 for dim 2")="En fotnote. På Kode 1 for dim 2. not Mandatory";
+VALUENOTE[no]("Dimensjon 2","Kode 3 for dim 2")="En fotnote. Kode 3 for dim 2. not Mandatory";
+VALUENOTE[no]("statistikkvariabel","Måling 1")="En fotnote. På Måling 1. not Mandatory";
+VALUENOTE[en]("Dimension 2","Code 1 for dim 2")="A note. On Code 1 for dim 2. not Mandatory";
+VALUENOTE[en]("Dimension 2","Code 3 for dim 2")="A note. On Code 3 for dim 2. not Mandatory";
+VALUENOTE[en]("contents","Measure 1")="A note. On Measure 1. not Mandatory";
+DATASYMBOL1[no]=".";
+DATASYMBOL1[en]=".";
+DATASYMBOL2[no]="..";
+DATASYMBOL2[en]="..";
+DATASYMBOL3[no]=":";
+DATASYMBOL3[en]=":";
+DATASYMBOLNIL[no]="-";
+DATASYMBOLNIL[en]="-";
+DATASYMBOLSUM[no]=".";
+DATASYMBOLSUM[en]=".";
+VARIABLECODE[no]("Dimensjon 1")="coded_dim1";
+VARIABLECODE[no]("Dimensjon 2")="coded_dim2";
+VARIABLECODE[no]("Dimensjon 3")="coded_dim3";
+VARIABLECODE[no]("statistikkvariabel")="ContentsCode";
+VARIABLECODE[no]("år")="Tid";
+VARIABLECODE[en]("Dimension 1")="coded_dim1";
+VARIABLECODE[en]("Dimension 2")="coded_dim2";
+VARIABLECODE[en]("Dimension 3")="coded_dim3";
+VARIABLECODE[en]("contents")="ContentsCode";
+VARIABLECODE[en]("year")="Tid";
+META-ID="urn:ssb:metaId_on_table urn:ssb:metaId_in_statistics";
+META-ID[no]("Dimensjon 1")="urn:ssb:metaId_on_a_codedDimension";
+META-ID[no]("statistikkvariabel","Måling 1")="urn:ssb:metaId_on_Measure1";
+META-ID[en]("Dimension 1")="urn:ssb:metaId_on_a_codedDimension";
+META-ID[en]("contents","Measure 1")="urn:ssb:metaId_on_Measure1";
+DATA=1111 1112
+. 1122
+.. 1132
+... 1212
+.... 1222
+..... 1232
+...... 1312
+- 1322
+1331 1332
+2111 2112
+2121 .
+2131 ..
+2211 ...
+2221 ....
+2231 .....
+2311 ......
+2321 -
+2331 2332
+..... 3112
+3121 .....
+...... ......
+3211 3212
+3221 3222
+3231 3232
+... ...
+3321 3322
+3331 3332;

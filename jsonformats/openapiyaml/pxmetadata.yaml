@@ -125,7 +125,16 @@ components:
             cellMissing:
                type: string
                description: Value to insert in data when cell is missing. 
-               default: "."               
+               default: "."
+            officialStatistics:
+               type: boolean
+               default: false   
+            copyright: 
+               type: boolean
+               default: false
+            firstPublished:
+               type: string
+               description: The date when the data cube was first published in the format CCYYMMDD hh:mm   
             attributes:
               type: array
               items:
@@ -153,7 +162,7 @@ components:
                     description: name of column in dataset
                   code:
                     type: string
-                    description: the code of the variable. Defaults to columName if missing
+                    description: the code of the dimention( aka variable). Defaults to columName if missing
                   isGeoVariableType:
                     type: boolean
                     default: false
@@ -172,6 +181,10 @@ components:
                     description: Construct label for codelist entry as text or code or text then code or code then text
                   label:
                     $ref: '#/components/schemas/StringByLanguage'
+                  doublecolumn:  
+                     type: boolean
+                     default: false
+                     description: Applies only to some of the file-export formats. See DOUBLECOLUMN-keyword                
                   notes:
                     $ref: '#/components/schemas/Notes'
                   metaId:
@@ -246,12 +259,26 @@ components:
     CellNote:
       type: object
       required:
+        - attachment
         - text
         - isMandatory
+      description: "Still TODO"
       properties:
-        todo:
-          type: string
-          default: "Hvordan løser vi tilkobling til celle?"
+        attachment:
+          type: array
+          description: "Attaches the text on a point/subcube of the cube. The array has one or zero entries for each dimension. No entry for a dimension means everything."
+          items: 
+            type: object
+            required:
+              - dimensionCode
+              - valueCode
+            properties:
+               dimensionCode:
+                  type: string
+                  description: "The code of the dimension (found in config for time and measure)"
+               valueCode:
+                  type: string
+                  description: "The code of the Value" 
         text: 
            $ref: '#/components/schemas/StringByLanguage'
         isMandatory:
