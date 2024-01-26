@@ -143,6 +143,10 @@ components:
                      type: boolean
                      description: make multilingual PX-files, not one for each language. If true, the first entry in validLanguages will be used for language keyword.
                      default: true
+                  skipCreationDate:
+                     type: boolean
+                     description: should the CREATION-DATE keyword be skipped. Usefull (only) for pytests that compare PX-files.
+                     default: false
                   theWordAnd:
                      type: object
                      additionalProperties:

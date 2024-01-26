@@ -25,6 +25,11 @@ class LoadFromPxmetadata:
         "LabelConstructionOption.text_code": 3,
     }
 
+    PriceTypeDict = {
+         "PriceType.current": "C",
+         "PriceType.fixed": "F"
+    }
+
     def __init__(self, pxmetadata_id: str, config_file: str) -> None:
         self._pxmetadata_id = pxmetadata_id
        
@@ -42,7 +47,6 @@ class LoadFromPxmetadata:
         self._for_get_data_by_varid: Dict[str, ForGetData] = dict()
 
         ##################
-
         self.models_for_pytest: dict = {}   #Todo make perfect reader, and let the pytest read the files
 
         self._last_updated = self.get_last_updated(self._pxstatistics)
@@ -58,8 +62,9 @@ class LoadFromPxmetadata:
             self._heading = [self._config.contvariable[language]]
 
             self._metaid_table: List[str] = []
-            self._metaid_valiable: dict = {}
-
+            self._metaid_dimensions: dict = {}
+            self._metaid_measure_value: dict = {}
+        
             self.map_pxbuildconfig_to_pxfile(self._config, language , out_model)
             self.map_pxmetadata_to_pxfile(self._pxmetadata_model, out_model)
             self.add_pxstatistics_to_pxfile(self._pxstatistics, out_model)
@@ -111,10 +116,18 @@ class LoadFromPxmetadata:
             if self._metaid_table:
                 out_model.meta_id.set(" ".join(self._metaid_table))
 
-        for vari in self._metaid_valiable:
-            out_model.meta_id.set(" ".join(self._metaid_valiable[vari]), vari, None, self._current_lang)
+        for vari in self._metaid_dimensions:
+            out_model.meta_id.set(" ".join(self._metaid_dimensions[vari]), vari, None, self._current_lang)
+
+        
+        for vari in self._metaid_measure_value:
+            for value in self._metaid_measure_value[vari]:
+                out_model.meta_id.set(" ".join(self._metaid_measure_value[vari][value]), vari, value, self._current_lang)
 
    
+
+            
+
 
     def map_aggregallowed_to_pxfile(self, out_model: PXFileModel):
         # Check if all values in the array are True
@@ -207,11 +220,14 @@ class LoadFromPxmetadata:
                     else:
                         out_model.elimination.set("YES", my_funny_var_id, lang)
 
-                if my_var.meta_id:
-                    if my_funny_var_id not in self._metaid_valiable:
-                        self._metaid_valiable[my_funny_var_id] = []
+                if my_var.doublecolumn:  
+                   out_model.doublecolumn.set(my_var.doublecolumn,my_funny_var_id,lang)
 
-                    self._metaid_valiable[my_funny_var_id] += my_var.meta_id
+                if my_var.meta_id:
+                    if my_funny_var_id not in self._metaid_dimensions:
+                        self._metaid_dimensions[my_funny_var_id] = []
+
+                    self._metaid_dimensions[my_funny_var_id] += my_var.meta_id
 
                 # Note on variable
                 if my_var.notes:
@@ -220,6 +236,7 @@ class LoadFromPxmetadata:
                             out_model.notex.set(note.text[lang], my_funny_var_id, lang)
                         else:
                             out_model.note.set(note.text[lang], my_funny_var_id, lang)
+
                 # Note on a value in variale
                 my_value_notes = my_pxcodes_helper.getNotes(lang)
                 if my_value_notes:
@@ -257,13 +274,39 @@ class LoadFromPxmetadata:
                     my_cont.reference_period[self._current_lang], my_funny_cont_id, self._current_lang
                 )
 
+            if my_cont.base_period and my_cont.base_period[self._current_lang]:
+
+                out_model.baseperiod.set(
+                    my_cont.base_period[self._current_lang], my_funny_cont_id, self._current_lang
+                )    
+
             if my_cont.show_decimals > 0:
                 out_model.precision.set(my_cont.show_decimals, my_funny_var_id, my_funny_cont_id, self._current_lang)
 
             # optional with no default
             if my_cont.price_type:
-                # todo str(my_cont.price_type) should yield C or F
-                out_model.cfprices.set(str(my_cont.price_type), my_funny_cont_id, self._current_lang)
+                out_model.cfprices.set(self.PriceTypeDict[str(my_cont.price_type)], my_funny_cont_id, self._current_lang)
+
+
+            # Note on a value in variale
+            lang = self._current_lang
+           
+            if my_cont.notes:
+               for note in my_cont.notes:
+                    if note.is_mandatory:
+                        out_model.valuenotex.set(note.text[lang], my_funny_var_id, my_funny_cont_id, lang)
+                    else:
+                        out_model.valuenote.set(note.text[lang], my_funny_var_id, my_funny_cont_id, lang)
+
+            if my_cont.meta_id:
+                if my_funny_var_id not in self._metaid_measure_value:
+                        self._metaid_measure_value[my_funny_var_id] = {}
+                if  my_funny_cont_id not in self._metaid_measure_value[my_funny_var_id]:
+                    self._metaid_measure_value[my_funny_var_id][ my_funny_cont_id] = []
+
+                self._metaid_measure_value[my_funny_var_id][ my_funny_cont_id] += my_cont.meta_id
+
+
 
         out_model.values.set(out_values, my_funny_var_id, self._current_lang)
         out_model.codes.set(out_codes, my_funny_var_id, self._current_lang)
@@ -310,6 +353,22 @@ class LoadFromPxmetadata:
         formatted_string = convert_to_pxdate_string(last_updated_date, f"%Y-%m-%d %H:%M:%S.%f")
 
         return formatted_string
+    
+    def get_next_update(self, in_model: PxStatistics) -> str:
+        last_updated_date = ""
+        if in_model.upcoming_releases is None:
+            return last_updated_date
+
+        if len(in_model.upcoming_releases) < 2:
+            return last_updated_date
+
+        last_updated_date = in_model.upcoming_releases[1]
+
+        formatted_string = convert_to_pxdate_string(last_updated_date, f"%Y-%m-%d %H:%M:%S.%f")
+
+        return formatted_string
+    
+
 
     def add_pxstatistics_to_pxfile(self, in_model: PxStatistics, out_model: PXFileModel):
         lang = self._current_lang
@@ -319,6 +378,9 @@ class LoadFromPxmetadata:
             out_model.subject_code.set(in_model.subject_code)
 
             self._metaid_table += in_model.meta_id
+            next_update = self.get_next_update(self._pxstatistics)
+            if next_update:
+               out_model.next_update.set(next_update) 
 
         # out_model.update_frequency.set() Hmm is not listed as language dependent in pdf
 
@@ -327,7 +389,23 @@ class LoadFromPxmetadata:
         if self._add_language_independent:
             out_model.tableid.set(in_model.dataset.table_id)
             out_model.matrix.set("tab_" + in_model.dataset.table_id)
+            if in_model.dataset.official_statistics:
+                out_model.official_statistics.set(in_model.dataset.official_statistics)
+            if in_model.dataset.copyright:
+                out_model.copyright.set(in_model.dataset.copyright)
+            if in_model.dataset.first_published:
+                out_model.first_published.set(in_model.dataset.first_published)
+            if in_model.dataset.meta_id:
+               self._metaid_table += in_model.dataset.meta_id    
+
         out_model.contents.set(in_model.dataset.table_id + ": " + in_model.dataset.base_title[lang] + ",", lang)
+        if in_model.dataset.notes:
+            for note in in_model.dataset.notes:
+                if note.is_mandatory:
+                    out_model.notex.set(note.text[lang], None, lang)
+                else:
+                    out_model.note.set(note.text[lang], None, lang)
+            
 
     def map_pxbuildconfig_to_pxfile(self, in_config: PxbuildConfig, current_lang:str , out_model: PXFileModel):
         if self._add_language_independent:
@@ -338,6 +416,10 @@ class LoadFromPxmetadata:
             out_model.charset.set(str(in_config.charset))
             out_model.codepage.set(str(in_config.code_page))
             out_model.descriptiondefault.set((in_config.description_default or False))
+            if not in_config.admin.skip_creation_date:
+                out_model.creation_date.set( get_current_time())
+
+
 
         out_model.contvariable.set(str(in_config.contvariable[current_lang]), current_lang)
 
@@ -368,6 +450,14 @@ def convert_to_pxdate_string(date_string: str, date_format: str) -> str:
     px_date_string = dtm_date.strftime(f"%Y%m%d %H:%M")
 
     return px_date_string
+
+
+def get_current_time() -> str:
+    """
+    Returns the current time as a string in the format CCYYMMDD hh:mm
+    """
+    from datetime import datetime
+    return datetime.now().strftime("%Y%m%d %H:%M")
 
 def write_output(pxmetadata_id:str, px_folder_format:str, out_model:PXFileModel, language:str | None = None) -> None:
     temp_tabid = pxmetadata_id

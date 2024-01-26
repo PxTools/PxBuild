@@ -41,7 +41,10 @@ class _KeytypeVariableLang(_KeytypeLang):
         self.variable = variable
 
     def __str__(self):
-         return  f"{super().__str__()}(\"{self.variable}\")"
+       if self.variable:  
+          return  f"{super().__str__()}(\"{self.variable}\")"
+       else:
+          return  f"{super().__str__()}" 
     
     def __eq__(self, other):
         if type(self) == type(other):

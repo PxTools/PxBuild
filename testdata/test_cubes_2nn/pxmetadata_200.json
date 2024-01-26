@@ -1,0 +1,212 @@
+﻿{
+  "dataset": {
+    "documnetId": null,
+	"rowMissing":"......",
+	"cellMissing":".....",
+    "tableId": "00103",
+    "storedDecimals": null,
+    "statisticsId": "2nn",
+    "dataFile": "thedata_200.csv",
+    "baseTitle": {
+      "no": "Testkube 200",
+      "en": "Test cube 200"
+    },
+    "searchKeywords": {
+      "no": [
+        "ord",
+        "til",
+        "søk"
+      ],
+      "en": [
+        "Words",
+        "for",
+        "search"
+      ]
+    },
+    "notes": [
+	   {
+          "text": {
+            "no": "En fotnote. På hele tabellen. not Mandatory",
+            "en": "A note. On all of the cube. not Mandatory"
+           },
+           "isMandatory": false
+        },
+	   {
+          "text": {
+            "no": "En fotnote til. På hele tabellen. Mandatory",
+            "en": "Another note. On all of the cube. Mandatory."
+           },
+           "isMandatory": true
+        }
+    ],
+    "cellNotes":[
+	   {
+		  "attachment": 
+		  [ { "dimensionCode": "Time" , "valueCode": "2020" }
+		  , { "dimensionCode": "ContentCode" , "valueCode": "Measure2" }
+		  , { "dimensionCode": "coded_dim1" , "valueCode": "01" }
+		  , { "dimensionCode": "coded_dim2" , "valueCode": "02" }
+		  , { "dimensionCode": "coded_dim3" , "valueCode": "03" }
+		  ],
+          "text": {
+            "no": "En cellnote. På 2020, Measure2, dim1:01, dim2:02 og dim3:03. not Mandatory",
+            "en": "A cellnote. On 2020, Measure2, dim1:01, dim2:02 and dim3:03. not Mandatory"
+           },
+           "isMandatory": false
+        },
+	   {
+		  "attachment": 
+		  [ { "dimensionCode": "Time  " , "valueCode": "2000" }
+		  , { "dimensionCode": "ContentCode" , "valueCode": "Measure1" }
+		  , { "dimensionCode": "coded_dim2" , "valueCode": "02" }
+		  , { "dimensionCode": "coded_dim3" , "valueCode": "03" }
+		  ], 
+          "text": {
+            "no": "En cellnote til. På 2020, Measure1, dim2:02 og dim3:03. Mandatory",
+            "en": "Another cellnote. On 2020, Measure1, dim2:02 and dim3:03. Mandatory."
+           },
+           "isMandatory": true
+        }
+    ],
+    "timeDimension": {
+      "columnName": "TIME",
+      "timePeriodFormat": "åååå",
+      "label": {
+        "no": "år",
+        "en": "year"
+      }
+    },
+    "codedDimensions": [
+      {
+        "columnName": "CODED_DIM1",
+        "code": "coded_dim1",
+        "isGeoVariableType": true,
+        "codelistId": "pxcodes_dim1",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "Dimensjon 1",
+          "en": "Dimension 1"
+        },
+		"doublecolumn": true,
+        "notes": [
+			{
+				"text": {
+					"no": "En fotnote. På Dimensjon 1. not Mandatory",
+					"en": "A note. On Dimension 1. not Mandatory"
+				},
+				"isMandatory": false
+			},
+			{
+				"text": {
+					"no": "En fotnote til. På Dimensjon 1. Mandatory",
+					"en": "Another note. On Dimension 1. Mandatory."
+				},
+				"isMandatory": true
+			}
+		],
+		"metaId": ["urn:ssb:metaId_on_a_codedDimension"]
+      },
+	  {
+        "columnName": "CODED_DIM2",
+        "code": "coded_dim2",
+        "isGeoVariableType": false,
+        "codelistId": "pxcodes_dim2",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "Dimensjon 2",
+          "en": "Dimension 2"
+        },
+        "notes": null
+      },
+	  {
+        "columnName": "CODED_DIM3",
+        "code": "coded_dim3",
+        "isGeoVariableType": false,
+        "codelistId": "pxcodes_dim3",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "Dimensjon 3",
+          "en": "Dimension 3"
+        },
+        "notes": null
+      }
+    ],
+    "measurements": [
+      {
+        "columnName": "MEASURE1",
+        "code": "Measure1",
+        "showDecimals": 0,
+        "priceType": "Current",
+        "isSeasonallyAdjusted": false,
+        "isWorkingdaysAdjusted": false,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "Måling 1",
+          "en": "Measure 1"
+        },
+        "basePeriod": {
+          "no": "1. kv 2000 ",
+          "en": "Q1 2000"
+        },
+        "referencePeriod": {
+          "no": "Utgangen av veka",
+          "en": "End of week"
+        },
+        "rank": null,
+        "unitOfMeasure": {
+          "no": "tonn",
+          "en": "tonnes"
+        },
+        "notes": [
+			{
+				"text": {
+					"no": "En fotnote. På Måling 1. not Mandatory",
+					"en": "A note. On Measure 1. not Mandatory"
+				},
+				"isMandatory": false
+			},
+			{
+				"text": {
+					"no": "En fotnote til. På Måling 1. Mandatory",
+					"en": "Another note. On Measure 1. Mandatory."
+				},
+				"isMandatory": true
+			}
+		],
+		"metaId": ["urn:ssb:metaId_on_Measure1"]
+      },
+      {
+        "columnName": "MEASURE2",
+        "code": "Measure2",
+        "showDecimals": 2,
+        "priceType": "Fixed",
+        "isSeasonallyAdjusted": false,
+        "isWorkingdaysAdjusted": false,
+        "aggregationAllowed": false,
+        "label": {
+          "no": "Måling 2",
+          "en": "Measure 2"
+        },
+        "basePeriod": {
+          "no": "1. kv 2000 ",
+          "en": "Q1 2000"
+        },
+        "referencePeriod": {
+          "no": "Utgangen av veka",
+          "en": "End of week"
+        },
+        "rank": null,
+        "unitOfMeasure": {
+          "no": "kr",
+          "en": "NOK"
+        },
+        "notes": null
+      }
+    ],
+    "metaId": ["urn:ssb:metaId_on_table"],
+    "officialStatistics": true,
+    "copyright":true,
+    "firstPublished": "20001224 17:00",	
+    "attributes": null
+  }
+}

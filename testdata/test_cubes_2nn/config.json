@@ -4,20 +4,20 @@
 	"theWordAnd": { "no": "og", "en": "and" },
 	"theWordBy": { "no": "etter", "en": "by" },
 	"pxMetadataResource": {
-		"adressFormat": "testdata/test_cubes_1nn/pxmetadata_{id}.json"
+		"adressFormat": "testdata/test_cubes_2nn/pxmetadata_{id}.json"
 	},
 	"pxStatisticsResource": {
-		"adressFormat": "testdata/test_cubes_1nn/pxstatistics_1nn.json"
+		"adressFormat": "testdata/test_cubes_2nn/pxstatistics_{id}.json"
 	},
 	"pxCodesResource": {
-		"adressFormat": "testdata/test_cubes_1nn/pxcodes/{id}.json"
+		"adressFormat": "testdata/test_cubes_2nn/pxcodes/{id}.json"
 	},
 	"pxDataResource": {
-		"adressFormat": "testdata/test_cubes_1nn/{id}"
+		"adressFormat": "testdata/test_cubes_2nn/{id}"
 	},
 	"outputDestination": {
-		"pxFolderFormat": "testdata/test_cubes_1nn/actual",
-		"aggFolderFormat": "testdata/test_cubes_1nn/actual"
+		"pxFolderFormat": "testdata/test_cubes_2nn/actual",
+		"aggFolderFormat": "testdata/test_cubes_2nn/actual"
 	},
 	"skipCreationDate": true
   },	
