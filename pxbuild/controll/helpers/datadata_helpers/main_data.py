@@ -46,11 +46,10 @@ class MapData:
         
         start_get_data = time.time()
 
-        matrix_size = self.calculate_factor()
+        matrix_size = self.calculate_matrix_size()
 
         missing_row_symbol = self._pxmetadata_model.dataset.row_missing
         missing_cell_symbol = self._pxmetadata_model.dataset.cell_missing
-
         column_code_map = self.get_measurement_column_code_mapping()
 
         start_tidy = time.time()
@@ -66,7 +65,6 @@ class MapData:
 
         out_data = merged_df["out_value"].tolist()
 
-        merged_df = merged_df.sort_values(by=["out_index"])
         formatter = DataFormatter(self._heading, self._for_get_data_by_varid)
         number_of_columns_per_line = formatter.calculate_line_break()
 
@@ -76,7 +74,7 @@ class MapData:
         time_used_get_data = end_get_data - start_get_data
         print("Time: GetData:", time_used_get_data)
 
-    def calculate_factor(self) -> int:
+    def calculate_matrix_size(self) -> int:
         variables_in_output_order = self._variables_in_output_order
         curr_factor = 1
         for vari in reversed(variables_in_output_order):
@@ -91,6 +89,7 @@ class MapData:
 
 
     def add_missing_rows(self, matrix_size, missing_row_symbol, df):
+        #sorts on index as sideeffect :-)
         matrix_df = pd.DataFrame({"out_index": range(matrix_size)})
 
         # Merge the two DataFrames
@@ -100,13 +99,16 @@ class MapData:
         merged_df["out_value"].fillna(missing_row_symbol, inplace=True)
         return merged_df
 
-    def add_out_value(self, missing_cell_symbol, df):
-        conditions = [df["VALUE"] != "", df["SYMBOL"] != ""]
+    def add_out_value(self, missing_cell_symbol:str, df):
+        start = time.time()
+
+        conditions = [ df["VALUE"].notna() & (df["VALUE"] != ""),
+                       df["SYMBOL"].notna() & (df["SYMBOL"] != "")]
 
         choices = [df["VALUE"].astype(str), df["SYMBOL"].astype(str)]
 
-        start = time.time()
         df["out_value"] = np.select(conditions, choices, missing_cell_symbol)
+
         end = time.time()
         time_used = end - start
         print("Time: numpy select in:", time_used)
