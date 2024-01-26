@@ -47,7 +47,6 @@ class LoadFromPxmetadata:
 
         self._dims = Dims(self._loaded_jsons, self._datadata)   
 
-        self._for_get_data_by_varid: Dict[str, ForGetData] = dict()
 
         ##################
         self.models_for_pytest: dict = {}   #Todo make perfect reader, and let the pytest read the files
@@ -79,7 +78,7 @@ class LoadFromPxmetadata:
 
             self.map_metaid_to_pxfile(out_model)
 
-            fixdata = MapData(self._datadata, self._pxmetadata_model, self._config, self._for_get_data_by_varid, self._dims.get_stub(self._current_lang), self._dims.get_heading(self._current_lang))
+            fixdata = MapData(self._datadata, self._pxmetadata_model, self._config, self._dims, self._current_lang)
             fixdata.map_data(out_model)
 
 
@@ -138,7 +137,7 @@ class LoadFromPxmetadata:
         lang = self._current_lang
         model = self._pxmetadata_model.dataset
 
-        vari_list =  Commons.get_variable_list(self._stub, self._heading ) 
+        vari_list =  self._dims.get_variable_list(lang)
         tmp_string = ", ".join(vari_list[:-1])
 
         title = (
@@ -175,18 +174,16 @@ class LoadFromPxmetadata:
         time = self._dims.time
         lang = self._current_lang
 
-        my_periods = time.get_periods()
-
-        self._heading.append(time.get_label(lang))
-
-        out_model.values.set(my_periods, time.get_label(lang), lang)
-        out_model.codes.set(my_periods, time.get_label(lang), lang)
+        out_model.values.set(time.get_labels(lang), time.get_label(lang), lang)
+        out_model.codes.set(time.get_codes(), time.get_label(lang), lang)
         
         out_model.variablecode.set(time.get_code(), time.get_label(lang), lang)
         out_model.variable_type.set(time.get_variabletype(), time.get_label(lang), lang)
 
        
-        self._for_get_data_by_varid[time.get_label(lang)] = time.get_ForGetData()
+
+
+
 
     def add_coded_dimensions_to_pxfile(self, out_model: PXFileModel):
 
@@ -194,34 +191,25 @@ class LoadFromPxmetadata:
             lang = self._current_lang
             for n_var in self._dims.coded_dimensions:
 
-                my_var = n_var.get_pydantic()
-
-                my_funny_var_id = n_var.get_label(lang)
-
-                
                 out_model.variablecode.set(n_var.get_code(), n_var.get_label(lang), lang)
                 out_model.variable_type.set(n_var.get_variabletype(), n_var.get_label(lang), lang)
 
-                my_pxcodes_helper = self._pxcodes_helper[my_var.codelist_id]
-                temp_codes = my_pxcodes_helper.getCodes(lang)
-                out_model.codes.set(temp_codes, my_funny_var_id, lang)
+                out_model.codes.set(n_var.get_codes(lang), n_var.get_label(lang), lang)
+                out_model.values.set(n_var.get_labels(lang), n_var.get_label(lang), lang)
 
-                temp_values = my_pxcodes_helper.getLabels(lang)
-                out_model.values.set(temp_values, my_funny_var_id, lang)
-                if my_pxcodes_helper.groupings():
-                    my_domain_id = Commons.make_domain_id(my_var.codelist_id, self._current_lang)
-                    out_model.domain.set(my_domain_id, my_funny_var_id, self._current_lang)
+                my_var = n_var.get_pydantic()
+                my_funny_var_id = n_var.get_label(lang)
 
-
+                if n_var.groupings():
+                    my_domain_id = Commons.make_domain_id(my_var.codelist_id, lang)
+                    out_model.domain.set(my_domain_id, my_funny_var_id, lang)
                
-                out_model.prestext.set(
-                    self.LabelConstructionOptionDict[str(my_var.label_construction_option)], my_funny_var_id, lang
-                )
+                out_model.prestext.set(self.LabelConstructionOptionDict[str(my_var.label_construction_option)], my_funny_var_id, lang )
 
-                if not my_pxcodes_helper.elimination_possible:
+                if not n_var.elimination_possible:
                     out_model.elimination.set("NO", my_funny_var_id, lang)
                 else:
-                    label = my_pxcodes_helper.getEliminationLabel(lang)
+                    label = n_var.getEliminationLabel(lang)
                     if label:
                         out_model.elimination.set(label, my_funny_var_id, lang)
                     else:
@@ -245,17 +233,16 @@ class LoadFromPxmetadata:
                             out_model.note.set(note.text[lang], my_funny_var_id, lang)
 
                 # Note on a value in variale
-                my_value_notes = my_pxcodes_helper.getNotes(lang)
+                my_value_notes = n_var.getValueNotes(lang)
                 if my_value_notes:
                     for code in my_value_notes:
                         for note in my_value_notes[code]:
                             if note.is_mandatory:
-                                out_model.valuenotex.set(note.text[lang], my_funny_var_id, code, lang)
+                                out_model.valuenotex.set(note.text[lang], n_var.get_label(lang), code, lang)
                             else:
-                                out_model.valuenote.set(note.text[lang], my_funny_var_id, code, lang)
+                                out_model.valuenote.set(note.text[lang], n_var.get_label(lang), code, lang)
 
-                for_get_data = ForGetData(my_var.column_name, my_pxcodes_helper.getCodes(lang))
-                self._for_get_data_by_varid[my_funny_var_id] = for_get_data
+
 
     def add_measurements_to_pxfile(self, out_model: PXFileModel):
 
@@ -310,7 +297,7 @@ class LoadFromPxmetadata:
         out_model.variablecode.set(contdim.get_code(), contdim.get_label(lang), lang)
         out_model.variable_type.set(contdim.get_variabletype(), contdim.get_label(lang), lang)
 
-        self._for_get_data_by_varid[contdim.get_label(lang)] = contdim.get_ForGetData()
+   
 
     def map_decimals_to_pxfile(self, out_model: PXFileModel):
         if self._add_language_independent:

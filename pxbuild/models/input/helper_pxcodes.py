@@ -31,26 +31,30 @@ class HelperPxCodes:
        # if inPxCodes.groupings: 
        #     self._has_grouping = True
 
-    def getCodes(self, language) -> List[str]:
+    def getCodes(self, language:str) -> List[str]:
         if language not in self._sorted_valueitems:
            raise ValueError(f"Language '{language}' not found in _sorted_valueitems")
         return [valueitem.code for valueitem in self._sorted_valueitems[language]]
 
       
-    def getLabels(self, language) -> List[str]:
+    def getLabels(self, language:str) -> List[str]:
         return [valueitem.label[language] for valueitem in self._sorted_valueitems[language]]
 
 
-    def getEliminationLabel(self, language) -> str:
+    def getEliminationLabel(self, language:str) -> str:
         myOut:str = ""
         if self._pxcodes.elimination_possible and self._pxcodes.elimination_code:
             #need to find label ...
-            for item in self._pxcodes.valueitems:
-                if item.code == self._pxcodes.elimination_code:
-                    myOut = item.label[language]
-                    break  
+            myOut = self.get_label(language,self._pxcodes.elimination_code)
         return myOut
     
+    def get_label(self, language:str,code:str) -> str:
+        myOut:str = ""
+        for valueitem in self._pxcodes.valueitems:
+            if valueitem.code == code:
+                    myOut = valueitem.label[language]
+                    break  
+        return myOut
 
     def getNotes(self, language:str):
         my_out:Dict[str, List[Note]] = dict()

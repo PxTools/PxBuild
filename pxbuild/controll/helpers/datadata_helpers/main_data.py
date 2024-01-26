@@ -8,7 +8,7 @@ from ..small_static_functions import Commons
 
 from pxbuild.models.input.pydantic_pxmetadata import PxMetadata
 from pxbuild.models.input.pydantic_pxbuildconfig import PxbuildConfig
-
+from pxbuild.models.middle.dims import Dims
 from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 
 from .datadatasource import Datadatasource
@@ -18,14 +18,21 @@ from .data_formatter import DataFormatter
 
 class MapData:
 
-    def __init__(self, datadata:Datadatasource, pxmetadata:PxMetadata, config:PxbuildConfig, for_get_data_by_varid: Dict[str, ForGetData], stub:List[str], heading:List[str] ) -> None:
+    def __init__(self, datadata:Datadatasource, pxmetadata:PxMetadata, config:PxbuildConfig, dims:Dims , lang ) -> None:
         self._pxmetadata_model = pxmetadata
         self._datadata = datadata
         self._config = config
-        self._for_get_data_by_varid = for_get_data_by_varid
-        self._variables_in_output_order = Commons.get_variable_list(stub,heading)
-        self._stub = stub 
-        self._heading = heading
+
+
+        self._for_get_data_by_varid: Dict[str, ForGetData] = dict()
+        
+        for dim in dims.getDimsInOutputOrder():
+            self._for_get_data_by_varid[dim.get_label(lang)] = dim.get_ForGetData(lang)
+
+        self._stub = dims.get_stub(lang )
+        self._heading = dims.get_heading(lang )
+        self._variables_in_output_order = Commons.get_variable_list(self._stub,self._heading)
+
     
     
     def map_data(self, out_model: PXFileModel) -> None:
