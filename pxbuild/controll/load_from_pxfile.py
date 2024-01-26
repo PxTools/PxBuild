@@ -246,7 +246,7 @@ class Loader:
         """Reads file, removes any QuoteNewlineQuote, splits on quote and retuns the list with UnQuotedItem and QuotedItem"""
         my_out = []
 
-        with open(filename, "r") as file:
+        with open(filename, "r", encoding="cp1252") as file:
             file_contents1: str = file.read()
 
         first_chars: str = file_contents1[:2]

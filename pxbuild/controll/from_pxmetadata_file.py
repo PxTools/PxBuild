@@ -468,7 +468,7 @@ def write_output(pxmetadata_id:str, px_folder_format:str, out_model:PXFileModel,
 
     out_file = f"{out_folder}/tab_{temp_tabid}{language_part}.px"
 
-    with open(out_file, "w") as f:
+    with open(out_file, "w", encoding="cp1252") as f:
         print(out_model, file=f)
 
     print("File written to:", out_file)
