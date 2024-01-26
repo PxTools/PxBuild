@@ -1,24 +1,20 @@
-import json
 from datetime import datetime
-import time
-import pandas as pd
-import numpy as np
 from typing import List, Dict
 
 from pxbuild.models.input.pydantic_pxmetadata import PxMetadata
 from pxbuild.models.input.pydantic_pxbuildconfig import PxbuildConfig
-from pxbuild.models.input.pydantic_pxcodes import PxCodes
-from pxbuild.models.input.pydantic_pxcodes import Grouping
 from pxbuild.models.input.helper_pxcodes import HelperPxCodes
 from pxbuild.models.input.pydantic_pxstatistics import PxStatistics
 
 from pxbuild.models.output.pxfile.px_file_model import PXFileModel
-from pxbuild.models.output.agg_vs.vs_file_model import _VSFileModel
-from pxbuild.models.output.agg.agg_file_model import AggFileModel
 
-from .helpers.datadatasource import Datadatasource
-from .helpers.for_get_data import ForGetData
-from .helpers.data_formatter import DataFormatter
+from .helpers.small_static_functions import Commons
+
+from .helpers.datadata_helpers.datadatasource import Datadatasource
+from .helpers.datadata_helpers.for_get_data import ForGetData
+from .helpers.datadata_helpers.main_data import MapData
+from .helpers.loaded_jsons import LoadedJsons
+from .helpers.support_files import SupportFiles 
 
 
 class LoadFromPxmetadata:
@@ -31,49 +27,17 @@ class LoadFromPxmetadata:
 
     def __init__(self, pxmetadata_id: str, config_file: str) -> None:
         self._pxmetadata_id = pxmetadata_id
-        print("For pxmetadata_id:", self._pxmetadata_id, ", with config:", config_file)
-
-        # 'example_data/pxbuildconfig/ssb_config.json'
-        with open(config_file, encoding="utf-8-sig") as f:
-            config_json = json.loads(f.read())
-        self._config = PxbuildConfig(**config_json)
-
-        # todo if sourceType==File
-        #      pxmetadataFormat="example_data/pxmetadata/{id}.json"
-        pxmetadata_format = self._config.admin.px_metadata_resource.adress_format
-        pxmetadata_file = pxmetadata_format.format(id=self._pxmetadata_id)
-
-        with open(pxmetadata_file, encoding="utf-8-sig") as f:
-            pxmetadata_json = json.loads(f.read())
-        # endif
-
-        self._pxmetadata_model = PxMetadata(**pxmetadata_json)
-
-        # pxstatisticsFormat="example_data/pxstatistics/pxstatistics_{id}.json"
-        pxstatistics_format = self._config.admin.px_statistics_resource.adress_format
-        pxstatistics_file = pxstatistics_format.format(id=self._pxmetadata_model.dataset.statistics_id)
-
-        with open(pxstatistics_file, encoding="utf-8-sig") as f:
-            json1 = json.loads(f.read())
-        self._pxstatistics = PxStatistics(**json1)
+       
+        self._loaded_jsons:LoadedJsons =  LoadedJsons (pxmetadata_id, config_file) 
+       
+        self._config = self._loaded_jsons.get_config()
+        self._pxmetadata_model = self._loaded_jsons.get_pxmetadata()
+        self._pxstatistics = self._loaded_jsons.get_pxstatistics()
 
         if self._pxmetadata_model.dataset.coded_dimensions:
-            self._resolved_pxcodes_ids = {}
-            self._pxcodes_helper = {}
-            # pxcodesFormat="example_data/pxcodes/{id}.json"
-            pxcodes_format = self._config.admin.px_codes_resource.adress_format
-            for variable in self._pxmetadata_model.dataset.coded_dimensions:
-                if variable.codelist_id not in self._resolved_pxcodes_ids:
-                    tmp_path = pxcodes_format.format(id=variable.codelist_id)
-                    with open(tmp_path, encoding="utf-8-sig") as f:
-                        json1 = json.loads(f.read())
-                    self._resolved_pxcodes_ids[variable.codelist_id] = PxCodes(**json1)
-                    self._pxcodes_helper[variable.codelist_id] = HelperPxCodes(
-                        self._resolved_pxcodes_ids[variable.codelist_id], self._config.admin.valid_languages
-                    )
+            self._pxcodes_helper:Dict[str, HelperPxCodes] = self.get_pxcodes_helpers()
 
         self._datadata = Datadatasource(self._pxmetadata_model.dataset.data_file, self._config)
-        # self._parquet.PrintColumns()
 
         self._for_get_data_by_varid: Dict[str, ForGetData] = dict()
 
@@ -88,28 +52,34 @@ class LoadFromPxmetadata:
         for language in self._config.admin.valid_languages:
            
             self._current_lang = language
-            self._contact_string = self.get_contact_string(self._pxstatistics, self._current_lang)
+            self._contact_string = self.get_contact_string(self._pxstatistics, language)
             
             self._stub = []
-            self._heading = [self._config.contvariable[self._current_lang]]
+            self._heading = [self._config.contvariable[language]]
 
             self._metaid_table: List[str] = []
             self._metaid_valiable: dict = {}
 
-            self.map_pxbuildconfig_to_pxfile(self._config, self._current_lang , out_model)
+            self.map_pxbuildconfig_to_pxfile(self._config, language , out_model)
             self.map_pxmetadata_to_pxfile(self._pxmetadata_model, out_model)
             self.add_pxstatistics_to_pxfile(self._pxstatistics, out_model)
-            self.map_coded_dimensions_to_pxfile(out_model)
-            self.map_measurements_to_pxfile(out_model)
+
+            self.add_coded_dimensions_to_pxfile(out_model)
+            self.add_measurements_to_pxfile(out_model)
             self.map_decimals_to_pxfile(out_model)
-            self.map_time_dimension_to_pxfile(out_model)
+            self.add_time_dimension_to_pxfile(out_model)
             self.map_stub_heading_to_pxfile(out_model)
             self.map_title_to_pxfile(out_model)
             self.map_aggregallowed_to_pxfile(out_model)
 
-            self.add_metaid_to_pxfile(out_model)
+            self.map_metaid_to_pxfile(out_model)
 
-            self.get_data(out_model)
+
+            fixdata = MapData(self._datadata, self._pxmetadata_model, self._config, self._for_get_data_by_varid, self._stub , self._heading)
+            fixdata.map_data(out_model)
+
+
+
             if not self._config.admin.build_multilingual_files: 
                 write_output(self._pxmetadata_id, self._config.admin.output_destination.px_folder_format, out_model, language)
                 
@@ -122,100 +92,21 @@ class LoadFromPxmetadata:
             write_output(self._pxmetadata_id, self._config.admin.output_destination.px_folder_format, out_model)
             self.models_for_pytest["multi"] = out_model 
 
-        self.make_vs_file()
+        support = SupportFiles(self._pxmetadata_model,self._config, self._pxcodes_helper,self._pxmetadata_id)
+        support.make_vs_file()
 
-    def calculate_factor(self) -> int:
-        variables_in_output_order = self.get_variable_list()
-        curr_factor = 1
-        for vari in reversed(variables_in_output_order):
-            temp_for_get_data: ForGetData = self._for_get_data_by_varid[vari]
-            temp_for_get_data.factor = curr_factor
-            prev_number = temp_for_get_data._length_of_codelist
-            curr_factor = curr_factor * prev_number
 
-        array_size = curr_factor
+    # naming convention:get_  gets a value, map_  sets on outModel, add_  changes self and sets on outModel 
 
-        return array_size
+    def get_pxcodes_helpers(self) -> Dict[str, HelperPxCodes]:
+        my_out:Dict[str, HelperPxCodes] =  {}
+        resolved_pxcodes_ids = self._loaded_jsons.get_resolved_pxcodes_ids()
+        for codelist_id in resolved_pxcodes_ids:
+            my_out[codelist_id] = HelperPxCodes(resolved_pxcodes_ids[codelist_id], self._config.admin.valid_languages)
 
-    def get_data(self, out_model: PXFileModel) -> None:
-        # /// MINDEX:
-        # /// We need to convert a point(one value for each variable) in
-        # /// the cube to a number(the index of the array).
-        # ///
-        # /// k,j, i... 1-based counters
-        # /// Nx number of values for x
-        # /// Factor_k=Nj*Ni
-        # /// Factor_j= Ni
-        # /// Factor_i = 1
-        # /// index = Factor_k*(k-1) + Factor_j*(j-1) + Factor_i(i-1) </remarks>
-        #  in python things are zero-based but the idea is the same
-        # /// </summary>
-        if not self._add_language_independent:
-           return
-        
-        start_get_data = time.time()
+        return my_out
 
-        matrix_size = self.calculate_factor()
-
-        missing_row_symbol = self._pxmetadata_model.dataset.row_missing
-        missing_cell_symbol = self._pxmetadata_model.dataset.cell_missing
-
-        column_code_map = self.get_measurement_column_code_mapping()
-
-        start_tidy = time.time()
-        df = self._datadata.GetTidyDF(self._config.contvariable_code, column_code_map)
-
-        end_tidy = time.time()
-        time_used_tidy = end_tidy - start_tidy
-        print("Time: GetTidyDF:", time_used_tidy)
-
-        self.add_out_index(df)
-        self.add_out_value(missing_cell_symbol, df)
-        merged_df = self.add_missing_rows(matrix_size, missing_row_symbol, df)
-
-        out_data = merged_df["out_value"].tolist()
-
-        merged_df = merged_df.sort_values(by=["out_index"])
-        formatter = DataFormatter(self._heading, self._for_get_data_by_varid)
-        number_of_columns_per_line = formatter.calculate_line_break()
-
-        out_model.data.set(out_data, number_of_columns_per_line)
-
-        end_get_data = time.time()
-        time_used_get_data = end_get_data - start_get_data
-        print("Time: GetData:", time_used_get_data)
-
-    def add_missing_rows(self, matrix_size, missing_row_symbol, df):
-        matrix_df = pd.DataFrame({"out_index": range(matrix_size)})
-
-        # Merge the two DataFrames
-        merged_df = pd.merge(matrix_df, df, on="out_index", how="left")
-
-        # Fill missing values with "MISSING"
-        merged_df["out_value"].fillna(missing_row_symbol, inplace=True)
-        return merged_df
-
-    def add_out_value(self, missing_cell_symbol, df):
-        conditions = [df["VALUE"] != "", df["SYMBOL"] != ""]
-
-        choices = [df["VALUE"].astype(str), df["SYMBOL"].astype(str)]
-
-        start = time.time()
-        df["out_value"] = np.select(conditions, choices, missing_cell_symbol)
-        end = time.time()
-        time_used = end - start
-        print("Time: numpy select in:", time_used)
-
-    def add_out_index(self, df):
-        columns_to_sum = []
-        for col in self._for_get_data_by_varid.values():
-            # Mapping the values using the dictionary
-            contrib_col_name = "int_" + col._colname_in_dataframe
-            df[contrib_col_name] = df[col._colname_in_dataframe].map(col._position_of_value) * col.factor
-            columns_to_sum.append(contrib_col_name)
-        df["out_index"] = df[columns_to_sum].sum(axis=1)
-
-    def add_metaid_to_pxfile(self, out_model: PXFileModel) -> None:
+    def map_metaid_to_pxfile(self, out_model: PXFileModel) -> None:
         if self._add_language_independent:
             if self._metaid_table:
                 out_model.meta_id.set(" ".join(self._metaid_table))
@@ -223,16 +114,7 @@ class LoadFromPxmetadata:
         for vari in self._metaid_valiable:
             out_model.meta_id.set(" ".join(self._metaid_valiable[vari]), vari, None, self._current_lang)
 
-    def get_variable_list(self) -> List[str]:
-        return self._stub + self._heading
-
-    def get_measurement_column_code_mapping(self) -> dict:
-        column_code_map = {}
-        for measurement_var in self._pxmetadata_model.dataset.measurements:
-            column_code_map[measurement_var.column_name] = measurement_var.code
-
-        return column_code_map
-    
+   
 
     def map_aggregallowed_to_pxfile(self, out_model: PXFileModel):
         # Check if all values in the array are True
@@ -244,8 +126,7 @@ class LoadFromPxmetadata:
         lang = self._current_lang
         model = self._pxmetadata_model.dataset
 
-        vari_list = self.get_variable_list()
-
+        vari_list =  Commons.get_variable_list(self._stub, self._heading ) 
         tmp_string = ", ".join(vari_list[:-1])
 
         title = (
@@ -274,7 +155,7 @@ class LoadFromPxmetadata:
         if not self._stub and not self._heading:
             raise Exception("Sorry, both stub and heading are empty.")
 
-    def map_time_dimension_to_pxfile(self, out_model: PXFileModel):
+    def add_time_dimension_to_pxfile(self, out_model: PXFileModel):
         my_periods = self._datadata.GetTimePeriodes(self._pxmetadata_model.dataset.time_dimension.column_name)
 
         my_funny_var_id = self._pxmetadata_model.dataset.time_dimension.label[self._current_lang]
@@ -288,7 +169,7 @@ class LoadFromPxmetadata:
         for_get_data = ForGetData(self._pxmetadata_model.dataset.time_dimension.column_name, my_periods)
         self._for_get_data_by_varid[my_funny_var_id] = for_get_data
 
-    def map_coded_dimensions_to_pxfile(self, out_model: PXFileModel):
+    def add_coded_dimensions_to_pxfile(self, out_model: PXFileModel):
         if self._pxmetadata_model.dataset.coded_dimensions:
             lang = self._current_lang
             for my_var in self._pxmetadata_model.dataset.coded_dimensions:
@@ -296,7 +177,6 @@ class LoadFromPxmetadata:
                 self._stub.append(my_funny_var_id)
                 my_var_code = my_var.code if my_var.code is not None else my_var.column_name
                 out_model.variablecode.set(my_var_code, my_funny_var_id, lang)
-                my_codes: PxCodes = self._resolved_pxcodes_ids[my_var.codelist_id]
 
                 my_pxcodes_helper = self._pxcodes_helper[my_var.codelist_id]
 
@@ -305,8 +185,8 @@ class LoadFromPxmetadata:
 
                 temp_values = my_pxcodes_helper.getLabels(lang)
                 out_model.values.set(temp_values, my_funny_var_id, lang)
-                if my_codes.groupings:
-                    my_domain_id = make_domain_id(my_var.codelist_id, self._current_lang)
+                if my_pxcodes_helper.groupings():
+                    my_domain_id = Commons.make_domain_id(my_var.codelist_id, self._current_lang)
                     out_model.domain.set(my_domain_id, my_funny_var_id, self._current_lang)
 
                 if my_var.is_geo_variable_type:
@@ -353,7 +233,7 @@ class LoadFromPxmetadata:
                 for_get_data = ForGetData(my_var.column_name, my_pxcodes_helper.getCodes(lang))
                 self._for_get_data_by_varid[my_funny_var_id] = for_get_data
 
-    def map_measurements_to_pxfile(self, out_model: PXFileModel):
+    def add_measurements_to_pxfile(self, out_model: PXFileModel):
         if not self._pxmetadata_model.dataset.measurements:
             raise Exception("Sorry, dataset is missing measurment.")
 
@@ -482,99 +362,12 @@ class LoadFromPxmetadata:
 
 
 
-    # def makeVsFile(self,out_vs_model:_VSFileModel):
-    def make_vs_file(self):
-        if not self._pxmetadata_model.dataset.coded_dimensions:
-            return
-        
-        for language in self._config.admin.valid_languages:
-
-            for my_var in self._pxmetadata_model.dataset.coded_dimensions:
-
-                out_vs_model = _VSFileModel()
-                my_codes: PxCodes = self._resolved_pxcodes_ids[my_var.codelist_id]
-                if my_codes.groupings:
-                    vs_name = make_domain_id(my_var.codelist_id, language)
-                    #vs_type = "G" if my_var.is_geo_variable_type else "V"
-                    vs_type = "V" # TODO type could be V,H or N
-                    out_vs_model.description.set("Name", vs_name)
-                    out_vs_model.description.set("Type", vs_type)
-
-                    my_pxcodes_helper = self._pxcodes_helper[my_var.codelist_id]
-                    group_conter = 0
-                    for groups in my_codes.groupings:
-                        group_conter = group_conter + 1
-                        group_key = str(group_conter)
-                        out_vs_model.aggreg.set(group_key, groups.filename_base + "_" + language + ".agg")
-                        self.make_agg_file(groups, vs_name, my_pxcodes_helper, language)
-                    my_domain = make_domain_id(my_var.codelist_id, language)
-                    out_vs_model.domain.set("1", my_domain)
-
-                    
-                    value_item_counter = 0
-                    for my_item in my_pxcodes_helper._sorted_valueitems[language]:
-                        value_item_counter = value_item_counter + 1
-                        value_item_key = str(value_item_counter)
-                        my_stripped_code = my_item.code.strip("'")
-                        out_vs_model.valuecode.set(value_item_key, my_stripped_code)
-                        my_stripped_text = my_item.label[language].strip("'")
-                        out_vs_model.valuetext.set(value_item_key, my_stripped_text)
-
-                    out_folder_format: str = self._config.admin.output_destination.agg_folder_format
-                    out_folder = out_folder_format.format(id=self._pxmetadata_id)
-                    out_file = out_folder + "/" + my_codes.id + "_" + language + ".vs"
-
-                    with open(out_file, "w") as f:
-                        print(out_vs_model, file=f)
-                        print("File written to:", out_file)
-
-    def make_agg_file(self, grouping: Grouping, vs_name: str, my_pxcodes_helper:HelperPxCodes, language:str):
-        out_agg_model = AggFileModel()
-        #aggreg_name = grouping.filename_base + "_" + language
-        aggreg_name = grouping.label[language]
-        out_agg_model.set("Aggreg", "Name", aggreg_name)
-        out_agg_model.set("Aggreg", "Valueset", vs_name)
-        item_counter = 0
-        # section= "Aggreg"
-        for item in grouping.valueitems:
-            item_counter = item_counter + 1
-            item_key = str(item_counter)
-            groupcode = item.code
-            valuetext = item.label[language]
-            out_agg_model.set("Aggreg", item_key, groupcode)
-            out_agg_model.set("Aggtext", item_key, valuetext)
-
-            child_code_conter = 0
-            #ordered_children = [code for code in my_pxcodes_helper.getCodes(language) if item.unordered_children and code in item.unordered_children]
-
-            ordered_children:List[str] = []
-            for code in my_pxcodes_helper.getCodes(language):
-                if item.unordered_children and code in item.unordered_children:
-                   ordered_children.append(code) 
-            
-            for child_code in ordered_children:
-                child_code_conter = child_code_conter + 1
-                child_code_key = str(child_code_conter)
-                out_agg_model.set(groupcode, child_code_key, child_code)
-
-        out_file = "example_data/pxbuild_output/" + str(grouping.filename_base) + "_" + language + ".agg"
-        with open(out_file, "w") as f:
-            print(out_agg_model, file=f)
-            print("File written to:", out_file)
-        print("i agg")
-        print(grouping.filename_base)
-
 
 def convert_to_pxdate_string(date_string: str, date_format: str) -> str:
     dtm_date = datetime.strptime(date_string, date_format)
     px_date_string = dtm_date.strftime(f"%Y%m%d %H:%M")
 
     return px_date_string
-
-
-def make_domain_id(code_list_id: str, lang: str) -> str:
-    domain_id = code_list_id + "_" + lang
-    return domain_id
 
 def write_output(pxmetadata_id:str, px_folder_format:str, out_model:PXFileModel, language:str | None = None) -> None:
     temp_tabid = pxmetadata_id

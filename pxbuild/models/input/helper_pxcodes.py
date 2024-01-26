@@ -1,4 +1,4 @@
-from .pydantic_pxcodes import PxCodes, Valueitem, Note
+from .pydantic_pxcodes import PxCodes, Grouping, Valueitem, Note
 from typing import Dict, List, Optional
 
 
@@ -27,6 +27,9 @@ class HelperPxCodes:
         for lang in inLanguages: 
           self._sorted_valueitems[lang] = sort_valueitems_by_field(inPxCodes.valueitems, sortby,lang)
 
+       # self._has_grouping:bool = False 
+       # if inPxCodes.groupings: 
+       #     self._has_grouping = True
 
     def getCodes(self, language) -> List[str]:
         if language not in self._sorted_valueitems:
@@ -57,3 +60,12 @@ class HelperPxCodes:
                 my_out[str(valueitem.label[language])] = valueitem.notes
        
         return my_out 
+    
+ #   def has_grouping(self) -> bool:
+ #       return self._has_grouping
+    
+    def groupings(self) -> List[Grouping]|None:
+        return self._pxcodes.groupings
+
+    def id(self) -> str:
+        return self._pxcodes.id

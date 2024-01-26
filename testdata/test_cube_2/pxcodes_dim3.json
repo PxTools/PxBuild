@@ -1,0 +1,84 @@
+﻿{
+  "id": "pxcodes_dim3",
+  "admin": {
+    "isFinal": true,
+    "tags": [
+      "til søk i",
+      "pxcodes"
+    ],
+    "todoCreation": "her må det vel lagres noe om hvordan dette har oppstått. Vil tro man trenger det"
+  },
+  "sortValueitemsOn": "code",
+  "label": {
+    "no": "Koder for dim 3",
+    "en": "Codes for dim 3"
+  },
+  "valueitems": [
+    {
+      "code": "01",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Kode 1 for dim 3",
+        "en": "Code 1 for dim 3"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "02",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Kode 2 for dim 3",
+        "en": "Code 2 for dim 3"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "03",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Kode 3 for dim 3",
+        "en": "Code 3 for dim 3"
+      },
+      "rank": null,
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": null,
+  "sortGroupingsOn": null,
+  "groupings": [
+    {
+      "filenameBase": "dim3_grouping1",
+      "label": {
+        "no": "dim3_grouping1",
+        "en": "dim3_grouping1"
+      },
+      "rank": {
+        "no": "1",
+        "en": "1"
+      },
+      "sortValueitemsOn": "rank",
+      "valueitems": [
+        {
+          "code": "TOT",
+          "unorderedChildren": [
+            "01",
+            "02",
+			"03"
+          ],
+          "label": {
+            "no": "Total dim 3",
+            "en": "Total of dim 3"
+          },
+          "rank": {
+            "no": "1",
+            "en": "1"
+          },
+          "notes": null
+        }
+      ]
+    }
+	]
+}
