@@ -45,3 +45,16 @@ flowchart TD
 
 ``` 
 
+## Developer notes
+
+### Requirements
+* Python 3.11
+* [Poetry](https://python-poetry.org/)
+
+
+### Install and test
+```
+poetry env use 3.11
+poetry install
+poetry run pytest
+```
