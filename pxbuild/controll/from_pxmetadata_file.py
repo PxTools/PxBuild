@@ -16,6 +16,7 @@ from .helpers.datadata_helpers.main_data import MapData
 from .helpers.loaded_jsons import LoadedJsons
 from .helpers.support_files import SupportFiles 
 
+from pxbuild.models.middle.dims import Dims
 
 class LoadFromPxmetadata:
     LabelConstructionOptionDict = {
@@ -44,6 +45,8 @@ class LoadFromPxmetadata:
 
         self._datadata = Datadatasource(self._pxmetadata_model.dataset.data_file, self._config)
 
+        self._dims = Dims(self._loaded_jsons, self._datadata)   
+
         self._for_get_data_by_varid: Dict[str, ForGetData] = dict()
 
         ##################
@@ -57,9 +60,6 @@ class LoadFromPxmetadata:
            
             self._current_lang = language
             self._contact_string = self.get_contact_string(self._pxstatistics, language)
-            
-            self._stub = []
-            self._heading = [self._config.contvariable[language]]
 
             self._metaid_table: List[str] = []
             self._metaid_dimensions: dict = {}
@@ -79,8 +79,7 @@ class LoadFromPxmetadata:
 
             self.map_metaid_to_pxfile(out_model)
 
-
-            fixdata = MapData(self._datadata, self._pxmetadata_model, self._config, self._for_get_data_by_varid, self._stub , self._heading)
+            fixdata = MapData(self._datadata, self._pxmetadata_model, self._config, self._for_get_data_by_varid, self._dims.get_stub(self._current_lang), self._dims.get_heading(self._current_lang))
             fixdata.map_data(out_model)
 
 
@@ -159,40 +158,51 @@ class LoadFromPxmetadata:
         out_model.title.set(title, self._current_lang)
 
     def map_stub_heading_to_pxfile(self, out_model: PXFileModel):
-        if self._heading:
-            out_model.heading.set(self._heading, self._current_lang)
+        lang = self._current_lang
+        seen = False
+        if self._dims.get_heading(lang):
+            out_model.heading.set(self._dims.get_heading(lang), lang)
+            seen = True
 
-        if self._stub:
-            out_model.stub.set(self._stub, self._current_lang)
+        if self._dims.get_stub(lang):
+            out_model.stub.set(self._dims.get_stub(lang), lang)
+            seen = True
 
-        if not self._stub and not self._heading:
+        if not seen:
             raise Exception("Sorry, both stub and heading are empty.")
 
     def add_time_dimension_to_pxfile(self, out_model: PXFileModel):
-        my_periods = self._datadata.GetTimePeriodes(self._pxmetadata_model.dataset.time_dimension.column_name)
+        time = self._dims.time
+        lang = self._current_lang
 
-        my_funny_var_id = self._pxmetadata_model.dataset.time_dimension.label[self._current_lang]
+        my_periods = time.get_periods()
 
-        self._heading.append(my_funny_var_id)
-        out_model.values.set(my_periods, my_funny_var_id, self._current_lang)
-        out_model.codes.set(my_periods, my_funny_var_id, self._current_lang)
-        out_model.variablecode.set(self._config.timevariable_code, my_funny_var_id, self._current_lang)
-        out_model.variable_type.set("T", my_funny_var_id, self._current_lang)
+        self._heading.append(time.get_label(lang))
 
-        for_get_data = ForGetData(self._pxmetadata_model.dataset.time_dimension.column_name, my_periods)
-        self._for_get_data_by_varid[my_funny_var_id] = for_get_data
+        out_model.values.set(my_periods, time.get_label(lang), lang)
+        out_model.codes.set(my_periods, time.get_label(lang), lang)
+        
+        out_model.variablecode.set(time.get_code(), time.get_label(lang), lang)
+        out_model.variable_type.set(time.get_variabletype(), time.get_label(lang), lang)
+
+       
+        self._for_get_data_by_varid[time.get_label(lang)] = time.get_ForGetData()
 
     def add_coded_dimensions_to_pxfile(self, out_model: PXFileModel):
-        if self._pxmetadata_model.dataset.coded_dimensions:
+
+        if self._dims.coded_dimensions:
             lang = self._current_lang
-            for my_var in self._pxmetadata_model.dataset.coded_dimensions:
-                my_funny_var_id = my_var.label[lang]
-                self._stub.append(my_funny_var_id)
-                my_var_code = my_var.code if my_var.code is not None else my_var.column_name
-                out_model.variablecode.set(my_var_code, my_funny_var_id, lang)
+            for n_var in self._dims.coded_dimensions:
+
+                my_var = n_var.get_pydantic()
+
+                my_funny_var_id = n_var.get_label(lang)
+
+                
+                out_model.variablecode.set(n_var.get_code(), n_var.get_label(lang), lang)
+                out_model.variable_type.set(n_var.get_variabletype(), n_var.get_label(lang), lang)
 
                 my_pxcodes_helper = self._pxcodes_helper[my_var.codelist_id]
-
                 temp_codes = my_pxcodes_helper.getCodes(lang)
                 out_model.codes.set(temp_codes, my_funny_var_id, lang)
 
@@ -202,11 +212,8 @@ class LoadFromPxmetadata:
                     my_domain_id = Commons.make_domain_id(my_var.codelist_id, self._current_lang)
                     out_model.domain.set(my_domain_id, my_funny_var_id, self._current_lang)
 
-                if my_var.is_geo_variable_type:
-                    out_model.variable_type.set("G", my_funny_var_id, lang)
-                else:
-                    out_model.variable_type.set("N", my_funny_var_id, lang)
 
+               
                 out_model.prestext.set(
                     self.LabelConstructionOptionDict[str(my_var.label_construction_option)], my_funny_var_id, lang
                 )
@@ -251,70 +258,59 @@ class LoadFromPxmetadata:
                 self._for_get_data_by_varid[my_funny_var_id] = for_get_data
 
     def add_measurements_to_pxfile(self, out_model: PXFileModel):
-        if not self._pxmetadata_model.dataset.measurements:
-            raise Exception("Sorry, dataset is missing measurment.")
 
-        my_funny_var_id = self._config.contvariable[self._current_lang]
+        
+        contdim = self._dims.contdim
+        lang = self._current_lang
 
-        out_codes = []
-        out_values = []
         for my_cont in self._pxmetadata_model.dataset.measurements:
+
             my_funny_cont_id = my_cont.label[self._current_lang]
-            my_cont_code = my_cont.code if my_cont.code is not None else my_cont.column_name
-            out_codes.append(my_cont_code)
-            out_values.append(my_cont.label[self._current_lang])
-            out_model.seasadj.set(my_cont.is_seasonally_adjusted or False, my_funny_cont_id, self._current_lang)
-            out_model.dayadj.set(my_cont.is_workingdays_adjusted or False, my_funny_cont_id, self._current_lang)
-            out_model.units.set(my_cont.unit_of_measure[self._current_lang], my_funny_cont_id, self._current_lang)
-            out_model.contact.set(self._contact_string, my_funny_cont_id, self._current_lang)
-            out_model.last_updated.set(self._last_updated, my_funny_cont_id, self._current_lang)
 
-            if my_cont.reference_period[self._current_lang]:
-                out_model.refperiod.set(
-                    my_cont.reference_period[self._current_lang], my_funny_cont_id, self._current_lang
-                )
+            out_model.seasadj.set(my_cont.is_seasonally_adjusted or False, my_funny_cont_id, lang)
+            out_model.dayadj.set(my_cont.is_workingdays_adjusted or False, my_funny_cont_id, lang)
+            out_model.units.set(my_cont.unit_of_measure[self._current_lang], my_funny_cont_id, lang)
+            out_model.contact.set(self._contact_string, my_funny_cont_id, lang)
+            out_model.last_updated.set(self._last_updated, my_funny_cont_id, lang)
 
-            if my_cont.base_period and my_cont.base_period[self._current_lang]:
+            if my_cont.reference_period and my_cont.reference_period[lang]:
+                out_model.refperiod.set(my_cont.reference_period[lang], my_funny_cont_id, lang)
 
-                out_model.baseperiod.set(
-                    my_cont.base_period[self._current_lang], my_funny_cont_id, self._current_lang
-                )    
+            if my_cont.base_period and my_cont.base_period[lang]:
+                out_model.baseperiod.set(my_cont.base_period[self._current_lang], my_funny_cont_id, lang)    
 
             if my_cont.show_decimals > 0:
-                out_model.precision.set(my_cont.show_decimals, my_funny_var_id, my_funny_cont_id, self._current_lang)
+                out_model.precision.set(my_cont.show_decimals, contdim.get_label(lang), my_funny_cont_id, lang)
 
             # optional with no default
             if my_cont.price_type:
-                out_model.cfprices.set(self.PriceTypeDict[str(my_cont.price_type)], my_funny_cont_id, self._current_lang)
+                out_model.cfprices.set(self.PriceTypeDict[str(my_cont.price_type)], my_funny_cont_id, lang)
 
-
-            # Note on a value in variale
-            lang = self._current_lang
-           
+            # Note on a contentvalue   
             if my_cont.notes:
                for note in my_cont.notes:
                     if note.is_mandatory:
-                        out_model.valuenotex.set(note.text[lang], my_funny_var_id, my_funny_cont_id, lang)
+                        out_model.valuenotex.set(note.text[lang], contdim.get_label(lang), my_funny_cont_id, lang)
                     else:
-                        out_model.valuenote.set(note.text[lang], my_funny_var_id, my_funny_cont_id, lang)
+                        out_model.valuenote.set(note.text[lang], contdim.get_label(lang), my_funny_cont_id, lang)
 
             if my_cont.meta_id:
-                if my_funny_var_id not in self._metaid_measure_value:
-                        self._metaid_measure_value[my_funny_var_id] = {}
-                if  my_funny_cont_id not in self._metaid_measure_value[my_funny_var_id]:
-                    self._metaid_measure_value[my_funny_var_id][ my_funny_cont_id] = []
+                if contdim.get_label(lang) not in self._metaid_measure_value:
+                    self._metaid_measure_value[contdim.get_label(lang)] = {}
 
-                self._metaid_measure_value[my_funny_var_id][ my_funny_cont_id] += my_cont.meta_id
+                if  my_funny_cont_id not in self._metaid_measure_value[contdim.get_label(lang)]:
+                    self._metaid_measure_value[contdim.get_label(lang)][ my_funny_cont_id] = []
+
+                self._metaid_measure_value[contdim.get_label(lang)][ my_funny_cont_id] += my_cont.meta_id
 
 
 
-        out_model.values.set(out_values, my_funny_var_id, self._current_lang)
-        out_model.codes.set(out_codes, my_funny_var_id, self._current_lang)
-        out_model.variablecode.set(self._config.contvariable_code, my_funny_var_id, self._current_lang)
-        out_model.variable_type.set("C", my_funny_var_id, self._current_lang)
+        out_model.values.set(contdim.get_labels(lang), contdim.get_label(lang), lang)
+        out_model.codes.set(contdim.get_codes(), contdim.get_label(lang), lang)
+        out_model.variablecode.set(contdim.get_code(), contdim.get_label(lang), lang)
+        out_model.variable_type.set(contdim.get_variabletype(), contdim.get_label(lang), lang)
 
-        for_get_data = ForGetData(self._config.contvariable_code, out_codes)
-        self._for_get_data_by_varid[my_funny_var_id] = for_get_data
+        self._for_get_data_by_varid[contdim.get_label(lang)] = contdim.get_ForGetData()
 
     def map_decimals_to_pxfile(self, out_model: PXFileModel):
         if self._add_language_independent:
@@ -420,7 +416,7 @@ class LoadFromPxmetadata:
                 out_model.creation_date.set( get_current_time())
 
 
-
+          
         out_model.contvariable.set(str(in_config.contvariable[current_lang]), current_lang)
 
         if in_config.datasymbol1 and in_config.datasymbol1[self._current_lang]:
