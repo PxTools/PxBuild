@@ -71,7 +71,7 @@ class LoadFromPxmetadata:
             self.add_coded_dimensions_to_pxfile(out_model)
             self.add_measurements_to_pxfile(out_model)
             self.map_decimals_to_pxfile(out_model)
-            self.add_time_dimension_to_pxfile(out_model)
+            self.map_time_dimension_to_pxfile(out_model)
             self.map_stub_heading_to_pxfile(out_model)
             self.map_title_to_pxfile(out_model)
             self.map_aggregallowed_to_pxfile(out_model)
@@ -167,7 +167,10 @@ class LoadFromPxmetadata:
         lang = self._current_lang
         model = self._pxmetadata_model.dataset
 
-        vari_list =  self._dims.get_variable_list(lang)
+        tmp_list =  self._dims.getDimcodesInOutputOrder()
+        vari_list =  self._dims.get_as_lables(tmp_list,lang)
+
+
         tmp_string = ", ".join(vari_list[:-1])
 
         title = (
@@ -189,18 +192,26 @@ class LoadFromPxmetadata:
     def map_stub_heading_to_pxfile(self, out_model: PXFileModel):
         lang = self._current_lang
         seen = False
-        if self._dims.get_heading(lang):
-            out_model.heading.set(self._dims.get_heading(lang), lang)
+        if self._dims.get_headingcodes():
+            
+            my_headings:List[str] = self._dims.get_as_lables(self._dims.get_headingcodes(),lang)
+            out_model.heading.set(my_headings, lang)
             seen = True
 
-        if self._dims.get_stub(lang):
-            out_model.stub.set(self._dims.get_stub(lang), lang)
+        if self._dims.get_stubcodes():
+            my_stubs:List[str] = self._dims.get_as_lables(self._dims.get_stubcodes(),lang)
+
+            out_model.stub.set(my_stubs, lang)
             seen = True
 
         if not seen:
             raise Exception("Sorry, both stub and heading are empty.")
+        
 
-    def add_time_dimension_to_pxfile(self, out_model: PXFileModel):
+    
+    ###
+
+    def map_time_dimension_to_pxfile(self, out_model: PXFileModel):
         time = self._dims.time
         lang = self._current_lang
 
@@ -210,11 +221,6 @@ class LoadFromPxmetadata:
         out_model.variablecode.set(time.get_code(), time.get_label(lang), lang)
         out_model.variable_type.set(time.get_variabletype(), time.get_label(lang), lang)
 
-       
-
-
-
-
     def add_coded_dimensions_to_pxfile(self, out_model: PXFileModel):
 
         if self._dims.coded_dimensions:
@@ -223,7 +229,6 @@ class LoadFromPxmetadata:
 
                 out_model.variablecode.set(n_var.get_code(), n_var.get_label(lang), lang)
                 out_model.variable_type.set(n_var.get_variabletype(), n_var.get_label(lang), lang)
-
                 out_model.codes.set(n_var.get_codes(lang), n_var.get_label(lang), lang)
                 out_model.values.set(n_var.get_labels(lang), n_var.get_label(lang), lang)
 
@@ -263,14 +268,15 @@ class LoadFromPxmetadata:
                             out_model.note.set(note.text[lang], my_funny_var_id, lang)
 
                 # Note on a value in variale
-                my_value_notes = n_var.getValueNotes(lang)
+                my_value_notes = n_var.getValueNotes()
                 if my_value_notes:
-                    for code in my_value_notes:
-                        for note in my_value_notes[code]:
+                    for valuecode in my_value_notes:
+                        for note in my_value_notes[valuecode]:
+                            valuelabel = n_var.get_valuelabel(lang, valuecode)
                             if note.is_mandatory:
-                                out_model.valuenotex.set(note.text[lang], n_var.get_label(lang), code, lang)
+                                out_model.valuenotex.set(note.text[lang], n_var.get_label(lang), valuelabel, lang)
                             else:
-                                out_model.valuenote.set(note.text[lang], n_var.get_label(lang), code, lang)
+                                out_model.valuenote.set(note.text[lang], n_var.get_label(lang), valuelabel, lang)
 
 
 

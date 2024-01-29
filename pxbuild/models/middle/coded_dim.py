@@ -43,8 +43,8 @@ class CodedDim(AbstractDim):
     def elimination_possible(self) -> bool:
         return self._pxcodes_helper.elimination_possible
     
-    def getValueNotes(self, language:str):
-        return self._pxcodes_helper.getNotes(language)
+    def getValueNotes(self):
+        return self._pxcodes_helper.getNotes()
     
     def getEliminationLabel(self, language:str) -> str:
         return self._pxcodes_helper.getEliminationLabel(language)

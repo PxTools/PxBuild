@@ -52,18 +52,6 @@ class Dims:
         self.dim_by_code[time_code] = self.time
         
         
-    def get_stub(self, language:str) -> List[str]:
-        my_out:List[str] = []
-        for code in self._stubCodes:
-            my_out.append(self.dim_by_code[code].label_by_lang[language])
-        return my_out    
-
-
-    def get_heading(self, language:str) -> List[str]:
-        my_out:List[str] = []
-        for code in self._headingCodes:
-            my_out.append(self.dim_by_code[code].label_by_lang[language])
-        return my_out  
 
     def getDimsInOutputOrder(self) -> List[AbstractDim]:
         my_out:List[AbstractDim] = []
@@ -82,8 +70,15 @@ class Dims:
         return self._stubCodes + self._headingCodes
 
 
-    def get_variable_list(self, language:str) -> List[str]:
-        return self.get_stub(language) + self.get_heading(language)
+    def get_as_lables(self, codes:List[str], language:str) -> List[str]:
+        my_out:List[str] = []
+        for code in codes:
+            my_out.append(self.dim_by_code[code].label_by_lang[language])
+        return my_out    
+
+
+
+       
 
 
 
