@@ -40,5 +40,6 @@ jobs:
           pytest
       - name: Lint
         run: |
+          source $VENV
           flake8 .
           black . --check
