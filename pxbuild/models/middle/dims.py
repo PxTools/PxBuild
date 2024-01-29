@@ -16,7 +16,7 @@ class Dims:
 
         meta = inLoadedJsons.get_pxmetadata().dataset
 
-        self._dims_by_code:Dict[str,AbstractDim]={}
+        self.dim_by_code:Dict[str,AbstractDim]={}
         self._stubCodes:List[str]=[]
         self._headingCodes:List[str]=[]
 
@@ -36,40 +36,51 @@ class Dims:
                 tempCD =  CodedDim(n_dim, pxcodes_helper_by_codelist_id[n_dim.codelist_id], inLoadedJsons)
                 n_code = tempCD.get_code()
                 self._stubCodes.append(n_code)
-                self._dims_by_code[n_code] =  tempCD
+                self.dim_by_code[n_code] =  tempCD
                 self.coded_dimensions.append(tempCD)
 
         # CONT
         self.contdim:ContDim = ContDim(inLoadedJsons)
         contdim_code=self.contdim.get_code()
         self._headingCodes.append(contdim_code)
-        self._dims_by_code[contdim_code] = self.contdim    
+        self.dim_by_code[contdim_code] = self.contdim    
 
         # TIME
         self.time:TimeDim = TimeDim(inLoadedJsons, inDatadatasource)
         time_code=self.time.get_code()
         self._headingCodes.append(time_code)
-        self._dims_by_code[time_code] = self.time
+        self.dim_by_code[time_code] = self.time
         
         
     def get_stub(self, language:str) -> List[str]:
         my_out:List[str] = []
         for code in self._stubCodes:
-            my_out.append(self._dims_by_code[code].label_by_lang[language])
+            my_out.append(self.dim_by_code[code].label_by_lang[language])
         return my_out    
 
 
     def get_heading(self, language:str) -> List[str]:
         my_out:List[str] = []
         for code in self._headingCodes:
-            my_out.append(self._dims_by_code[code].label_by_lang[language])
+            my_out.append(self.dim_by_code[code].label_by_lang[language])
         return my_out  
 
     def getDimsInOutputOrder(self) -> List[AbstractDim]:
         my_out:List[AbstractDim] = []
         for code in self._stubCodes + self._headingCodes:
-            my_out.append(self._dims_by_code[code])
+            my_out.append(self.dim_by_code[code])
         return my_out 
+    
+
+    def get_stubcodes(self) -> List[str]:
+        return self._stubCodes
+    
+    def get_headingcodes(self) -> List[str]:
+        return self._headingCodes 
+
+    def getDimcodesInOutputOrder(self) -> List[str]:
+        return self._stubCodes + self._headingCodes
+
 
     def get_variable_list(self, language:str) -> List[str]:
         return self.get_stub(language) + self.get_heading(language)
