@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List, Dict
 
-from pxbuild.models.input.pydantic_pxmetadata import PxMetadata
+from pxbuild.models.input.pydantic_pxmetadata import PxMetadata,AttachmentItem
 from pxbuild.models.input.pydantic_pxbuildconfig import PxbuildConfig
 from pxbuild.models.input.helper_pxcodes import HelperPxCodes
 from pxbuild.models.input.pydantic_pxstatistics import PxStatistics
@@ -77,6 +77,7 @@ class LoadFromPxmetadata:
             self.map_aggregallowed_to_pxfile(out_model)
 
             self.map_metaid_to_pxfile(out_model)
+            self.map_cellnote_to_pxfile(out_model)
 
             fixdata = MapData(self._datadata, self._pxmetadata_model, self._config, self._dims, self._current_lang)
             fixdata.map_data(out_model)
@@ -122,9 +123,38 @@ class LoadFromPxmetadata:
             for value in self._metaid_measure_value[vari]:
                 out_model.meta_id.set(" ".join(self._metaid_measure_value[vari][value]), vari, value, self._current_lang)
 
-   
+    def map_cellnote_to_pxfile(self, out_model: PXFileModel) -> None:
+        if not self._pxmetadata_model.dataset.cell_notes:
+            return
+        # the input is code-based the output dimentionorder and label-based 
+        lang = self._current_lang
 
-            
+        dimension_in_order = self._dims.getDimsInOutputOrder()
+        
+        for cellnote in self._pxmetadata_model.dataset.cell_notes:
+            valueCodeBydimensionCode = self.get_valueCode_by_dimensionCode(cellnote.attachment)
+            valueTextsForSubkey:List[str] = []
+            for dim in dimension_in_order:
+                dimCode = dim.get_code()
+                if  dimCode in valueCodeBydimensionCode:
+                    valueCode = valueCodeBydimensionCode[dimCode]
+                    valueText = dim.get_valuelabel(lang,valueCode)
+                    valueTextsForSubkey.append(valueText)
+                else:
+                    valueTextsForSubkey.append("*")
+
+            if cellnote.is_mandatory:
+                out_model.cellnotex.set(cellnote.text[lang], valueTextsForSubkey, lang)
+            else:
+                out_model.cellnote.set(cellnote.text[lang], valueTextsForSubkey, lang)       
+
+    def get_valueCode_by_dimensionCode(self, attachments:List[AttachmentItem])  -> Dict[str,str]:
+        my_out:Dict[str,str]={}
+        for attachment in attachments:
+            my_out[attachment.dimension_code]=attachment.value_code
+
+        return my_out
+                
 
 
     def map_aggregallowed_to_pxfile(self, out_model: PXFileModel):

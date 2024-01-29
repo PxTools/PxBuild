@@ -27,7 +27,7 @@
   "descriptionDefault": false,
   "contvariable": { "no": "statistikkvariabel" , "en": "contents"  } ,
   "contvariableCode": "ContentsCode",
-  "timevariableCode": "Tid",
+  "timevariableCode": "Time",
   "datasymbol1": { "no": ".", "en": "."  },
   "datasymbol2": { "no": "..", "en": ".."  },
   "datasymbol3": { "no": ":", "en": ":"  },

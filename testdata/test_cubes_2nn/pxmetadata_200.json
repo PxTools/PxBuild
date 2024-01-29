@@ -42,28 +42,28 @@
     "cellNotes":[
 	   {
 		  "attachment": 
-		  [ { "dimensionCode": "Time" , "valueCode": "2020" }
-		  , { "dimensionCode": "ContentCode" , "valueCode": "Measure2" }
+		  [ { "dimensionCode": "Time" , "valueCode": "2000" }
+		  , { "dimensionCode": "ContentsCode" , "valueCode": "Measure2" }
 		  , { "dimensionCode": "coded_dim1" , "valueCode": "01" }
 		  , { "dimensionCode": "coded_dim2" , "valueCode": "02" }
 		  , { "dimensionCode": "coded_dim3" , "valueCode": "03" }
 		  ],
           "text": {
-            "no": "En cellnote. På 2020, Measure2, dim1:01, dim2:02 og dim3:03. not Mandatory",
-            "en": "A cellnote. On 2020, Measure2, dim1:01, dim2:02 and dim3:03. not Mandatory"
+            "no": "En cellnote. På 2000, Measure2, dim1:01, dim2:02 og dim3:03. not Mandatory",
+            "en": "A cellnote. On 2000, Measure2, dim1:01, dim2:02 and dim3:03. not Mandatory"
            },
            "isMandatory": false
         },
 	   {
 		  "attachment": 
-		  [ { "dimensionCode": "Time  " , "valueCode": "2000" }
-		  , { "dimensionCode": "ContentCode" , "valueCode": "Measure1" }
+		  [ { "dimensionCode": "Time" , "valueCode": "2000" }
+		  , { "dimensionCode": "ContentsCode" , "valueCode": "Measure1" }
 		  , { "dimensionCode": "coded_dim2" , "valueCode": "02" }
 		  , { "dimensionCode": "coded_dim3" , "valueCode": "03" }
 		  ], 
           "text": {
-            "no": "En cellnote til. På 2020, Measure1, dim2:02 og dim3:03. Mandatory",
-            "en": "Another cellnote. On 2020, Measure1, dim2:02 and dim3:03. Mandatory."
+            "no": "En cellnote til. På 2000, Measure1, dim2:02 og dim3:03. Mandatory",
+            "en": "Another cellnote. On 2000, Measure1, dim2:02 and dim3:03. Mandatory."
            },
            "isMandatory": true
         }

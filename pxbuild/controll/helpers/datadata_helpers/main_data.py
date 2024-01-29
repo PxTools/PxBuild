@@ -18,14 +18,14 @@ from .data_formatter import DataFormatter
 
 class MapData:
 
-    def __init__(self, datadata:Datadatasource, pxmetadata:PxMetadata, config:PxbuildConfig, dims:Dims , lang ) -> None:
+    def __init__(self, datadata:Datadatasource, pxmetadata:PxMetadata, config:PxbuildConfig, dims:Dims , lang:str) -> None:
         self._pxmetadata_model = pxmetadata
         self._datadata = datadata
         self._config = config
 
 
+
         self._for_get_data_by_varid: Dict[str, ForGetData] = dict()
-        
         for dim in dims.getDimsInOutputOrder():
             self._for_get_data_by_varid[dim.get_label(lang)] = dim.get_ForGetData(lang)
 
@@ -72,6 +72,8 @@ class MapData:
 
         out_data = merged_df["out_value"].tolist()
 
+
+        #this just need ForGetData to get length of codelist for heading. So a heading_dims would do
         formatter = DataFormatter(self._heading, self._for_get_data_by_varid)
         number_of_columns_per_line = formatter.calculate_line_break()
 
