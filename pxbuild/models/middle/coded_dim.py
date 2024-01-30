@@ -16,6 +16,7 @@ class CodedDim(AbstractDim):
         n_code = inCD.code if inCD.code is not None else inCD.column_name
         super().__init__(n_code, inCD.label)
         self._raw = inCD
+        
         self._pxcodes_helper = inHelperPxCodes
 
         self._variabletype = "G" if inCD.is_geo_variable_type else "N"
@@ -51,5 +52,12 @@ class CodedDim(AbstractDim):
 
     def get_variabletype(self) -> str:
         return self._variabletype
+    
+    def get_domain_id(self, language:str) -> str:
+        return self._raw.codelist_id + "_" + language
+    
+    # For Support_files.py:
+    def getHelperPxCodes(self) -> HelperPxCodes:
+        return self._pxcodes_helper
     
 
