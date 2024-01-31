@@ -11,12 +11,12 @@ from pydantic import BaseModel, Field
 
 
 class Admin(BaseModel):
-    is_final: Optional[bool] = Field(None, alias='isFinal')
+    is_final: Optional[bool] = Field(None, alias="isFinal")
     """
     todo. ignored for now
     """
     tags: Optional[List[str]] = None
-    todo_creation: Optional[str] = Field(None, alias='todoCreation')
+    todo_creation: Optional[str] = Field(None, alias="todoCreation")
 
 
 class SortGroupingsOn(Enum):
@@ -24,20 +24,20 @@ class SortGroupingsOn(Enum):
     Sets the order of the groupings in the dropdown. (So only needed if you have groupings.
     """
 
-    filename_base = 'filenameBase'
-    label = 'label'
-    rank = 'rank'
+    filename_base = "filenameBase"
+    label = "label"
+    rank = "rank"
 
 
 class SortValueitemsOn(Enum):
-    code = 'code'
-    label = 'label'
-    rank = 'rank'
+    code = "code"
+    label = "label"
+    rank = "rank"
 
 
 class Note(BaseModel):
     text: Dict[str, str]
-    is_mandatory: bool = Field(..., alias='isMandatory')
+    is_mandatory: bool = Field(..., alias="isMandatory")
 
 
 class Valueitem(BaseModel):
@@ -45,7 +45,7 @@ class Valueitem(BaseModel):
     """
     Code of the item example: 123234a
     """
-    unordered_children: Optional[List[str]] = Field(None, alias='unorderedChildren')
+    unordered_children: Optional[List[str]] = Field(None, alias="unorderedChildren")
     """
     Any children in random order. The children MUST exist in root-valueitems and will be sorted as they are there.
     """
@@ -64,7 +64,7 @@ class Valueitem(BaseModel):
 
 
 class Grouping(BaseModel):
-    filename_base: Optional[str] = Field(None, alias='filenameBase')
+    filename_base: Optional[str] = Field(None, alias="filenameBase")
     """
     To this filenameBase the language and filetype will be added.
     """
@@ -76,9 +76,7 @@ class Grouping(BaseModel):
     """
     Strings to sort by when code or label is not sufficient
     """
-    sort_valueitems_on: Optional[SortValueitemsOn] = Field(
-        None, alias='sortValueitemsOn'
-    )
+    sort_valueitems_on: Optional[SortValueitemsOn] = Field(None, alias="sortValueitemsOn")
     """
     How to sort the list of mothers. The children will be sorted by the root-sortValueitemsOn
     """
@@ -98,7 +96,7 @@ class PxCodes(BaseModel):
     Id of this document, example: 123234a
     """
     admin: Optional[Admin] = None
-    sort_valueitems_on: SortValueitemsOn = Field(..., alias='sortValueitemsOn')
+    sort_valueitems_on: SortValueitemsOn = Field(..., alias="sortValueitemsOn")
     """
     How the items in the codelist is sorted.
     """
@@ -110,15 +108,15 @@ class PxCodes(BaseModel):
     """
     These are the 'root-entries' describe what is in the data.
     """
-    elimination_possible: bool = Field(..., alias='eliminationPossible')
+    elimination_possible: bool = Field(..., alias="eliminationPossible")
     """
     May this variable be eliminnated. If True and eliminationCode is empty use Sum.
     """
-    elimination_code: Optional[str] = Field(None, alias='eliminationCode')
+    elimination_code: Optional[str] = Field(None, alias="eliminationCode")
     """
     example: 'tot'. Value of the code to use for eliminnating the variable. Must be from root-entries, not from a grouping.
     """
-    sort_groupings_on: Optional[SortGroupingsOn] = Field(None, alias='sortGroupingsOn')
+    sort_groupings_on: Optional[SortGroupingsOn] = Field(None, alias="sortGroupingsOn")
     """
     Sets the order of the groupings in the dropdown. (So only needed if you have groupings.
     """

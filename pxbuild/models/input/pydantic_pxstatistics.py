@@ -34,23 +34,23 @@ class PxStatistics(BaseModel):
     """
     Id of a group of tables in the registry of statistics. example: 8765
     """
-    update_frequency: Optional[Dict[str, str]] = Field(None, alias='updateFrequency')
+    update_frequency: Optional[Dict[str, str]] = Field(None, alias="updateFrequency")
     """
     Must mean the same in all languages. example: Quarterly
     """
-    meta_id: Optional[List[str]] = Field(None, alias='metaId')
+    meta_id: Optional[List[str]] = Field(None, alias="metaId")
     """
-    Will be added to metaid on table level. 'KORTNAVN:kpi' lead to https://www.ssb.no/en/priser-og-prisindekser/konsumpriser/statistikk/konsumprisindeksen#om-statistikken 
+    Will be added to metaid on table level. 'KORTNAVN:kpi' lead to https://www.ssb.no/en/priser-og-prisindekser/konsumpriser/statistikk/konsumprisindeksen#om-statistikken
     """
-    subject_code: str = Field(..., alias='subjectCode')
+    subject_code: str = Field(..., alias="subjectCode")
     """
     example: be
     """
-    subject_text: Dict[str, str] = Field(..., alias='subjectText')
+    subject_text: Dict[str, str] = Field(..., alias="subjectText")
     """
     example en:Population
     """
-    upcoming_releases: Optional[List[str]] = Field(None, alias='upcomingReleases')
+    upcoming_releases: Optional[List[str]] = Field(None, alias="upcomingReleases")
     """
     example: 2024-02-05 08:00:00.0 TODO sjekk at dato i riktig format
     """
