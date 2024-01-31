@@ -73,7 +73,10 @@ class _KeytypeContentLang(_KeytypeLang):
         self.content = content
 
     def __str__(self):
-          return  f"{super().__str__()}(\"{self.content}\")"
+        if self.content:  
+            return  f"{super().__str__()}(\"{self.content}\")"
+        else:
+            return  f"{super().__str__()}"
     
     def __eq__(self, other):
         if type(self) == type(other):
