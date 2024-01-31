@@ -8,7 +8,7 @@ from ..small_static_functions import Commons
 
 from pxbuild.models.input.pydantic_pxmetadata import PxMetadata
 from pxbuild.models.input.pydantic_pxbuildconfig import PxbuildConfig
-
+from pxbuild.models.middle.dims import Dims
 from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 
 from .datadatasource import Datadatasource
@@ -18,15 +18,17 @@ from .data_formatter import DataFormatter
 
 class MapData:
 
-    def __init__(self, datadata:Datadatasource, pxmetadata:PxMetadata, config:PxbuildConfig, for_get_data_by_varid: Dict[str, ForGetData], stub:List[str], heading:List[str] ) -> None:
+    def __init__(self, datadata:Datadatasource, pxmetadata:PxMetadata, config:PxbuildConfig, dims:Dims , lang:str) -> None:
         self._pxmetadata_model = pxmetadata
         self._datadata = datadata
         self._config = config
-        self._for_get_data_by_varid = for_get_data_by_varid
-        self._variables_in_output_order = Commons.get_variable_list(stub,heading)
-        self._stub = stub 
-        self._heading = heading
-    
+        self._dims = dims
+        self._lang = lang
+
+
+        self._for_get_data_by_codeid: Dict[str, ForGetData] = dict()
+        # ForGetData is initalized in  init_ForGetData_and_calculate_matrix_size()
+        
     
     def map_data(self, out_model: PXFileModel) -> None:
         # /// MINDEX:
@@ -46,7 +48,7 @@ class MapData:
         
         start_get_data = time.time()
 
-        matrix_size = self.calculate_matrix_size()
+        matrix_size = self.init_ForGetData_and_calculate_matrix_size()
 
         missing_row_symbol = self._pxmetadata_model.dataset.row_missing
         missing_cell_symbol = self._pxmetadata_model.dataset.cell_missing
@@ -65,7 +67,7 @@ class MapData:
 
         out_data = merged_df["out_value"].tolist()
 
-        formatter = DataFormatter(self._heading, self._for_get_data_by_varid)
+        formatter = DataFormatter(self._dims.get_headingcodes(), self._for_get_data_by_codeid)
         number_of_columns_per_line = formatter.calculate_line_break()
 
         out_model.data.set(out_data, number_of_columns_per_line)
@@ -74,12 +76,16 @@ class MapData:
         time_used_get_data = end_get_data - start_get_data
         print("Time: GetData:", time_used_get_data)
 
-    def calculate_matrix_size(self) -> int:
-        variables_in_output_order = self._variables_in_output_order
+    def init_ForGetData_and_calculate_matrix_size(self) -> int:
+
+        dims_in_output_order = self._dims.getDimcodesInOutputOrder()
         curr_factor = 1
-        for vari in reversed(variables_in_output_order):
-            temp_for_get_data: ForGetData = self._for_get_data_by_varid[vari]
+        for vari_c in reversed(dims_in_output_order):
+
+            temp_for_get_data: ForGetData = self._dims.dim_by_code[vari_c].get_ForGetData(self._lang)
             temp_for_get_data.factor = curr_factor
+            self._for_get_data_by_codeid[vari_c] =  temp_for_get_data
+
             prev_number = temp_for_get_data._length_of_codelist
             curr_factor = curr_factor * prev_number
 
@@ -115,7 +121,7 @@ class MapData:
 
     def add_out_index(self, df):
         columns_to_sum = []
-        for col in self._for_get_data_by_varid.values():
+        for col in self._for_get_data_by_codeid.values():
             # Mapping the values using the dictionary
             contrib_col_name = "int_" + col._colname_in_dataframe
             df[contrib_col_name] = df[col._colname_in_dataframe].map(col._position_of_value) * col.factor
