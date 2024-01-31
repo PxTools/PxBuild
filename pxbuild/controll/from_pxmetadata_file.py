@@ -269,10 +269,9 @@ class LoadFromPxmetadata:
 
 
     def map_measurements_to_pxfile(self, out_model: PXFileModel):
-
-        
         contdim = self._dims.contdim
         lang = self._current_lang
+        out_model.units.set("Hi, it seems this has to be here to aviod a crash. For multi-content at least.", None, lang)
 
         for my_cont in self._pxmetadata_model.dataset.measurements:
 
