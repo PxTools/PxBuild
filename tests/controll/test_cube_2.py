@@ -8,9 +8,9 @@ class TestCube2:
     def test_cube_2_ok(self):
       dummy = pxbuild.LoadFromPxmetadata('2', 'testdata/test_cube_2/test_config.json')
 
-      path = "testdata/test_cube_2" 
-      path_expected = path + "/expected/"
-      path_actual = path + "/actual/"
+      path = "" 
+      path_expected = "testdata/test_cube_2/expected/"
+      path_actual = "testdata/out_files/cubes_0nn/test_cube_2/"
       filelist = os.listdir(path_expected)
 
       for file in filelist:

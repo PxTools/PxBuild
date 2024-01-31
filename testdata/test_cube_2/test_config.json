@@ -16,8 +16,8 @@
 		"adressFormat": "testdata/test_cube_2/{id}"
 	},
 	"outputDestination": {
-		"pxFolderFormat": "testdata/test_cube_2/actual",
-		"aggFolderFormat": "testdata/test_cube_2/actual"
+		"pxFolderFormat": "testdata/out_files/cubes_0nn/test_cube_{id}",
+		"aggFolderFormat": "testdata/out_files/cubes_0nn/test_cube_{id}"
 	},
 	"skipCreationDate": true
   },	
