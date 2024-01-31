@@ -92,5 +92,4 @@ def test_valdidate_exit() -> None:
     assert not val.is_valid()
     assert len(val.checks_ran) == 7
 
-
     # Few more left
