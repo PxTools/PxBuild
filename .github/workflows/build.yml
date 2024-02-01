@@ -41,7 +41,7 @@ jobs:
       - name: Lint
         run: |
           source $VENV
-          flake8 . || echo "Linting errors found, but we're treating this as a warning."
+          flake8 --extend-exclude=.venv . || echo "Linting errors found, but we're treating this as a warning."
       - name: Format
         run: |
           source $VENV
