@@ -50,5 +50,3 @@ def fix_the_variable_type_keyword(model: PXFileModel):
                 model.variable_type.set("G", vari, lang)
             else:
                 model.variable_type.set("N", vari, lang)
-
-

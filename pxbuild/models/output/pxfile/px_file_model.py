@@ -86,6 +86,7 @@ from pxbuild.models.output.pxfile.keywords._meta_id import _MetaId
 from pxbuild.models.output.pxfile.keywords._data import _Data
 from pxbuild.models.output.pxfile.util._px_super import _SuperKeyword
 
+
 class PXFileModel:
     """
     This class holds the information of a PxFile
@@ -270,7 +271,7 @@ class PXFileModel:
     def __str__(self):
         attrs = vars(self)
         attr_strings = [str(value) for value in attrs.values() if str(value) != ""]
-        return "UNITS=\"This file was created from pxbuild.\";\n" + "\n".join(attr_strings)
+        return 'UNITS="This file was created from pxbuild.";\n' + "\n".join(attr_strings)
 
-    def get_attribute(self, name:str) -> _SuperKeyword:
+    def get_attribute(self, name: str) -> _SuperKeyword:
         return getattr(self, name)

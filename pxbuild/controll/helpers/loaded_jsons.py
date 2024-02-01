@@ -7,15 +7,15 @@ from pxbuild.models.input.pydantic_pxmetadata import PxMetadata
 from pxbuild.models.input.pydantic_pxstatistics import PxStatistics
 from pxbuild.models.input.pydantic_pxcodes import PxCodes
 
-# Class for loading all jsons into pydantic. And nothing else. 
+# Class for loading all jsons into pydantic. And nothing else.
 class LoadedJsons:
     """
-    Class for loading all jsons into pydantic. And nothing else. 
+    Class for loading all jsons into pydantic. And nothing else.
     """
+
     def __init__(self, pxmetadata_id: str, config_file: str) -> None:
         self._pxmetadata_id = pxmetadata_id
         print("For pxmetadata_id:", self._pxmetadata_id, ", with config:", config_file)
-
 
         self._config = LoadedJsons.load_config(config_file)
 
@@ -38,11 +38,10 @@ class LoadedJsons:
             json1 = json.loads(f.read())
         self._pxstatistics = PxStatistics(**json1)
 
-
-        self._resolved_pxcodes_ids:Dict[str,PxCodes] = {} 
+        self._resolved_pxcodes_ids: Dict[str, PxCodes] = {}
 
         if self._pxmetadata_model.dataset.coded_dimensions:
-            
+
             # pxcodesFormat="example_data/pxcodes/{id}.json"
             pxcodes_format = self._config.admin.px_codes_resource.adress_format
             for dimension in self._pxmetadata_model.dataset.coded_dimensions:
@@ -51,20 +50,19 @@ class LoadedJsons:
                     tmp_path = pxcodes_format.format(id=dimension.codelist_id)
                     with open(tmp_path, encoding="utf-8-sig") as f:
                         json1 = json.loads(f.read())
-                        
-                    self._resolved_pxcodes_ids[dimension.codelist_id] = PxCodes(**json1)
-                    
 
-    def get_config(self) ->   PxbuildConfig:
+                    self._resolved_pxcodes_ids[dimension.codelist_id] = PxCodes(**json1)
+
+    def get_config(self) -> PxbuildConfig:
         return self._config
-    
+
     def get_pxmetadata(self) -> PxMetadata:
         return self._pxmetadata_model
-    
+
     def get_pxstatistics(self) -> PxStatistics:
         return self._pxstatistics
-    
-    def get_resolved_pxcodes_ids(self) -> Dict[str,PxCodes] :
+
+    def get_resolved_pxcodes_ids(self) -> Dict[str, PxCodes]:
         """
         PxCodes as a function of codelist_id.
 
@@ -75,9 +73,9 @@ class LoadedJsons:
         Returns: Empty if the dataset has no coded_dimensions
         """
         return self._resolved_pxcodes_ids
-    
+
     @staticmethod
-    def load_config(config_file:str) -> PxbuildConfig:
+    def load_config(config_file: str) -> PxbuildConfig:
         with open(config_file, encoding="utf-8-sig") as f:
             config_json = json.loads(f.read())
         return PxbuildConfig(**config_json)

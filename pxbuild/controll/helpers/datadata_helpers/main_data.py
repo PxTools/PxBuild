@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from typing import List, Dict
 
-from ..small_static_functions import Commons 
+from ..small_static_functions import Commons
 
 from pxbuild.models.input.pydantic_pxmetadata import PxMetadata
 from pxbuild.models.input.pydantic_pxbuildconfig import PxbuildConfig
@@ -17,19 +17,18 @@ from .data_formatter import DataFormatter
 
 
 class MapData:
-
-    def __init__(self, datadata:Datadatasource, pxmetadata:PxMetadata, config:PxbuildConfig, dims:Dims , lang:str) -> None:
+    def __init__(
+        self, datadata: Datadatasource, pxmetadata: PxMetadata, config: PxbuildConfig, dims: Dims, lang: str
+    ) -> None:
         self._pxmetadata_model = pxmetadata
         self._datadata = datadata
         self._config = config
         self._dims = dims
         self._lang = lang
 
-
         self._for_get_data_by_codeid: Dict[str, ForGetData] = dict()
         # ForGetData is initalized in  init_ForGetData_and_calculate_matrix_size()
-        
-    
+
     def map_data(self, out_model: PXFileModel) -> None:
         # /// MINDEX:
         # /// We need to convert a point(one value for each variable) in
@@ -44,8 +43,8 @@ class MapData:
         #  in python things are zero-based but the idea is the same
         # /// </summary>
         if out_model.data.has_value():
-           return
-        
+            return
+
         start_get_data = time.time()
 
         matrix_size = self.init_ForGetData_and_calculate_matrix_size()
@@ -84,7 +83,7 @@ class MapData:
 
             temp_for_get_data: ForGetData = self._dims.dim_by_code[vari_c].get_ForGetData(self._lang)
             temp_for_get_data.factor = curr_factor
-            self._for_get_data_by_codeid[vari_c] =  temp_for_get_data
+            self._for_get_data_by_codeid[vari_c] = temp_for_get_data
 
             prev_number = temp_for_get_data._length_of_codelist
             curr_factor = curr_factor * prev_number
@@ -93,9 +92,8 @@ class MapData:
 
         return array_size
 
-
     def add_missing_rows(self, matrix_size, missing_row_symbol, df):
-        #sorts on index as sideeffect :-)
+        # sorts on index as sideeffect :-)
         matrix_df = pd.DataFrame({"out_index": range(matrix_size)})
 
         # Merge the two DataFrames
@@ -105,11 +103,10 @@ class MapData:
         merged_df["out_value"].fillna(missing_row_symbol, inplace=True)
         return merged_df
 
-    def add_out_value(self, missing_cell_symbol:str, df):
+    def add_out_value(self, missing_cell_symbol: str, df):
         start = time.time()
 
-        conditions = [ df["VALUE"].notna() & (df["VALUE"] != ""),
-                       df["SYMBOL"].notna() & (df["SYMBOL"] != "")]
+        conditions = [df["VALUE"].notna() & (df["VALUE"] != ""), df["SYMBOL"].notna() & (df["SYMBOL"] != "")]
 
         choices = [df["VALUE"].astype(str), df["SYMBOL"].astype(str)]
 
@@ -134,8 +131,3 @@ class MapData:
             column_code_map[measurement_var.column_name] = measurement_var.code
 
         return column_code_map
-    
-
-   
-
-   

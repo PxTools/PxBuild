@@ -13,8 +13,7 @@ from .small_static_functions import Commons
 
 # Class for making agg and vs files
 class SupportFiles:
-
-    def __init__(self, pxmetadata:PxMetadata, config:PxbuildConfig, dims:Dims,pxmetadata_id:str) -> None:
+    def __init__(self, pxmetadata: PxMetadata, config: PxbuildConfig, dims: Dims, pxmetadata_id: str) -> None:
         self._pxmetadata_model = pxmetadata
         self._config = config
         self._dims = dims
@@ -23,17 +22,17 @@ class SupportFiles:
     def make_vs_file(self):
         if not self._pxmetadata_model.dataset.coded_dimensions:
             return
-        
+
         for language in self._config.admin.valid_languages:
             for n_var in self._dims.coded_dimensions:
 
-                my_var= n_var.get_pydantic()
+                my_var = n_var.get_pydantic()
                 out_vs_model = _VSFileModel()
                 my_codes: HelperPxCodes = n_var.getHelperPxCodes()
                 if n_var.groupings():
                     vs_name = n_var.get_domain_id(language)
-                    #vs_type = "G" if my_var.is_geo_variable_type else "V"
-                    vs_type = "V" # TODO type could be V,H or N
+                    # vs_type = "G" if my_var.is_geo_variable_type else "V"
+                    vs_type = "V"  # TODO type could be V,H or N
                     out_vs_model.description.set("Name", vs_name)
                     out_vs_model.description.set("Type", vs_type)
 
@@ -43,10 +42,9 @@ class SupportFiles:
                         group_key = str(group_conter)
                         out_vs_model.aggreg.set(group_key, groups.filename_base + "_" + language + ".agg")
                         self.make_agg_file(groups, vs_name, my_codes, language)
-                    
+
                     out_vs_model.domain.set("1", vs_name)
 
-                    
                     value_item_counter = 0
                     for my_item in my_codes._sorted_valueitems[language]:
                         value_item_counter = value_item_counter + 1
@@ -64,9 +62,9 @@ class SupportFiles:
                         print(out_vs_model, file=f)
                         print("File written to:", out_file)
 
-    def make_agg_file(self, grouping: Grouping, vs_name: str, my_pxcodes_helper:HelperPxCodes, language:str):
+    def make_agg_file(self, grouping: Grouping, vs_name: str, my_pxcodes_helper: HelperPxCodes, language: str):
         out_agg_model = AggFileModel()
-        #aggreg_name = grouping.filename_base + "_" + language
+        # aggreg_name = grouping.filename_base + "_" + language
         aggreg_name = grouping.label[language]
         out_agg_model.set("Aggreg", "Name", aggreg_name)
         out_agg_model.set("Aggreg", "Valueset", vs_name)
@@ -81,13 +79,13 @@ class SupportFiles:
             out_agg_model.set("Aggtext", item_key, valuetext)
 
             child_code_conter = 0
-            #ordered_children = [code for code in my_pxcodes_helper.getCodes(language) if item.unordered_children and code in item.unordered_children]
+            # ordered_children = [code for code in my_pxcodes_helper.getCodes(language) if item.unordered_children and code in item.unordered_children]
 
-            ordered_children:List[str] = []
+            ordered_children: List[str] = []
             for code in my_pxcodes_helper.getCodes(language):
                 if item.unordered_children and code in item.unordered_children:
-                   ordered_children.append(code) 
-            
+                    ordered_children.append(code)
+
             for child_code in ordered_children:
                 child_code_conter = child_code_conter + 1
                 child_code_key = str(child_code_conter)
@@ -95,7 +93,7 @@ class SupportFiles:
 
         out_folder_format: str = self._config.admin.output_destination.agg_folder_format
         out_folder = out_folder_format.format(id=self._pxmetadata_id)
-        out_file = out_folder + "/"  + str(grouping.filename_base) + "_" + language + ".agg"
+        out_file = out_folder + "/" + str(grouping.filename_base) + "_" + language + ".agg"
         with open(out_file, "w") as f:
             print(out_agg_model, file=f)
             print("File written to:", out_file)
