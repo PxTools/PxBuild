@@ -1,6 +1,3 @@
-# brand new disclaimer
-As the Px family has a new organsation called pxtools, the name of this thing "pxtool" need to change, but to what?   
-
 # disclaimer
 This is WORK IN PROGRESS and is be no means ready for production.
 # pxbuild
@@ -44,6 +41,8 @@ flowchart TD
    T --> O
 
 ``` 
+## First usage
+The px_client2.py inside the demo folder, is probably a good starting point
 
 ## Developer notes
 
