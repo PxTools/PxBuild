@@ -1,14 +1,14 @@
 # disclaimer
 This is WORK IN PROGRESS and is be no means ready for production.
 # pxbuild
-Purpose: Creating px-files (.px, .vs and .agg -files), which is one of the datasource-types for the awesome PxWeb ( see https://github.com/statisticssweden/PxWeb ) 
+Purpose: Creating px-files (.px, .vs and .agg -files), which is one of the datasource-types for the awesome PxWeb ( see https://github.com/statisticssweden/PxWeb )
 
-The basic idea: the information needed to be a table in PxWeb is split in 5 parts: 
+The basic idea: the information needed to be a table in PxWeb is split in 5 parts:
 - config, which is common to all tables for an organisation, e.g. organisation name
-- zero or more codelists, for coded variables , often shared by other tables.  
+- zero or more codelists, for coded variables , often shared by other tables.
 - stuff like subject-area and possible dates of publication. CMS/publication-prosess type of info. The tables typically share these properties with their sibling tables.
 - the rest of the metadata, table specific information, e.g. title
-- the datadata, a parquet-file (or for testing csv) with the data and implisitt the codelist for time.    
+- the datadata, a parquet-file (or for testing csv) with the data and implisitt the codelist for time.
 
 Each part, except the datadata, has a json-schema, named: pxbuildconfig, pxcodes, pxstatistics and pxmetadata.
 
@@ -18,7 +18,7 @@ So, you supply data and the jsons and pxbuild generates the px-files.
 flowchart TD
    subgraph M["pxmetadata.json (Startingpoint)"]
      M1["Stuff like title and decimals\n and also link to dataFile and Ids for the 'api' for shared info"]
-   end 
+   end
    subgraph S["'api' for Pxstatistics-jsons"]
      PX_SR("Storage of Pxstatistics-json files,\n in a file folder\n or live call to backend")
    end
@@ -40,7 +40,7 @@ flowchart TD
    Datafile --> T
    T --> O
 
-``` 
+```
 ## First usage
 The px_client2.py inside the demo folder, is probably a good starting point
 
@@ -56,4 +56,8 @@ The px_client2.py inside the demo folder, is probably a good starting point
 poetry env use 3.11
 poetry install
 poetry run pytest
+```
+### Setup git pre-commit hooks
+```
+pre-commit install
 ```
