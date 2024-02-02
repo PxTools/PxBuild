@@ -9,7 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 pyarrow = "^14.0.1"
-pandas = "^2.1.0"
+pandas = "^2.2.0"
 pydantic = "^2.3.0"
 pre-commit = "^3.6.0"
 
