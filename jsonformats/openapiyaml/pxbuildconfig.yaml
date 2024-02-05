@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: pxbuildConfig
   description: |-
-    This is a sample pxbuildConfig based on the OpenAPI 3.0 specification. We just use the schema, so it is perhaps an abuse, but I like the editor.  
+    This is a sample pxbuildConfig based on the OpenAPI 3.0 specification. We just use the schema, so it is perhaps an abuse, but I like the editor.
   version: 0.0.1
 externalDocs:
   description: Find out more about Swagger
@@ -28,7 +28,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/buildconfig'          
+                $ref: '#/components/schemas/buildconfig'
             application/xml:
               schema:
                 $ref: '#/components/schemas/buildconfig'
@@ -36,14 +36,15 @@ paths:
           description: pxbuildConfig not found
 components:
   schemas:
-    pxbuildConfig:
+    PxbuildConfig:
       type: object
+      description: Config object
       required:
         - admin
       properties:
             admin:
               type: object
-              required: 
+              required:
                 - validLanguages
                 - theWordAnd
                 - theWordBy
@@ -56,7 +57,7 @@ components:
                   pxMetadataResource:
                       type: object
                       description: What resource provides the pxmetdata-json
-                      required: 
+                      required:
                         - adressFormat
                       properties:
                         resourceType:
@@ -66,13 +67,14 @@ components:
                               - s3_todo
                               - api_todo
                             default: file
+                            description: This defaults to file. Which currently is the only working value.
                         adressFormat:
                             type: string
-                            description: "The path or url to the json, given its id. Example: example_data/pxmetadata/{id}.json" 
+                            description: "The path or url to the json, given its id ( id is the first argument to LoadFromPxmetadata). Example: example_data/pxmetadata/{id}.json"
                   pxStatisticsResource:
                       type: object
                       description: What resource provides the pxstatistics-json
-                      required: 
+                      required:
                         - adressFormat
                       properties:
                         resourceType:
@@ -84,11 +86,11 @@ components:
                             default: file
                         adressFormat:
                             type: string
-                            description: "The path or url to the json, given its id. Example: example_data/pxstatistics/pxstatistics_{id}.json" 
+                            description: "The path or url to the json, given its id (id is taken from pxmetadata/dataset/statisticsId.) Example: example_data/pxstatistics/pxstatistics_{id}.json"
                   pxCodesResource:
                       type: object
                       description: What resource provides the pxcodes-json
-                      required: 
+                      required:
                         - adressFormat
                       properties:
                         resourceType:
@@ -104,7 +106,7 @@ components:
                   pxDataResource:
                       type: object
                       description: What resource provides the datadata
-                      required: 
+                      required:
                         - adressFormat
                       properties:
                         resourceType:
@@ -133,7 +135,7 @@ components:
                             description: "Aplies to resourcetype=folders. The folder where the .px-files are written. id is the tableID. Example: example_data/pxbuild_output/{id}"
                         aggFolderFormat:
                             type: string
-                            description: "Aplies to resourcetype=folders. The folder where the .vs- and .agg-files are written. id is the tableID. Example: example_data/pxbuild_output/id}"                                
+                            description: "Aplies to resourcetype=folders. The folder where the .vs- and .agg-files are written. id is the tableID. Example: example_data/pxbuild_output/id}"
                   validLanguages:
                      type: array
                      items:
@@ -151,17 +153,17 @@ components:
                      type: object
                      additionalProperties:
                         type: string
-                        description: "For title creation, the word *and* separating variable n and n-1.     Example: 'no:og,en:and'"                         
+                        description: "For title creation, the word *and* separating variable n and n-1.     Example: 'no:og,en:and'"
                   theWordBy:
                      type: object
                      additionalProperties:
                         type: string
                         description: "For title creation, the word *by* just before the variable list. example: 'no:etter,en:by'"
-              description: These properties does not enter the pxfile directly 
-              
+              description: These properties does not enter the pxfile directly
+
             charset:
               type: string
-              maxLength: 20            
+              maxLength: 20
               description: "example: ANSI"
             axisVersion:
               type: string
@@ -182,56 +184,56 @@ components:
                 type: string
                 maxLength: 256
               description: Name for content variable
-            contvariableCode:  
+            contvariableCode:
               type: string
               description: Code for content variable
               default: ContentCode
-            timevariableCode:  
+            timevariableCode:
               type: string
               description: Code for the time variable
-              default: Time  
+              default: Time
             datasymbol1:
               type: object
               additionalProperties:
                 type: string
                 maxLength: 20
-              description: How 1-6 dots in data, are shown on screen    
+              description: How 1-6 dots in data, are shown on screen
             datasymbol2:
               type: object
               additionalProperties:
                 type: string
                 maxLength: 20
-              description: How 1-6 dots in data, are shown on screen    
+              description: How 1-6 dots in data, are shown on screen
             datasymbol3:
               type: object
               additionalProperties:
                 type: string
                 maxLength: 20
-              description: How 1-6 dots in data, are shown on screen    
+              description: How 1-6 dots in data, are shown on screen
             datasymbol4:
               type: object
               additionalProperties:
                 type: string
                 maxLength: 20
-              description: How 1-6 dots in data, are shown on screen    
+              description: How 1-6 dots in data, are shown on screen
             datasymbol5:
               type: object
               additionalProperties:
                 type: string
                 maxLength: 20
-              description: How 1-6 dots in data, are shown on screen    
+              description: How 1-6 dots in data, are shown on screen
             datasymbol6:
               type: object
               additionalProperties:
                 type: string
                 maxLength: 20
-              description: How 1-6 dots in data, are shown on screen    
+              description: How 1-6 dots in data, are shown on screen
             datasymbolNil:
               type: object
               additionalProperties:
                 type: string
                 maxLength: 20
-              description: How stored - are shown on screen  
+              description: How stored - are shown on screen
             datasymbolSum:
               type: object
               additionalProperties:
@@ -243,5 +245,4 @@ components:
               additionalProperties:
                 type: string
                 maxLength: 256
-              description: Name for content variable
-           
+              description: "The source for the cubes, shown inside the About table part of PxWeb. Example: Statistics Norway"
