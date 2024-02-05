@@ -80,15 +80,15 @@
 
      - theWordBy(*) ND
 
- - charset type: string
+ - charset type: string ,max length: 20
 
     Description: example: ANSI
 
- - axisVersion type: string
+ - axisVersion type: string ,max length: 20
 
     Description: Version of px-file format.  example: '2013'
 
- - codePage type: string default: iso-8859-1
+ - codePage type: string default: iso-8859-1 ,max length: 20
 
     Description: example: iso-8859-1
 
