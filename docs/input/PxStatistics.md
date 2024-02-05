@@ -8,11 +8,11 @@
 
  - updateFrequency ND
 
-    Description: Must mean the same in all languages. example: Quarterly
+    Description: Not in use. Must mean the same in all languages. example: Quarterly
 
  - metaId type: array
 
-    Description: Will be added to metaid on table level. 'KORTNAVN:kpi' lead to https://www.ssb.no/en/priser-og-prisindekser/konsumpriser/statistikk/konsumprisindeksen#om-statistikken 
+    Description: Will be added to METAID on table level. 'KORTNAVN:kpi' lead to https://www.ssb.no/en/priser-og-prisindekser/konsumpriser/statistikk/konsumprisindeksen#om-statistikken
 
      - items type: string
 
@@ -26,11 +26,13 @@
 
  - upcomingReleases type: array
 
-    Description: example: 2024-02-05 08:00:00.0 TODO sjekk at dato i riktig format
+    Description: List of dates. The first will be used for LAST-UPDATE, the next will be used for NEXT-UPDATE. example format: 2024-02-05 08:00:00.0 (to do)
 
      - items type: string
 
  - contacts(*) type: array
+
+    Description: Will be used for CONTACT
 
      - items ND
 
@@ -47,4 +49,3 @@
          - raw ND
 
             Description: If this has value it replaces the 3 other fields, so they are ignored. Anything, will be put under contact as is.
-

@@ -192,7 +192,7 @@
 
 # CellNote
 
- Description: Still TODO
+ Description: Note on a cell/subcube
 
  - attachment(*) type: array
 
@@ -227,6 +227,3 @@
  - isMandatory(*) type: boolean
 
 # StringByLanguage
-
-
-

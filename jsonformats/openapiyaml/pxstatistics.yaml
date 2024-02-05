@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: PxStatistics
   description: |-
-    This is a sample PxStatistics Store Server based on the OpenAPI 3.0 specification.  
+    This is a sample PxStatistics Store Server based on the OpenAPI 3.0 specification.
   version: 0.0.1
 externalDocs:
   description: Find out more about Swagger
@@ -36,7 +36,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PxStatistics'          
+                $ref: '#/components/schemas/PxStatistics'
             application/xml:
               schema:
                 $ref: '#/components/schemas/PxStatistics'
@@ -47,7 +47,7 @@ paths:
 components:
   schemas:
     PxStatistics:
-      description: Holds information of a publishing system nature, or registry of statistics if you like. The asumption behind subjectCode and subjectText is that your tables may be put in a menu tree. Subject is the first level in that tree. 
+      description: Holds information of a publishing system nature, or registry of statistics if you like. The asumption behind subjectCode and subjectText is that your tables may be put in a menu tree. Subject is the first level in that tree.
       required:
         - id
         - subjectCode
@@ -62,12 +62,12 @@ components:
               type: object
               additionalProperties:
                 type: string
-              description: "Must mean the same in all languages. example: Quarterly"
+              description: "Not in use. Must mean the same in all languages. example: Quarterly"
             metaId:
                 type: array
-                description: "Will be added to metaid on table level. 'KORTNAVN:kpi' lead to https://www.ssb.no/en/priser-og-prisindekser/konsumpriser/statistikk/konsumprisindeksen#om-statistikken "
+                description: "Will be added to METAID on table level. 'KORTNAVN:kpi' lead to https://www.ssb.no/en/priser-og-prisindekser/konsumpriser/statistikk/konsumprisindeksen#om-statistikken "
                 externalDocs:
-                   description: This does not appear in pydantic 
+                   description: This does not appear in pydantic
                    url: https://swagger.io
                 items:
                   type: string
@@ -84,25 +84,25 @@ components:
               type: array
               items:
                 type: string
-              description: "example: 2024-02-05 08:00:00.0 TODO sjekk at dato i riktig format"
+              description: "List of dates. The first will be used for LAST-UPDATE, the next will be used for NEXT-UPDATE. example format: 2024-02-05 08:00:00.0 (to do)"
             contacts:
               type: array
-              items:     
+              description: Will be used for CONTACT
+              items:
                   type: object
                   properties:
                     phone:
-                      type: string               
-                    email:                   
+                      type: string
+                    email:
                       type: string
                       description: Personal or functional
                     name:
                       type: object
                       description: Name of contact in all languages. Personal or functional
-                      additionalProperties:                    
+                      additionalProperties:
                         type: string
                     raw:
                       type: object
                       additionalProperties:
                           type: string
-                      description: If this has value it replaces the 3 other fields, so they are ignored. Anything, will be put under contact as is. 
-            
+                      description: If this has value it replaces the 3 other fields, so they are ignored. Anything, will be put under contact as is.
