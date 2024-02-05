@@ -1,72 +1,70 @@
 # PxMetadata
 
-    Description: Outer class
+ Description: Outer class
 
- - dataset(*) ND ND
+ - dataset(*) ND
 
     Description: Payload
 
-     - tableId(*) type: string ND
+     - tableId(*) type: string
 
         Description: example: '07459' To be used as id in PxWeb Url
 
-     - storedDecimals type: integer ND
+     - storedDecimals type: integer
 
         Description: How many decimals should be stored in the PxFile. Default is the max number of decimals shown.
 
-     - statisticsId type: string ND
+     - statisticsId type: string
 
         Description: Id of group of tables in the registry of statistics. example: '8765'
 
-     - dataFile type: string ND
+     - dataFile type: string
 
         Description: TODO: Er dette en filsti eller en url. required? Adress to the parquet-file with datadata
 
-     - baseTitle(*) ND ND
+     - baseTitle(*) ND
 
         Description: Text to which tableid is prefixed and _by_ variable list is appended. Is used for the CONTENTS keyword. example: no Utenrikshandel med varer
 
-     - searchKeywords ND ND
+     - searchKeywords ND
 
         Description: Array of keywords by language for search. Is used for the SYNONYMS keyword. example:'{en: [External trade, export]}'
 
-     - notes ND ND
+     - notes type:  [Notes](#notes)
 
-        ND
+     - cellNotes type: array
 
-        is a [Notes](#notes)
-     - cellNotes type: array ND
+         - items type:  [CellNote](#cellnote)
 
-        ND
+     - timeDimension(*) ND
 
-     - timeDimension(*) ND ND
-
-        ND
-
-         - columnName type: string ND
+         - columnName type: string
 
             Description: name of column in dataset
 
-         - timePeriodFormat type: string ND
+         - timePeriodFormat type: string
 
             Description: example: yyyy
 
-         - label ND ND
+         - label type:  [StringByLanguage](#stringbylanguage)
 
-            ND
-
-            is a [StringByLanguage](#stringbylanguage)
-     - codedDimensions type: array ND
+     - codedDimensions type: array
 
         Description: Also known as classification variables
 
-     - measurements(*) type: array ND
+         - items type:  [CodedDimension](#codeddimension)
+
+     - measurements(*) type: array
 
         Description: Also known as content variables
 
-     - metaId type: array ND
+         - items type:  [Measurement](#measurement)
+
+     - metaId type: array
 
         Description: For MetaId keyword
+
+         - items type: string
 
      - rowMissing type: string default: .
 
@@ -78,29 +76,37 @@
 
      - officialStatistics type: boolean default: False
 
-        ND
-
      - copyright type: boolean default: False
 
-        ND
-
-     - firstPublished type: string ND
+     - firstPublished type: string
 
         Description: The date when the data cube was first published in the format CCYYMMDD hh:mm
 
-     - attributes type: array ND
+     - attributes type: array
 
-        ND
+         - items ND
+
+             - columnName type: string
+
+                Description: name of column in dataset
+
+             - code type: string
+
+                Description: the code of the measurement
+
+             - codelistId type: string
+
+                Description: A Link to a PxCodes document
 
 # CodedDimension
 
-    ND
 
- - columnName(*) type: string ND
+
+ - columnName(*) type: string
 
     Description: name of column in dataset
 
- - code type: string ND
+ - code type: string
 
     Description: the code of the dimention( aka variable). Defaults to columName if missing
 
@@ -108,7 +114,7 @@
 
     Description: Geo variable or not
 
- - codelistId(*) type: string ND
+ - codelistId(*) type: string
 
     Description: A Link to a PxCodes document
 
@@ -116,121 +122,111 @@
 
     Description: Construct label for codelist entry as text or code or text then code or code then text
 
- - label ND ND
+ - label type:  [StringByLanguage](#stringbylanguage)
 
-    ND
-
-    is a [StringByLanguage](#stringbylanguage)
  - doublecolumn type: boolean default: False
 
     Description: Applies only to some of the file-export formats. See DOUBLECOLUMN-keyword
 
- - notes ND ND
+ - notes type:  [Notes](#notes)
 
-    ND
-
-    is a [Notes](#notes)
- - metaId type: array ND
+ - metaId type: array
 
     Description: For MetaId keyword
 
+     - items type: string
+
 # Measurement
 
-    ND
 
- - columnName(*) type: string ND
+
+ - columnName(*) type: string
 
     Description: name of column in dataset
 
- - code type: string ND
+ - code type: string
 
     Description: the code of the measurement. Defaults to columName if missing
 
- - label(*) ND ND
+ - label(*) type:  [StringByLanguage](#stringbylanguage)
 
-    ND
-
-    is a [StringByLanguage](#stringbylanguage)
- - showDecimals(*) type: integer ND
+ - showDecimals(*) type: integer
 
     Description: number of decimal to use in output
 
- - priceType type: string ND
+ - priceType type: string
 
     Description: Empty if not a price
 
  - isSeasonallyAdjusted type: boolean default: False
 
-    ND
-
  - isWorkingdaysAdjusted type: boolean default: False
 
-    ND
-
- - aggregationAllowed(*) type: boolean ND
+ - aggregationAllowed(*) type: boolean
 
     Description: Is it meaningfull to sum this measurement
 
- - basePeriod ND ND
+ - basePeriod ND
 
     Description: For index example: '1. kvartal 2010'
 
- - referencePeriod ND ND
+ - referencePeriod ND
 
     Description: Text with information on the reference period for the statistics.
 
- - rank ND ND
+ - rank ND
 
     Description: Sort order for measurement in dimension, document order is default
 
- - unitOfMeasure(*) ND ND
+ - unitOfMeasure(*) ND
 
     Description: Text including unit multiplier
 
- - notes ND ND
+ - notes type:  [Notes](#notes)
 
-    ND
-
-    is a [Notes](#notes)
- - metaId type: array ND
+ - metaId type: array
 
     Description: For MetaId keyword
 
+     - items type: string
+
 # CellNote
 
-    Description: Still TODO
+ Description: Still TODO
 
- - attachment(*) type: array ND
+ - attachment(*) type: array
 
     Description: Attaches the text on a point/subcube of the cube. The array has one or zero entries for each dimension. No entry for a dimension means everything.
 
- - text(*) ND ND
+     - items ND
 
-    ND
+         - dimensionCode(*) type: string
 
-    is a [StringByLanguage](#stringbylanguage)
- - isMandatory(*) type: boolean ND
+            Description: The code of the dimension (found in config for time and measure)
 
-    ND
+         - valueCode(*) type: string
+
+            Description: The code of the Value
+
+ - text(*) type:  [StringByLanguage](#stringbylanguage)
+
+ - isMandatory(*) type: boolean
 
 # Notes
 
-    ND
+
+
+ - items type:  [Note](#note)
 
 # Note
 
-    ND
 
- - text(*) ND ND
 
-    ND
+ - text(*) type:  [StringByLanguage](#stringbylanguage)
 
-    is a [StringByLanguage](#stringbylanguage)
- - isMandatory(*) type: boolean ND
-
-    ND
+ - isMandatory(*) type: boolean
 
 # StringByLanguage
 
-    ND
+
 

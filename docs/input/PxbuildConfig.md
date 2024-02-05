@@ -1,12 +1,12 @@
 # PxbuildConfig
 
-    Description: Config object
+ Description: Config object
 
- - admin(*) ND ND
+ - admin(*) ND
 
     Description: These properties does not enter the pxfile directly
 
-     - pxMetadataResource(*) ND ND
+     - pxMetadataResource(*) ND
 
         Description: What resource provides the pxmetdata-json
 
@@ -14,65 +14,59 @@
 
             Description: This defaults to file. Which currently is the only working value.
 
-         - adressFormat(*) type: string ND
+         - adressFormat(*) type: string
 
             Description: The path or url to the json, given its id ( id is the first argument to LoadFromPxmetadata). Example: example_data/pxmetadata/{id}.json
 
-     - pxStatisticsResource(*) ND ND
+     - pxStatisticsResource(*) ND
 
         Description: What resource provides the pxstatistics-json
 
          - resourceType type: string default: file
 
-            ND
-
-         - adressFormat(*) type: string ND
+         - adressFormat(*) type: string
 
             Description: The path or url to the json, given its id (id is taken from pxmetadata/dataset/statisticsId.) Example: example_data/pxstatistics/pxstatistics_{id}.json
 
-     - pxCodesResource(*) ND ND
+     - pxCodesResource(*) ND
 
         Description: What resource provides the pxcodes-json
 
          - resourceType type: string default: file
 
-            ND
-
-         - adressFormat(*) type: string ND
+         - adressFormat(*) type: string
 
             Description: The path or url to the json, given its id. Example: example_data/pxcodes/{id}.json
 
-     - pxDataResource(*) ND ND
+     - pxDataResource(*) ND
 
         Description: What resource provides the datadata
 
          - resourceType type: string default: file
 
-            ND
-
-         - adressFormat(*) type: string ND
+         - adressFormat(*) type: string
 
             Description: The path or url to the json, given its id. Example: example_data/parquet_files/{id}
 
-     - outputDestination(*) ND ND
+     - outputDestination(*) ND
 
         Description: Where to send the output
 
          - resourceType type: string default: folders
 
-            ND
-
-         - pxFolderFormat type: string ND
+         - pxFolderFormat type: string
 
             Description: Aplies to resourcetype=folders. The folder where the .px-files are written. id is the tableID. Example: example_data/pxbuild_output/{id}
 
-         - aggFolderFormat type: string ND
+         - aggFolderFormat type: string
 
             Description: Aplies to resourcetype=folders. The folder where the .vs- and .agg-files are written. id is the tableID. Example: example_data/pxbuild_output/id}
 
-     - validLanguages(*) type: array ND
+     - validLanguages(*) type: array
 
         Description: The 2-letter languagecodes. Probably ISO 639, but the real constraint is that it has to match your pxweb
+
+         - items type: string
 
      - buildMultilingualFiles type: boolean default: True
 
@@ -82,19 +76,15 @@
 
         Description: should the CREATION-DATE keyword be skipped. Usefull (only) for pytests that compare PX-files.
 
-     - theWordAnd(*) ND ND
+     - theWordAnd(*) ND
 
-        ND
+     - theWordBy(*) ND
 
-     - theWordBy(*) ND ND
-
-        ND
-
- - charset type: string ND
+ - charset type: string
 
     Description: example: ANSI
 
- - axisVersion type: string ND
+ - axisVersion type: string
 
     Description: Version of px-file format.  example: '2013'
 
@@ -104,9 +94,7 @@
 
  - descriptionDefault type: boolean default: False
 
-    ND
-
- - contvariable ND ND
+ - contvariable ND
 
     Description: Name for content variable
 
@@ -118,39 +106,39 @@
 
     Description: Code for the time variable
 
- - datasymbol1 ND ND
+ - datasymbol1 ND
 
     Description: How 1-6 dots in data, are shown on screen
 
- - datasymbol2 ND ND
+ - datasymbol2 ND
 
     Description: How 1-6 dots in data, are shown on screen
 
- - datasymbol3 ND ND
+ - datasymbol3 ND
 
     Description: How 1-6 dots in data, are shown on screen
 
- - datasymbol4 ND ND
+ - datasymbol4 ND
 
     Description: How 1-6 dots in data, are shown on screen
 
- - datasymbol5 ND ND
+ - datasymbol5 ND
 
     Description: How 1-6 dots in data, are shown on screen
 
- - datasymbol6 ND ND
+ - datasymbol6 ND
 
     Description: How 1-6 dots in data, are shown on screen
 
- - datasymbolNil ND ND
+ - datasymbolNil ND
 
     Description: How stored - are shown on screen
 
- - datasymbolSum ND ND
+ - datasymbolSum ND
 
     Description: This if used to indicate how a sum of differing numbers of dots will be shown. The sum is stored as “…….”.
 
- - source ND ND
+ - source ND
 
     Description: The source for the cubes, shown inside the About table part of PxWeb. Example: Statistics Norway
 
