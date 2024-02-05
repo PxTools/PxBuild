@@ -100,17 +100,17 @@
 
  - notes type:  [Notes](#notes)
 
-    Description: Any fotnotes
+    Description: Any footnotes
 
 # Notes
 
-
+ Description: List of footnotes
 
  - items type:  [Note](#note)
 
 # Note
 
-
+ Description: One footnote in many languages.
 
  - text(*) type:  [StringByLanguage](#stringbylanguage)
 
@@ -118,9 +118,9 @@
 
 # SortValueitemsOn
 
-
+ Description: Enum with 3 options: code, label or rank
 
 # StringByLanguage
 
-
+ Description: Dictionary of stings indexed by language code (e.g. 'en','sv')
 
