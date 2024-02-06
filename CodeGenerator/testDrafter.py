@@ -3,6 +3,7 @@ from SpecReader import SpecReader
 intro_fstring = """\
 import pytest
 from pxbuild.models.output.pxfile.keywords.{kw.module_name} import {my_class}
+
 """
 
 set_valid_fstring = """
@@ -80,6 +81,7 @@ def test{my_class}_hack_multi_duplicate_set_raises():
         obj.set({good_value},{keypart})
     assert str(err_mess.value).startswith("{kw.keyword}:")
 """
+
 
 ######################################################################################
 def get_keypart(subkeys: str) -> str:
@@ -263,7 +265,7 @@ def test_scalar_int_writer(kw, filehandle) -> None:
 ###################################################################################
 
 my_spec = SpecReader()
-dir_string = "../tests/model/keywords/test"
+dir_string = "../tests/models/output/pxfile/keywords/test"
 # make test_<Keyword classes>.py
 for kw in my_spec.data:
     if kw.keyword in ["DATA", "TIMEVAL", "ATTRIBUTES", "HIERARCHYLEVELSOPEN", "HIERARCHYLEVELS", "HIERARCHIES"]:

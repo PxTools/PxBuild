@@ -18,7 +18,7 @@ class _Datanote(_PxValueByKey):
         self.occurence_counter = 0
 
     def set(self, datanote: str, variable: str = None, value: str = None, lang: str = None) -> None:
-        """ """
+        """"""
         LineValidator.is_not_None(self._keyword, datanote)
         LineValidator.is_string(self._keyword, datanote)
         my_value = _PxString(datanote)

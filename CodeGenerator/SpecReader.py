@@ -162,17 +162,17 @@ class MyKeyword:
             )
         if self.classnames["Key"]:
             fileHandle.write(f"from pxbuild.models.output.pxfile.util._px_keytypes import { self.classnames['Key']}\n")
-        fileHandle.write("from pxbuild.models.output.pxfile.util._line_validator import LineValidator\n\n")
+        fileHandle.write("from pxbuild.models.output.pxfile.util._line_validator import LineValidator\n\n\n")
 
     def class_and_init_writer(self, fileHandle) -> None:
-        fileHandle.write(f"class {self.classnames['This']}({self.classnames['Super']}): \n\n")
-        fileHandle.write(f"    pxvalue_type:str = \"{self.classnames['Value']}\"\n")
+        fileHandle.write(f"class {self.classnames['This']}({self.classnames['Super']}):\n\n")
+        fileHandle.write(f"    pxvalue_type: str = \"{self.classnames['Value']}\"\n")
         if self.keyword == "LANGUAGES":
             pass
-        fileHandle.write(f"    has_subkey:bool = {not self.subkeys_raw.strip() == ''}\n")
-        fileHandle.write(f"    subkey_optional:bool = {self.is_SubKey_Optional }\n")
-        fileHandle.write(f'    completeness_type:str = "{self.completeness_type}"\n')
-        fileHandle.write(f"    may_have_language:bool = {self.has_lang}\n\n")
+        fileHandle.write(f"    has_subkey: bool = {not self.subkeys_raw.strip() == ''}\n")
+        fileHandle.write(f"    subkey_optional: bool = {self.is_SubKey_Optional }\n")
+        fileHandle.write(f'    completeness_type: str = "{self.completeness_type}"\n')
+        fileHandle.write(f"    may_have_language: bool = {self.has_lang}\n\n")
 
         fileHandle.write(f"    def __init__(self) -> None:\n")
         fileHandle.write(f'        super().__init__("{self.keyword}")\n')
@@ -184,7 +184,7 @@ class MyKeyword:
 
     def set_writer(self, fileHandle) -> None:
         fileHandle.write(f"    def set(self, {kw.params_in_set}) -> None:\n")
-        fileHandle.write(f'        """ {kw.px_comment} """\n')
+        fileHandle.write(f'        """{kw.px_comment}"""\n')
 
         # LineValidator.              regexp_string("^(CODES|VALUES)$",   +   "mykeyword", "CODES")
         for item in kw.linevalidate:
@@ -218,7 +218,7 @@ class MyKeyword:
         fileHandle.write(f"        try:\n")
         fileHandle.write(f"            {codeline}\n")
         fileHandle.write(f"        except Exception as e:\n")
-        fileHandle.write(f'            msg = self._keyword + ":" +str(e)\n')
+        fileHandle.write(f'            msg = self._keyword + ":" + str(e)\n')
         fileHandle.write(f"            raise type(e)(msg) from e\n")
 
     def get_and_has_value_writer(self, filehandle) -> None:
