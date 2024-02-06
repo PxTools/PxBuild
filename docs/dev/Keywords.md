@@ -58,6 +58,7 @@ Keywords included in Round 1:
 |DATASYMBOLSUM|Conf||
 |VARIABLECODE|Meta||
 |META-ID|Stats and Meta (several places in Meta)||
+|SYNONYMS|Meta||
 |DATA|data||
 
 
@@ -91,7 +92,6 @@ Keyword that are not really implemented:
 |INFOFILE|||
 |INFO|||
 |UPDATE-FREQUENCY||1)Do we need this if we have NEXT-UPDATE. 2) In big pdf this is languageless (indicates a codelist) and 256 chars (indicates not a codelist) .|
-|SYNONYMS||issues/45|
 |DESCRIPTION||Needed?|
 |TIMEVAL||Needed?|
 
@@ -102,8 +102,3 @@ Comments/questions on keyword interpretation:
 |STOCKFA|| S (stock), F(flow) and A (average), examples?|
 |UPDATE-FREQUENCY||1)Do we need this if we have NEXT-UPDATE. 2) In big pdf this is languageless (indicates a codelist) and 256 chars (indicates not a codelist) .|
 |FIRST-PUBLISHED|Y|Big pdf:The date when the data cube was first published in the format CCYYMMDD hh:mm. Me: The first time a cube with this id was published or is this for revisions:The first time data for 2023 was pulished  |
-
-
-
-
-
