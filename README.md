@@ -42,7 +42,7 @@ flowchart TD
 
 ```
 ## First usage
-The px_client2.py inside the demo folder, is probably a good starting point
+The from_jsons.py inside the demo folder, is probably a good starting point
 
 ## Developer notes
 

@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: PxMetadata
   description: |-
-    This is an abuse of OpenAPI 3.0 just to make a json schema specification for PxMetadata.  
+    This is an abuse of OpenAPI 3.0 just to make a json schema specification for PxMetadata.
   version: 0.0.1
 externalDocs:
   description: Find out more about Swagger
@@ -34,7 +34,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PxMetadata'          
+                $ref: '#/components/schemas/PxMetadata'
             application/xml:
               schema:
                 $ref: '#/components/schemas/PxMetadata'
@@ -59,9 +59,6 @@ components:
             - timeDimension
             - measurements
           properties:
-            documnetId:
-              type: string
-              description: "TODO: Trenger vi denne?"
             tableId:
               type: string
               description: "example: '07459' To be used as id in PxWeb Url"
@@ -73,7 +70,7 @@ components:
                description: "Id of group of tables in the registry of statistics. example: '8765'"
             dataFile:
                type: string
-               description: "TODO: Er dette en filsti eller en url. required? Adress to the parquet-file with datadata" 
+               description: "TODO: Er dette en filsti eller en url. required? Adress to the parquet-file with datadata"
             baseTitle:
               type: object
               additionalProperties:
@@ -83,7 +80,7 @@ components:
               type: object
               additionalProperties:
                 type: array
-                items: 
+                items:
                   type: string
               description: "Array of keywords by language for search. Is used for the SYNONYMS keyword. example:'{en: [External trade, export]}'"
             notes:
@@ -120,21 +117,21 @@ components:
                 type: string
             rowMissing:
                type: string
-               description: Value to insert in data when row is missing. 
+               description: Value to insert in data when row is missing.
                default: "."
             cellMissing:
                type: string
-               description: Value to insert in data when cell is missing. 
+               description: Value to insert in data when cell is missing.
                default: "."
             officialStatistics:
                type: boolean
-               default: false   
-            copyright: 
+               default: false
+            copyright:
                type: boolean
                default: false
             firstPublished:
                type: string
-               description: The date when the data cube was first published in the format CCYYMMDD hh:mm   
+               description: The date when the data cube was first published in the format CCYYMMDD hh:mm
             attributes:
               type: array
               items:
@@ -149,8 +146,8 @@ components:
                   codelistId:
                     type: string
                     description: A Link to a PxCodes document
-                    
-                    
+
+
     CodedDimension:
                 type: object
                 required:
@@ -166,7 +163,7 @@ components:
                   isGeoVariableType:
                     type: boolean
                     default: false
-                    description: Geo variable or not 
+                    description: Geo variable or not
                   codelistId:
                     type: string
                     description: A Link to a PxCodes document
@@ -181,10 +178,10 @@ components:
                     description: Construct label for codelist entry as text or code or text then code or code then text
                   label:
                     $ref: '#/components/schemas/StringByLanguage'
-                  doublecolumn:  
+                  doublecolumn:
                      type: boolean
                      default: false
-                     description: Applies only to some of the file-export formats. See DOUBLECOLUMN-keyword                
+                     description: Applies only to some of the file-export formats. See DOUBLECOLUMN-keyword
                   notes:
                     $ref: '#/components/schemas/Notes'
                   metaId:
@@ -192,7 +189,7 @@ components:
                     description: For MetaId keyword
                     items:
                       type: string
-   
+
     Measurement:
             type: object
             required:
@@ -213,7 +210,7 @@ components:
               showDecimals:
                 type: integer
                 description: number of decimal to use in output
-              priceType: 
+              priceType:
                 type: string
                 enum:
                   - Current
@@ -227,26 +224,26 @@ components:
                 default: false
               aggregationAllowed:
                 type: boolean
-                description: Is it meaningfull to sum this measurement 
+                description: Is it meaningfull to sum this measurement
               basePeriod:
                 type: object
                 additionalProperties:
-                  type: string 
+                  type: string
                 description: "For index example: '1. kvartal 2010'"
               referencePeriod:
                 type: object
                 additionalProperties:
-                  type: string 
+                  type: string
                 description: Text with information on the reference period for the statistics.
               rank:
                 type: object
                 additionalProperties:
-                  type: string 
-                description: Sort order for measurement in dimension, document order is default 
+                  type: string
+                description: Sort order for measurement in dimension, document order is default
               unitOfMeasure:
                 type: object
                 additionalProperties:
-                  type: string 
+                  type: string
                 description: Text including unit multiplier
               notes:
                 $ref: '#/components/schemas/Notes'
@@ -255,19 +252,19 @@ components:
                 description: For MetaId keyword
                 items:
                   type: string
-                
+
     CellNote:
       type: object
       required:
         - attachment
         - text
         - isMandatory
-      description: "Still TODO"
+      description: "Note on a cell/subcube "
       properties:
         attachment:
           type: array
           description: "Attaches the text on a point/subcube of the cube. The array has one or zero entries for each dimension. No entry for a dimension means everything."
-          items: 
+          items:
             type: object
             required:
               - dimensionCode
@@ -278,12 +275,12 @@ components:
                   description: "The code of the dimension (found in config for time and measure)"
                valueCode:
                   type: string
-                  description: "The code of the Value" 
-        text: 
+                  description: "The code of the Value"
+        text:
            $ref: '#/components/schemas/StringByLanguage'
         isMandatory:
-          type: boolean 
-                    
+          type: boolean
+
     Notes:
       type: array
       items:
@@ -294,19 +291,12 @@ components:
         - text
         - isMandatory
       properties:
-        text: 
+        text:
            $ref: '#/components/schemas/StringByLanguage'
         isMandatory:
           type: boolean
-          
+
     StringByLanguage:
       type: object
       additionalProperties:
-        type: string 
-  
-                
-
-
-
-
-
+        type: string
