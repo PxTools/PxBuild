@@ -8,8 +8,8 @@
     "statisticsId": "1nn",
     "dataFile": "thedata_102.csv",
     "baseTitle": {
-      "no": "Testkube 102",
-      "en": "Test cube 102"
+      "no": "Testkube 00102. missing row and value with 1 symbol_column",
+      "en": "Test cube 00102. missing row and value with 1 symbol_column"
     },
     "searchKeywords": {
       "no": [

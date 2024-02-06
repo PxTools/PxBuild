@@ -6,6 +6,7 @@ LANGUAGE="no";
 LANGUAGES="no","en";
 NEXT-UPDATE="20230913 08:00";
 TABLEID="00002";
+SYNONYMS="ord","til","søk","Words","for","search";
 DECIMALS=2;
 SHOWDECIMALS=0;
 MATRIX="tab_00002";

@@ -8,8 +8,8 @@
     "statisticsId": "1nn",
     "dataFile": "thedata_104.csv",
     "baseTitle": {
-      "no": "Testkube 104",
-      "en": "Test cube 104"
+      "no": "Testkube 00104. As 00103 but shuffled csv rows and cols",
+      "en": "Test cube 00104. As 00103 but shuffled csv rows and cols"
     },
     "searchKeywords": {
       "no": [

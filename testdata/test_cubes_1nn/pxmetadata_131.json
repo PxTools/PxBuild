@@ -8,8 +8,8 @@
     "statisticsId": "1nn",
     "dataFile": "thedata_131.parquet",
     "baseTitle": {
-      "no": "Testkube 131",
-      "en": "Test cube 131"
+      "no": "Testkube 00131, as 00103 but testing stupid columnnames in parquet",
+      "en": "Test cube 00131, as 00103 but testing stupid columnnames in parquet"
     },
     "searchKeywords": {
       "no": [
