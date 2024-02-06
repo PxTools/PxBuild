@@ -259,7 +259,7 @@ components:
         - attachment
         - text
         - isMandatory
-      description: "Note on a cell/subcube "
+      description: "Note on a cell/subcube"
       properties:
         attachment:
           type: array

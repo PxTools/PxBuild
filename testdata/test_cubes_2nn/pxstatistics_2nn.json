@@ -4,10 +4,10 @@
   "metaId":["urn:ssb:metaId_in_statistics"],
   "subjectCode":"uh",
   "subjectText":{"no":"Utenriksøkonomi","en":"External economy"},
-  "upcomingReleases": ["2024-03-06 08:00:00.0",
-                       "2024-06-13 08:00:00.0",
-                       "2024-09-20 08:00:00.0",
-                       "2024-12-22 18:00:00.0"
+  "upcomingReleases": ["20240306 08:00",
+                       "20240613 08:00",
+                       "20240920 08:00",
+                       "20241222 18:00"
 						],
   "contacts":[
   {
