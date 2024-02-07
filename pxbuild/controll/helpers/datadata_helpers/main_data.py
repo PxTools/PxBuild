@@ -1,10 +1,7 @@
-from datetime import datetime
 import time
 import pandas as pd
 import numpy as np
-from typing import List, Dict
-
-from ..small_static_functions import Commons
+from typing import Dict
 
 from pxbuild.models.input.pydantic_pxmetadata import PxMetadata
 from pxbuild.models.input.pydantic_pxbuildconfig import PxbuildConfig
@@ -100,7 +97,8 @@ class MapData:
         merged_df = pd.merge(matrix_df, df, on="out_index", how="left")
 
         # Fill missing values with "MISSING"
-        merged_df["out_value"].fillna(missing_row_symbol, inplace=True)
+        merged_df["out_value"] = merged_df["out_value"].fillna(missing_row_symbol)
+
         return merged_df
 
     def add_out_value(self, missing_cell_symbol: str, df):

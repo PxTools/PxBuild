@@ -12,8 +12,6 @@ from pxbuild.operations_on_model.output.refine.trickle_measurement_to_contentsva
     trickle_measurement_to_contentsvalues,
 )
 
-import pytest
-
 
 def test_valdidate_ok() -> None:
     big_ok_file = Loader("testdata/statfin_khi_pxt_11xm_full.px")

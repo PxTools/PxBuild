@@ -21,7 +21,7 @@ class Datadatasource:
         else:
             raise Exception("Sorry, not implemented yet. Files must end with .parquet or .csv")
 
-        self._raw_df = self._my_datasource.GetRawPandas()
+        self._raw_df = self._my_datasource.get_raw_pandas()
 
         self._validate_pandas()
 
@@ -111,7 +111,7 @@ class Datadatasource:
         #  add missing SYMBOL_{code}
         #  it is when we do pd.wide_to_long, this strange mix of column names and code is needed: The code in the cell is the columnnane minus "VALUE"
 
-        raw_data: pd.DataFrame = self._my_datasource.GetRawPandas()
+        raw_data: pd.DataFrame = self._my_datasource.get_raw_pandas()
         print("raw_data.columns:", raw_data.columns)
 
         measurement_codes = list(measurement_codeBycolumn_name.values())

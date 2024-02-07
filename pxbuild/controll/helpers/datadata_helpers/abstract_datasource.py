@@ -1,4 +1,3 @@
-import pyarrow.parquet as pq
 import pandas as pd
 from abc import ABC, abstractmethod
 
@@ -8,5 +7,5 @@ from abc import ABC, abstractmethod
 
 class AbstractDatasource(ABC):
     @abstractmethod
-    def GetRawPandas(self) -> pd.DataFrame:
+    def get_raw_pandas(self) -> pd.DataFrame:
         pass

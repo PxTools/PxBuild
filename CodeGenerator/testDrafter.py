@@ -82,6 +82,8 @@ def test{my_class}_hack_multi_duplicate_set_raises():
 """
 
 ######################################################################################
+
+
 def get_keypart(subkeys: str) -> str:
     my_out = '"no"'
     subpart = get_keypart_no_lang(subkeys)
@@ -273,35 +275,35 @@ for kw in my_spec.data:
     if not kw.has_lang:
         if not kw.subkeys_raw:
             if kw.px_valuetype in ["_PxString"]:
-                with open(dir_string + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n") as classPy:
-                    test_scalar_string_writer(kw, classPy)
+                with open(dir_string + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n") as class_py:
+                    test_scalar_string_writer(kw, class_py)
 
             elif kw.px_valuetype == "_PxBool":
-                with open(dir_string + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n") as classPy:
-                    test_scalar_bool_writer(kw, classPy)
+                with open(dir_string + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n") as class_py:
+                    test_scalar_bool_writer(kw, class_py)
             elif kw.px_valuetype == "_PxInt":
-                with open(dir_string + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n") as classPy:
-                    test_scalar_int_writer(kw, classPy)
+                with open(dir_string + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n") as class_py:
+                    test_scalar_int_writer(kw, class_py)
             elif kw.px_valuetype == "_PxStringList":
-                with open(dir_string + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n") as classPy:
-                    test_scalar_stringlist_writer(kw, classPy)
+                with open(dir_string + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n") as class_py:
+                    test_scalar_stringlist_writer(kw, class_py)
             else:
                 print(f"miss {kw.keyword}")
         else:
             print(f"subkeys so miss {kw.keyword}")
     else:
         if kw.px_valuetype in ["_PxString"]:
-            with open(dir_string + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n") as classPy:
-                test_lang_string_writer(kw, classPy)
+            with open(dir_string + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n") as class_py:
+                test_lang_string_writer(kw, class_py)
         elif kw.px_valuetype == "_PxBool":
-            with open(dir_string + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n") as classPy:
-                test_lang_bool_writer(kw, classPy)
+            with open(dir_string + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n") as class_py:
+                test_lang_bool_writer(kw, class_py)
         elif kw.px_valuetype == "_PxInt":
-            with open(dir_string + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n") as classPy:
-                test_with_keypart_int_writer(kw, classPy)
+            with open(dir_string + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n") as class_py:
+                test_with_keypart_int_writer(kw, class_py)
         elif kw.px_valuetype == "_PxStringList":
-            with open(dir_string + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n") as classPy:
-                test_lang_stringlist_writer(kw, classPy)
+            with open(dir_string + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n") as class_py:
+                test_lang_stringlist_writer(kw, class_py)
 
 
 print("Done")
