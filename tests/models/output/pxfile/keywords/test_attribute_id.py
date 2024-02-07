@@ -13,5 +13,5 @@ def test_attributeid_set_valid():
 def test_attributeid_duplicate_set_raises():
     obj = _AttributeId()
     obj.set(["a string"])
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(["a string"])

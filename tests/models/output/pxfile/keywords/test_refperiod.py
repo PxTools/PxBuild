@@ -29,5 +29,5 @@ def test_refperiod_reset_language():
 def test_refperiod_duplicate_set_raises():
     obj = _Refperiod()
     obj.set("a string", "persons", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string", "persons", "no")

@@ -13,5 +13,5 @@ def test_directorypath_set_valid():
 def test_directorypath_duplicate_set_raises():
     obj = _DirectoryPath()
     obj.set("a string")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string")

@@ -29,5 +29,5 @@ def test_cfprices_reset_language():
 def test_cfprices_duplicate_set_raises():
     obj = _Cfprices()
     obj.set("F", "persons", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("F", "persons", "no")

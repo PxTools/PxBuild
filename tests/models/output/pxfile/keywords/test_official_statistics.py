@@ -13,5 +13,5 @@ def test_officialstatistics_set_valid():
 def test_officialstatistics_duplicate_set_raises():
     obj = _OfficialStatistics()
     obj.set(True)
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(True)

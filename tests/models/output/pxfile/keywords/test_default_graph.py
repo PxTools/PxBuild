@@ -13,5 +13,5 @@ def test_defaultgraph_set_valid():
 def test_defaultgraph_duplicate_set_raises():
     obj = _DefaultGraph()
     obj.set(1)
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(1)

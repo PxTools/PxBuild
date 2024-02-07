@@ -29,5 +29,5 @@ def test_metaid_reset_language():
 def test_metaid_duplicate_set_raises():
     obj = _MetaId()
     obj.set("a string", "region", "oslo", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string", "region", "oslo", "no")

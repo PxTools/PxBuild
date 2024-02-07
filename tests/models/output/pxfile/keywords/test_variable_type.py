@@ -29,5 +29,5 @@ def test_variabletype_reset_language():
 def test_variabletype_duplicate_set_raises():
     obj = _VariableType()
     obj.set("a string", "region", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string", "region", "no")

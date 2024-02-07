@@ -29,5 +29,5 @@ def test_keys_reset_language():
 def test_keys_duplicate_set_raises():
     obj = _Keys()
     obj.set("CODES", "region", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("CODES", "region", "no")

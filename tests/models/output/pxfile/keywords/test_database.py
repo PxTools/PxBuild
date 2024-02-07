@@ -31,5 +31,5 @@ def test_database_reset_language():
 def test_database_duplicate_set_raises():
     obj = _Database()
     obj.set("a string", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string", "no")

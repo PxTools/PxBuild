@@ -12,8 +12,8 @@ def test_precision_set_valid():
 
 def test_precision_set_invalid_raises():
     obj = _Precision()
-    with pytest.raises(Exception):
-        obj.set(666)
+    with pytest.raises(ValueError):
+        obj.set(667, "region", "oslo", "no")
 
 
 def test_precision_used_languages():
@@ -35,5 +35,5 @@ def test_precision_reset_language():
 def test_precision_duplicate_set_raises():
     obj = _Precision()
     obj.set(1, "region", "oslo", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(1, "region", "oslo", "no")

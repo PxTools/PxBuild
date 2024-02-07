@@ -31,5 +31,5 @@ def test_heading_reset_language():
 def test_heading_duplicate_set_raises():
     obj = _Heading()
     obj.set(["a string"], "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(["a string"], "no")

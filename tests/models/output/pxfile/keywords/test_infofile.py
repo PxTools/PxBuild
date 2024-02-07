@@ -31,5 +31,5 @@ def test_infofile_reset_language():
 def test_infofile_duplicate_set_raises():
     obj = _Infofile()
     obj.set("a string", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string", "no")

@@ -31,5 +31,5 @@ def test_datanotesum_reset_language():
 def test_datanotesum_duplicate_set_raises():
     obj = _Datanotesum()
     obj.set("a string", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string", "no")

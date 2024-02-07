@@ -31,5 +31,5 @@ def test_contvariable_reset_language():
 def test_contvariable_duplicate_set_raises():
     obj = _Contvariable()
     obj.set("a string", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string", "no")

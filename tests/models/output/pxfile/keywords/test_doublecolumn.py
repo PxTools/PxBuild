@@ -29,5 +29,5 @@ def test_doublecolumn_reset_language():
 def test_doublecolumn_duplicate_set_raises():
     obj = _Doublecolumn()
     obj.set(True, "region", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(True, "region", "no")

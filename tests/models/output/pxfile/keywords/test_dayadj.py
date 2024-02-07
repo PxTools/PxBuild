@@ -29,5 +29,5 @@ def test_dayadj_reset_language():
 def test_dayadj_duplicate_set_raises():
     obj = _Dayadj()
     obj.set(True, "persons", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(True, "persons", "no")

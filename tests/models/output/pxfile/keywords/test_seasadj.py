@@ -29,5 +29,5 @@ def test_seasadj_reset_language():
 def test_seasadj_duplicate_set_raises():
     obj = _Seasadj()
     obj.set(True, "persons", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(True, "persons", "no")

@@ -31,5 +31,5 @@ def test_title_reset_language():
 def test_title_duplicate_set_raises():
     obj = _Title()
     obj.set("a string", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string", "no")

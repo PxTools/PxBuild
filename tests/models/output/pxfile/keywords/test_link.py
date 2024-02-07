@@ -31,5 +31,5 @@ def test_link_reset_language():
 def test_link_duplicate_set_raises():
     obj = _Link()
     obj.set("a string", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string", "no")

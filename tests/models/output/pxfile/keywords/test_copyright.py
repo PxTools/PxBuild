@@ -13,5 +13,5 @@ def test_copyright_set_valid():
 def test_copyright_duplicate_set_raises():
     obj = _Copyright()
     obj.set(True)
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(True)

@@ -29,5 +29,5 @@ def test_units_reset_language():
 def test_units_duplicate_set_raises():
     obj = _Units()
     obj.set("a string", "persons", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string", "persons", "no")

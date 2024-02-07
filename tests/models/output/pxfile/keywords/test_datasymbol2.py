@@ -31,5 +31,5 @@ def test_datasymbol2_reset_language():
 def test_datasymbol2_duplicate_set_raises():
     obj = _Datasymbol2()
     obj.set("a string", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string", "no")

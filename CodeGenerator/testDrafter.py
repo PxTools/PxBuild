@@ -44,14 +44,14 @@ def test{my_class_lower}_reset_language():
 set_invalid_fstring = """
 def test{my_class_lower}_set_invalid_raises():
     obj = {my_class}()
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
        obj.set({bad_value})
 """
 
 set_invalid_with_keypart_fstring = """
 def test{my_class_lower}_set_invalid_raises():
     obj = {my_class}()
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
        obj.set({bad_value},{keypart})
 """
 
@@ -59,7 +59,7 @@ duplicate_set_fstring = """
 def test{my_class_lower}_duplicate_set_raises():
     obj = {my_class}()
     obj.set({good_value})
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set({good_value})
 """
 
@@ -67,7 +67,7 @@ duplicate_set_with_keypart_fstring = """
 def test{my_class_lower}_duplicate_set_raises():
     obj = {my_class}()
     obj.set({good_value},{keypart})
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set({good_value},{keypart})
 """
 
@@ -77,7 +77,7 @@ def test{my_class_lower}_hack_multi_duplicate_set_raises():
     obj.set({good_value},{keypart})
     #reseting counter to create error
     obj.occurence_counter=0
-    with pytest.raises(Exception) as err_mess:
+    with pytest.raises(ValueError) as err_mess:
         obj.set({good_value},{keypart})
     assert str(err_mess.value).startswith("{kw.keyword}:")
 """
@@ -246,8 +246,8 @@ def test_with_keypart_int_writer(kw, filehandle) -> None:
     filehandle.write(intro_fstring.format(**locals()))
     filehandle.write(set_valid_with_keypart_fstring.format(**locals()))
     if "in_range" in "".join(kw.linevalidate):
-        bad_value = 666
-        filehandle.write(set_invalid_fstring.format(**locals()))
+        bad_value = 667
+        filehandle.write(set_invalid_with_keypart_fstring.format(**locals()))
 
     filehandle.write(language_management_with_keypart_fstring.format(**locals()))
 

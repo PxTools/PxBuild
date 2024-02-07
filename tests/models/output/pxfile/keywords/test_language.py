@@ -12,12 +12,12 @@ def test_language_set_valid():
 
 def test_language_set_invalid_raises():
     obj = _Language()
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("bad_string")
 
 
 def test_language_duplicate_set_raises():
     obj = _Language()
     obj.set("en")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("en")

@@ -13,5 +13,5 @@ def test_decimals_set_valid():
 def test_decimals_duplicate_set_raises():
     obj = _Decimals()
     obj.set(1)
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(1)

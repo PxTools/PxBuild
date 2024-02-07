@@ -13,5 +13,5 @@ def test_creationdate_set_valid():
 def test_creationdate_duplicate_set_raises():
     obj = _CreationDate()
     obj.set("a string")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string")

@@ -29,5 +29,5 @@ def test_contact_reset_language():
 def test_contact_duplicate_set_raises():
     obj = _Contact()
     obj.set("a string", "persons", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string", "persons", "no")

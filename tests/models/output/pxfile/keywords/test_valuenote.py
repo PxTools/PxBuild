@@ -31,6 +31,6 @@ def test_valuenote_hack_multi_duplicate_set_raises():
     obj.set("a string", "region", "oslo", "no")
     # reseting counter to create error
     obj.occurence_counter = 0
-    with pytest.raises(Exception) as err_mess:
+    with pytest.raises(ValueError) as err_mess:
         obj.set("a string", "region", "oslo", "no")
     assert str(err_mess.value).startswith("VALUENOTE:")

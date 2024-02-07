@@ -29,5 +29,5 @@ def test_stockfa_reset_language():
 def test_stockfa_duplicate_set_raises():
     obj = _Stockfa()
     obj.set("F", "persons", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("F", "persons", "no")

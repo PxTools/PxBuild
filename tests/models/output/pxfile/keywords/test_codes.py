@@ -29,5 +29,5 @@ def test_codes_reset_language():
 def test_codes_duplicate_set_raises():
     obj = _Codes()
     obj.set(["a string"], "region", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(["a string"], "region", "no")

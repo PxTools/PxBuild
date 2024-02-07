@@ -29,5 +29,5 @@ def test_hierarchynames_reset_language():
 def test_hierarchynames_duplicate_set_raises():
     obj = _Hierarchynames()
     obj.set(["a string"], "region", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(["a string"], "region", "no")

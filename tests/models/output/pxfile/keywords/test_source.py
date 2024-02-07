@@ -31,5 +31,5 @@ def test_source_reset_language():
 def test_source_duplicate_set_raises():
     obj = _Source()
     obj.set("a string", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string", "no")

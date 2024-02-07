@@ -13,5 +13,5 @@ def test_subjectcode_set_valid():
 def test_subjectcode_duplicate_set_raises():
     obj = _SubjectCode()
     obj.set("a string")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string")

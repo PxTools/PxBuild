@@ -29,5 +29,5 @@ def test_map_reset_language():
 def test_map_duplicate_set_raises():
     obj = _Map()
     obj.set("a string", "region", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string", "region", "no")

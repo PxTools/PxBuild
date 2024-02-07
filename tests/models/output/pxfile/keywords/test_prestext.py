@@ -12,8 +12,8 @@ def test_prestext_set_valid():
 
 def test_prestext_set_invalid_raises():
     obj = _Prestext()
-    with pytest.raises(Exception):
-        obj.set(666)
+    with pytest.raises(ValueError):
+        obj.set(667, "region", "no")
 
 
 def test_prestext_used_languages():
@@ -35,5 +35,5 @@ def test_prestext_reset_language():
 def test_prestext_duplicate_set_raises():
     obj = _Prestext()
     obj.set(1, "region", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(1, "region", "no")

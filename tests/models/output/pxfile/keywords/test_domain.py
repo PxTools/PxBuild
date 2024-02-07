@@ -29,5 +29,5 @@ def test_domain_reset_language():
 def test_domain_duplicate_set_raises():
     obj = _Domain()
     obj.set("a string", "region", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string", "region", "no")

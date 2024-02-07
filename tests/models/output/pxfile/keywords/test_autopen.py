@@ -13,5 +13,5 @@ def test_autopen_set_valid():
 def test_autopen_duplicate_set_raises():
     obj = _Autopen()
     obj.set(True)
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(True)

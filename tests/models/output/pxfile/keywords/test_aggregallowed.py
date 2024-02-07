@@ -13,5 +13,5 @@ def test_aggregallowed_set_valid():
 def test_aggregallowed_duplicate_set_raises():
     obj = _Aggregallowed()
     obj.set(True)
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(True)

@@ -17,7 +17,7 @@ class _Datanotesum(_PxValueByKey):
         self._seen_languages = {}
 
     def set(self, datanotesum: str, lang: str = None) -> None:
-        """"""
+        """ """
         LineValidator.is_not_None(self._keyword, datanotesum)
         LineValidator.is_string(self._keyword, datanotesum)
         my_value = _PxString(datanotesum)
