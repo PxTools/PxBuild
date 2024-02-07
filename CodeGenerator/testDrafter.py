@@ -13,26 +13,29 @@ def test{my_class_lower}_set_valid():
     obj.set({good_value})
     assert obj.has_value()
     assert obj.get_value() == {good_value}
+
 """
 
 set_valid_with_keypart_fstring = """
 def test{my_class_lower}_set_valid():
     obj = {my_class}()
     assert not obj.has_value({keypart})
-    obj.set({good_value},{keypart})
+    obj.set({good_value}, {keypart})
     assert obj.has_value({keypart})
     assert obj.get_value({keypart}) == {good_value}
+
 """
 
 language_management_with_keypart_fstring = """
 def test{my_class_lower}_used_languages():
     obj = {my_class}()
-    obj.set({good_value},{keypart})
+    obj.set({good_value}, {keypart})
     assert "no" in obj.get_used_languages()
+
 
 def test{my_class_lower}_reset_language():
     obj = {my_class}()
-    obj.set({good_value},{keypart_no_lang})
+    obj.set({good_value}, {keypart_no_lang})
     assert None in obj.get_used_languages()
     obj.reset_language_none_to(None)
     obj.reset_language_none_to("no")
@@ -52,7 +55,7 @@ set_invalid_with_keypart_fstring = """
 def test{my_class_lower}_set_invalid_raises():
     obj = {my_class}()
     with pytest.raises(ValueError):
-       obj.set({bad_value},{keypart})
+       obj.set({bad_value}, {keypart})
 """
 
 duplicate_set_fstring = """
@@ -66,19 +69,19 @@ def test{my_class_lower}_duplicate_set_raises():
 duplicate_set_with_keypart_fstring = """
 def test{my_class_lower}_duplicate_set_raises():
     obj = {my_class}()
-    obj.set({good_value},{keypart})
+    obj.set({good_value}, {keypart})
     with pytest.raises(ValueError):
-        obj.set({good_value},{keypart})
+        obj.set({good_value}, {keypart})
 """
 
 hack_forcing_error_multi_with_keypart_fstring = """
 def test{my_class_lower}_hack_multi_duplicate_set_raises():
     obj = {my_class}()
-    obj.set({good_value},{keypart})
+    obj.set({good_value}, {keypart})
     #reseting counter to create error
     obj.occurence_counter=0
     with pytest.raises(ValueError) as err_mess:
-        obj.set({good_value},{keypart})
+        obj.set({good_value}, {keypart})
     assert str(err_mess.value).startswith("{kw.keyword}:")
 """
 
@@ -90,7 +93,7 @@ def get_keypart(subkeys: str) -> str:
     my_out = '"no"'
     subpart = get_keypart_no_lang(subkeys)
     if subpart:
-        my_out = subpart + "," + my_out
+        my_out = subpart + ", " + my_out
     return my_out
 
 
@@ -101,9 +104,9 @@ def get_keypart_no_lang(subkeys: str) -> str:
     elif subkeys in ["content:str=None"]:
         my_out = '"persons"'
     elif subkeys in ["variable:str,value:str", "variable:str, value:str", "variable:str=None, value:str=None"]:
-        my_out = '"region","oslo"'
+        my_out = '"region", "oslo"'
     elif subkeys in ["values:list[str]", "values:list[str]=None"]:
-        my_out = '["male","oslo"]'
+        my_out = '["male", "oslo"]'
     return my_out
 
 
