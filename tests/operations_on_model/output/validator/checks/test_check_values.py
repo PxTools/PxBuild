@@ -1,8 +1,6 @@
 from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 from pxbuild.operations_on_model.output.validator.checks.check_values import check_values
 
-import pytest
-
 
 def test_check_values_fails():
     pxfile = PXFileModel()

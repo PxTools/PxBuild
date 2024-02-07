@@ -2,7 +2,6 @@ from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 from pxbuild.operations_on_model.output.validator.checks.check_contentsvariable_is_present import (
     check_contentsvariable_is_present,
 )
-import pytest
 
 
 def test_contentsvariable_is_ok_both_languages_lang():
@@ -15,7 +14,7 @@ def test_contentsvariable_is_ok_both_languages_lang():
     pxfile.heading.set(["var_no_4", "statvar", "var_no_5"], "no")
     pxfile.heading.set(["var_en_4", "contents", "var_en_5"], "en")
     val_rep = check_contentsvariable_is_present(pxfile)
-    assert val_rep.is_valid == True
+    assert val_rep.is_valid
 
 
 def test_contentsvariable_is_missing_first_lang():
@@ -27,7 +26,7 @@ def test_contentsvariable_is_missing_first_lang():
     pxfile.heading.set(["var_no_4", "statvar", "var_no_5"], "no")
     pxfile.heading.set(["var_en_4", "contents", "var_en_5"], "en")
     val_rep = check_contentsvariable_is_present(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert (
         val_rep.error_msg
         == "Value for Contentsvariable does not exist for for language code: no. It must be specified."
@@ -43,7 +42,7 @@ def test_contentsvariable_is_missing_second_lang():
     pxfile.heading.set(["var_no_4", "statvar", "var_no_5"], "no")
     pxfile.heading.set(["var_en_4", "contents", "var_en_5"], "en")
     val_rep = check_contentsvariable_is_present(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert (
         val_rep.error_msg
         == "Value for Contentsvariable does not exist for for language code: en. It must be specified."
@@ -60,7 +59,7 @@ def test_contentsvariable_position_doent_match():
     pxfile.heading.set(["statvar", "var_no_4", "var_no_5"], "no")
     pxfile.heading.set(["var_en_4", "contents", "var_en_5"], "en")
     val_rep = check_contentsvariable_is_present(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert (
         val_rep.error_msg
         == "Position of contentsvariable does not matchs in HEADING or STUB for language code: en and no."
