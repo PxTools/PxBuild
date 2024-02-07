@@ -65,7 +65,7 @@ components:
               description: "Not in use. Must mean the same in all languages. example: Quarterly"
             metaId:
                 type: array
-                description: "Will be added to METAID on table level. 'KORTNAVN:kpi' lead to https://www.ssb.no/en/priser-og-prisindekser/konsumpriser/statistikk/konsumprisindeksen#om-statistikken "
+                description: "Will be added to METAID on table level. 'KORTNAVN:kpi' lead to https://www.ssb.no/en/priser-og-prisindekser/konsumpriser/statistikk/konsumprisindeksen#om-statistikken"
                 externalDocs:
                    description: This does not appear in pydantic
                    url: https://swagger.io
@@ -80,6 +80,10 @@ components:
               additionalProperties:
                 type: string
               description: "example en:Population"
+            upcomingReleasesDateformat:
+                type: string
+                description: "Format for datetime.strptime reading items from upcomingReleases. Default is the pxweb standard which is CCYYMMDD hh:mm"
+                default: "%Y%m%d %H:%M"
             upcomingReleases:
               type: array
               items:

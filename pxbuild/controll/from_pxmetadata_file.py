@@ -334,7 +334,7 @@ class LoadFromPxmetadata:
 
         last_updated_date = in_model.upcoming_releases[0]
 
-        formatted_string = convert_to_pxdate_string(last_updated_date, f"%Y-%m-%d %H:%M:%S.%f")
+        formatted_string = convert_to_pxdate_string(last_updated_date, self._pxstatistics.upcoming_releases_dateformat)
 
         return formatted_string
 
@@ -348,7 +348,7 @@ class LoadFromPxmetadata:
 
         last_updated_date = in_model.upcoming_releases[1]
 
-        formatted_string = convert_to_pxdate_string(last_updated_date, f"%Y-%m-%d %H:%M:%S.%f")
+        formatted_string = convert_to_pxdate_string(last_updated_date, self._pxstatistics.upcoming_releases_dateformat)
 
         return formatted_string
 

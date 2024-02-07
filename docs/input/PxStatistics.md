@@ -24,6 +24,10 @@
 
     Description: example en:Population
 
+ - upcomingReleasesDateformat type: string default: %Y%m%d %H:%M
+
+    Description: Format for datetime.strptime reading items from upcomingReleases. Default is the pxweb standard which is CCYYMMDD hh:mm
+
  - upcomingReleases type: array
 
     Description: List of dates. The first will be used for LAST-UPDATE, the next will be used for NEXT-UPDATE. example format: 2024-02-05 08:00:00.0 (to do)
@@ -49,3 +53,4 @@
          - raw ND
 
             Description: If this has value it replaces the 3 other fields, so they are ignored. Anything, will be put under contact as is.
+
