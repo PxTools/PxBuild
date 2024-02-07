@@ -22,7 +22,7 @@ def test_cellnotex_reset_language():
     assert None in obj.get_used_languages()
     obj.reset_language_none_to(None)
     obj.reset_language_none_to("no")
-    assert not None in obj.get_used_languages()
+    assert None not in obj.get_used_languages()
     assert "no" in obj.get_used_languages()
 
 
