@@ -4,6 +4,7 @@
   "metaId":["KORTNAVN:laks"],
   "subjectCode":"uh",
   "subjectText":{"no":"Utenriksøkonomi","en":"External economy"},
+  "upcomingReleasesDateformat": "%Y-%m-%d %H:%M:%S.%f",
   "upcomingReleases": ["2023-09-06 08:00:00.0",
                        "2023-09-13 08:00:00.0",
                        "2023-09-20 08:00:00.0",

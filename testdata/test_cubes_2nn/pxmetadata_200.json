@@ -8,8 +8,8 @@
     "statisticsId": "2nn",
     "dataFile": "thedata_200.csv",
     "baseTitle": {
-      "no": "Testkube 200",
-      "en": "Test cube 200"
+      "no": "Testkube 00200, many notes and metaid",
+      "en": "Test cube 00200, many notes and metaid"
     },
     "searchKeywords": {
       "no": [
@@ -41,7 +41,7 @@
     ],
     "cellNotes":[
 	   {
-		  "attachment": 
+		  "attachment":
 		  [ { "dimensionCode": "Time" , "valueCode": "2000" }
 		  , { "dimensionCode": "ContentsCode" , "valueCode": "Measure2" }
 		  , { "dimensionCode": "coded_dim1" , "valueCode": "01" }
@@ -55,12 +55,12 @@
            "isMandatory": false
         },
 	   {
-		  "attachment": 
+		  "attachment":
 		  [ { "dimensionCode": "Time" , "valueCode": "2000" }
 		  , { "dimensionCode": "ContentsCode" , "valueCode": "Measure1" }
 		  , { "dimensionCode": "coded_dim2" , "valueCode": "02" }
 		  , { "dimensionCode": "coded_dim3" , "valueCode": "03" }
-		  ], 
+		  ],
           "text": {
             "no": "En cellnote til. På 2000, Measure1, dim2:02 og dim3:03. Mandatory",
             "en": "Another cellnote. On 2000, Measure1, dim2:02 and dim3:03. Mandatory."
@@ -206,7 +206,7 @@
     "metaId": ["urn:ssb:metaId_on_table"],
     "officialStatistics": true,
     "copyright":true,
-    "firstPublished": "20001224 17:00",	
+    "firstPublished": "20001224 17:00",
     "attributes": null
   }
 }

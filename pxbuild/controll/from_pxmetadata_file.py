@@ -330,7 +330,7 @@ class LoadFromPxmetadata:
 
         last_updated_date = in_model.upcoming_releases[0]
 
-        formatted_string = convert_to_pxdate_string(last_updated_date, f"%Y-%m-%d %H:%M:%S.%f")
+        formatted_string = convert_to_pxdate_string(last_updated_date, self._pxstatistics.upcoming_releases_dateformat)
 
         return formatted_string
 
@@ -344,7 +344,7 @@ class LoadFromPxmetadata:
 
         last_updated_date = in_model.upcoming_releases[1]
 
-        formatted_string = convert_to_pxdate_string(last_updated_date, f"%Y-%m-%d %H:%M:%S.%f")
+        formatted_string = convert_to_pxdate_string(last_updated_date, self._pxstatistics.upcoming_releases_dateformat)
 
         return formatted_string
 
@@ -372,6 +372,16 @@ class LoadFromPxmetadata:
                 out_model.copyright.set(in_model.dataset.copyright)
             if in_model.dataset.first_published:
                 out_model.first_published.set(in_model.dataset.first_published)
+
+            # The SYNONYMS keyword is language independent. So, all langs go into one for multilingual_files.
+            temp_tags: List[str] = []
+            if self._config.admin.build_multilingual_files:
+                for language in self._config.admin.valid_languages:
+                    temp_tags += in_model.dataset.search_keywords[language]
+            else:
+                temp_tags = in_model.dataset.search_keywords[lang]
+            if temp_tags:
+                out_model.synonyms.set(" ".join(temp_tags))
 
         out_model.contents.set(in_model.dataset.table_id + ": " + in_model.dataset.base_title[lang] + ",", lang)
         if in_model.dataset.notes:

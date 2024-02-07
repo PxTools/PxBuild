@@ -17,7 +17,7 @@ class _Variablecode(_PxValueByKey):
         self._seen_languages = {}
 
     def set(self, variablecode: str, variable: str, lang: str = None) -> None:
-        """ """
+        """"""
         LineValidator.is_not_None(self._keyword, variablecode)
         LineValidator.is_string(self._keyword, variablecode)
         my_value = _PxString(variablecode)
