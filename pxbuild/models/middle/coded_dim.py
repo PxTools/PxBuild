@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import List
 from .abstract_dim import AbstractDim
 from ..input.pydantic_pxmetadata import CodedDimension
 from ..input.pydantic_pxcodes import Grouping
@@ -10,8 +10,8 @@ from pxbuild.models.input.helper_pxcodes import HelperPxCodes
 
 class CodedDim(AbstractDim):
     def __init__(self, in_cd: CodedDimension, in_helper_pxcodes: HelperPxCodes, in_loaded_jsons: LoadedJsons) -> None:
-        meta = in_loaded_jsons.get_pxmetadata().dataset
-        config = in_loaded_jsons.get_config()
+        # meta = in_loaded_jsons.get_pxmetadata().dataset
+        # config = in_loaded_jsons.get_config()
 
         n_code = in_cd.code if in_cd.code is not None else in_cd.column_name
         super().__init__(n_code, in_cd.label)

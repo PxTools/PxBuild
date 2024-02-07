@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._link import _Link
 
 
-def test_Link_set_valid():
+def test_link_set_valid():
     obj = _Link()
     assert not obj.has_value("no")
     obj.set("a string", "no")
@@ -10,13 +10,13 @@ def test_Link_set_valid():
     assert obj.get_value("no") == "a string"
 
 
-def test_Link_used_languages():
+def test_link_used_languages():
     obj = _Link()
     obj.set("a string", "no")
     assert "no" in obj.get_used_languages()
 
 
-def test_Link_reset_language():
+def test_link_reset_language():
     obj = _Link()
     obj.set(
         "a string",
@@ -28,7 +28,7 @@ def test_Link_reset_language():
     assert "no" in obj.get_used_languages()
 
 
-def test_Link_duplicate_set_raises():
+def test_link_duplicate_set_raises():
     obj = _Link()
     obj.set("a string", "no")
     with pytest.raises(Exception):

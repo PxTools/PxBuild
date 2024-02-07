@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._matrix import _Matrix
 
 
-def test_Matrix_set_valid():
+def test_matrix_set_valid():
     obj = _Matrix()
     assert not obj.has_value()
     obj.set("a string")
@@ -10,7 +10,7 @@ def test_Matrix_set_valid():
     assert obj.get_value() == "a string"
 
 
-def test_Matrix_duplicate_set_raises():
+def test_matrix_duplicate_set_raises():
     obj = _Matrix()
     obj.set("a string")
     with pytest.raises(Exception):

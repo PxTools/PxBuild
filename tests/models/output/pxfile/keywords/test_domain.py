@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._domain import _Domain
 
 
-def test_Domain_set_valid():
+def test_domain_set_valid():
     obj = _Domain()
     assert not obj.has_value("region", "no")
     obj.set("a string", "region", "no")
@@ -10,13 +10,13 @@ def test_Domain_set_valid():
     assert obj.get_value("region", "no") == "a string"
 
 
-def test_Domain_used_languages():
+def test_domain_used_languages():
     obj = _Domain()
     obj.set("a string", "region", "no")
     assert "no" in obj.get_used_languages()
 
 
-def test_Domain_reset_language():
+def test_domain_reset_language():
     obj = _Domain()
     obj.set("a string", "region")
     assert None in obj.get_used_languages()
@@ -26,7 +26,7 @@ def test_Domain_reset_language():
     assert "no" in obj.get_used_languages()
 
 
-def test_Domain_duplicate_set_raises():
+def test_domain_duplicate_set_raises():
     obj = _Domain()
     obj.set("a string", "region", "no")
     with pytest.raises(Exception):

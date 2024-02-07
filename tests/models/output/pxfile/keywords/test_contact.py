@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._contact import _Contact
 
 
-def test_Contact_set_valid():
+def test_contact_set_valid():
     obj = _Contact()
     assert not obj.has_value("persons", "no")
     obj.set("a string", "persons", "no")
@@ -10,13 +10,13 @@ def test_Contact_set_valid():
     assert obj.get_value("persons", "no") == "a string"
 
 
-def test_Contact_used_languages():
+def test_contact_used_languages():
     obj = _Contact()
     obj.set("a string", "persons", "no")
     assert "no" in obj.get_used_languages()
 
 
-def test_Contact_reset_language():
+def test_contact_reset_language():
     obj = _Contact()
     obj.set("a string", "persons")
     assert None in obj.get_used_languages()
@@ -26,7 +26,7 @@ def test_Contact_reset_language():
     assert "no" in obj.get_used_languages()
 
 
-def test_Contact_duplicate_set_raises():
+def test_contact_duplicate_set_raises():
     obj = _Contact()
     obj.set("a string", "persons", "no")
     with pytest.raises(Exception):

@@ -5,9 +5,9 @@ from pxbuild.controll.helpers.datadata_helpers.for_get_data import CubemathsHelp
 
 
 class ContDim(AbstractDim):
-    def __init__(self, inLoadedJsons: LoadedJsons) -> None:
-        meta = inLoadedJsons.get_pxmetadata().dataset
-        config = inLoadedJsons.get_config()
+    def __init__(self, in_loaded_jsons: LoadedJsons) -> None:
+        meta = in_loaded_jsons.get_pxmetadata().dataset
+        config = in_loaded_jsons.get_config()
         super().__init__(config.contvariable_code, config.contvariable)
 
         if not meta.measurements:

@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._attribute_text import _AttributeText
 
 
-def test_AttributeText_set_valid():
+def test_attributetext_set_valid():
     obj = _AttributeText()
     assert not obj.has_value("no")
     obj.set(["a string"], "no")
@@ -10,13 +10,13 @@ def test_AttributeText_set_valid():
     assert obj.get_value("no") == ["a string"]
 
 
-def test_AttributeText_used_languages():
+def test_attributetext_used_languages():
     obj = _AttributeText()
     obj.set(["a string"], "no")
     assert "no" in obj.get_used_languages()
 
 
-def test_AttributeText_reset_language():
+def test_attributetext_reset_language():
     obj = _AttributeText()
     obj.set(
         ["a string"],
@@ -28,7 +28,7 @@ def test_AttributeText_reset_language():
     assert "no" in obj.get_used_languages()
 
 
-def test_AttributeText_duplicate_set_raises():
+def test_attributetext_duplicate_set_raises():
     obj = _AttributeText()
     obj.set(["a string"], "no")
     with pytest.raises(Exception):

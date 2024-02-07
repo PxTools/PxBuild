@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._subject_area import _SubjectArea
 
 
-def test_SubjectArea_set_valid():
+def test_subjectarea_set_valid():
     obj = _SubjectArea()
     assert not obj.has_value("no")
     obj.set("a string", "no")
@@ -10,13 +10,13 @@ def test_SubjectArea_set_valid():
     assert obj.get_value("no") == "a string"
 
 
-def test_SubjectArea_used_languages():
+def test_subjectarea_used_languages():
     obj = _SubjectArea()
     obj.set("a string", "no")
     assert "no" in obj.get_used_languages()
 
 
-def test_SubjectArea_reset_language():
+def test_subjectarea_reset_language():
     obj = _SubjectArea()
     obj.set(
         "a string",
@@ -28,7 +28,7 @@ def test_SubjectArea_reset_language():
     assert "no" in obj.get_used_languages()
 
 
-def test_SubjectArea_duplicate_set_raises():
+def test_subjectarea_duplicate_set_raises():
     obj = _SubjectArea()
     obj.set("a string", "no")
     with pytest.raises(Exception):

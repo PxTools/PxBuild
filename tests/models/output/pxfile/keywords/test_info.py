@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._info import _Info
 
 
-def test_Info_set_valid():
+def test_info_set_valid():
     obj = _Info()
     assert not obj.has_value("no")
     obj.set("a string", "no")
@@ -10,13 +10,13 @@ def test_Info_set_valid():
     assert obj.get_value("no") == "a string"
 
 
-def test_Info_used_languages():
+def test_info_used_languages():
     obj = _Info()
     obj.set("a string", "no")
     assert "no" in obj.get_used_languages()
 
 
-def test_Info_reset_language():
+def test_info_reset_language():
     obj = _Info()
     obj.set(
         "a string",
@@ -28,7 +28,7 @@ def test_Info_reset_language():
     assert "no" in obj.get_used_languages()
 
 
-def test_Info_duplicate_set_raises():
+def test_info_duplicate_set_raises():
     obj = _Info()
     obj.set("a string", "no")
     with pytest.raises(Exception):

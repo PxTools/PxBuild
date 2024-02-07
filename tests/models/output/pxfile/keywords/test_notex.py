@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._notex import _Notex
 
 
-def test_Notex_set_valid():
+def test_notex_set_valid():
     obj = _Notex()
     assert not obj.has_value("region", "no")
     obj.set("a string", "region", "no")
@@ -10,13 +10,13 @@ def test_Notex_set_valid():
     assert obj.get_value("region", "no") == "a string"
 
 
-def test_Notex_used_languages():
+def test_notex_used_languages():
     obj = _Notex()
     obj.set("a string", "region", "no")
     assert "no" in obj.get_used_languages()
 
 
-def test_Notex_reset_language():
+def test_notex_reset_language():
     obj = _Notex()
     obj.set("a string", "region")
     assert None in obj.get_used_languages()
@@ -26,7 +26,7 @@ def test_Notex_reset_language():
     assert "no" in obj.get_used_languages()
 
 
-def test_Notex_hack_multi_duplicate_set_raises():
+def test_notex_hack_multi_duplicate_set_raises():
     obj = _Notex()
     obj.set("a string", "region", "no")
     # reseting counter to create error

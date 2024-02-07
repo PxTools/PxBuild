@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._cellnotex import _Cellnotex
 
 
-def test_Cellnotex_set_valid():
+def test_cellnotex_set_valid():
     obj = _Cellnotex()
     assert not obj.has_value(["male", "oslo"], "no")
     obj.set("a string", ["male", "oslo"], "no")
@@ -10,13 +10,13 @@ def test_Cellnotex_set_valid():
     assert obj.get_value(["male", "oslo"], "no") == "a string"
 
 
-def test_Cellnotex_used_languages():
+def test_cellnotex_used_languages():
     obj = _Cellnotex()
     obj.set("a string", ["male", "oslo"], "no")
     assert "no" in obj.get_used_languages()
 
 
-def test_Cellnotex_reset_language():
+def test_cellnotex_reset_language():
     obj = _Cellnotex()
     obj.set("a string", ["male", "oslo"])
     assert None in obj.get_used_languages()
@@ -26,7 +26,7 @@ def test_Cellnotex_reset_language():
     assert "no" in obj.get_used_languages()
 
 
-def test_Cellnotex_hack_multi_duplicate_set_raises():
+def test_cellnotex_hack_multi_duplicate_set_raises():
     obj = _Cellnotex()
     obj.set("a string", ["male", "oslo"], "no")
     # reseting counter to create error

@@ -3,10 +3,11 @@ from SpecReader import SpecReader
 intro_fstring = """\
 import pytest
 from pxbuild.models.output.pxfile.keywords.{kw.module_name} import {my_class}
+
 """
 
 set_valid_fstring = """
-def test{my_class}_set_valid():
+def test{my_class_lower}_set_valid():
     obj = {my_class}()
     assert not obj.has_value()
     obj.set({good_value})
@@ -15,7 +16,7 @@ def test{my_class}_set_valid():
 """
 
 set_valid_with_keypart_fstring = """
-def test{my_class}_set_valid():
+def test{my_class_lower}_set_valid():
     obj = {my_class}()
     assert not obj.has_value({keypart})
     obj.set({good_value},{keypart})
@@ -24,12 +25,12 @@ def test{my_class}_set_valid():
 """
 
 language_management_with_keypart_fstring = """
-def test{my_class}_used_languages():
+def test{my_class_lower}_used_languages():
     obj = {my_class}()
     obj.set({good_value},{keypart})
     assert "no" in obj.get_used_languages()
 
-def test{my_class}_reset_language():
+def test{my_class_lower}_reset_language():
     obj = {my_class}()
     obj.set({good_value},{keypart_no_lang})
     assert None in obj.get_used_languages()
@@ -41,21 +42,21 @@ def test{my_class}_reset_language():
 """
 
 set_invalid_fstring = """
-def test{my_class}_set_invalid_raises():
+def test{my_class_lower}_set_invalid_raises():
     obj = {my_class}()
     with pytest.raises(Exception):
        obj.set({bad_value})
 """
 
 set_invalid_with_keypart_fstring = """
-def test{my_class}_set_invalid_raises():
+def test{my_class_lower}_set_invalid_raises():
     obj = {my_class}()
     with pytest.raises(Exception):
        obj.set({bad_value},{keypart})
 """
 
 duplicate_set_fstring = """
-def test{my_class}_duplicate_set_raises():
+def test{my_class_lower}_duplicate_set_raises():
     obj = {my_class}()
     obj.set({good_value})
     with pytest.raises(Exception):
@@ -63,7 +64,7 @@ def test{my_class}_duplicate_set_raises():
 """
 
 duplicate_set_with_keypart_fstring = """
-def test{my_class}_duplicate_set_raises():
+def test{my_class_lower}_duplicate_set_raises():
     obj = {my_class}()
     obj.set({good_value},{keypart})
     with pytest.raises(Exception):
@@ -71,7 +72,7 @@ def test{my_class}_duplicate_set_raises():
 """
 
 hack_forcing_error_multi_with_keypart_fstring = """
-def test{my_class}_hack_multi_duplicate_set_raises():
+def test{my_class_lower}_hack_multi_duplicate_set_raises():
     obj = {my_class}()
     obj.set({good_value},{keypart})
     #reseting counter to create error
@@ -107,7 +108,7 @@ def get_keypart_no_lang(subkeys: str) -> str:
 
 def test_lang_string_writer(kw, filehandle) -> None:
     my_class = kw.classnames["This"]
-
+    my_class_lower = my_class.lower()
     good_value = '"a string"'
     if kw.keyword == "CFPRICES":
         good_value = '"F"'
@@ -132,6 +133,7 @@ def test_lang_string_writer(kw, filehandle) -> None:
 
 def test_lang_stringlist_writer(kw, filehandle) -> None:
     my_class = kw.classnames["This"]
+    my_class_lower = my_class.lower()
 
     good_value = '["a string"]'
 
@@ -154,6 +156,7 @@ def test_lang_stringlist_writer(kw, filehandle) -> None:
 
 def test_scalar_string_writer(kw, filehandle) -> None:
     my_class = kw.classnames["This"]
+    my_class_lower = my_class.lower()
 
     good_value = '"a string"'
     if kw.keyword == "AXIS-VERSION":
@@ -177,6 +180,7 @@ def test_scalar_string_writer(kw, filehandle) -> None:
 
 def test_scalar_stringlist_writer(kw, filehandle) -> None:
     my_class = kw.classnames["This"]
+    my_class_lower = my_class.lower()
 
     good_value = '["a string"]'
     if kw.keyword == "LANGUAGES":
@@ -198,6 +202,7 @@ def test_scalar_stringlist_writer(kw, filehandle) -> None:
 
 def test_scalar_bool_writer(kw, filehandle) -> None:
     my_class = kw.classnames["This"]
+    my_class_lower = my_class.lower()
 
     good_value = True
 
@@ -211,6 +216,7 @@ def test_scalar_bool_writer(kw, filehandle) -> None:
 ####
 def test_lang_bool_writer(kw, filehandle) -> None:
     my_class = kw.classnames["This"]
+    my_class_lower = my_class.lower()
 
     good_value = True
 
@@ -230,6 +236,7 @@ def test_lang_bool_writer(kw, filehandle) -> None:
 
 def test_with_keypart_int_writer(kw, filehandle) -> None:
     my_class = kw.classnames["This"]
+    my_class_lower = my_class.lower()
 
     good_value = 1
     keypart = get_keypart(kw.subkeys_raw.strip())
@@ -249,6 +256,7 @@ def test_with_keypart_int_writer(kw, filehandle) -> None:
 
 def test_scalar_int_writer(kw, filehandle) -> None:
     my_class = kw.classnames["This"]
+    my_class_lower = my_class.lower()
 
     good_value = 1
 
@@ -265,7 +273,7 @@ def test_scalar_int_writer(kw, filehandle) -> None:
 ###################################################################################
 
 my_spec = SpecReader()
-dir_string = "../tests/model/keywords/test"
+dir_string = "../tests/models/output/pxfile/keywords/test"
 # make test_<Keyword classes>.py
 for kw in my_spec.data:
     if kw.keyword in ["DATA", "TIMEVAL", "ATTRIBUTES", "HIERARCHYLEVELSOPEN", "HIERARCHYLEVELS", "HIERARCHIES"]:

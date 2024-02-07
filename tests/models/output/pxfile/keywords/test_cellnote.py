@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._cellnote import _Cellnote
 
 
-def test_Cellnote_set_valid():
+def test_cellnote_set_valid():
     obj = _Cellnote()
     assert not obj.has_value(["male", "oslo"], "no")
     obj.set("a string", ["male", "oslo"], "no")
@@ -10,13 +10,13 @@ def test_Cellnote_set_valid():
     assert obj.get_value(["male", "oslo"], "no") == "a string"
 
 
-def test_Cellnote_used_languages():
+def test_cellnote_used_languages():
     obj = _Cellnote()
     obj.set("a string", ["male", "oslo"], "no")
     assert "no" in obj.get_used_languages()
 
 
-def test_Cellnote_reset_language():
+def test_cellnote_reset_language():
     obj = _Cellnote()
     obj.set("a string", ["male", "oslo"])
     assert None in obj.get_used_languages()
@@ -26,7 +26,7 @@ def test_Cellnote_reset_language():
     assert "no" in obj.get_used_languages()
 
 
-def test_Cellnote_hack_multi_duplicate_set_raises():
+def test_cellnote_hack_multi_duplicate_set_raises():
     obj = _Cellnote()
     obj.set("a string", ["male", "oslo"], "no")
     # reseting counter to create error

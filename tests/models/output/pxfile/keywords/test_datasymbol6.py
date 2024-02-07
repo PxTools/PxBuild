@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._datasymbol6 import _Datasymbol6
 
 
-def test_Datasymbol6_set_valid():
+def test_datasymbol6_set_valid():
     obj = _Datasymbol6()
     assert not obj.has_value("no")
     obj.set("a string", "no")
@@ -10,13 +10,13 @@ def test_Datasymbol6_set_valid():
     assert obj.get_value("no") == "a string"
 
 
-def test_Datasymbol6_used_languages():
+def test_datasymbol6_used_languages():
     obj = _Datasymbol6()
     obj.set("a string", "no")
     assert "no" in obj.get_used_languages()
 
 
-def test_Datasymbol6_reset_language():
+def test_datasymbol6_reset_language():
     obj = _Datasymbol6()
     obj.set(
         "a string",
@@ -28,7 +28,7 @@ def test_Datasymbol6_reset_language():
     assert "no" in obj.get_used_languages()
 
 
-def test_Datasymbol6_duplicate_set_raises():
+def test_datasymbol6_duplicate_set_raises():
     obj = _Datasymbol6()
     obj.set("a string", "no")
     with pytest.raises(Exception):

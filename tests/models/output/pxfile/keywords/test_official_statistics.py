@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._official_statistics import _OfficialStatistics
 
 
-def test_OfficialStatistics_set_valid():
+def test_officialstatistics_set_valid():
     obj = _OfficialStatistics()
     assert not obj.has_value()
     obj.set(True)
@@ -10,7 +10,7 @@ def test_OfficialStatistics_set_valid():
     assert obj.get_value() == True
 
 
-def test_OfficialStatistics_duplicate_set_raises():
+def test_officialstatistics_duplicate_set_raises():
     obj = _OfficialStatistics()
     obj.set(True)
     with pytest.raises(Exception):

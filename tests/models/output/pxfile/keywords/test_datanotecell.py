@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._datanotecell import _Datanotecell
 
 
-def test_Datanotecell_set_valid():
+def test_datanotecell_set_valid():
     obj = _Datanotecell()
     assert not obj.has_value(["male", "oslo"], "no")
     obj.set("a string", ["male", "oslo"], "no")
@@ -10,13 +10,13 @@ def test_Datanotecell_set_valid():
     assert obj.get_value(["male", "oslo"], "no") == "a string"
 
 
-def test_Datanotecell_used_languages():
+def test_datanotecell_used_languages():
     obj = _Datanotecell()
     obj.set("a string", ["male", "oslo"], "no")
     assert "no" in obj.get_used_languages()
 
 
-def test_Datanotecell_reset_language():
+def test_datanotecell_reset_language():
     obj = _Datanotecell()
     obj.set("a string", ["male", "oslo"])
     assert None in obj.get_used_languages()
@@ -26,7 +26,7 @@ def test_Datanotecell_reset_language():
     assert "no" in obj.get_used_languages()
 
 
-def test_Datanotecell_hack_multi_duplicate_set_raises():
+def test_datanotecell_hack_multi_duplicate_set_raises():
     obj = _Datanotecell()
     obj.set("a string", ["male", "oslo"], "no")
     # reseting counter to create error

@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._copyright import _Copyright
 
 
-def test_Copyright_set_valid():
+def test_copyright_set_valid():
     obj = _Copyright()
     assert not obj.has_value()
     obj.set(True)
@@ -10,7 +10,7 @@ def test_Copyright_set_valid():
     assert obj.get_value() == True
 
 
-def test_Copyright_duplicate_set_raises():
+def test_copyright_duplicate_set_raises():
     obj = _Copyright()
     obj.set(True)
     with pytest.raises(Exception):

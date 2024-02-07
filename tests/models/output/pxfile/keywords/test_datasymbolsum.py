@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._datasymbolsum import _Datasymbolsum
 
 
-def test_Datasymbolsum_set_valid():
+def test_datasymbolsum_set_valid():
     obj = _Datasymbolsum()
     assert not obj.has_value("no")
     obj.set("a string", "no")
@@ -10,13 +10,13 @@ def test_Datasymbolsum_set_valid():
     assert obj.get_value("no") == "a string"
 
 
-def test_Datasymbolsum_used_languages():
+def test_datasymbolsum_used_languages():
     obj = _Datasymbolsum()
     obj.set("a string", "no")
     assert "no" in obj.get_used_languages()
 
 
-def test_Datasymbolsum_reset_language():
+def test_datasymbolsum_reset_language():
     obj = _Datasymbolsum()
     obj.set(
         "a string",
@@ -28,7 +28,7 @@ def test_Datasymbolsum_reset_language():
     assert "no" in obj.get_used_languages()
 
 
-def test_Datasymbolsum_duplicate_set_raises():
+def test_datasymbolsum_duplicate_set_raises():
     obj = _Datasymbolsum()
     obj.set("a string", "no")
     with pytest.raises(Exception):

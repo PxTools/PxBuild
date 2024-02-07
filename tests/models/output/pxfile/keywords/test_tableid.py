@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._tableid import _Tableid
 
 
-def test_Tableid_set_valid():
+def test_tableid_set_valid():
     obj = _Tableid()
     assert not obj.has_value()
     obj.set("a string")
@@ -10,7 +10,7 @@ def test_Tableid_set_valid():
     assert obj.get_value() == "a string"
 
 
-def test_Tableid_duplicate_set_raises():
+def test_tableid_duplicate_set_raises():
     obj = _Tableid()
     obj.set("a string")
     with pytest.raises(Exception):

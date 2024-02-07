@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._prestext import _Prestext
 
 
-def test_Prestext_set_valid():
+def test_prestext_set_valid():
     obj = _Prestext()
     assert not obj.has_value("region", "no")
     obj.set(1, "region", "no")
@@ -10,19 +10,19 @@ def test_Prestext_set_valid():
     assert obj.get_value("region", "no") == 1
 
 
-def test_Prestext_set_invalid_raises():
+def test_prestext_set_invalid_raises():
     obj = _Prestext()
     with pytest.raises(Exception):
         obj.set(666)
 
 
-def test_Prestext_used_languages():
+def test_prestext_used_languages():
     obj = _Prestext()
     obj.set(1, "region", "no")
     assert "no" in obj.get_used_languages()
 
 
-def test_Prestext_reset_language():
+def test_prestext_reset_language():
     obj = _Prestext()
     obj.set(1, "region")
     assert None in obj.get_used_languages()
@@ -32,7 +32,7 @@ def test_Prestext_reset_language():
     assert "no" in obj.get_used_languages()
 
 
-def test_Prestext_duplicate_set_raises():
+def test_prestext_duplicate_set_raises():
     obj = _Prestext()
     obj.set(1, "region", "no")
     with pytest.raises(Exception):

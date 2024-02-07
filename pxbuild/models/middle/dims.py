@@ -2,7 +2,7 @@
 from pxbuild.controll.helpers.datadata_helpers.datadatasource import Datadatasource
 from pxbuild.controll.helpers.loaded_jsons import LoadedJsons
 
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 from .time_dim import TimeDim
 from .cont_dim import ContDim
@@ -35,11 +35,11 @@ class Dims:
 
             for n_dim in meta.coded_dimensions:
                 n_dim.codelist_id
-                tempCD = CodedDim(n_dim, pxcodes_helper_by_codelist_id[n_dim.codelist_id], in_loaded_jsons)
-                n_code = tempCD.get_code()
+                temp_cd = CodedDim(n_dim, pxcodes_helper_by_codelist_id[n_dim.codelist_id], in_loaded_jsons)
+                n_code = temp_cd.get_code()
                 self._stubCodes.append(n_code)
-                self.dim_by_code[n_code] = tempCD
-                self.coded_dimensions.append(tempCD)
+                self.dim_by_code[n_code] = temp_cd
+                self.coded_dimensions.append(temp_cd)
 
         # CONT
         self.contdim: ContDim = ContDim(in_loaded_jsons)

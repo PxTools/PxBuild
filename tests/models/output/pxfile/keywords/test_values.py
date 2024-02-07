@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._values import _Values
 
 
-def test_Values_set_valid():
+def test_values_set_valid():
     obj = _Values()
     assert not obj.has_value("region", "no")
     obj.set(["a string"], "region", "no")
@@ -10,13 +10,13 @@ def test_Values_set_valid():
     assert obj.get_value("region", "no") == ["a string"]
 
 
-def test_Values_used_languages():
+def test_values_used_languages():
     obj = _Values()
     obj.set(["a string"], "region", "no")
     assert "no" in obj.get_used_languages()
 
 
-def test_Values_reset_language():
+def test_values_reset_language():
     obj = _Values()
     obj.set(["a string"], "region")
     assert None in obj.get_used_languages()
@@ -26,7 +26,7 @@ def test_Values_reset_language():
     assert "no" in obj.get_used_languages()
 
 
-def test_Values_duplicate_set_raises():
+def test_values_duplicate_set_raises():
     obj = _Values()
     obj.set(["a string"], "region", "no")
     with pytest.raises(Exception):
