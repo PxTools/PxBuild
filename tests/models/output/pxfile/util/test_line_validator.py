@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.util._line_validator import LineValidator
 
 
-def test_is_not_None_raises():
+def test_is_not_none_raises():
     with pytest.raises(Exception, match="MY_KEYWORD: value is empty"):
         LineValidator.is_not_None("MY_KEYWORD", None)
 

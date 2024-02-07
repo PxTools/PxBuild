@@ -24,7 +24,7 @@ def test_valdidate_ok() -> None:
         print(val.get_report())
 
     assert val.is_valid()
-    report: str = val.get_report()
+    val.get_report()
     assert len(val.checks_ran) > 5
 
 

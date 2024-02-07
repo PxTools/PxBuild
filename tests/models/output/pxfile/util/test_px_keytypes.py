@@ -69,7 +69,8 @@ def test_lab_test():
 
     assert isinstance(my_key2, _KeytypeLang)
     assert isinstance(my_key, _KeytypeLang)
-    assert not type(my_key) == type(my_key2)
+    assert type(my_key) is not type(my_key2)
+    # assert not type(my_key) == type(my_key2)
 
 
 def test_lab_test2():
