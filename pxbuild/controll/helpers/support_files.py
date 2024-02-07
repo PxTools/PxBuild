@@ -11,6 +11,7 @@ from pxbuild.models.output.agg.agg_file_model import AggFileModel
 
 from .small_static_functions import Commons
 
+
 # Class for making agg and vs files
 class SupportFiles:
     def __init__(self, pxmetadata: PxMetadata, config: PxbuildConfig, dims: Dims, pxmetadata_id: str) -> None:
@@ -28,7 +29,7 @@ class SupportFiles:
 
                 my_var = n_var.get_pydantic()
                 out_vs_model = _VSFileModel()
-                my_codes: HelperPxCodes = n_var.getHelperPxCodes()
+                my_codes: HelperPxCodes = n_var.get_helper_pxcodes()
                 if n_var.groupings():
                     vs_name = n_var.get_domain_id(language)
                     # vs_type = "G" if my_var.is_geo_variable_type else "V"
@@ -82,7 +83,7 @@ class SupportFiles:
             # ordered_children = [code for code in my_pxcodes_helper.getCodes(language) if item.unordered_children and code in item.unordered_children]
 
             ordered_children: List[str] = []
-            for code in my_pxcodes_helper.getCodes(language):
+            for code in my_pxcodes_helper.get_codes(language):
                 if item.unordered_children and code in item.unordered_children:
                     ordered_children.append(code)
 

@@ -17,7 +17,7 @@ def sort_valueitems_by_field(objects: List[Valueitem], sort_by: str, lang: str):
 
 
 class HelperPxCodes:
-    def __init__(self, in_pxcodes: PxCodes, inLanguages: List[str]) -> None:
+    def __init__(self, in_pxcodes: PxCodes, in_languages: List[str]) -> None:
         self._pxcodes = in_pxcodes
         self.elimination_possible = in_pxcodes.elimination_possible
 
@@ -25,22 +25,22 @@ class HelperPxCodes:
         # print("sortby",sortby,"inPxCodes.sort_valueitems_on",str(inPxCodes.sort_valueitems_on))
 
         self._sorted_valueitems = {}
-        for lang in inLanguages:
+        for lang in in_languages:
             self._sorted_valueitems[lang] = sort_valueitems_by_field(in_pxcodes.valueitems, sortby, lang)
 
     # self._has_grouping:bool = False
     # if inPxCodes.groupings:
     #     self._has_grouping = True
 
-    def getCodes(self, language: str) -> List[str]:
+    def get_codes(self, language: str) -> List[str]:
         if language not in self._sorted_valueitems:
             raise ValueError(f"Language '{language}' not found in _sorted_valueitems")
         return [valueitem.code for valueitem in self._sorted_valueitems[language]]
 
-    def getLabels(self, language: str) -> List[str]:
+    def get_labels(self, language: str) -> List[str]:
         return [valueitem.label[language] for valueitem in self._sorted_valueitems[language]]
 
-    def getEliminationLabel(self, language: str) -> str:
+    def get_elimination_label(self, language: str) -> str:
         myOut: str = ""
         if self._pxcodes.elimination_possible and self._pxcodes.elimination_code:
             # need to find label ...
@@ -55,7 +55,7 @@ class HelperPxCodes:
                 break
         return myOut
 
-    def getNotes(self):
+    def get_valueotes(self):
         my_out: Dict[str, List[Note]] = dict()
 
         for valueitem in self._pxcodes.valueitems:

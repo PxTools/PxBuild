@@ -117,7 +117,7 @@ class LoadFromPxmetadata:
         # the input is code-based , the output is dimension-order and label-based
         lang = self._current_lang
 
-        dimension_in_order = self._dims.getDimsInOutputOrder()
+        dimension_in_order = self._dims.get_dims_in_output_order()
 
         for cellnote in self._pxmetadata_model.dataset.cell_notes:
             valueCodeBydimensionCode = self.get_valueCode_by_dimensionCode(cellnote.attachment)
@@ -153,7 +153,7 @@ class LoadFromPxmetadata:
         lang = self._current_lang
         model = self._pxmetadata_model.dataset
 
-        tmp_list = self._dims.getDimcodesInOutputOrder()
+        tmp_list = self._dims.get_dimcodes_in_output_order()
         vari_list = self._dims.get_as_lables(tmp_list, lang)
 
         tmp_string = ", ".join(vari_list[:-1])
@@ -225,7 +225,7 @@ class LoadFromPxmetadata:
                 if not n_var.elimination_possible:
                     out_model.elimination.set("NO", my_funny_var_id, lang)
                 else:
-                    label = n_var.getEliminationLabel(lang)
+                    label = n_var.get_elimination_label(lang)
                     if label:
                         out_model.elimination.set(label, my_funny_var_id, lang)
                     else:
@@ -243,7 +243,7 @@ class LoadFromPxmetadata:
                             out_model.note.set(note.text[lang], my_funny_var_id, lang)
 
                 # Note on a value in variale
-                my_value_notes = n_var.getValueNotes()
+                my_value_notes = n_var.get_valuenotes()
                 if my_value_notes:
                     for valuecode in my_value_notes:
                         for note in my_value_notes[valuecode]:

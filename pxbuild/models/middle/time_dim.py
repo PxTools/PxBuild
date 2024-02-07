@@ -4,7 +4,7 @@ from pxbuild.controll.helpers.datadata_helpers.datadatasource import Datadatasou
 from pxbuild.controll.helpers.loaded_jsons import LoadedJsons
 
 
-from pxbuild.controll.helpers.datadata_helpers.for_get_data import ForGetData
+from pxbuild.controll.helpers.datadata_helpers.for_get_data import CubemathsHelper
 
 
 class TimeDim(AbstractDim):
@@ -16,7 +16,7 @@ class TimeDim(AbstractDim):
         col_name = meta.time_dimension.column_name
         self._periods = in_datadatasource.get_timeperiodes(col_name)
 
-        self._for_get_data = ForGetData(col_name, self._periods)
+        self._for_get_data = CubemathsHelper(col_name, self._periods)
 
     # for time : code == label
 
@@ -30,7 +30,7 @@ class TimeDim(AbstractDim):
 
         return value_code
 
-    def get_ForGetData(self, language: str) -> ForGetData:
+    def get_cubemaths_helper(self, language: str) -> CubemathsHelper:
         return self._for_get_data
 
     def get_variabletype(self) -> str:

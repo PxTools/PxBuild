@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Dict, List, Optional
-from pxbuild.controll.helpers.datadata_helpers.for_get_data import ForGetData
+from pxbuild.controll.helpers.datadata_helpers.for_get_data import CubemathsHelper
 
 
 class AbstractDim(ABC):
@@ -22,7 +22,7 @@ class AbstractDim(ABC):
         pass
 
     @abstractmethod
-    def get_ForGetData(self, language: str) -> ForGetData:
+    def get_cubemaths_helper(self, language: str) -> CubemathsHelper:
         pass
 
     @abstractmethod

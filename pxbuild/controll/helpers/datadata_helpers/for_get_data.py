@@ -1,8 +1,8 @@
 from typing import List
 
 
-class ForGetData:
-    """Helper class for data extraction"""
+class CubemathsHelper:
+    """Helper class for calculations in data extraction"""
 
     def __init__(self, colname_in_dataframe: str, codelist: List[str]) -> None:
         self._colname_in_dataframe: str = colname_in_dataframe
