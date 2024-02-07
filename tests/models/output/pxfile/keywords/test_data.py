@@ -14,5 +14,5 @@ def test_data_set_valid():
 def test_data_duplicate_set_raises():
     obj = _Data()
     obj.set(["a string", "no"], 1)
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(["a string", "no"], 1)
