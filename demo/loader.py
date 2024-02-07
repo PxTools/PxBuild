@@ -1,13 +1,11 @@
 import sys
+import pxbuild
 
 my = sys.path[0].replace("\\demo", "\\")
 sys.path.insert(1, my)
 
-import pxbuild
-
 # from pxbuild.operations_on_model.loaders.loader_pxfile import Loader
 # from pxbuild.operations_on_model.refine.apply_default_language import apply_default_language
-
 
 # loader = Loader('testdata/testdataKort.px')
 # loader = Loader('testdata/statfin_khi_pxt_11xm.px')

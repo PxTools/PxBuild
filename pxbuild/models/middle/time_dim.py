@@ -8,13 +8,13 @@ from pxbuild.controll.helpers.datadata_helpers.for_get_data import ForGetData
 
 
 class TimeDim(AbstractDim):
-    def __init__(self, inLoadedJsons: LoadedJsons, inDatadatasource: Datadatasource) -> None:
-        meta = inLoadedJsons.get_pxmetadata().dataset
-        config = inLoadedJsons.get_config()
+    def __init__(self, in_loaded_jsons: LoadedJsons, in_datadatasource: Datadatasource) -> None:
+        meta = in_loaded_jsons.get_pxmetadata().dataset
+        config = in_loaded_jsons.get_config()
         super().__init__(config.timevariable_code, meta.time_dimension.label)
 
         col_name = meta.time_dimension.column_name
-        self._periods = inDatadatasource.GetTimePeriodes(col_name)
+        self._periods = in_datadatasource.get_timeperiodes(col_name)
 
         self._for_get_data = ForGetData(col_name, self._periods)
 

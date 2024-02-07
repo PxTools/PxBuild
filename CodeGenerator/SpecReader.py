@@ -3,19 +3,19 @@ from collections import namedtuple
 from re import sub
 
 
-def dict_as_signature(inDict: dict) -> str:
+def dict_as_signature(in_dict: dict) -> str:
     """Returns a dict as string in method signature (mystring:str, myint:int)"""
-    return ", ".join(["{}:{}".format(k, v) for k, v in inDict.items()])
+    return ", ".join(["{}:{}".format(k, v) for k, v in in_dict.items()])
 
 
-def dict_as_call(inDict: dict) -> str:
+def dict_as_call(in_dict: dict) -> str:
     """Returns a dict as string in method call (mystring, myint)"""
-    return ", ".join(inDict.keys())
+    return ", ".join(in_dict.keys())
 
 
-def dict_as_returntype(dict: dict) -> str:
+def dict_as_returntype(in_dict: dict) -> str:
     """Returns a dict as string in method call (str, int) or str if there is only one entry"""
-    my_out = ", ".join(dict.values())
+    my_out = ", ".join(in_dict.values())
     if "," in my_out:
         my_out = f"({my_out})"
     return my_out

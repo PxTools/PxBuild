@@ -51,7 +51,7 @@ class MapData:
         column_code_map = self.get_measurement_column_code_mapping()
 
         start_tidy = time.time()
-        df = self._datadata.GetTidyDF(self._config.contvariable_code, column_code_map)
+        df = self._datadata.get_tidy_df(self._config.contvariable_code, column_code_map)
 
         end_tidy = time.time()
         time_used_tidy = end_tidy - start_tidy

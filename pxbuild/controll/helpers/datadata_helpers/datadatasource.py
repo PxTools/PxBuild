@@ -1,5 +1,3 @@
-import pyarrow.parquet as pq
-import pyarrow as pa
 import pandas as pd
 from typing import List
 from pxbuild.models.input.pydantic_pxbuildconfig import PxbuildConfig
@@ -57,10 +55,7 @@ class Datadatasource:
                     print(invalid_rows.head(10))
                     raise Exception(err_mess)
 
-    def PrintColumns(self) -> None:
-        print("Debug cols:", self._raw_df)
-
-    def GetTimePeriodes(self, column_name: str) -> List[str]:
+    def get_timeperiodes(self, column_name: str) -> List[str]:
         """Reads all values from a column, applies unique and sorts descending."""
 
         if column_name not in self._raw_df.columns:
@@ -74,7 +69,7 @@ class Datadatasource:
         asSortedList = sorted(asList, reverse=True)
         return asSortedList
 
-    def GetIdentifierColumns(self, all_columns: list, measurement_map: dict) -> List[str]:
+    def get_identifiercolumns(self, all_columns: list, measurement_map: dict) -> List[str]:
         identifier_columns = []
         for column in all_columns:
             if not (column in measurement_map.keys()):
@@ -82,22 +77,22 @@ class Datadatasource:
 
         return identifier_columns
 
-    def AddMissingSymbolColumns(self, measurement_codes: list[str], df: pd.DataFrame):
+    def add_missing_symbolcolumns(self, measurement_codes: list[str], df: pd.DataFrame):
         for code in measurement_codes:
             if not (f"SYMBOL_{code}" in df):
                 df[f"SYMBOL_{code}"] = ""
 
-    def MakeRenameDict(self, measurement_codeBycolumn_name: dict, columns_in_datafile) -> dict:
+    def make_renamedict(self, measurement_code_by_column_name: dict, columns_in_datafile) -> dict:
         my_out = {}
-        for column_name in measurement_codeBycolumn_name:
-            my_out[column_name] = f"VALUE_{measurement_codeBycolumn_name[column_name]}"
+        for column_name in measurement_code_by_column_name:
+            my_out[column_name] = f"VALUE_{measurement_code_by_column_name[column_name]}"
             corresponding_symbol_column = column_name + "_SYMBOL"
             if corresponding_symbol_column in columns_in_datafile:
-                my_out[corresponding_symbol_column] = f"SYMBOL_{measurement_codeBycolumn_name[column_name]}"
+                my_out[corresponding_symbol_column] = f"SYMBOL_{measurement_code_by_column_name[column_name]}"
 
         return my_out
 
-    def GetTidyDF(self, measure_dim_name: str, measurement_codeBycolumn_name: dict) -> pd.DataFrame:
+    def get_tidy_df(self, measure_dim_name: str, measurement_codeBycolumn_name: dict) -> pd.DataFrame:
         # measure_dim_name is contvariable_code from config
         # column_code_map is
         #        for measurement_var in self._pxmetadata_model.dataset.measurements:
@@ -115,14 +110,14 @@ class Datadatasource:
         print("raw_data.columns:", raw_data.columns)
 
         measurement_codes = list(measurement_codeBycolumn_name.values())
-        column_with_value_prefix = self.MakeRenameDict(measurement_codeBycolumn_name, raw_data.columns)
+        column_with_value_prefix = self.make_renamedict(measurement_codeBycolumn_name, raw_data.columns)
 
         # todo attributes columns should not be counted as identifier_columns
-        identifier_columns = self.GetIdentifierColumns(raw_data.columns.values.tolist(), column_with_value_prefix)
+        identifier_columns = self.get_identifiercolumns(raw_data.columns.values.tolist(), column_with_value_prefix)
         print("Renaming:", column_with_value_prefix)
         raw_data.rename(columns=column_with_value_prefix, inplace=True)
         print("Post renaming:", raw_data.columns)
-        self.AddMissingSymbolColumns(measurement_codes, raw_data)
+        self.add_missing_symbolcolumns(measurement_codes, raw_data)
         print("Cols before wide_to_long:", raw_data.columns)
         tidy_df = pd.wide_to_long(
             raw_data,
