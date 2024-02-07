@@ -4,14 +4,14 @@ AXIS-VERSION;;;;J;2014;;;;_PxString;;"regexp_string(r""^\d{4}$"",";Not in use. V
 CODEPAGE;;;;N;;;;;_PxString;;;Not in use;Is used when creating XML format to get correct characters. Default iso-8859-1. Max 20 chars.
 LANGUAGE;;X;;J;;;;;_PxString;;"regexp_string(""^[a-z]{2}$"",";Language-code with 2 letters,sv for Swedish, en for English etc. Default language;
 LANGUAGES;;X;;J;;;;;_PxStringList;;"regexp_item_string(""^[a-z]{2}$"", XX unique(";List of Language-codes used in file.;
-CREATION-DATE;;;;J;"""now""";;;;_PxString;;;Date in 'Px Format';Date when file was created. Written in format CCYYMMDD hh:mm, e.g. 19960612 14:20. Is shown together with footnotes. 
+CREATION-DATE;;;;J;"""now""";;;;_PxString;;;Date in 'Px Format';Date when file was created. Written in format CCYYMMDD hh:mm, e.g. 19960612 14:20. Is shown together with footnotes.
 FIRST-PUBLISHED;;;;F;;;;;_PxString;;;In use?;The date when the data cube was first published in the format CCYYMMDD hh:mm Example: FIRST-PUBLISHED=20130224 20:55
 NEXT-UPDATE;;;;F;;;;;_PxString;;;Not in use. Date in 'Px  format';This keyword is read and saved in the PX-file but not shown in PC-axis.
 PX-SERVER;;;;N;;;;;_PxString;;;Not in use;This keyword is read and saved in the PX-file but not shown in PC-axis
 DIRECTORY-PATH;;;;N;;;;;_PxString;;;Not in use;This keyword is read and saved in the PX-file but not shown in PC-axis.
 UPDATE-FREQUENCY;;;;J;;;;;_PxString;;;Not in use;This keyword is read and saved in the PX-file but not shown in PC-axis.
 TABLEID;;;;J;;;;;_PxString;;;Id of table;A text that is the identity of the table.
-SYNONYMS;;;;F;;;;;_PxStringList;;;In use?;This is used for search in PX-Web. If the table concerns CPI the synonym can be “Inflation”. Several words can be included within “ “ and the total line can be max 256 chars.
+SYNONYMS;;;;F;;;;;_PxString;;;In use?;This is used for search in PX-Web. If the table concerns CPI the synonym can be “Inflation”. Several words can be included within “ “ and the total line can be max 256 chars.
 DEFAULT-GRAPH;;;;N;;;;;_PxInt;;;Not in use;
 DECIMALS;;X;;J;;;;;_PxInt;;in_range(0,15,;Number of desimals in stored data.;The number of decimals in the table cells. 0 - 15. (0-6 if SHOWDECIMALS is not included). Indicates how many decimals will be saved in the PC-Axis file. Written without quotation marks. Compare SHOWDECIMALS.
 SHOWDECIMALS;;;;F;;;;;_PxInt;;in_range(0,6,;Number of desimals to display. May be overridden by Precision;

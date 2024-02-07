@@ -8,8 +8,8 @@
     "statisticsId": "1nn",
     "dataFile": "thedata_130.csv",
     "baseTitle": {
-      "no": "Testkube 130",
-      "en": "Test cube 130"
+      "no": "Testkube 00130, as 00103 but testing stupid columnnames in CSV",
+      "en": "Test cube 00130, as 00103 but testing stupid columnnames in CSV"
     },
     "searchKeywords": {
       "no": [
