@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import List
 
 
 class ForGetData:
@@ -14,6 +14,3 @@ class ForGetData:
 
         self.factor: int = -1
         """This depends on the desired output order of the variables. Is the (math) product of _length_of_codelist of the previous variables """
-
-    def GetDebugString(self) -> List:
-        return ["colname", self._colname_in_dataframe, "N:", self._length_of_codelist, "self.factor", self.factor]

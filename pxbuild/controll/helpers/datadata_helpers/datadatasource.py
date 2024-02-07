@@ -65,9 +65,9 @@ class Datadatasource:
 
         # Get distinct values from the column
         distinct_values = column_data.unique()
-        asList = distinct_values.tolist()
-        asSortedList = sorted(asList, reverse=True)
-        return asSortedList
+        as_list = distinct_values.tolist()
+        as_sorted_list = sorted(as_list, reverse=True)
+        return as_sorted_list
 
     def get_identifiercolumns(self, all_columns: list, measurement_map: dict) -> List[str]:
         identifier_columns = []
@@ -92,7 +92,7 @@ class Datadatasource:
 
         return my_out
 
-    def get_tidy_df(self, measure_dim_name: str, measurement_codeBycolumn_name: dict) -> pd.DataFrame:
+    def get_tidy_df(self, measure_dim_name: str, measurement_code_by_column_name: dict) -> pd.DataFrame:
         # measure_dim_name is contvariable_code from config
         # column_code_map is
         #        for measurement_var in self._pxmetadata_model.dataset.measurements:
@@ -109,8 +109,8 @@ class Datadatasource:
         raw_data: pd.DataFrame = self._my_datasource.get_raw_pandas()
         print("raw_data.columns:", raw_data.columns)
 
-        measurement_codes = list(measurement_codeBycolumn_name.values())
-        column_with_value_prefix = self.make_renamedict(measurement_codeBycolumn_name, raw_data.columns)
+        measurement_codes = list(measurement_code_by_column_name.values())
+        column_with_value_prefix = self.make_renamedict(measurement_code_by_column_name, raw_data.columns)
 
         # todo attributes columns should not be counted as identifier_columns
         identifier_columns = self.get_identifiercolumns(raw_data.columns.values.tolist(), column_with_value_prefix)
