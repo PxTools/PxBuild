@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import List
 
 from pxbuild.models.input.pydantic_pxbuildconfig import PxbuildConfig
 from pxbuild.models.input.pydantic_pxmetadata import PxMetadata
@@ -8,8 +8,6 @@ from pxbuild.models.middle.dims import Dims
 
 from pxbuild.models.output.agg_vs.vs_file_model import _VSFileModel
 from pxbuild.models.output.agg.agg_file_model import AggFileModel
-
-from .small_static_functions import Commons
 
 
 # Class for making agg and vs files
@@ -27,7 +25,7 @@ class SupportFiles:
         for language in self._config.admin.valid_languages:
             for n_var in self._dims.coded_dimensions:
 
-                my_var = n_var.get_pydantic()
+                # my_var = n_var.get_pydantic()
                 out_vs_model = _VSFileModel()
                 my_codes: HelperPxCodes = n_var.get_helper_pxcodes()
                 if n_var.groupings():
@@ -80,8 +78,6 @@ class SupportFiles:
             out_agg_model.set("Aggtext", item_key, valuetext)
 
             child_code_conter = 0
-            # ordered_children = [code for code in my_pxcodes_helper.getCodes(language) if item.unordered_children and code in item.unordered_children]
-
             ordered_children: List[str] = []
             for code in my_pxcodes_helper.get_codes(language):
                 if item.unordered_children and code in item.unordered_children:

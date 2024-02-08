@@ -120,23 +120,23 @@ class LoadFromPxmetadata:
         dimension_in_order = self._dims.get_dims_in_output_order()
 
         for cellnote in self._pxmetadata_model.dataset.cell_notes:
-            valueCodeBydimensionCode = self.get_valueCode_by_dimensionCode(cellnote.attachment)
-            valueTextsForSubkey: List[str] = []
+            valuecode_by_dimensioncode = self.get_valuecode_by_dimensioncode(cellnote.attachment)
+            valuetexts_for_subkey: List[str] = []
             for dim in dimension_in_order:
-                dimCode = dim.get_code()
-                if dimCode in valueCodeBydimensionCode:
-                    valueCode = valueCodeBydimensionCode[dimCode]
-                    valueText = dim.get_valuelabel(lang, valueCode)
-                    valueTextsForSubkey.append(valueText)
+                dimcode = dim.get_code()
+                if dimcode in valuecode_by_dimensioncode:
+                    valuecode = valuecode_by_dimensioncode[dimcode]
+                    valuelabel = dim.get_valuelabel(lang, valuecode)
+                    valuetexts_for_subkey.append(valuelabel)
                 else:
-                    valueTextsForSubkey.append("*")
+                    valuetexts_for_subkey.append("*")
 
             if cellnote.is_mandatory:
-                out_model.cellnotex.set(cellnote.text[lang], valueTextsForSubkey, lang)
+                out_model.cellnotex.set(cellnote.text[lang], valuetexts_for_subkey, lang)
             else:
-                out_model.cellnote.set(cellnote.text[lang], valueTextsForSubkey, lang)
+                out_model.cellnote.set(cellnote.text[lang], valuetexts_for_subkey, lang)
 
-    def get_valueCode_by_dimensionCode(self, attachments: List[AttachmentItem]) -> Dict[str, str]:
+    def get_valuecode_by_dimensioncode(self, attachments: List[AttachmentItem]) -> Dict[str, str]:
         my_out: Dict[str, str] = {}
         for attachment in attachments:
             my_out[attachment.dimension_code] = attachment.value_code

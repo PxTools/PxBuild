@@ -41,19 +41,19 @@ class HelperPxCodes:
         return [valueitem.label[language] for valueitem in self._sorted_valueitems[language]]
 
     def get_elimination_label(self, language: str) -> str:
-        myOut: str = ""
+        my_out: str = ""
         if self._pxcodes.elimination_possible and self._pxcodes.elimination_code:
             # need to find label ...
-            myOut = self.get_label(language, self._pxcodes.elimination_code)
-        return myOut
+            my_out = self.get_label(language, self._pxcodes.elimination_code)
+        return my_out
 
     def get_label(self, language: str, code: str) -> str:
-        myOut: str = ""
+        my_out: str = ""
         for valueitem in self._pxcodes.valueitems:
             if valueitem.code == code:
-                myOut = valueitem.label[language]
+                my_out = valueitem.label[language]
                 break
-        return myOut
+        return my_out
 
     def get_valueotes(self):
         my_out: Dict[str, List[Note]] = dict()

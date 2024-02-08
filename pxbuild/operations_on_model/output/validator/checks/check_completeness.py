@@ -3,13 +3,6 @@ from ...validator.validationResult import ValidationResult
 import pxbuild.models.output.pxfile.util.constants as const
 
 from pxbuild.models.output.pxfile.util._px_super import _PxValueByKey
-from pxbuild.models.output.pxfile.util._px_keytypes import (
-    _KeytypeVariableLang,
-    _KeytypeContentLang,
-    _KeytypeVariableValueLang,
-    _KeytypeValuesLangMulti,
-    _KeytypeCodes,
-)
 
 
 class _Checker:
@@ -21,14 +14,14 @@ class _Checker:
         self.model = model
         self.all_languages = model.languages.get_value()
 
-        self.indexByLangAndVariable = {}
+        self.index_by_lang_and_variable = {}
         self.variables = {}
         for lang in self.all_languages:
             index = -1
             self.variables[lang] = self.model.stub.get_value(lang) + self.model.heading.get_value(lang)
             for variable in self.variables[lang]:
                 index += 1
-                self.indexByLangAndVariable[(lang, variable)] = index
+                self.index_by_lang_and_variable[(lang, variable)] = index
 
         # listOfOtherVariableNamesByVariableNameOfFirstLanguage
 
@@ -73,8 +66,8 @@ class _Checker:
         for key in keyword._value_by_key:
             all_tuples_same_variable_index = [
                 k
-                for k, v in self.indexByLangAndVariable.items()
-                if v == self.indexByLangAndVariable[(key.lang, key.variable)]
+                for k, v in self.index_by_lang_and_variable.items()
+                if v == self.index_by_lang_and_variable[(key.lang, key.variable)]
             ]
             for one_tuple in all_tuples_same_variable_index:
                 if key.lang == one_tuple[0]:
@@ -108,16 +101,16 @@ class _Checker:
 
     def check_completeness_one_variable(self, keyword: _PxValueByKey) -> None:
         _seen_languages = {}
-        theOneIndex = ""
+        the_one_index = ""
         for key in keyword._value_by_key:
             _seen_languages[key.lang] = 1
-            tmpIndex = self.indexByLangAndVariable[(key.lang, key.variable)]
-            if theOneIndex == "":
-                theOneIndex = tmpIndex
+            tmp_index = self.index_by_lang_and_variable[(key.lang, key.variable)]
+            if the_one_index == "":
+                the_one_index = tmp_index
             else:
-                if not tmpIndex == theOneIndex:
+                if not tmp_index == the_one_index:
                     self.val_result.add_error(
-                        f"{self.error_intro}: Should only reference 1 variable. Found 2: index {theOneIndex} and {tmpIndex}."
+                        f"{self.error_intro}: Should only reference 1 variable. Found 2: index {the_one_index} and {tmp_index}."
                     )
 
         for lang in self.all_languages:

@@ -69,12 +69,12 @@ class _PxValueByKey(_SuperKeyword):
         return my_key in self._value_by_key
 
     def __str__(self):
-        myOut = []
+        my_out = []
 
         if self.is_present():
             for keypart in self._value_by_key.keys():
-                myOut.append(f"{self._keyword}{keypart}={self._value_by_key[keypart]};")
-            return "\n".join(myOut)
+                my_out.append(f"{self._keyword}{keypart}={self._value_by_key[keypart]};")
+            return "\n".join(my_out)
         else:
             return ""
 

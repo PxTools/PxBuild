@@ -1,6 +1,5 @@
 ﻿from pxbuild.models.output.pxfile.util._px_super import _PxSingle
 from pxbuild.models.output.pxfile.util._px_valuetype import _PxData
-from pxbuild.models.output.pxfile.util._line_validator import LineValidator
 
 
 class _Data(_PxSingle):

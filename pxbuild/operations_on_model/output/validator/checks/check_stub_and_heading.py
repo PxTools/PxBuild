@@ -1,6 +1,5 @@
 from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 from ...validator.validationResult import ValidationResult
-import pxbuild.models.output.pxfile.util.constants as const
 
 
 def check_stub_and_heading(model: PXFileModel) -> ValidationResult:
