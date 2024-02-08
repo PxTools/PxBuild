@@ -7,9 +7,10 @@ from pxbuild.models.output.pxfile.util._px_super import _PxValueByKey
 
 class _Checker:
     def __init__(self, model: PXFileModel) -> None:
-        self.val_result = ValidationResult(
-            desc="Check if the keypart is complete for present keywords. What this means depend on the keyword, but f.x TITLE needs to have a value for all languages. "
-        )
+        desc_part1: str = "Check if the keypart is complete for present keywords. What this means depend on the "
+        desc_part2: str = "keyword, but f.x TITLE needs to have a value for all languages."
+
+        self.val_result = ValidationResult(desc=desc_part1 + desc_part2)
         self.error_intro = ""
         self.model = model
         self.all_languages = model.languages.get_value()
@@ -114,7 +115,7 @@ class _Checker:
                     )
 
         for lang in self.all_languages:
-            if not lang in _seen_languages:
+            if lang not in _seen_languages:
                 self.val_result.add_error(f"{self.error_intro}:Missing value for lang:{lang}")
 
     def check_completeness_all_content(self, keyword: _PxValueByKey) -> None:
