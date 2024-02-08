@@ -8,6 +8,12 @@ from .abstract_datasource import AbstractDatasource
 # Open and read the Parquet file  (or csv for small tests)
 
 
+class PxDataSourceError(Exception):
+    """Custom exception for errors related to datasource."""
+
+    pass
+
+
 class Datadatasource:
     def __init__(self, file_id: str, config: PxbuildConfig) -> None:
         data_file_path_format = config.admin.px_data_resource.adress_format
@@ -17,7 +23,7 @@ class Datadatasource:
         elif self._data_file_path.endswith(".csv"):
             self._my_datasource: AbstractDatasource = CsvDatasource(self._data_file_path)
         else:
-            raise Exception("Sorry, not implemented yet. Files must end with .parquet or .csv")
+            raise NotImplementedError("Sorry, not implemented yet. Files must end with .parquet or .csv")
 
         self._raw_df = self._my_datasource.get_raw_pandas()
 
@@ -30,7 +36,7 @@ class Datadatasource:
 
         for col in my_colnames:
             if "." in col:
-                raise Exception(
+                raise PxDataSourceError(
                     "Column: "
                     + col
                     + " has a dot, if it is not so in the datafile, there probably is a duplicate in columnname. "
@@ -41,7 +47,7 @@ class Datadatasource:
             if col.endswith("_SYMBOL"):
                 col_without_symbol = col[:-7]
                 if col_without_symbol not in my_colnames:
-                    raise Exception(
+                    raise PxDataSourceError(
                         "Found " + col + " ,but no matching " + col_without_symbol + " . " + err_mess_ending
                     )
 
@@ -53,13 +59,13 @@ class Datadatasource:
                 if not invalid_rows.empty:
                     err_mess = "There are rows with bad value in " + col + " column. " + err_mess_ending
                     print(invalid_rows.head(10))
-                    raise Exception(err_mess)
+                    raise PxDataSourceError(err_mess)
 
     def get_timeperiodes(self, column_name: str) -> List[str]:
         """Reads all values from a column, applies unique and sorts descending."""
 
         if column_name not in self._raw_df.columns:
-            raise ValueError(f"Column '{column_name}' not found in the CSV file.")
+            raise PxDataSourceError(f"Column '{column_name}' not found in the CSV file.")
 
         column_data = self._raw_df[column_name]
 
