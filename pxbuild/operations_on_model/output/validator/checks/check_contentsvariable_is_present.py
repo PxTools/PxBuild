@@ -21,7 +21,7 @@ def check_contentsvariable_is_present(model: PXFileModel) -> ValidationResult:
         stub_and_head = model.stub.get_value(langu) + model.heading.get_value(langu)
         try:
             pos_contvariable = stub_and_head.index(model.contvariable.get_value(langu))
-        except ValueError as e:
+        except ValueError:
             val_result.add_error(
                 f"Contentsvariable  not found in stub or heading for language code: {langu}.  It must exist in either stub or heading."
             )

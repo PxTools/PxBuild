@@ -32,7 +32,7 @@ class _Checker:
                         self.check_keytype_variable(key, keyword)
                     elif isinstance(key, _KeytypeVariableValueLang):
                         self.check_keytype_variable_value(key, keyword)
-                    elif type(key) == _KeytypeValuesLangMulti:
+                    elif type(key) is _KeytypeValuesLangMulti:
                         self.check_keytype_values(key, keyword)
                     elif type(key) is _KeytypeCodes:
                         # Not valuebased
