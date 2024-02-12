@@ -6,7 +6,9 @@ class TstTemplates:
         env = Environment(loader=FileSystemLoader("jinja2_templates"))
         self.intro = env.get_template("intro.jinja2")
         self.set_valid_keyless = env.get_template("set_valid_keyless.jinja2")
+        self.set_valid_bool_keyless = env.get_template("set_valid_bool_keyless.jinja2")
         self.set_valid_with_key = env.get_template("set_valid_with_key.jinja2")
+        self.set_valid_bool_with_key = env.get_template("set_valid_bool_with_key.jinja2")
 
         self.set_invalid_keyless = env.get_template("set_invalid_keyless.jinja2")
         self.set_invalid_with_key = env.get_template("set_invalid_with_key.jinja2")

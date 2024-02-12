@@ -7,7 +7,7 @@ def test_autopen_set_valid():
     assert not obj.has_value()
     obj.set(True)
     assert obj.has_value()
-    assert obj.get_value() == True
+    assert obj.get_value()
 
 
 def test_autopen_duplicate_set_raises():

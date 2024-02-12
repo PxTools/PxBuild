@@ -164,7 +164,7 @@ def test_scalar_bool_writer(kw) -> List[str]:
 
     # Render the template with data
     my_out: List[str] = [my_templates.intro.render(data)]
-    my_out.append(my_templates.set_valid_keyless.render(data))
+    my_out.append(my_templates.set_valid_bool_keyless.render(data))
 
     if not kw.is_duplicate_keypart_allowed:
         my_out.append(my_templates.duplicate_set_raises_keyless.render(data))
@@ -186,7 +186,7 @@ def test_lang_bool_writer(kw) -> List[str]:
 
     # Render the template with data
     my_out: List[str] = [my_templates.intro.render(data)]
-    my_out.append(my_templates.set_valid_with_key.render(data))
+    my_out.append(my_templates.set_valid_bool_with_key.render(data))
 
     if data["keypart_no_lang"]:
         my_out.append(my_templates.language_management_with_subkey.render(data))

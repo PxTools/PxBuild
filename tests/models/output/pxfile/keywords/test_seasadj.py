@@ -7,7 +7,7 @@ def test_seasadj_set_valid():
     assert not obj.has_value("persons", "no")
     obj.set(True, "persons", "no")
     assert obj.has_value("persons", "no")
-    assert obj.get_value("persons", "no") == True
+    assert obj.get_value("persons", "no")
 
 
 def test_seasadj_used_languages():

@@ -1,0 +1,6 @@
+def test{{test_class_lower}}_set_valid():
+    obj = {{object_class}}()
+    assert not obj.has_value({{keypart}})
+    obj.set(True, {{keypart}})
+    assert obj.has_value({{keypart}})
+    assert obj.get_value({{keypart}})

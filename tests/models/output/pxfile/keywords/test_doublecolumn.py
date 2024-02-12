@@ -7,7 +7,7 @@ def test_doublecolumn_set_valid():
     assert not obj.has_value("region", "no")
     obj.set(True, "region", "no")
     assert obj.has_value("region", "no")
-    assert obj.get_value("region", "no") == True
+    assert obj.get_value("region", "no")
 
 
 def test_doublecolumn_used_languages():
