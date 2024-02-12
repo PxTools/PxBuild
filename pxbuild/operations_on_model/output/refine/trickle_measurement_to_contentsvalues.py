@@ -53,10 +53,10 @@ def trickle_measurement_to_contentsvalues(model: PXFileModel):
         for lang in model.languages.get_value():
             if not keyword.has_value(None, lang):
                 continue
-            theValue = keyword._value_by_key.pop(_KeytypeContentLang(None, lang))
+            the_value = keyword._value_by_key.pop(_KeytypeContentLang(None, lang))
             for conti in model.values.get_value(model.contvariable.get_value(lang), lang):
                 if keyword.has_value(conti, lang):
                     continue
 
                 new_key = _KeytypeContentLang(None, lang)
-                keyword._value_by_key[new_key] = theValue
+                keyword._value_by_key[new_key] = the_value

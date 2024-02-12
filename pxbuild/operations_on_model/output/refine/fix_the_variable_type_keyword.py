@@ -33,8 +33,9 @@ def fix_the_variable_type_keyword(model: PXFileModel):
         or not check_valuebased_subkeys(model).is_valid
     ):
         # TODO better err mess
-        raise Exception(
-            "One of check_language, check_stub_and_heading, check_contentsvariable_is_present, check_values, check_lang_keys or  check_valuebased_subkeys is not valid."
+        raise ValueError(
+            "One of check_language, check_stub_and_heading, check_contentsvariable_is_present, check_values,"
+            + " check_lang_keys or  check_valuebased_subkeys is not valid."
         )
 
     for lang in model.languages.get_value():

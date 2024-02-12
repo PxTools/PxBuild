@@ -1,7 +1,6 @@
 from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 from ...validator.validationResult import ValidationResult
 import pxbuild.models.output.pxfile.util.constants as const
-from .check_mandatory import check_mandatory
 
 
 def check_lang_keys(model: PXFileModel) -> ValidationResult:
@@ -10,7 +9,7 @@ def check_lang_keys(model: PXFileModel) -> ValidationResult:
         keyword = model.get_attribute(key)
         if keyword.is_present():
             for lang_key in keyword._value_by_key:
-                if not lang_key.lang in model.languages.get_value():
+                if lang_key.lang not in model.languages.get_value():
                     val_result.add_error(
                         f'Specified language code "{lang_key.lang}" for keyword {keyword._keyword} must be one of the codes in keyword languages: {model.languages._px_value}'
                     )

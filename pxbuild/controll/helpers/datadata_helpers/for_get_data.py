@@ -1,8 +1,8 @@
-from typing import List, Dict
+from typing import List
 
 
-class ForGetData:
-    """Helper class for data extraction"""
+class CubemathsHelper:
+    """Helper class for calculations in data extraction"""
 
     def __init__(self, colname_in_dataframe: str, codelist: List[str]) -> None:
         self._colname_in_dataframe: str = colname_in_dataframe
@@ -14,6 +14,3 @@ class ForGetData:
 
         self.factor: int = -1
         """This depends on the desired output order of the variables. Is the (math) product of _length_of_codelist of the previous variables """
-
-    def GetDebugString(self) -> List:
-        return ["colname", self._colname_in_dataframe, "N:", self._length_of_codelist, "self.factor", self.factor]

@@ -3,19 +3,19 @@ from collections import namedtuple
 from re import sub
 
 
-def DictAsSignature(inDict: dict) -> str:
+def dict_as_signature(in_dict: dict) -> str:
     """Returns a dict as string in method signature (mystring:str, myint:int)"""
-    return ", ".join(["{}:{}".format(k, v) for k, v in inDict.items()])
+    return ", ".join(["{}:{}".format(k, v) for k, v in in_dict.items()])
 
 
-def DictAsCall(inDict: dict) -> str:
+def dict_as_call(in_dict: dict) -> str:
     """Returns a dict as string in method call (mystring, myint)"""
-    return ", ".join(inDict.keys())
+    return ", ".join(in_dict.keys())
 
 
-def DictAsReturntype(inDict: dict) -> str:
+def dict_as_returntype(in_dict: dict) -> str:
     """Returns a dict as string in method call (str, int) or str if there is only one entry"""
-    my_out = ", ".join(inDict.values())
+    my_out = ", ".join(in_dict.values())
     if "," in my_out:
         my_out = f"({my_out})"
     return my_out
@@ -29,17 +29,17 @@ def to_camel_case(text) -> str:
     return sub(r"(_|-)+", " ", text).title().replace(" ", "")
 
 
-def getKeyType(has_lang: bool, subkeys: dict, multi: bool) -> str:
-    myOut = ""
+def get_key_type(has_lang: bool, subkeys: dict, multi: bool) -> str:
+    my_out = ""
     if len(subkeys) > 0:
-        myOut += "".join(key.capitalize() for key in subkeys.keys())
+        my_out += "".join(key.capitalize() for key in subkeys.keys())
     if has_lang:
-        myOut += "Lang"
+        my_out += "Lang"
     if multi:
-        myOut += "Multi"
-    if myOut:
-        myOut = "_Keytype" + myOut
-    return myOut
+        my_out += "Multi"
+    if my_out:
+        my_out = "_Keytype" + my_out
+    return my_out
 
 
 SpecRow = namedtuple(
@@ -83,25 +83,25 @@ valuetype_line_val = {
 
 
 class MyKeyword:
-    def __init__(self, csvRow: SpecRow) -> None:
-        self.keyword = csvRow.px_keyword
-        self.has_lang = bool(csvRow.is_lang_dependent)
-        self.is_mandatory = bool(csvRow.is_Mandatory)  # todo
-        self.completeness_type = csvRow.completeness_type
-        self.subkeys_raw = csvRow.px_SubKey
-        self.is_SubKey_Optional = bool(csvRow.is_SubKey_Optional)
-        self.is_duplicate_keypart_allowed = bool(csvRow.is_duplicate_keypart_allowed_)
-        self.px_valuetype = csvRow.px_valuetype
-        self.px_valuetype_params = csvRow.px_valuetype_params
+    def __init__(self, csv_row: SpecRow) -> None:
+        self.keyword = csv_row.px_keyword
+        self.has_lang = bool(csv_row.is_lang_dependent)
+        self.is_mandatory = bool(csv_row.is_Mandatory)  # todo
+        self.completeness_type = csv_row.completeness_type
+        self.subkeys_raw = csv_row.px_SubKey
+        self.is_SubKey_Optional = bool(csv_row.is_SubKey_Optional)
+        self.is_duplicate_keypart_allowed = bool(csv_row.is_duplicate_keypart_allowed_)
+        self.px_valuetype = csv_row.px_valuetype
+        self.px_valuetype_params = csv_row.px_valuetype_params
         tmp_linevalidate = []
         if self.px_valuetype in valuetype_line_val.keys():
             tmp_linevalidate = valuetype_line_val[self.px_valuetype]
-        if csvRow.linevalidate:
-            self.linevalidate = tmp_linevalidate + csvRow.linevalidate.split(" XX ")
+        if csv_row.linevalidate:
+            self.linevalidate = tmp_linevalidate + csv_row.linevalidate.split(" XX ")
         else:
             self.linevalidate = tmp_linevalidate
 
-        self.px_comment = csvRow.px_comment
+        self.px_comment = csv_row.px_comment
 
         # util
 
@@ -135,63 +135,63 @@ class MyKeyword:
         if self.keyword == "DATA":
             self.valueParams.update({"columns_per_line": "int"})
 
-        params_in_setDict = self.valueParams.copy()
+        params_in_set_dict = self.valueParams.copy()
 
         if self.keyParams:
-            params_in_setDict.update(self.keyParams.items())
+            params_in_set_dict.update(self.keyParams.items())
 
-        self.params_in_set = DictAsSignature(params_in_setDict)
+        self.params_in_set = dict_as_signature(params_in_set_dict)
 
         # ClassNames
 
         self.classnames = {}
         self.classnames["This"] = "_" + to_camel_case(self.keyword)
         self.classnames["Value"] = self.px_valuetype
-        self.classnames["Key"] = getKeyType(self.has_lang, self.subkeys, self.is_duplicate_keypart_allowed)
+        self.classnames["Key"] = get_key_type(self.has_lang, self.subkeys, self.is_duplicate_keypart_allowed)
         self.classnames["Super"] = "_PxValueByKey" if self.has_lang or self.subkeys_raw else "_PxSingle"
 
     # Constructors
 
     # Writers
 
-    def imports_writer(self, fileHandle) -> None:
-        fileHandle.write(f"from pxbuild.models.output.pxfile.util._px_super import {self.classnames['Super']}\n")
+    def imports_writer(self, filehandle) -> None:
+        filehandle.write(f"from pxbuild.models.output.pxfile.util._px_super import {self.classnames['Super']}\n")
         if self.classnames["Value"] != "int":
-            fileHandle.write(
+            filehandle.write(
                 f"from pxbuild.models.output.pxfile.util._px_valuetype import {self.classnames['Value']}\n"
             )
         if self.classnames["Key"]:
-            fileHandle.write(f"from pxbuild.models.output.pxfile.util._px_keytypes import { self.classnames['Key']}\n")
-        fileHandle.write("from pxbuild.models.output.pxfile.util._line_validator import LineValidator\n\n\n")
+            filehandle.write(f"from pxbuild.models.output.pxfile.util._px_keytypes import { self.classnames['Key']}\n")
+        filehandle.write("from pxbuild.models.output.pxfile.util._line_validator import LineValidator\n\n")
 
-    def class_and_init_writer(self, fileHandle) -> None:
-        fileHandle.write(f"class {self.classnames['This']}({self.classnames['Super']}):\n\n")
-        fileHandle.write(f"    pxvalue_type: str = \"{self.classnames['Value']}\"\n")
+    def class_and_init_writer(self, filehandle) -> None:
+        filehandle.write(f"class {self.classnames['This']}({self.classnames['Super']}): \n\n")
+        filehandle.write(f"    pxvalue_type:str = \"{self.classnames['Value']}\"\n")
         if self.keyword == "LANGUAGES":
             pass
-        fileHandle.write(f"    has_subkey: bool = {not self.subkeys_raw.strip() == ''}\n")
-        fileHandle.write(f"    subkey_optional: bool = {self.is_SubKey_Optional }\n")
-        fileHandle.write(f'    completeness_type: str = "{self.completeness_type}"\n')
-        fileHandle.write(f"    may_have_language: bool = {self.has_lang}\n\n")
+        filehandle.write(f"    has_subkey:bool = {not self.subkeys_raw.strip() == ''}\n")
+        filehandle.write(f"    subkey_optional:bool = {self.is_SubKey_Optional }\n")
+        filehandle.write(f'    completeness_type:str = "{self.completeness_type}"\n')
+        filehandle.write(f"    may_have_language:bool = {self.has_lang}\n\n")
 
-        fileHandle.write(f"    def __init__(self) -> None:\n")
-        fileHandle.write(f'        super().__init__("{self.keyword}")\n')
+        filehandle.write(f"    def __init__(self) -> None:\n")
+        filehandle.write(f'        super().__init__("{self.keyword}")\n')
         if self.has_lang:
-            fileHandle.write("        self._seen_languages={}\n")
+            filehandle.write("        self._seen_languages={}\n")
         if self.is_duplicate_keypart_allowed:
-            fileHandle.write("        self.occurence_counter = 0\n")
-        fileHandle.write(f"\n")
+            filehandle.write("        self.occurence_counter = 0\n")
+        filehandle.write(f"\n")
 
-    def set_writer(self, fileHandle) -> None:
-        fileHandle.write(f"    def set(self, {kw.params_in_set}) -> None:\n")
-        fileHandle.write(f'        """{kw.px_comment}"""\n')
+    def set_writer(self, filehandle) -> None:
+        filehandle.write(f"    def set(self, {kw.params_in_set}) -> None:\n")
+        filehandle.write(f'        """ {kw.px_comment} """\n')
 
         # LineValidator.              regexp_string("^(CODES|VALUES)$",   +   "mykeyword", "CODES")
         for item in kw.linevalidate:
-            fileHandle.write(f"        LineValidator.{item} self._keyword, {DictAsCall(kw.valueParams)})\n")
+            filehandle.write(f"        LineValidator.{item} self._keyword, {dict_as_call(kw.valueParams)})\n")
 
         # valuetype_contructor
-        fileHandle.write(f"        my_value = {self.classnames['Value']}({DictAsCall(self.valueParams)})\n")
+        filehandle.write(f"        my_value = {self.classnames['Value']}({dict_as_call(self.valueParams)})\n")
 
         if self.keyword == "DATA":
             self.valueParams.pop("columns_per_line")
@@ -199,41 +199,41 @@ class MyKeyword:
         # keytype_contructor (except for "pure" keywords )
         if self.classnames["Key"]:
             if kw.is_duplicate_keypart_allowed:
-                fileHandle.write(f"        self.occurence_counter += 1\n")
-                fileHandle.write(
-                    f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)}, self.occurence_counter)\n"
+                filehandle.write(f"        self.occurence_counter += 1\n")
+                filehandle.write(
+                    f"        my_key = {self.classnames['Key']}({dict_as_call(self.keyParams)}, self.occurence_counter)\n"
                 )
             else:
-                fileHandle.write(f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)})\n")
+                filehandle.write(f"        my_key = {self.classnames['Key']}({dict_as_call(self.keyParams)})\n")
 
-            self.catch_duplicate_writer(fileHandle, "super().set(my_value,my_key)")
+            self.catch_duplicate_writer(filehandle, "super().set(my_value,my_key)")
             if self.has_lang:
-                fileHandle.write(f"        self._seen_languages[lang]=1\n")
+                filehandle.write(f"        self._seen_languages[lang]=1\n")
 
         else:
-            self.catch_duplicate_writer(fileHandle, "super().set(my_value)")
-        fileHandle.write(f"\n")
+            self.catch_duplicate_writer(filehandle, "super().set(my_value)")
+        filehandle.write(f"\n")
 
-    def catch_duplicate_writer(self, fileHandle, codeline: str) -> None:
-        fileHandle.write(f"        try:\n")
-        fileHandle.write(f"            {codeline}\n")
-        fileHandle.write(f"        except Exception as e:\n")
-        fileHandle.write(f'            msg = self._keyword + ":" + str(e)\n')
-        fileHandle.write(f"            raise type(e)(msg) from e\n")
+    def catch_duplicate_writer(self, filehandle, codeline: str) -> None:
+        filehandle.write(f"        try:\n")
+        filehandle.write(f"            {codeline}\n")
+        filehandle.write(f"        except Exception as e:\n")
+        filehandle.write(f'            msg = self._keyword + ":" +str(e)\n')
+        filehandle.write(f"            raise type(e)(msg) from e\n")
 
     def get_and_has_value_writer(self, filehandle) -> None:
         if self.classnames["Super"] == "_PxSingle":
-            filehandle.write(f"    def get_value(self) -> {DictAsReturntype(self.valueParams)}:\n")
+            filehandle.write(f"    def get_value(self) -> {dict_as_returntype(self.valueParams)}:\n")
             filehandle.write(f"        return super().get_value().get_value()")
         if len(self.keyParams) > 0:
             filehandle.write(
-                f"    def get_value(self, {DictAsSignature(self.keyParams)}) -> {DictAsReturntype(self.valueParams)}:\n"
+                f"    def get_value(self, {dict_as_signature(self.keyParams)}) -> {dict_as_returntype(self.valueParams)}:\n"
             )
             if kw.is_duplicate_keypart_allowed:
                 filehandle.write(f"        #TODO how should this function? Any usecases?\n")
-                filehandle.write(f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)},1)\n")
+                filehandle.write(f"        my_key = {self.classnames['Key']}({dict_as_call(self.keyParams)},1)\n")
             else:
-                filehandle.write(f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)})\n")
+                filehandle.write(f"        my_key = {self.classnames['Key']}({dict_as_call(self.keyParams)})\n")
             filehandle.write(f"        return super().get_value(my_key).get_value()")
         filehandle.write(f"\n\n")
 
@@ -241,12 +241,12 @@ class MyKeyword:
             filehandle.write(f"    def has_value(self) -> bool:\n")
             filehandle.write(f"        return super().has_value()")
         if len(self.keyParams) > 0:
-            filehandle.write(f"    def has_value(self, {DictAsSignature(self.keyParams)}) -> bool:\n")
+            filehandle.write(f"    def has_value(self, {dict_as_signature(self.keyParams)}) -> bool:\n")
             if kw.is_duplicate_keypart_allowed:
                 filehandle.write(f"        #TODO how should this function? Any usecases?\n")
-                filehandle.write(f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)},1)\n")
+                filehandle.write(f"        my_key = {self.classnames['Key']}({dict_as_call(self.keyParams)},1)\n")
             else:
-                filehandle.write(f"        my_key = {self.classnames['Key']}({DictAsCall(self.keyParams)})\n")
+                filehandle.write(f"        my_key = {self.classnames['Key']}({dict_as_call(self.keyParams)})\n")
             filehandle.write(f"        return super().has_value(my_key)")
         filehandle.write(f"\n\n")
 
@@ -274,8 +274,8 @@ class SpecReader:
         self,
     ) -> None:
         # read file
-        with open("Keywords.csv", "r", encoding="utf-8-sig") as theSpecCsv:
-            reader = csv.reader(theSpecCsv, delimiter=";")
+        with open("Keywords.csv", "r", encoding="utf-8-sig") as the_spec_csv:
+            reader = csv.reader(the_spec_csv, delimiter=";")
             header = next(reader)
 
             print(header)
@@ -292,14 +292,14 @@ file_path_to_pxfiledir = "../pxbuild/models/output/pxfile"
 for kw in my_spec_reader.data:
     with open(
         file_path_to_pxfiledir + "/keywords/" + kw.module_name + ".py", "wt", encoding="utf-8-sig", newline="\n"
-    ) as classPy:
-        kw.imports_writer(classPy)
-        kw.class_and_init_writer(classPy)
-        kw.set_writer(classPy)
-        kw.get_and_has_value_writer(classPy)
-        kw.get_lang_utils_writer(classPy)
+    ) as class_py:
+        kw.imports_writer(class_py)
+        kw.class_and_init_writer(class_py)
+        kw.set_writer(class_py)
+        kw.get_and_has_value_writer(class_py)
+        kw.get_lang_utils_writer(class_py)
 
-## model.keywords.
+# model.keywords.
 
 # make constants.py
 mandatory_keys = []
@@ -325,7 +325,7 @@ with open(file_path_to_pxfiledir + "/util/constants.py", "wt", encoding="utf-8-s
     constant_module.write(f"KEYWORDS_PYTHONIC_MAP = {str(keyword_pythonic_map)}\n")
 
 # make PxFileModel.py
-myDict = {}
+my_dict = {}
 the_imports = []
 the_attributes = []
 for kw in my_spec_reader.data:
@@ -341,7 +341,7 @@ for kw in my_spec_reader.data:
 # self.axisversion = _PX_AXIS_VERSION()
 
 with open(file_path_to_pxfiledir + "/px_file_model.py", "wt", encoding="utf-8-sig", newline="\n") as model_py:
-    #', '.join(kw.
+    # ', '.join(kw.
     model_py.write("\n".join(the_imports) + "\n")
     model_py.write("from pxbuild.models.output.pxfile.util._px_super import _SuperKeyword\n\n")
     model_py.write("class PXFileModel:\n")

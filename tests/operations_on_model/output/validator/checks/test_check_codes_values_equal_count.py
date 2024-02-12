@@ -3,8 +3,6 @@ from pxbuild.operations_on_model.output.validator.checks.check_codes_values_equa
     check_codes_values_equal_count,
 )
 
-import pytest
-
 
 def test_check_codes_values_equal_count_value_error():
     pxfile = PXFileModel()
@@ -16,7 +14,7 @@ def test_check_codes_values_equal_count_value_error():
     pxfile.values.set(["v1", "v2", "v3"], variable="var_c", lang="en")
 
     val_rep = check_codes_values_equal_count(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert (
         "The combination for language 'en' and variable 'var_d' in codes is not defined for any values."
         in val_rep.error_msg
@@ -33,7 +31,7 @@ def test_check_codes_values_equal_count_value_error_missing_key():
     pxfile.values.set(["v1", "v2", "v3"], variable="var_c", lang="en")
 
     val_rep = check_codes_values_equal_count(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert (
         "The combination for language 'en' and variable 'var_d' in codes is not defined for any values."
         in val_rep.error_msg
@@ -49,7 +47,7 @@ def test_check_codes_values_equal_count_value_error_missing_values():
     pxfile.values.set(["v1", "v2", "v3", "v4"], variable="var_c", lang="en")
 
     val_rep = check_codes_values_equal_count(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert (
         "Codes and values does not have the same amout of entries for language 'en' and variable 'var_c'"
         in val_rep.error_msg

@@ -9,6 +9,6 @@ class CsvDatasource(AbstractDatasource):
         print("Debug: Reading csv file:", filepath)
         self._df = pd.read_csv(filepath, sep=";", dtype=str)
 
-    def GetRawPandas(self) -> pd.DataFrame:
+    def get_raw_pandas(self) -> pd.DataFrame:
         raw_data: pd.DataFrame = self._df
         return raw_data

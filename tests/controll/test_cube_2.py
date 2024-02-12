@@ -1,4 +1,3 @@
-import pytest
 import filecmp
 import os
 
@@ -7,9 +6,8 @@ import pxbuild
 
 class TestCube2:
     def test_cube_2_ok(self):
-        dummy = pxbuild.LoadFromPxmetadata("2", "testdata/test_cube_2/test_config.json")
+        pxbuild.LoadFromPxmetadata("2", "testdata/test_cube_2/test_config.json")
 
-        path = ""
         path_expected = "testdata/test_cube_2/expected/"
         path_actual = "testdata/out_files/cubes_0nn/test_cube_2/"
         filelist = os.listdir(path_expected)

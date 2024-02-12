@@ -1,0 +1,16 @@
+def test{{test_class_lower}}_used_languages():
+    obj = {{object_class}}()
+    obj.set({{good_value}}, {{keypart}})
+    assert "no" in obj.get_used_languages()
+
+
+def test{{test_class_lower}}_reset_language():
+    obj = {{object_class}}()
+    obj.set(
+        {{good_value}},
+    )
+    assert None in obj.get_used_languages()
+    obj.reset_language_none_to(None)
+    obj.reset_language_none_to("no")
+    assert None not in obj.get_used_languages()
+    assert "no" in obj.get_used_languages()

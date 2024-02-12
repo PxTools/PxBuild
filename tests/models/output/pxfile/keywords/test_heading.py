@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._heading import _Heading
 
 
-def test_Heading_set_valid():
+def test_heading_set_valid():
     obj = _Heading()
     assert not obj.has_value("no")
     obj.set(["a string"], "no")
@@ -10,13 +10,13 @@ def test_Heading_set_valid():
     assert obj.get_value("no") == ["a string"]
 
 
-def test_Heading_used_languages():
+def test_heading_used_languages():
     obj = _Heading()
     obj.set(["a string"], "no")
     assert "no" in obj.get_used_languages()
 
 
-def test_Heading_reset_language():
+def test_heading_reset_language():
     obj = _Heading()
     obj.set(
         ["a string"],
@@ -24,12 +24,12 @@ def test_Heading_reset_language():
     assert None in obj.get_used_languages()
     obj.reset_language_none_to(None)
     obj.reset_language_none_to("no")
-    assert not None in obj.get_used_languages()
+    assert None not in obj.get_used_languages()
     assert "no" in obj.get_used_languages()
 
 
-def test_Heading_duplicate_set_raises():
+def test_heading_duplicate_set_raises():
     obj = _Heading()
     obj.set(["a string"], "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(["a string"], "no")

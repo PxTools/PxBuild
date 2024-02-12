@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._confidential import _Confidential
 
 
-def test_Confidential_set_valid():
+def test_confidential_set_valid():
     obj = _Confidential()
     assert not obj.has_value()
     obj.set(1)
@@ -10,8 +10,8 @@ def test_Confidential_set_valid():
     assert obj.get_value() == 1
 
 
-def test_Confidential_duplicate_set_raises():
+def test_confidential_duplicate_set_raises():
     obj = _Confidential()
     obj.set(1)
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(1)

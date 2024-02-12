@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._codepage import _Codepage
 
 
-def test_Codepage_set_valid():
+def test_codepage_set_valid():
     obj = _Codepage()
     assert not obj.has_value()
     obj.set("a string")
@@ -10,8 +10,8 @@ def test_Codepage_set_valid():
     assert obj.get_value() == "a string"
 
 
-def test_Codepage_duplicate_set_raises():
+def test_codepage_duplicate_set_raises():
     obj = _Codepage()
     obj.set("a string")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string")

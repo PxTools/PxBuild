@@ -11,6 +11,6 @@ class ParquetDatasource(AbstractDatasource):
         print("Debug: Reading parquet file:", filepath)
         self._parquet_file = pq.ParquetFile(filepath)
 
-    def GetRawPandas(self) -> pd.DataFrame:
+    def get_raw_pandas(self) -> pd.DataFrame:
         raw_data: pd.DataFrame = self._parquet_file.read().to_pandas()
         return raw_data

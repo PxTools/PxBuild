@@ -1,5 +1,5 @@
 ## Pxbuild
-Not everything here is true :-) but it illustrates how to think about the classes. 
+Not everything here is true :-) but it illustrates how to think about the classes.
 There is about 80 Keywords.
 There is one class responsible for the line(s) of each Keyword.
 The PxFileModel has one of each of the "keyword"-classes
@@ -12,28 +12,28 @@ classDiagram
     PxFileModel *-- _Values
     PxFileModel *-- _Valuenote
     PxFileModel *-- _Variablecode
-    
+
     <<Entrypoint>> PxFileModel
     <<Keyword_class>> _Aggregallowed
     <<Keyword_class>> _Languages
     <<Keyword_class>> _Variablecode
     <<Keyword_class>> _Values
     <<Keyword_class>> _Valuenote
-    
-```    
-  
+
+```
+
 
 
 The logical lines/records in a pxfile have the form:
 
 Keypart =  Valuepart ;
 
-The keypart consist of 
-- a Keyword 
-- an optional 2 letter language code in [] (it may be quoted) 
+The keypart consist of
+- a Keyword
+- an optional 2 letter language code in [] (it may be quoted)
 - an optional "subcube pointer" which is one or more quoted strings separated by commas surounded by ()
 
-like 
+like
 - AXIS-VERSION= ...
 - NOTE\["en"\]= ...
 - CODES\["en"\]("Year")= ...
@@ -41,14 +41,14 @@ like
 The Keyword determins if language and subcube-pointer is allowed(/is needed/makes sence) Some keyparts may occur more than once, others may only occur once.
 This also depends on the keyword.
 
-So, the lines/keywords may be spilt in 2 groups: Those which "can be identifyed by just the Keyword, and the Others. 
+So, the lines/keywords may be spilt in 2 groups: Those which "can be identifyed by just the Keyword, and the Others.
 To hold the other-than-keyword information a group of classes has been made. They start their name with Keytype.
 
 The Valuepart also have different types like int and list of strings.
 
-The "classes" I_Keytype and I_Valuetype exists only on a conceptual level. "Mutli" indicate that the Keypart may occur more than once (footnotes)  
+The "classes" I_Keytype and I_Valuetype exists only on a conceptual level. "Mutli" indicate that the Keypart may occur more than once (footnotes)
 ```mermaid
-classDiagram 
+classDiagram
     _KeytypeLang --|> I_Keytype
     _KeytypeVariableLang --|> _KeytypeLang
     _KeytypeContentLang --|> _KeytypeLang
@@ -58,7 +58,7 @@ classDiagram
     _KeytypeVariableValueLangMulti --|> _KeytypeVariableValueLang
     _KeytypeValuesLangMulti --|> _KeytypeLang
     _KeytypeValuesMulti --|> I_Keytype
-```    
+```
 
 ```mermaid
 classDiagram
@@ -70,7 +70,7 @@ classDiagram
     I_Valuetype <|-- _PxData
     I_Valuetype <|-- _PxInt
 ```
-The "Keyword-classes" use 2 different superclasses, one \_PxSingle for those that have just the keyword and a value and \_PxValueByKey for the Others. 
+The "Keyword-classes" use 2 different superclasses, one \_PxSingle for those that have just the keyword and a value and \_PxValueByKey for the Others.
 These 2 both inhert an abstract class called _SuperKeyword
 ```mermaid
 classDiagram
@@ -84,22 +84,18 @@ classDiagram
 
     _SuperKeyword <|-- _PXSingle
     _SuperKeyword <|-- _PXValueByKey
-    
+
 
     _PXSingle *-- I_Valuetype
     _PXValueByKey *-- I_Valuetype
     _PXValueByKey *-- I_Keytype
-   
+
     _PXSingle <|-- _Languages
-    
+
     _PXValueByKey <|--_Valuenote
-    
+
     <<Keyword_class>> _Languages
     <<Keyword_class>> _Valuenote
 
-    
-```  
 
-
-
-      
+```

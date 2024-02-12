@@ -33,7 +33,7 @@ class _PxStringList:
 
     def __init__(self, list_of_strings: list[str]) -> None:
         self.list_of_strings = list_of_strings
-        if not type(list_of_strings) == list:
+        if type(list_of_strings) is not list:
             raise ValueError(f"list_of_strings must be list not {type(list_of_strings)}")
         if len(list_of_strings) < 1:
             raise ValueError(f"list_of_strings must have a least one value")

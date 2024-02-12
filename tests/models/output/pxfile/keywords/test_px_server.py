@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._px_server import _PxServer
 
 
-def test_PxServer_set_valid():
+def test_pxserver_set_valid():
     obj = _PxServer()
     assert not obj.has_value()
     obj.set("a string")
@@ -10,8 +10,8 @@ def test_PxServer_set_valid():
     assert obj.get_value() == "a string"
 
 
-def test_PxServer_duplicate_set_raises():
+def test_pxserver_duplicate_set_raises():
     obj = _PxServer()
     obj.set("a string")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string")

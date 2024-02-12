@@ -1,5 +1,3 @@
-import pyarrow.parquet as pq
-import pyarrow as pa
 import pandas as pd
 from typing import List
 from pxbuild.models.input.pydantic_pxbuildconfig import PxbuildConfig
@@ -8,6 +6,12 @@ from .csv_datasource import CsvDatasource
 from .abstract_datasource import AbstractDatasource
 
 # Open and read the Parquet file  (or csv for small tests)
+
+
+class PxDataSourceError(Exception):
+    """Custom exception for errors related to datasource."""
+
+    pass
 
 
 class Datadatasource:
@@ -19,9 +23,9 @@ class Datadatasource:
         elif self._data_file_path.endswith(".csv"):
             self._my_datasource: AbstractDatasource = CsvDatasource(self._data_file_path)
         else:
-            raise Exception("Sorry, not implemented yet. Files must end with .parquet or .csv")
+            raise NotImplementedError("Sorry, not implemented yet. Files must end with .parquet or .csv")
 
-        self._raw_df = self._my_datasource.GetRawPandas()
+        self._raw_df = self._my_datasource.get_raw_pandas()
 
         self._validate_pandas()
 
@@ -32,7 +36,7 @@ class Datadatasource:
 
         for col in my_colnames:
             if "." in col:
-                raise Exception(
+                raise PxDataSourceError(
                     "Column: "
                     + col
                     + " has a dot, if it is not so in the datafile, there probably is a duplicate in columnname. "
@@ -43,7 +47,7 @@ class Datadatasource:
             if col.endswith("_SYMBOL"):
                 col_without_symbol = col[:-7]
                 if col_without_symbol not in my_colnames:
-                    raise Exception(
+                    raise PxDataSourceError(
                         "Found " + col + " ,but no matching " + col_without_symbol + " . " + err_mess_ending
                     )
 
@@ -55,26 +59,23 @@ class Datadatasource:
                 if not invalid_rows.empty:
                     err_mess = "There are rows with bad value in " + col + " column. " + err_mess_ending
                     print(invalid_rows.head(10))
-                    raise Exception(err_mess)
+                    raise PxDataSourceError(err_mess)
 
-    def PrintColumns(self) -> None:
-        print("Debug cols:", self._raw_df)
-
-    def GetTimePeriodes(self, column_name: str) -> List[str]:
+    def get_timeperiodes(self, column_name: str) -> List[str]:
         """Reads all values from a column, applies unique and sorts descending."""
 
         if column_name not in self._raw_df.columns:
-            raise ValueError(f"Column '{column_name}' not found in the CSV file.")
+            raise PxDataSourceError(f"Column '{column_name}' not found in the CSV file.")
 
         column_data = self._raw_df[column_name]
 
         # Get distinct values from the column
         distinct_values = column_data.unique()
-        asList = distinct_values.tolist()
-        asSortedList = sorted(asList, reverse=True)
-        return asSortedList
+        as_list = distinct_values.tolist()
+        as_sorted_list = sorted(as_list, reverse=True)
+        return as_sorted_list
 
-    def GetIdentifierColumns(self, all_columns: list, measurement_map: dict) -> List[str]:
+    def get_identifiercolumns(self, all_columns: list, measurement_map: dict) -> List[str]:
         identifier_columns = []
         for column in all_columns:
             if not (column in measurement_map.keys()):
@@ -82,22 +83,22 @@ class Datadatasource:
 
         return identifier_columns
 
-    def AddMissingSymbolColumns(self, measurement_codes: list[str], df: pd.DataFrame):
+    def add_missing_symbolcolumns(self, measurement_codes: list[str], df: pd.DataFrame):
         for code in measurement_codes:
             if not (f"SYMBOL_{code}" in df):
                 df[f"SYMBOL_{code}"] = ""
 
-    def MakeRenameDict(self, measurement_codeBycolumn_name: dict, columns_in_datafile) -> dict:
+    def make_renamedict(self, measurement_code_by_column_name: dict, columns_in_datafile) -> dict:
         my_out = {}
-        for column_name in measurement_codeBycolumn_name:
-            my_out[column_name] = f"VALUE_{measurement_codeBycolumn_name[column_name]}"
+        for column_name in measurement_code_by_column_name:
+            my_out[column_name] = f"VALUE_{measurement_code_by_column_name[column_name]}"
             corresponding_symbol_column = column_name + "_SYMBOL"
             if corresponding_symbol_column in columns_in_datafile:
-                my_out[corresponding_symbol_column] = f"SYMBOL_{measurement_codeBycolumn_name[column_name]}"
+                my_out[corresponding_symbol_column] = f"SYMBOL_{measurement_code_by_column_name[column_name]}"
 
         return my_out
 
-    def GetTidyDF(self, measure_dim_name: str, measurement_codeBycolumn_name: dict) -> pd.DataFrame:
+    def get_tidy_df(self, measure_dim_name: str, measurement_code_by_column_name: dict) -> pd.DataFrame:
         # measure_dim_name is contvariable_code from config
         # column_code_map is
         #        for measurement_var in self._pxmetadata_model.dataset.measurements:
@@ -111,18 +112,18 @@ class Datadatasource:
         #  add missing SYMBOL_{code}
         #  it is when we do pd.wide_to_long, this strange mix of column names and code is needed: The code in the cell is the columnnane minus "VALUE"
 
-        raw_data: pd.DataFrame = self._my_datasource.GetRawPandas()
+        raw_data: pd.DataFrame = self._my_datasource.get_raw_pandas()
         print("raw_data.columns:", raw_data.columns)
 
-        measurement_codes = list(measurement_codeBycolumn_name.values())
-        column_with_value_prefix = self.MakeRenameDict(measurement_codeBycolumn_name, raw_data.columns)
+        measurement_codes = list(measurement_code_by_column_name.values())
+        column_with_value_prefix = self.make_renamedict(measurement_code_by_column_name, raw_data.columns)
 
         # todo attributes columns should not be counted as identifier_columns
-        identifier_columns = self.GetIdentifierColumns(raw_data.columns.values.tolist(), column_with_value_prefix)
+        identifier_columns = self.get_identifiercolumns(raw_data.columns.values.tolist(), column_with_value_prefix)
         print("Renaming:", column_with_value_prefix)
         raw_data.rename(columns=column_with_value_prefix, inplace=True)
         print("Post renaming:", raw_data.columns)
-        self.AddMissingSymbolColumns(measurement_codes, raw_data)
+        self.add_missing_symbolcolumns(measurement_codes, raw_data)
         print("Cols before wide_to_long:", raw_data.columns)
         tidy_df = pd.wide_to_long(
             raw_data,

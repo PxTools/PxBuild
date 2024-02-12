@@ -5,6 +5,7 @@ These classes have 2 purposes:
 
 They used to be just namedTuples, but we wanted to use pydantic for validation
 """
+
 from ._line_validator import LineValidator
 
 
@@ -21,7 +22,7 @@ class _KeytypeLang:
         return f"[{self.lang}]" if self.lang else ""
 
     def __eq__(self, other):
-        if type(self) == type(other):
+        if type(self) is type(other):
             return self.lang == other.lang
         return False
 
@@ -49,7 +50,7 @@ class _KeytypeVariableLang(_KeytypeLang):
             return f"{super().__str__()}"
 
     def __eq__(self, other):
-        if type(self) == type(other):
+        if type(self) is type(other):
             return self.variable == other.variable and self.lang == other.lang
         return False
 
@@ -80,7 +81,7 @@ class _KeytypeContentLang(_KeytypeLang):
             return f"{super().__str__()}"
 
     def __eq__(self, other):
-        if type(self) == type(other):
+        if type(self) is type(other):
             return self.content == other.content and self.lang == other.lang
         return False
 
@@ -116,7 +117,7 @@ class _KeytypeVariableValueLang(_KeytypeLang):
                 return f"{super().__str__()}"
 
     def __eq__(self, other):
-        if type(self) == type(other):
+        if type(self) is type(other):
             return self.variable == other.variable and self.value == other.value and self.lang == other.lang
         return False
 
@@ -138,7 +139,7 @@ class _KeytypeVariableLangMulti(_KeytypeVariableLang):
         self.counter = counter
 
     def __eq__(self, other):
-        if type(self) == type(other):
+        if type(self) is type(other):
             return self.variable == other.variable and self.lang == other.lang and self.counter == other.counter
         return False
 
@@ -160,7 +161,7 @@ class _KeytypeVariableValueLangMulti(_KeytypeVariableValueLang):
         self.counter = counter
 
     def __eq__(self, other):
-        if type(self) == type(other):
+        if type(self) is type(other):
             return (
                 self.variable == other.variable
                 and self.value == other.value
@@ -194,7 +195,7 @@ class _KeytypeValuesLangMulti(_KeytypeLang):
         return f'{super().__str__()}("{self._joined}")'
 
     def __eq__(self, other):
-        if type(self) == type(other):
+        if type(self) is type(other):
             return self._joined == other._joined and self.lang == other.lang and self.counter == other.counter
         return False
 
@@ -221,7 +222,7 @@ class _KeytypeCodes:
         return f'("{self._joined}")'
 
     def __eq__(self, other):
-        if type(self) == type(other):
+        if type(self) is type(other):
             return self._joined == other._joined
         return False
 

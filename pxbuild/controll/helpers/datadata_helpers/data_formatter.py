@@ -1,9 +1,9 @@
 from typing import List, Dict
-from .for_get_data import ForGetData
+from .for_get_data import CubemathsHelper
 
 
 class DataFormatter:
-    def __init__(self, heading: List[str], variables: Dict[str, ForGetData]) -> None:
+    def __init__(self, heading: List[str], variables: Dict[str, CubemathsHelper]) -> None:
         self._heading = heading
         self._variables = variables
 

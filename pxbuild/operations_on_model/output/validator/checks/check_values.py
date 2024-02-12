@@ -1,7 +1,5 @@
 from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 from ...validator.validationResult import ValidationResult
-import pxbuild.models.output.pxfile.util.constants as const
-from .check_mandatory import check_mandatory
 
 
 def check_values(model: PXFileModel) -> ValidationResult:
@@ -25,9 +23,9 @@ def check_values(model: PXFileModel) -> ValidationResult:
                 curr_len = len(model.values.get_value(vari, langu))
                 if vari_cnt in lengths_by_variable:
                     if not curr_len == lengths_by_variable[vari_cnt]:
-                        val_result.add_error(
-                            f"VALUES for lang:{langu} and variable:{vari}. Found {curr_len} entries, but another language had {lengths_by_variable[vari_cnt]}. "
-                        )
+                        mess_part1: str = f"VALUES for lang:{langu} and variable:{vari}. Found {curr_len} entries, but "
+                        mess_part2: str = f"another language had {lengths_by_variable[vari_cnt]}. "
+                        val_result.add_error(mess_part1 + mess_part2)
                 else:
                     lengths_by_variable[vari_cnt] = curr_len
     return val_result

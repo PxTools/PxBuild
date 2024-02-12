@@ -12,20 +12,20 @@ class TestPXAxisVersion:
             axis_version_obj.set("202a")
 
 
-def test_AxisVersion_init():
+def test_axisversion_init():
     version = _AxisVersion()
     assert version._keyword == "AXIS-VERSION"
     assert version.pxvalue_type == "_PxString"
-    assert version.may_have_language == False
+    assert not version.may_have_language
 
 
-def test_AxisVersion_set_valid():
+def test_axisversion_set_valid():
     version = _AxisVersion()
     version.set("2022")
     assert version.get_value() == "2022"
 
 
-def test_AxisVersion_set_invalid():
+def test_axisversion_set_invalid():
     version = _AxisVersion()
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         version.set("invalid version")

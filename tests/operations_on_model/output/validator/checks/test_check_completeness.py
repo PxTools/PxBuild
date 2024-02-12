@@ -1,8 +1,6 @@
 from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 from pxbuild.operations_on_model.output.validator.checks.check_completeness import check_completeness
 
-import pytest
-
 
 def _get_model() -> PXFileModel:
     pxfile = PXFileModel()
@@ -51,7 +49,7 @@ def test_check_completeness_one_variable_fails_keyword_not_supported():
     pxfile.attributes.set(["C", "F"], ["C1", "C2", "C3"])
 
     val_rep = check_completeness(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert "For keyword ATTRIBUTES:Sorry keyword not supported yet." in val_rep.error_msg
 
 
@@ -61,7 +59,7 @@ def test_check_completeness_one_variable_fails_half_a_variable():
     pxfile.timeval.set("A1", ["T1", "T2"], "var1_sv", "sv")
 
     val_rep = check_completeness(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert "For keyword TIMEVAL:Missing value for lang:fi" in val_rep.error_msg
 
 
@@ -82,7 +80,7 @@ def test_check_completeness_one_variable_fails_2_variables():
     pxfile.timeval.set("A1", ["T1", "T2"], "var3_fi", "fi")
 
     val_rep = check_completeness(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert "For keyword TIMEVAL: Should only reference 1 variable. Found 2: index 0 and 2." in val_rep.error_msg
 
 
@@ -92,7 +90,7 @@ def test_check_completeness_one_variable_fails_2_half_variables():
     pxfile.timeval.set("A1", ["T1", "T2"], "var3_fi", "fi")
 
     val_rep = check_completeness(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert "For keyword TIMEVAL: Should only reference 1 variable. Found 2: index 0 and 2." in val_rep.error_msg
 
 
@@ -101,7 +99,7 @@ def test_check_completeness_lang_fails_missing_lang():
     pxfile.contents.set("My fi contents", "fi")
 
     val_rep = check_completeness(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert "For keyword CONTENTS:Missing value for lang:sv" in val_rep.error_msg
 
 
@@ -109,7 +107,7 @@ def test_check_completeness_each_variable_fails_missing_lang():
     pxfile = _get_model()
     pxfile.doublecolumn.set(True, "var1_sv", "sv")
     val_rep = check_completeness(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert "For keyword DOUBLECOLUMN:Missing value for variable:var1_fi and lang:fi" in val_rep.error_msg
 
 
@@ -117,7 +115,7 @@ def test_check_completeness_each_var_value_fails_missing_value():
     pxfile = _get_model()
     pxfile.precision.set(2, "var3_sv", "v_3_1_sv", "sv")
     val_rep = check_completeness(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert "For keyword PRECISION:Missing value for variable:var3_fi,value: v_3_1_fi and lang:fi" in val_rep.error_msg
 
 
@@ -131,7 +129,7 @@ def test_check_completeness_all_variables_fails_missing_value():
     pxfile.variable_type.set("type1", "var3_fi", "fi")
 
     val_rep = check_completeness(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert "For keyword VARIABLE-TYPE:Missing value for variable:var2_fi and lang:fi" in val_rep.error_msg
 
 
@@ -142,7 +140,7 @@ def test_check_completeness_all_content_fails_missing_contvalue():
     pxfile.dayadj.set(True, "v_2_2_fi", "fi")
 
     val_rep = check_completeness(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert "For keyword DAYADJ:Missing value for content:v_2_1_sv and lang:sv" in val_rep.error_msg
 
 

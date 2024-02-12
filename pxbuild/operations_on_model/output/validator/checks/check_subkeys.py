@@ -10,7 +10,6 @@ from pxbuild.models.output.pxfile.util._px_keytypes import (
 from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 from ...validator.validationResult import ValidationResult
 import pxbuild.models.output.pxfile.util.constants as const
-from .check_mandatory import check_mandatory
 
 
 class _Checker:
@@ -27,15 +26,15 @@ class _Checker:
                 for key in keyword._value_by_key:
                     self.error_intro = f"For keyword {keyword._keyword}"
 
-                    if type(key) == _KeytypeContentLang:
+                    if type(key) is _KeytypeContentLang:
                         self.check_keytype_content(key, keyword)
                     elif isinstance(key, _KeytypeVariableLang):
                         self.check_keytype_variable(key, keyword)
                     elif isinstance(key, _KeytypeVariableValueLang):
                         self.check_keytype_variable_value(key, keyword)
-                    elif type(key) == _KeytypeValuesLangMulti:
+                    elif type(key) is _KeytypeValuesLangMulti:
                         self.check_keytype_values(key, keyword)
-                    elif type(key) == _KeytypeCodes:
+                    elif type(key) is _KeytypeCodes:
                         # Not valuebased
                         pass
                     else:  # pragma: no cover

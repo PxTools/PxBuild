@@ -1,0 +1,8 @@
+def test{{test_class_lower}}_hack_multi_duplicate_set_raises():
+    obj = {{object_class}}()
+    obj.set({{good_value}}, {{keypart}})
+    # reseting counter to create error
+    obj.occurence_counter = 0
+    with pytest.raises(ValueError) as err_mess:
+        obj.set({{good_value}}, {{keypart}})
+    assert str(err_mess.value).startswith("{{keyword}}:")

@@ -3,15 +3,11 @@ from typing import List, Dict
 
 from pxbuild.models.input.pydantic_pxmetadata import PxMetadata, AttachmentItem
 from pxbuild.models.input.pydantic_pxbuildconfig import PxbuildConfig
-from pxbuild.models.input.helper_pxcodes import HelperPxCodes
 from pxbuild.models.input.pydantic_pxstatistics import PxStatistics
 
 from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 
-from .helpers.small_static_functions import Commons
-
 from .helpers.datadata_helpers.datadatasource import Datadatasource
-from .helpers.datadata_helpers.for_get_data import ForGetData
 from .helpers.datadata_helpers.main_data import MapData
 from .helpers.loaded_jsons import LoadedJsons
 from .helpers.support_files import SupportFiles
@@ -121,26 +117,26 @@ class LoadFromPxmetadata:
         # the input is code-based , the output is dimension-order and label-based
         lang = self._current_lang
 
-        dimension_in_order = self._dims.getDimsInOutputOrder()
+        dimension_in_order = self._dims.get_dims_in_output_order()
 
         for cellnote in self._pxmetadata_model.dataset.cell_notes:
-            valueCodeBydimensionCode = self.get_valueCode_by_dimensionCode(cellnote.attachment)
-            valueTextsForSubkey: List[str] = []
+            valuecode_by_dimensioncode = self.get_valuecode_by_dimensioncode(cellnote.attachment)
+            valuetexts_for_subkey: List[str] = []
             for dim in dimension_in_order:
-                dimCode = dim.get_code()
-                if dimCode in valueCodeBydimensionCode:
-                    valueCode = valueCodeBydimensionCode[dimCode]
-                    valueText = dim.get_valuelabel(lang, valueCode)
-                    valueTextsForSubkey.append(valueText)
+                dimcode = dim.get_code()
+                if dimcode in valuecode_by_dimensioncode:
+                    valuecode = valuecode_by_dimensioncode[dimcode]
+                    valuelabel = dim.get_valuelabel(lang, valuecode)
+                    valuetexts_for_subkey.append(valuelabel)
                 else:
-                    valueTextsForSubkey.append("*")
+                    valuetexts_for_subkey.append("*")
 
             if cellnote.is_mandatory:
-                out_model.cellnotex.set(cellnote.text[lang], valueTextsForSubkey, lang)
+                out_model.cellnotex.set(cellnote.text[lang], valuetexts_for_subkey, lang)
             else:
-                out_model.cellnote.set(cellnote.text[lang], valueTextsForSubkey, lang)
+                out_model.cellnote.set(cellnote.text[lang], valuetexts_for_subkey, lang)
 
-    def get_valueCode_by_dimensionCode(self, attachments: List[AttachmentItem]) -> Dict[str, str]:
+    def get_valuecode_by_dimensioncode(self, attachments: List[AttachmentItem]) -> Dict[str, str]:
         my_out: Dict[str, str] = {}
         for attachment in attachments:
             my_out[attachment.dimension_code] = attachment.value_code
@@ -157,7 +153,7 @@ class LoadFromPxmetadata:
         lang = self._current_lang
         model = self._pxmetadata_model.dataset
 
-        tmp_list = self._dims.getDimcodesInOutputOrder()
+        tmp_list = self._dims.get_dimcodes_in_output_order()
         vari_list = self._dims.get_as_lables(tmp_list, lang)
 
         tmp_string = ", ".join(vari_list[:-1])
@@ -229,7 +225,7 @@ class LoadFromPxmetadata:
                 if not n_var.elimination_possible:
                     out_model.elimination.set("NO", my_funny_var_id, lang)
                 else:
-                    label = n_var.getEliminationLabel(lang)
+                    label = n_var.get_elimination_label(lang)
                     if label:
                         out_model.elimination.set(label, my_funny_var_id, lang)
                     else:
@@ -247,7 +243,7 @@ class LoadFromPxmetadata:
                             out_model.note.set(note.text[lang], my_funny_var_id, lang)
 
                 # Note on a value in variale
-                my_value_notes = n_var.getValueNotes()
+                my_value_notes = n_var.get_valuenotes()
                 if my_value_notes:
                     for valuecode in my_value_notes:
                         for note in my_value_notes[valuecode]:

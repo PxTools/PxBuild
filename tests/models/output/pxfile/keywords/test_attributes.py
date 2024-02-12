@@ -8,7 +8,7 @@ def test_set_valid():
     assert obj.get_value(["01", "A01", "2005"]) == ["A", "F"]
 
 
-def test_Attributes_hack_multi_duplicate_set_raises():
+def test_attributes_hack_multi_duplicate_set_raises():
     obj = _Attributes()
     obj.set(["a string"], ["another string"])
     obj.occurence_counter = 0

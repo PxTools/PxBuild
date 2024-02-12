@@ -1,6 +1,5 @@
 from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 from ...validator.validationResult import ValidationResult
-import pxbuild.models.output.pxfile.util.constants as const
 
 
 def check_contentsvariable_is_present(model: PXFileModel) -> ValidationResult:
@@ -10,8 +9,8 @@ def check_contentsvariable_is_present(model: PXFileModel) -> ValidationResult:
 
     for langu in model.languages.get_value():
         try:
-            cont_value = model.contvariable.get_value(langu)
-        except:
+            model.contvariable.get_value(langu)
+        except AttributeError:
             val_result.add_error(
                 f"Value for Contentsvariable does not exist for for language code: {langu}. It must be specified."
             )
@@ -22,7 +21,7 @@ def check_contentsvariable_is_present(model: PXFileModel) -> ValidationResult:
         stub_and_head = model.stub.get_value(langu) + model.heading.get_value(langu)
         try:
             pos_contvariable = stub_and_head.index(model.contvariable.get_value(langu))
-        except:
+        except ValueError:
             val_result.add_error(
                 f"Contentsvariable  not found in stub or heading for language code: {langu}.  It must exist in either stub or heading."
             )

@@ -1,8 +1,6 @@
 from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 from pxbuild.operations_on_model.output.validator.checks.check_values import check_values
 
-import pytest
-
 
 def test_check_values_fails():
     pxfile = PXFileModel()
@@ -15,12 +13,12 @@ def test_check_values_fails():
     pxfile.heading.set(["var3_fi"], "fi")
 
     val_rep = check_values(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert "Can't find mandatory keyword VALUES." in val_rep.error_msg
 
     pxfile.values.set(["val1", "val2"], "var1_sv", "sv")
     val_rep = check_values(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert "Can't find mandatory keyword VALUES for lang:fi and variable:var3_fi." in val_rep.error_msg
 
     pxfile.values.set(["val1", "val2", "val3"], "var2_sv", "sv")
@@ -29,7 +27,7 @@ def test_check_values_fails():
     pxfile.values.set(["val1", "val2", "val3", "val4"], "var2_fi", "fi")
     pxfile.values.set(["val1"], "var3_fi", "fi")
     val_rep = check_values(pxfile)
-    assert val_rep.is_valid == False
+    assert not val_rep.is_valid
     assert "VALUES for lang:fi and variable:var2_fi. Found 4 entries, but another language had 3." in val_rep.error_msg
 
 

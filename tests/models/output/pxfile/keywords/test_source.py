@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._source import _Source
 
 
-def test_Source_set_valid():
+def test_source_set_valid():
     obj = _Source()
     assert not obj.has_value("no")
     obj.set("a string", "no")
@@ -10,13 +10,13 @@ def test_Source_set_valid():
     assert obj.get_value("no") == "a string"
 
 
-def test_Source_used_languages():
+def test_source_used_languages():
     obj = _Source()
     obj.set("a string", "no")
     assert "no" in obj.get_used_languages()
 
 
-def test_Source_reset_language():
+def test_source_reset_language():
     obj = _Source()
     obj.set(
         "a string",
@@ -24,12 +24,12 @@ def test_Source_reset_language():
     assert None in obj.get_used_languages()
     obj.reset_language_none_to(None)
     obj.reset_language_none_to("no")
-    assert not None in obj.get_used_languages()
+    assert None not in obj.get_used_languages()
     assert "no" in obj.get_used_languages()
 
 
-def test_Source_duplicate_set_raises():
+def test_source_duplicate_set_raises():
     obj = _Source()
     obj.set("a string", "no")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set("a string", "no")

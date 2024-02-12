@@ -1,11 +1,11 @@
 # These 3 lines are here since we are using files in the same repo, not from a package.
 import sys
+import pxbuild
 
 my = sys.path[0].replace("\\demo", "\\")
 sys.path.insert(1, my)
 
 # Create empty model:
-import pxbuild
 
 model = pxbuild.PXFileModel()
 

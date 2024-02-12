@@ -1,6 +1,4 @@
-import pytest
 import filecmp
-import os
 
 import pxbuild
 
@@ -19,7 +17,7 @@ class TestCubes2nn:
 
     def test_cube_200_ok(self):
         self.set_path()
-        dummy = pxbuild.LoadFromPxmetadata("200", self._my_config)
+        pxbuild.LoadFromPxmetadata("200", self._my_config)
         file = "tab_200.px"
         result = filecmp.cmp(self._path_expected + file, self.get_actual_path("200") + file, shallow=False)
         assert result, file + " is not as expected."

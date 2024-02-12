@@ -1,6 +1,4 @@
-﻿import pytest
-from pxbuild.models.output.pxfile.util._px_valuetype import _PxString
-from pxbuild.models.output.pxfile.util._px_keytypes import (
+﻿from pxbuild.models.output.pxfile.util._px_keytypes import (
     _KeytypeCodes,
     _KeytypeValuesLangMulti,
     _KeytypeVariableValueLangMulti,
@@ -29,6 +27,8 @@ def test_eq_returns_false():
 
     # TODO: included for coverage, should remove method instead?
     str_mess = my_key.to_str_message()
+    str_mess = str_mess + " see todo"
+
     my_key.reset_lang_none_to("sv")
 
     my_key = _KeytypeVariableValueLang("region", "oslo", "no")
@@ -48,7 +48,7 @@ def test_eq_returns_false():
     assert not my_key == my_str
 
 
-def test_KeytypeValuesLangMulti():
+def test_keytypevalueslangmulti():
     my_key = _KeytypeValuesLangMulti(["kongsvinger", "oslo"], "no", 1)
     assert not my_key == "astring"
     my_key2 = _KeytypeValuesLangMulti(["kongsvinger", "oslo"], "no", 1)
@@ -60,7 +60,7 @@ def test_KeytypeValuesLangMulti():
     my_key4 = _KeytypeValuesLangMulti(["kongsvinger", "Oslo"], None, 1)
     my_key5 = my_key4.reset_lang_none_to("sv")
     assert isinstance(my_key5, _KeytypeValuesLangMulti)
-    my_key6 = my_key5.reset_lang_none_to("sv")
+    # my_key6 = my_key5.reset_lang_none_to("sv")
 
 
 def test_lab_test():
@@ -69,7 +69,8 @@ def test_lab_test():
 
     assert isinstance(my_key2, _KeytypeLang)
     assert isinstance(my_key, _KeytypeLang)
-    assert not type(my_key) == type(my_key2)
+    assert type(my_key) is not type(my_key2)
+    # assert not type(my_key) == type(my_key2)
 
 
 def test_lab_test2():

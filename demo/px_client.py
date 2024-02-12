@@ -1,9 +1,8 @@
 import sys
+import pxbuild
 
 my = sys.path[0].replace("\\demo", "\\")
 sys.path.insert(1, my)
-# from pxbuild.model.px_file_model import PXFileModel
-import pxbuild
 
 # from pxbuild.model.cleaner import Cleaner
 

@@ -2,7 +2,7 @@
 from pxbuild.models.output.pxfile.keywords._showdecimals import _Showdecimals
 
 
-def test_Showdecimals_set_valid():
+def test_showdecimals_set_valid():
     obj = _Showdecimals()
     assert not obj.has_value()
     obj.set(1)
@@ -10,8 +10,8 @@ def test_Showdecimals_set_valid():
     assert obj.get_value() == 1
 
 
-def test_Showdecimals_duplicate_set_raises():
+def test_showdecimals_duplicate_set_raises():
     obj = _Showdecimals()
     obj.set(1)
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         obj.set(1)
