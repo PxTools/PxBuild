@@ -1,0 +1,5 @@
+def test{{test_class_lower}}_duplicate_set_raises():
+    obj = {{object_class}}()
+    obj.set({{good_value}})
+    with pytest.raises(ValueError):
+        obj.set({{good_value}})

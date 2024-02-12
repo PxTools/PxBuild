@@ -1,0 +1,4 @@
+def test{{test_class_lower}}_set_invalid_raises():
+    obj = {{object_class}}()
+    with pytest.raises(ValueError):
+        obj.set({{bad_value}}, {{keypart}})
