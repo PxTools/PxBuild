@@ -21,7 +21,7 @@ pytest = "^8.0.1"
 coverage = {extras = ["toml"], version = "^7.4.1"}
 pytest-cov = "^4.1.0"
 flake8 = "^7.0.0"
-flake8-bugbear = "^24.1.17"
+flake8-bugbear = "^24.2.6"
 pep8-naming = "^0.13.3"
 black = "^24.2.0"
 
