@@ -9,6 +9,16 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    assignees:
+      - "JohannesFinsveen"
+    groups:
+      small-change:
+        patterns:
+        - "*"
+        update-types:
+        - "minor"
+        - "patch"        
+    
 
   - package-ecosystem: "github-actions"
     directory: "/"
