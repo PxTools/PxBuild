@@ -11,6 +11,8 @@ updates:
       interval: "weekly"
     assignees:
       - "JohannesFinsveen"
+    reviewers:
+      - "JohannesFinsveen"  
     groups:
       small-change:
         patterns:
