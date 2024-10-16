@@ -98,6 +98,9 @@ components:
                 timePeriodFormat:
                   type: string
                   description: "example: yyyy"
+                isHeading:
+                  type: boolean
+                  description: If true the dimension is a heading otherwise it is a stub
                 label:
                   $ref: '#/components/schemas/StringByLanguage'
             codedDimensions:
@@ -164,6 +167,9 @@ components:
                     type: boolean
                     default: false
                     description: Geo variable or not
+                  isHeading:
+                    type: boolean
+                    description: If true the dimension is a heading otherwise it is a stub
                   codelistId:
                     type: string
                     description: A Link to a PxCodes document

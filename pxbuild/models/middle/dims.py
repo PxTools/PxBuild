@@ -34,10 +34,13 @@ class Dims:
                 )
 
             for n_dim in meta.coded_dimensions:
-                n_dim.codelist_id
                 temp_cd = CodedDim(n_dim, pxcodes_helper_by_codelist_id[n_dim.codelist_id], in_loaded_jsons)
                 n_code = temp_cd.get_code()
-                self._stubCodes.append(n_code)
+                # Defaults to stub as is_heading is optional property without default value
+                if n_dim.is_heading:
+                    self._headingCodes.append(n_code)
+                else:
+                    self._stubCodes.append(n_code)
                 self.dim_by_code[n_code] = temp_cd
                 self.coded_dimensions.append(temp_cd)
 
@@ -50,7 +53,11 @@ class Dims:
         # TIME
         self.time: TimeDim = TimeDim(in_loaded_jsons, in_datadatasource)
         time_code = self.time.get_code()
-        self._headingCodes.append(time_code)
+        # Defaults to heading as is_heading is optional property without default value
+        if meta.time_dimension.is_heading:
+            self._headingCodes.append(time_code)
+        else:
+            self._stubCodes.append(time_code)
         self.dim_by_code[time_code] = self.time
 
     def get_dims_in_output_order(self) -> List[AbstractDim]:

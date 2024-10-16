@@ -1,0 +1,10 @@
+[Aggreg] 
+Name=dim3_grouping1 
+Valueset=pxcodes_dim3_en 
+1=TOT 
+[Aggtext] 
+1=Total of dim 3 
+[TOT] 
+1=01 
+2=02 
+
