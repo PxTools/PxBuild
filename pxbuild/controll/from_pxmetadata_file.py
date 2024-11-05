@@ -218,9 +218,10 @@ class LoadFromPxmetadata:
                 if n_var.groupings():
                     out_model.domain.set(n_var.get_domain_id(lang), my_funny_var_id, lang)
 
-                out_model.prestext.set(
-                    self.LabelConstructionOptionDict[str(my_var.label_construction_option)], my_funny_var_id, lang
-                )
+                if my_var.label_construction_option:
+                    out_model.prestext.set(
+                        self.LabelConstructionOptionDict[str(my_var.label_construction_option)], my_funny_var_id, lang
+                    )
 
                 if not n_var.elimination_possible:
                     out_model.elimination.set("NO", my_funny_var_id, lang)

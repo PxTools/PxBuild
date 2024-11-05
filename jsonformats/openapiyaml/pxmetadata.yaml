@@ -180,7 +180,6 @@ components:
                       - text
                       - code_text
                       - text_code
-                    default: text
                     description: Construct label for codelist entry as text or code or text then code or code then text
                   label:
                     $ref: '#/components/schemas/StringByLanguage'
