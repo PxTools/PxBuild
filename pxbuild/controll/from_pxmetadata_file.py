@@ -207,10 +207,10 @@ class LoadFromPxmetadata:
             lang = self._current_lang
             for n_var in self._dims.coded_dimensions:
 
-                out_model.variablecode.set(n_var.get_code(), n_var.get_label(lang), lang)
-                out_model.variable_type.set(n_var.get_variabletype(), n_var.get_label(lang), lang)
-                out_model.codes.set(n_var.get_codes(lang), n_var.get_label(lang), lang)
-                out_model.values.set(n_var.get_labels(lang), n_var.get_label(lang), lang)
+                out_model.variablecode.set(n_var.get_code(), n_var.get_label(lang), lang, code=n_var.get_code())
+                out_model.variable_type.set(n_var.get_variabletype(), n_var.get_label(lang), lang, code=n_var.get_code())
+                out_model.codes.set(n_var.get_codes(lang), n_var.get_label(lang), lang, code=n_var.get_code())
+                out_model.values.set(n_var.get_labels(lang), n_var.get_label(lang), lang, code=n_var.get_code())
 
                 my_var = n_var.get_pydantic()
                 my_funny_var_id = n_var.get_label(lang)
@@ -257,28 +257,30 @@ class LoadFromPxmetadata:
     def map_measurements_to_pxfile(self, out_model: PXFileModel):
         contdim = self._dims.contdim
         lang = self._current_lang
+
+        # Table wide units keyword is required to avoid crash
         out_model.units.set(
-            "Hi, it seems this has to be here to aviod a crash. For multi-content at least.", None, lang
+            "", None, lang
         )
 
         for my_cont in self._pxmetadata_model.dataset.measurements:
 
             my_funny_cont_id = my_cont.label[self._current_lang]
 
-            out_model.seasadj.set(my_cont.is_seasonally_adjusted or False, my_funny_cont_id, lang)
-            out_model.dayadj.set(my_cont.is_workingdays_adjusted or False, my_funny_cont_id, lang)
-            out_model.units.set(my_cont.unit_of_measure[self._current_lang], my_funny_cont_id, lang)
-            out_model.contact.set(self._contact_string, my_funny_cont_id, lang)
-            out_model.last_updated.set(self._last_updated, my_funny_cont_id, lang)
+            out_model.seasadj.set(my_cont.is_seasonally_adjusted or False, my_funny_cont_id, lang, code=my_cont.code)
+            out_model.dayadj.set(my_cont.is_workingdays_adjusted or False, my_funny_cont_id, lang, code=my_cont.code)
+            out_model.units.set(my_cont.unit_of_measure[self._current_lang], my_funny_cont_id, lang, code=my_cont.code)
+            out_model.contact.set(self._contact_string, my_funny_cont_id, lang, code=my_cont.code)
+            out_model.last_updated.set(self._last_updated, my_funny_cont_id, lang, code=my_cont.code)
 
             if my_cont.reference_period and my_cont.reference_period[lang]:
-                out_model.refperiod.set(my_cont.reference_period[lang], my_funny_cont_id, lang)
+                out_model.refperiod.set(my_cont.reference_period[lang], my_funny_cont_id, lang, code=my_cont.code)
 
             if my_cont.base_period and my_cont.base_period[lang]:
                 out_model.baseperiod.set(my_cont.base_period[self._current_lang], my_funny_cont_id, lang)
 
             if my_cont.show_decimals > 0:
-                out_model.precision.set(my_cont.show_decimals, contdim.get_label(lang), my_funny_cont_id, lang)
+                out_model.precision.set(my_cont.show_decimals, contdim.get_label(lang), my_funny_cont_id, lang, code=my_cont.code)
 
             # optional with no default
             if my_cont.price_type:
@@ -292,10 +294,10 @@ class LoadFromPxmetadata:
                     else:
                         out_model.valuenote.set(note.text[lang], contdim.get_label(lang), my_funny_cont_id, lang)
 
-        out_model.values.set(contdim.get_labels(lang), contdim.get_label(lang), lang)
-        out_model.codes.set(contdim.get_codes(), contdim.get_label(lang), lang)
-        out_model.variablecode.set(contdim.get_code(), contdim.get_label(lang), lang)
-        out_model.variable_type.set(contdim.get_variabletype(), contdim.get_label(lang), lang)
+        out_model.values.set(contdim.get_labels(lang), contdim.get_label(lang), lang, contdim.get_code())
+        out_model.codes.set(contdim.get_codes(), contdim.get_label(lang), lang, contdim.get_code())
+        out_model.variablecode.set(contdim.get_code(), contdim.get_label(lang), lang, contdim.get_code())
+        out_model.variable_type.set(contdim.get_variabletype(), contdim.get_label(lang), lang, contdim.get_code())
 
     def map_decimals_to_pxfile(self, out_model: PXFileModel):
         if self._add_language_independent:

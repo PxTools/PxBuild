@@ -16,13 +16,13 @@ class _Precision(_PxValueByKey):
         super().__init__("PRECISION")
         self._seen_languages = {}
 
-    def set(self, precision: int, variable: str, value: str, lang: str = None) -> None:
+    def set(self, precision: int, variable: str, value: str, lang: str = None, code: str | None = None) -> None:
         """Determines that the value shall be presented with a number of decimals that differs from the keyword SHOWDECIMALS"""
         LineValidator.is_not_None(self._keyword, precision)
         LineValidator.is_int(self._keyword, precision)
         LineValidator.in_range(1, 6, self._keyword, precision)
         my_value = _PxInt(precision)
-        my_key = _KeytypeVariableValueLang(variable, value, lang)
+        my_key = _KeytypeVariableValueLang(variable, value, lang, code)
         try:
             super().set(my_value, my_key)
         except Exception as e:
@@ -30,12 +30,12 @@ class _Precision(_PxValueByKey):
             raise type(e)(msg) from e
         self._seen_languages[lang] = 1
 
-    def get_value(self, variable: str, value: str, lang: str = None) -> int:
-        my_key = _KeytypeVariableValueLang(variable, value, lang)
+    def get_value(self, variable: str, value: str, lang: str = None, code: str | None = None) -> int:
+        my_key = _KeytypeVariableValueLang(variable, value, lang, code)
         return super().get_value(my_key).get_value()
 
-    def has_value(self, variable: str, value: str, lang: str = None) -> bool:
-        my_key = _KeytypeVariableValueLang(variable, value, lang)
+    def has_value(self, variable: str, value: str, lang: str = None, code: str | None = None) -> bool:
+        my_key = _KeytypeVariableValueLang(variable, value, lang, code)
         return super().has_value(my_key)
 
     def get_used_languages(self) -> list[str]:

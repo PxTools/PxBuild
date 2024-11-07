@@ -16,12 +16,12 @@ class _Units(_PxValueByKey):
         super().__init__("UNITS")
         self._seen_languages = {}
 
-    def set(self, units: str, content: str = None, lang: str = None) -> None:
+    def set(self, units: str, content: str = None, lang: str = None, code: str | None = None) -> None:
         """Unit text, e.g. ton, NOK"""
         LineValidator.is_not_None(self._keyword, units)
         LineValidator.is_string(self._keyword, units)
         my_value = _PxString(units)
-        my_key = _KeytypeContentLang(content, lang)
+        my_key = _KeytypeContentLang(content, lang, code)
         try:
             super().set(my_value, my_key)
         except Exception as e:
@@ -29,12 +29,12 @@ class _Units(_PxValueByKey):
             raise type(e)(msg) from e
         self._seen_languages[lang] = 1
 
-    def get_value(self, content: str = None, lang: str = None) -> str:
-        my_key = _KeytypeContentLang(content, lang)
+    def get_value(self, content: str = None, lang: str = None, code: str | None = None) -> str:
+        my_key = _KeytypeContentLang(content, lang, code)
         return super().get_value(my_key).get_value()
 
-    def has_value(self, content: str = None, lang: str = None) -> bool:
-        my_key = _KeytypeContentLang(content, lang)
+    def has_value(self, content: str = None, lang: str = None, code: str | None = None) -> bool:
+        my_key = _KeytypeContentLang(content, lang, code)
         return super().has_value(my_key)
 
     def get_used_languages(self) -> list[str]:

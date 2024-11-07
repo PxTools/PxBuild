@@ -7,7 +7,9 @@ from pxbuild.models.output.pxfile.util._px_valuetype import (
     _PxStringList,
     _PxTlist,
 )
+from ._px_keytypes import _KeytypeVariableLang, _KeytypeContentLang, _KeytypeVariableValueLang
 from abc import ABC, abstractmethod
+
 
 
 class _SuperKeyword(ABC):
@@ -62,6 +64,17 @@ class _PxValueByKey(_SuperKeyword):
             )
         self._value_by_key[my_key] = px_value
 
+    def get_sorted_value_by_key(self):
+        if isinstance(list(self._value_by_key.keys())[0], (_KeytypeVariableLang, _KeytypeContentLang, _KeytypeVariableValueLang)):
+            value_by_key_sorted = {}
+            codes = set([keypart.code for keypart in self._value_by_key.keys()])
+            for code in codes:
+                for keypart in self._value_by_key.keys():
+                    if keypart.code == code:
+                        value_by_key_sorted[keypart] = self._value_by_key[keypart]
+            return value_by_key_sorted
+        return self._value_by_key
+
     def get_value(self, my_key) -> _PxInt | _PxString | _PxStringList | _PxBool | _PxHierarchy | _PxTlist:
         return self._value_by_key.get(my_key)
 
@@ -72,8 +85,9 @@ class _PxValueByKey(_SuperKeyword):
         my_out = []
 
         if self.is_present():
-            for keypart in self._value_by_key.keys():
-                my_out.append(f"{self._keyword}{keypart}={self._value_by_key[keypart]};")
+            sorted_value_by_key = self.get_sorted_value_by_key()
+            for keypart in sorted_value_by_key.keys():
+                my_out.append(f"{self._keyword}{keypart}={sorted_value_by_key[keypart]};")
             return "\n".join(my_out)
         else:
             return ""

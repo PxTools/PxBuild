@@ -16,13 +16,13 @@ class _Codes(_PxValueByKey):
         super().__init__("CODES")
         self._seen_languages = {}
 
-    def set(self, codes: list[str], variable: str, lang: str = None) -> None:
+    def set(self, codes: list[str], variable: str, lang: str = None, code: str | None = None) -> None:
         """Codes of the values for the variable."""
         LineValidator.is_not_None(self._keyword, codes)
         LineValidator.is_list_of_strings(self._keyword, codes)
         LineValidator.unique(self._keyword, codes)
         my_value = _PxStringList(codes)
-        my_key = _KeytypeVariableLang(variable, lang)
+        my_key = _KeytypeVariableLang(variable, lang, code)
         try:
             super().set(my_value, my_key)
         except Exception as e:
@@ -30,12 +30,12 @@ class _Codes(_PxValueByKey):
             raise type(e)(msg) from e
         self._seen_languages[lang] = 1
 
-    def get_value(self, variable: str, lang: str = None) -> list[str]:
-        my_key = _KeytypeVariableLang(variable, lang)
+    def get_value(self, variable: str, lang: str = None, code: str | None = None) -> list[str]:
+        my_key = _KeytypeVariableLang(variable, lang, code)
         return super().get_value(my_key).get_value()
 
-    def has_value(self, variable: str, lang: str = None) -> bool:
-        my_key = _KeytypeVariableLang(variable, lang)
+    def has_value(self, variable: str, lang: str = None, code: str | None = None) -> bool:
+        my_key = _KeytypeVariableLang(variable, lang, code)
         return super().has_value(my_key)
 
     def get_used_languages(self) -> list[str]:
