@@ -167,6 +167,10 @@ components:
                     type: boolean
                     default: false
                     description: Geo variable or not
+                  variableType:
+                    type: string
+                    description: Variable type
+                    default: N
                   isHeading:
                     type: boolean
                     description: If true the dimension is a heading otherwise it is a stub

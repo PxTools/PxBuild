@@ -18,8 +18,11 @@ class CodedDim(AbstractDim):
         self._raw = in_cd
 
         self._pxcodes_helper = in_helper_pxcodes
-
-        self._variabletype = "G" if in_cd.is_geo_variable_type else "N"
+        
+        if in_cd.variable_type is None:
+            self._variabletype = "G" if in_cd.is_geo_variable_type else "N"
+        else:
+            self._variabletype = in_cd.variable_type
 
         self._column_name = in_cd.column_name
 

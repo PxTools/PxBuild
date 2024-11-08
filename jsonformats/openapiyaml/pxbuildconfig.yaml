@@ -188,10 +188,18 @@ components:
               type: string
               description: Code for content variable
               default: ContentCode
+            contvariableType:
+              type: string
+              description: Name of the content variable type
+              default: C
             timevariableCode:
               type: string
               description: Code for the time variable
               default: Time
+            timevariableType:
+              type: string
+              description: Name of the time variable type
+              default: T
             datasymbol1:
               type: object
               additionalProperties:
