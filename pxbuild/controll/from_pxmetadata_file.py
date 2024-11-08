@@ -267,8 +267,11 @@ class LoadFromPxmetadata:
 
             my_funny_cont_id = my_cont.label[self._current_lang]
 
-            out_model.seasadj.set(my_cont.is_seasonally_adjusted or False, my_funny_cont_id, lang, code=my_cont.code)
-            out_model.dayadj.set(my_cont.is_workingdays_adjusted or False, my_funny_cont_id, lang, code=my_cont.code)
+            if isinstance(my_cont.is_seasonally_adjusted, bool):
+                out_model.seasadj.set(my_cont.is_seasonally_adjusted, my_funny_cont_id, lang, code=my_cont.code)
+            if isinstance(my_cont.is_workingdays_adjusted, bool):
+                out_model.dayadj.set(my_cont.is_workingdays_adjusted, my_funny_cont_id, lang, code=my_cont.code)
+                
             out_model.units.set(my_cont.unit_of_measure[self._current_lang], my_funny_cont_id, lang, code=my_cont.code)
             out_model.contact.set(self._contact_string, my_funny_cont_id, lang, code=my_cont.code)
             out_model.last_updated.set(self._last_updated, my_funny_cont_id, lang, code=my_cont.code)

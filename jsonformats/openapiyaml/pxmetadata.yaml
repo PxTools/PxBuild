@@ -227,10 +227,8 @@ components:
                 description: Empty if not a price
               isSeasonallyAdjusted:
                 type: boolean
-                default: false
               isWorkingdaysAdjusted:
                 type: boolean
-                default: false
               aggregationAllowed:
                 type: boolean
                 description: Is it meaningfull to sum this measurement
