@@ -271,7 +271,6 @@ class LoadFromPxmetadata:
                 out_model.seasadj.set(my_cont.is_seasonally_adjusted, my_funny_cont_id, lang, code=my_cont.code)
             if isinstance(my_cont.is_workingdays_adjusted, bool):
                 out_model.dayadj.set(my_cont.is_workingdays_adjusted, my_funny_cont_id, lang, code=my_cont.code)
-                
             out_model.units.set(my_cont.unit_of_measure[self._current_lang], my_funny_cont_id, lang, code=my_cont.code)
             out_model.contact.set(self._contact_string, my_funny_cont_id, lang, code=my_cont.code)
             out_model.last_updated.set(self._last_updated, my_funny_cont_id, lang, code=my_cont.code)
@@ -320,9 +319,16 @@ class LoadFromPxmetadata:
             return contact_string
 
         for contact in in_data.contacts:
-            if contact.name is None:
-                return contact_string
-            contact_string += f"{contact.name[language]}#{contact.phone}#{contact.email}##"
+            if contact.raw is not None:
+                contact_string += f"{contact.raw[language]}##"
+
+        if contact_string == "":
+            for contact in in_data.contacts:
+                if contact.name is None:
+                    return contact_string
+                contact_string += f"{contact.name[language]}#{contact.phone}#{contact.email}##"
+            
+
 
         return contact_string[:-2]
 
