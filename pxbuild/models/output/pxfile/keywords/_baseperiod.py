@@ -16,12 +16,12 @@ class _Baseperiod(_PxValueByKey):
         super().__init__("BASEPERIOD")
         self._seen_languages = {}
 
-    def set(self, baseperiod: str, content: str = None, lang: str = None) -> None:
+    def set(self, code: str, baseperiod: str, content: str = None, lang: str = None) -> None:
         """Base period for, for instance index series"""
         LineValidator.is_not_None(self._keyword, baseperiod)
         LineValidator.is_string(self._keyword, baseperiod)
         my_value = _PxString(baseperiod)
-        my_key = _KeytypeContentLang(content, lang)
+        my_key = _KeytypeContentLang(content, lang, code)
         try:
             super().set(my_value, my_key)
         except Exception as e:

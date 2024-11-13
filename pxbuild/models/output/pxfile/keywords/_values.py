@@ -16,7 +16,7 @@ class _Values(_PxValueByKey):
         super().__init__("VALUES")
         self._seen_languages = {}
 
-    def set(self, values: list[str], variable: str, lang: str = None, code: str | None = None) -> None:
+    def set(self, code: str, values: list[str], variable: str, lang: str = None) -> None:
         """Labels of the values for the variable."""
         LineValidator.is_not_None(self._keyword, values)
         LineValidator.is_list_of_strings(self._keyword, values)
@@ -29,12 +29,12 @@ class _Values(_PxValueByKey):
             raise type(e)(msg) from e
         self._seen_languages[lang] = 1
 
-    def get_value(self, variable: str, lang: str = None, code: str | None = None) -> list[str]:
-        my_key = _KeytypeVariableLang(variable, lang, code)
+    def get_value(self, variable: str, lang: str = None) -> list[str]:
+        my_key = _KeytypeVariableLang(variable, lang)
         return super().get_value(my_key).get_value()
 
-    def has_value(self, variable: str, lang: str = None, code: str | None = None) -> bool:
-        my_key = _KeytypeVariableLang(variable, lang, code)
+    def has_value(self, variable: str, lang: str = None) -> bool:
+        my_key = _KeytypeVariableLang(variable, lang)
         return super().has_value(my_key)
 
     def get_used_languages(self) -> list[str]:

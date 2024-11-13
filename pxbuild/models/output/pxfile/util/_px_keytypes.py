@@ -66,7 +66,7 @@ class _KeytypeVariableLang(_KeytypeLang):
         if self.lang:
             return self
         else:
-            return _KeytypeVariableLang(self.variable, lang, self.code)
+            return _KeytypeVariableLang(self.code, self.variable, lang)
 
 
 class _KeytypeContentLang(_KeytypeLang):
@@ -99,7 +99,7 @@ class _KeytypeContentLang(_KeytypeLang):
         if self.lang:
             return self
         else:
-            return _KeytypeContentLang(self.content, lang)
+            return _KeytypeContentLang(self.code, self.content, lang)
 
 
 class _KeytypeVariableValueLang(_KeytypeLang):
@@ -134,7 +134,7 @@ class _KeytypeVariableValueLang(_KeytypeLang):
         if self.lang:
             return self
         else:
-            return _KeytypeVariableValueLang(self.variable, self.value, lang)
+            return _KeytypeVariableValueLang(self.code, self.variable, self.value, lang)
 
 
 class _KeytypeVariableLangMulti(_KeytypeVariableLang):
@@ -156,14 +156,14 @@ class _KeytypeVariableLangMulti(_KeytypeVariableLang):
         if self.lang:
             return self
         else:
-            return _KeytypeVariableLangMulti(self.variable, lang, self.counter, self.code)
+            return _KeytypeVariableLangMulti(self.code, self.variable, lang, self.counter)
 
 
 class _KeytypeVariableValueLangMulti(_KeytypeVariableValueLang):
     counter: int
 
-    def __init__(self, variable: str, value: str, lang: str, counter: int) -> None:
-        super().__init__(variable, value, lang)
+    def __init__(self, variable: str, value: str, lang: str, counter: int, code: str | None = None) -> None:
+        super().__init__(variable, value, lang, code)
         self.counter = counter
 
     def __eq__(self, other):
@@ -183,7 +183,7 @@ class _KeytypeVariableValueLangMulti(_KeytypeVariableValueLang):
         if self.lang:
             return self
         else:
-            return _KeytypeVariableValueLangMulti(self.variable, self.value, lang, self.counter)
+            return _KeytypeVariableValueLangMulti(self.code, self.variable, self.value, lang, self.counter)
 
 
 class _KeytypeValuesLangMulti(_KeytypeLang):

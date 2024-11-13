@@ -7,7 +7,7 @@ from pxbuild.models.output.pxfile.util._px_valuetype import (
     _PxStringList,
     _PxTlist,
 )
-from ._px_keytypes import _KeytypeVariableLang, _KeytypeContentLang, _KeytypeVariableValueLang
+from ._px_keytypes import _KeytypeVariableLang, _KeytypeContentLang, _KeytypeVariableValueLang, _KeytypeVariableValueLangMulti
 from abc import ABC, abstractmethod
 
 
@@ -65,7 +65,7 @@ class _PxValueByKey(_SuperKeyword):
         self._value_by_key[my_key] = px_value
 
     def get_sorted_value_by_key(self):
-        if isinstance(list(self._value_by_key.keys())[0], (_KeytypeVariableLang, _KeytypeContentLang, _KeytypeVariableValueLang)):
+        if isinstance(list(self._value_by_key.keys())[0], (_KeytypeVariableLang, _KeytypeContentLang, _KeytypeVariableValueLang, _KeytypeVariableValueLangMulti)):
             value_by_key_sorted = {}
             codes = set([keypart.code for keypart in self._value_by_key.keys()])
             for code in codes:

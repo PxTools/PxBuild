@@ -16,13 +16,13 @@ class _Prestext(_PxValueByKey):
         super().__init__("PRESTEXT")
         self._seen_languages = {}
 
-    def set(self, prestext: int, variable: str, lang: str = None) -> None:
+    def set(self, code: str, prestext: int, variable: str, lang: str = None) -> None:
         """0 - Display only the value code. 1 - Display only the value text. 2 - Display first the code then the value text. 3 - Display first the value text then the value code."""
         LineValidator.is_not_None(self._keyword, prestext)
         LineValidator.is_int(self._keyword, prestext)
         LineValidator.in_range(0, 3, self._keyword, prestext)
         my_value = _PxInt(prestext)
-        my_key = _KeytypeVariableLang(variable, lang)
+        my_key = _KeytypeVariableLang(variable, lang, code)
         try:
             super().set(my_value, my_key)
         except Exception as e:

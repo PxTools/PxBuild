@@ -16,7 +16,7 @@ class _Refperiod(_PxValueByKey):
         super().__init__("REFPERIOD")
         self._seen_languages = {}
 
-    def set(self, refperiod: str, content: str = None, lang: str = None, code: str | None = None) -> None:
+    def set(self, code: str, refperiod: str, content: str = None, lang: str = None) -> None:
         """Text with information on the exact period for the statistics."""
         LineValidator.is_not_None(self._keyword, refperiod)
         LineValidator.is_string(self._keyword, refperiod)
@@ -29,12 +29,12 @@ class _Refperiod(_PxValueByKey):
             raise type(e)(msg) from e
         self._seen_languages[lang] = 1
 
-    def get_value(self, content: str = None, lang: str = None, code: str | None = None) -> str:
-        my_key = _KeytypeContentLang(content, lang, code)
+    def get_value(self, content: str = None, lang: str = None) -> str:
+        my_key = _KeytypeContentLang(content, lang)
         return super().get_value(my_key).get_value()
 
-    def has_value(self, content: str = None, lang: str = None, code: str | None = None) -> bool:
-        my_key = _KeytypeContentLang(content, lang, code)
+    def has_value(self, content: str = None, lang: str = None) -> bool:
+        my_key = _KeytypeContentLang(content, lang)
         return super().has_value(my_key)
 
     def get_used_languages(self) -> list[str]:

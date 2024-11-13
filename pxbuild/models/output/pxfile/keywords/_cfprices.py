@@ -16,13 +16,13 @@ class _Cfprices(_PxValueByKey):
         super().__init__("CFPRICES")
         self._seen_languages = {}
 
-    def set(self, cfprices: str, content: str = None, lang: str = None) -> None:
+    def set(self, code: str, cfprices: str, content: str = None, lang: str = None) -> None:
         """Indicates if data is in current or fixed prices. C is used for Current and F for Fixed prices"""
         LineValidator.is_not_None(self._keyword, cfprices)
         LineValidator.is_string(self._keyword, cfprices)
         LineValidator.regexp_string("^(C|F)$", self._keyword, cfprices)
         my_value = _PxString(cfprices)
-        my_key = _KeytypeContentLang(content, lang)
+        my_key = _KeytypeContentLang(content, lang, code)
         try:
             super().set(my_value, my_key)
         except Exception as e:

@@ -16,12 +16,12 @@ class _Domain(_PxValueByKey):
         super().__init__("DOMAIN")
         self._seen_languages = {}
 
-    def set(self, domain: str, variable: str, lang: str = None) -> None:
+    def set(self, code: str, domain: str, variable: str, lang: str = None) -> None:
         """Can occur once for each variable. Is used to determine which value sets are of interest, and thus which aggregation lists can be used."""
         LineValidator.is_not_None(self._keyword, domain)
         LineValidator.is_string(self._keyword, domain)
         my_value = _PxString(domain)
-        my_key = _KeytypeVariableLang(variable, lang)
+        my_key = _KeytypeVariableLang(variable, lang, code)
         try:
             super().set(my_value, my_key)
         except Exception as e:

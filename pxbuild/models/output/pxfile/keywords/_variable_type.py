@@ -16,7 +16,7 @@ class _VariableType(_PxValueByKey):
         super().__init__("VARIABLE-TYPE")
         self._seen_languages = {}
 
-    def set(self, variable_type: str, variable: str, lang: str = None, code: str | None = None) -> None:
+    def set(self, code: str, variable_type: str, variable: str, lang: str = None) -> None:
         """Currently free-text. Suggestion: T for Time, G for Geo, C for Content"""
         LineValidator.is_not_None(self._keyword, variable_type)
         LineValidator.is_string(self._keyword, variable_type)
@@ -29,12 +29,12 @@ class _VariableType(_PxValueByKey):
             raise type(e)(msg) from e
         self._seen_languages[lang] = 1
 
-    def get_value(self, variable: str, lang: str = None, code: str | None = None) -> str:
-        my_key = _KeytypeVariableLang(variable, lang, code)
+    def get_value(self, variable: str, lang: str = None) -> str:
+        my_key = _KeytypeVariableLang(variable, lang)
         return super().get_value(my_key).get_value()
 
-    def has_value(self, variable: str, lang: str = None, code: str | None = None) -> bool:
-        my_key = _KeytypeVariableLang(variable, lang, code)
+    def has_value(self, variable: str, lang: str = None) -> bool:
+        my_key = _KeytypeVariableLang(variable, lang)
         return super().has_value(my_key)
 
     def get_used_languages(self) -> list[str]:

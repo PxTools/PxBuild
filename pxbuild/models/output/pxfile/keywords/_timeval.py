@@ -16,10 +16,10 @@ class _Timeval(_PxValueByKey):
         super().__init__("TIMEVAL")
         self._seen_languages = {}
 
-    def set(self, timescale: str, time_periods: list[str], variable: str, lang: str = None) -> None:
+    def set(self, code: str, timescale: str, time_periods: list[str], variable: str, lang: str = None) -> None:
         """See pdf. TLIST(A1, ”1994”-”1996”);  eller TLIST(A1), ”1994”, ”1995”,"1996”;"""
         my_value = _PxTlist(timescale, time_periods)
-        my_key = _KeytypeVariableLang(variable, lang)
+        my_key = _KeytypeVariableLang(variable, lang, code)
         try:
             super().set(my_value, my_key)
         except Exception as e:

@@ -17,13 +17,13 @@ class _Valuenotex(_PxValueByKey):
         self._seen_languages = {}
         self.occurence_counter = 0
 
-    def set(self, valuenotex: str, variable: str, value: str, lang: str = None) -> None:
+    def set(self, code: str, valuenotex: str, variable: str, value: str, lang: str = None) -> None:
         """Mandatory footnote for value in variable"""
         LineValidator.is_not_None(self._keyword, valuenotex)
         LineValidator.is_string(self._keyword, valuenotex)
         my_value = _PxString(valuenotex)
         self.occurence_counter += 1
-        my_key = _KeytypeVariableValueLangMulti(variable, value, lang, self.occurence_counter)
+        my_key = _KeytypeVariableValueLangMulti(variable, value, lang, self.occurence_counter, code)
         try:
             super().set(my_value, my_key)
         except Exception as e:
