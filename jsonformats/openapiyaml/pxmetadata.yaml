@@ -95,6 +95,9 @@ components:
                 columnName:
                   type: string
                   description: name of column in dataset
+                code:
+                  type: string
+                  description: the code of the dimension( aka variable). Defaults to columName if missing
                 timePeriodFormat:
                   type: string
                   description: "example: yyyy"
@@ -103,6 +106,11 @@ components:
                   description: If true the dimension is a heading otherwise it is a stub
                 label:
                   $ref: '#/components/schemas/StringByLanguage'
+                metaId:
+                  type: array
+                  description: For MetaId keyword
+                  items:
+                    type: string
             codedDimensions:
               type: array
               description: Also known as classification variables
@@ -162,7 +170,7 @@ components:
                     description: name of column in dataset
                   code:
                     type: string
-                    description: the code of the dimention( aka variable). Defaults to columName if missing
+                    description: the code of the dimension( aka variable). Defaults to columName if missing
                   isGeoVariableType:
                     type: boolean
                     default: false

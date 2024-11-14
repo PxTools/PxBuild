@@ -95,21 +95,24 @@ class LoadFromPxmetadata:
             if self._pxstatistics.meta_id:
                 metaid_table += self._pxstatistics.meta_id
             if metaid_table:
-                out_model.meta_id.set(" ".join(metaid_table))
+                out_model.meta_id.set("tablelevel", " ".join(metaid_table))
 
         lang = self._current_lang
         if self._dims.coded_dimensions:
             for n_var in self._dims.coded_dimensions:
                 my_var = n_var.get_pydantic()
                 if my_var.meta_id:
-                    out_model.meta_id.set(" ".join(my_var.meta_id), n_var.get_label(lang), None, lang)
+                    out_model.meta_id.set(my_var.code, " ".join(my_var.meta_id), n_var.get_label(lang), None, lang)
 
         contdim = self._dims.contdim
         for my_cont in self._pxmetadata_model.dataset.measurements:
             if my_cont.meta_id:
                 out_model.meta_id.set(
-                    " ".join(my_cont.meta_id), contdim.get_label(lang), my_cont.label[self._current_lang], lang
+                    my_cont.code, " ".join(my_cont.meta_id), contdim.get_label(lang), my_cont.label[self._current_lang], lang
                 )
+        
+        if self._pxmetadata_model.dataset.time_dimension.meta_id:
+            out_model.meta_id.set("timedimension", " ".join(self._pxmetadata_model.dataset.time_dimension.meta_id), self._dims.time.get_label(lang), None, lang)
 
     def map_cellnote_to_pxfile(self, out_model: PXFileModel) -> None:
         if not self._pxmetadata_model.dataset.cell_notes:
