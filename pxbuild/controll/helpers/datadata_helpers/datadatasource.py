@@ -72,7 +72,7 @@ class Datadatasource:
         # Get distinct values from the column
         distinct_values = column_data.unique()
         as_list = distinct_values.tolist()
-        as_sorted_list = sorted(as_list, reverse=True)
+        as_sorted_list = sorted(as_list)
         return as_sorted_list
 
     def get_identifiercolumns(self, all_columns: list, measurement_map: dict) -> List[str]:
