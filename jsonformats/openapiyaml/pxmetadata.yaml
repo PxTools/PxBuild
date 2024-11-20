@@ -66,11 +66,17 @@ components:
               type: integer
               description: "How many decimals should be stored in the PxFile. Default is the max number of decimals shown."
             statisticsId:
-               type: string
-               description: "Id of group of tables in the registry of statistics. example: '8765'"
+              type: string
+              description: "Id of group of tables in the registry of statistics. example: '8765'"
             dataFile:
-               type: string
-               description: "TODO: Er dette en filsti eller en url. required? Adress to the parquet-file with datadata"
+              type: string
+              description: "TODO: Er dette en filsti eller en url. required? Adress to the parquet-file with datadata"
+            outputFileName:
+              type: string
+              description: "Name of the output file. For multilingual defaults to tab_{tableId} or tab_{tableId}_{language} if not multilingual"
+            matrix:
+              type: string
+              description: "The matrix of the table. Defaults to outputFileName excluding language suffix"
             baseTitle:
               type: object
               additionalProperties:

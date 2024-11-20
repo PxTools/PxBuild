@@ -38,6 +38,12 @@ class LoadFromPxmetadata:
 
         self._dims = Dims(self._loaded_jsons, self._datadata)
 
+        # Derive output filename
+        language_suffix = "" if self._config.admin.build_multilingual_files else f"_{self._config.admin.valid_languages[0]}"
+        self._output_filename = self._pxmetadata_model.dataset.output_file_name if self._pxmetadata_model.dataset.output_file_name else None
+        if self._output_filename == None:
+            self._output_filename = f"tab_{pxmetadata_id}{language_suffix}"
+
         ##################
         self.models_for_pytest: dict = {}  # Todo make perfect reader, and let the pytest read the files
 
@@ -72,7 +78,7 @@ class LoadFromPxmetadata:
 
             if not self._config.admin.build_multilingual_files:
                 write_output(
-                    self._pxmetadata_id, self._config.admin.output_destination.px_folder_format, out_model, language
+                    self._pxmetadata_id, self._config.admin.output_destination.px_folder_format, out_model, self._output_filename
                 )
 
                 self.models_for_pytest[language] = out_model
@@ -81,7 +87,7 @@ class LoadFromPxmetadata:
                 self._add_language_independent = False
 
         if self._config.admin.build_multilingual_files:
-            write_output(self._pxmetadata_id, self._config.admin.output_destination.px_folder_format, out_model)
+            write_output(self._pxmetadata_id, self._config.admin.output_destination.px_folder_format, out_model, self._output_filename)
             self.models_for_pytest["multi"] = out_model
 
         support = SupportFiles(self._pxmetadata_model, self._config, self._dims, self._pxmetadata_id)
@@ -389,7 +395,13 @@ class LoadFromPxmetadata:
         lang = self._current_lang
         if self._add_language_independent:
             out_model.tableid.set(in_model.dataset.table_id)
-            out_model.matrix.set("tab_" + in_model.dataset.table_id)
+
+            if self._pxmetadata_model.dataset.matrix == None:
+                matrix = f"tab_{self._pxmetadata_id}"
+            else:
+                matrix = self._pxmetadata_model.dataset.matrix
+            out_model.matrix.set(matrix)
+            
             if in_model.dataset.official_statistics:
                 out_model.official_statistics.set(in_model.dataset.official_statistics)
             if in_model.dataset.copyright:
@@ -466,15 +478,10 @@ def get_current_time() -> str:
 
 
 def write_output(
-    pxmetadata_id: str, px_folder_format: str, out_model: PXFileModel, language: str | None = None
+    pxmetadata_id: str, px_folder_format: str, out_model: PXFileModel, output_filename: str
 ) -> None:
-    temp_tabid = pxmetadata_id
-    out_folder = px_folder_format.format(id=temp_tabid)
-    language_part = ""
-    if language:
-        language_part = "_" + language
-
-    out_file = f"{out_folder}/tab_{temp_tabid}{language_part}.px"
+    out_folder = px_folder_format.format(id=pxmetadata_id)
+    out_file = f"{out_folder}/{output_filename}.px"
 
     with open(out_file, "w", encoding="cp1252") as f:
         print(out_model, file=f)
