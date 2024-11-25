@@ -11,7 +11,7 @@ from .helpers.datadata_helpers.datadatasource import Datadatasource
 from .helpers.datadata_helpers.main_data import MapData
 from .helpers.loaded_jsons import LoadedJsons
 from .helpers.support_files import SupportFiles
-
+from .helpers.logger_config import configure_logger, logger
 from pxbuild.models.middle.dims import Dims
 
 
@@ -25,7 +25,8 @@ class LoadFromPxmetadata:
 
     PriceTypeDict = {"PriceType.current": "C", "PriceType.fixed": "F"}
 
-    def __init__(self, pxmetadata_id: str, config_file: str) -> None:
+    def __init__(self, pxmetadata_id: str, config_file: str, debug: bool = False) -> None:
+        configure_logger(debug)
         self._pxmetadata_id = pxmetadata_id
 
         self._loaded_jsons: LoadedJsons = LoadedJsons(pxmetadata_id, config_file)
@@ -401,7 +402,7 @@ class LoadFromPxmetadata:
             else:
                 matrix = self._pxmetadata_model.dataset.matrix
             out_model.matrix.set(matrix)
-            
+
             if in_model.dataset.official_statistics:
                 out_model.official_statistics.set(in_model.dataset.official_statistics)
             if in_model.dataset.copyright:
@@ -486,4 +487,4 @@ def write_output(
     with open(out_file, "w", encoding="cp1252") as f:
         print(out_model, file=f)
 
-    print("File written to:", out_file)
+    logger.info(f"File written to: {out_file}")

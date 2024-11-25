@@ -11,6 +11,7 @@ from pxbuild.models.output.pxfile.px_file_model import PXFileModel
 from .datadatasource import Datadatasource
 from .for_get_data import CubemathsHelper
 from .data_formatter import DataFormatter
+from ...helpers.logger_config import logger
 
 
 class MapData:
@@ -55,7 +56,7 @@ class MapData:
 
         end_tidy = time.time()
         time_used_tidy = end_tidy - start_tidy
-        print("Time: GetTidyDF:", time_used_tidy)
+        logger.debug(f"Time: GetTidyDF: {time_used_tidy}")
 
         self.add_out_index(df)
         self.add_out_value(missing_cell_symbol, df)
@@ -70,7 +71,7 @@ class MapData:
 
         end_get_data = time.time()
         time_used_get_data = end_get_data - start_get_data
-        print("Time: GetData:", time_used_get_data)
+        logger.debug(f"Time: GetData: {time_used_get_data}")
 
     def init_cubemaths_helpers_and_calculate_matrix_size(self) -> int:
 
@@ -112,7 +113,7 @@ class MapData:
 
         end = time.time()
         time_used = end - start
-        print("Time: numpy select in:", time_used)
+        logger.debug(f"Time: numpy select in: {time_used}")
 
     def add_out_index(self, df):
         columns_to_sum = []

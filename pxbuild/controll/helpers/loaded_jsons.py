@@ -6,6 +6,7 @@ from pxbuild.models.input.pydantic_pxbuildconfig import PxbuildConfig
 from pxbuild.models.input.pydantic_pxmetadata import PxMetadata
 from pxbuild.models.input.pydantic_pxstatistics import PxStatistics
 from pxbuild.models.input.pydantic_pxcodes import PxCodes
+from ..helpers.logger_config import logger
 
 
 # Class for loading all jsons into pydantic. And nothing else.
@@ -16,7 +17,7 @@ class LoadedJsons:
 
     def __init__(self, pxmetadata_id: str, config_file: str) -> None:
         self._pxmetadata_id = pxmetadata_id
-        print("For pxmetadata_id:", self._pxmetadata_id, ", with config:", config_file)
+        logger.debug(f"For pxmetadata_id: {self._pxmetadata_id} with config: {config_file}")
 
         self._config = LoadedJsons.load_config(config_file)
 

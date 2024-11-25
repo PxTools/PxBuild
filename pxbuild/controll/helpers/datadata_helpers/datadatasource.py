@@ -4,6 +4,7 @@ from pxbuild.models.input.pydantic_pxbuildconfig import PxbuildConfig
 from .parquet_datasource import ParquetDatasource
 from .csv_datasource import CsvDatasource
 from .abstract_datasource import AbstractDatasource
+from ...helpers.logger_config import logger
 
 # Open and read the Parquet file  (or csv for small tests)
 
@@ -113,18 +114,18 @@ class Datadatasource:
         #  it is when we do pd.wide_to_long, this strange mix of column names and code is needed: The code in the cell is the columnnane minus "VALUE"
 
         raw_data: pd.DataFrame = self._my_datasource.get_raw_pandas()
-        print("raw_data.columns:", raw_data.columns)
+        logger.debug(f"raw_data.columns: {raw_data.columns}")
 
         measurement_codes = list(measurement_code_by_column_name.values())
         column_with_value_prefix = self.make_renamedict(measurement_code_by_column_name, raw_data.columns)
 
         # todo attributes columns should not be counted as identifier_columns
         identifier_columns = self.get_identifiercolumns(raw_data.columns.values.tolist(), column_with_value_prefix)
-        print("Renaming:", column_with_value_prefix)
+        logger.debug(f"Renaming: {column_with_value_prefix}")
         raw_data.rename(columns=column_with_value_prefix, inplace=True)
-        print("Post renaming:", raw_data.columns)
+        logger.debug(f"Post renaming: {raw_data.columns}")
         self.add_missing_symbolcolumns(measurement_codes, raw_data)
-        print("Cols before wide_to_long:", raw_data.columns)
+        logger.debug(f"Cols before wide_to_long: {raw_data.columns}")
         tidy_df = pd.wide_to_long(
             raw_data,
             stubnames=["VALUE", "SYMBOL"],
@@ -135,6 +136,6 @@ class Datadatasource:
         )
         tidy_df.reset_index(inplace=True)
 
-        print("Cols after wide_to_long:", tidy_df.columns)
+        logger.debug(f"Cols after wide_to_long: {tidy_df.columns}")
 
         return tidy_df
