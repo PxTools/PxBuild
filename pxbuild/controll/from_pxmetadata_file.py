@@ -411,14 +411,15 @@ class LoadFromPxmetadata:
                 out_model.first_published.set(in_model.dataset.first_published)
 
             # The SYNONYMS keyword is language independent. So, all langs go into one for multilingual_files.
-            temp_tags: List[str] = []
-            if self._config.admin.build_multilingual_files:
-                for language in self._config.admin.valid_languages:
-                    temp_tags += in_model.dataset.search_keywords[language]
-            else:
-                temp_tags = in_model.dataset.search_keywords[lang]
-            if temp_tags:
-                out_model.synonyms.set(" ".join(temp_tags))
+            if in_model.dataset.search_keywords:
+                temp_tags: List[str] = []
+                if self._config.admin.build_multilingual_files:
+                    for language in self._config.admin.valid_languages:
+                        temp_tags += in_model.dataset.search_keywords[language]
+                else:
+                    temp_tags = in_model.dataset.search_keywords[lang]
+                if temp_tags:
+                    out_model.synonyms.set(" ".join(temp_tags))
 
         out_model.contents.set(in_model.dataset.table_id + ": " + in_model.dataset.base_title[lang] + ",", lang)
         if in_model.dataset.notes:
