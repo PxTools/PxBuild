@@ -79,7 +79,7 @@ class LoadFromPxmetadata:
 
             if not self._config.admin.build_multilingual_files:
                 write_output(
-                    self._pxmetadata_id, self._config.admin.output_destination.px_folder_format, out_model, self._output_filename
+                    self._pxmetadata_id, self._config.admin.output_destination.px_folder_format, out_model, self._output_filename, self._config.code_page
                 )
 
                 self.models_for_pytest[language] = out_model
@@ -88,7 +88,7 @@ class LoadFromPxmetadata:
                 self._add_language_independent = False
 
         if self._config.admin.build_multilingual_files:
-            write_output(self._pxmetadata_id, self._config.admin.output_destination.px_folder_format, out_model, self._output_filename)
+            write_output(self._pxmetadata_id, self._config.admin.output_destination.px_folder_format, out_model, self._output_filename, self._config.code_page)
             self.models_for_pytest["multi"] = out_model
 
         support = SupportFiles(self._pxmetadata_model, self._config, self._dims, self._pxmetadata_id)
@@ -480,12 +480,23 @@ def get_current_time() -> str:
 
 
 def write_output(
-    pxmetadata_id: str, px_folder_format: str, out_model: PXFileModel, output_filename: str
+    pxmetadata_id: str, px_folder_format: str, out_model: PXFileModel, output_filename: str, encoding: str | None = None
 ) -> None:
     out_folder = px_folder_format.format(id=pxmetadata_id)
     out_file = f"{out_folder}/{output_filename}.px"
 
-    with open(out_file, "w", encoding="cp1252") as f:
+    if encoding is None:
+        encoding = "cp1252"
+    try:
+        "".encode(encoding)
+    except LookupError:
+        logger.warning(f"Config.codePage '{encoding}' is not valid encoding for printing. Defaulting to 'cp1252'")
+        encoding = "cp1252"
+
+    if "utf" in encoding.lower() and "-sig" not in encoding.lower():
+        encoding = encoding + "-sig"
+
+    with open(out_file, "w", encoding=encoding) as f:
         print(out_model, file=f)
 
     logger.info(f"File written to: {out_file}")

@@ -15,32 +15,33 @@ class _PxTlist:
     def get_value(self):
         return (self.timescale, self.time_periods)
     
-    def parse_timeval(self, periods) -> str:
+    def parse_timeval(self, periods: list[str]) -> str:
 
-        def parse_period(date_str) -> tuple[int, str, int]:
+        def parse_period(date_str: str) -> tuple[int, str, int]:
             year = int(date_str[:4])
-            period_type = date_str[4]
-            period_value = int(date_str[5:])
+            period_type = date_str[4] if len(date_str) > 4 else 'A'
+            period_value = int(date_str[5:]) if len(date_str) > 4 else 1
             return year, period_type, period_value
 
-        def weeks_in_year(year) -> int:
+        def weeks_in_year(year: int) -> int:
             last_day_of_year = datetime.date(year, 12, 31)
             week_number = last_day_of_year.isocalendar()[1]
             return week_number
 
-        def get_period_length(year, period_type) -> int:
+        def get_period_length(year: int, period_type: str) -> int:
             period_lengths = {
                 'M': 12,
                 'Q': 4,
                 'H': 2,
-                'W': weeks_in_year(year)
+                'W': weeks_in_year(year),
+                'A': 1
             }
             return period_lengths[period_type]
 
-        def period_difference(year1, period1, year2, period2, period_type) -> int:
+        def period_difference(year1: int, period1: int, year2: int, period2: int, period_type: str) -> int:
             return (year2 - year1) * get_period_length(year1, period_type) + (period2 - period1)
 
-        def check_consistent_gap(dates) -> tuple[bool, Optional[int]]:
+        def check_consistent_gap(dates: list[str]) -> tuple[bool, Optional[int]]:
             parsed_dates = [parse_period(date) for date in dates]
             period_type = parsed_dates[0][1]
             
@@ -58,18 +59,24 @@ class _PxTlist:
                     return False, None
             return True, initial_gap
 
-        def fill_gaps(periods) -> list[str]:
+        def fill_gaps(periods: list[str]) -> list[str]:
             start_year, period_type, start_period = parse_period(periods[0])
             end_year, _, end_period = parse_period(periods[-1])
             filled_periods = []
             for year in range(start_year, end_year + 1):
                 max_period = get_period_length(year, period_type)
                 for period in range(1, max_period + 1):
-                    period_str = f"{year}{period_type}{period:02d}"
+                    period_str = f"{year}{period_type}{period:02d}" if period_type != 'A' else f"{year}"
                     filled_periods.append(period_str)
             return filled_periods[int(start_period)-1:int(len(filled_periods)-(max_period-end_period))]
 
-            
+        # Convert integer years to string format
+        periods = [str(period) for period in periods]
+
+        if len(periods) == 1:
+            period_type = parse_period(periods[0])[1]
+            return f'TLIST({period_type}1,"{periods[0]}")'
+
         consistent_gap, gap_size = check_consistent_gap(periods)
         period_type = parse_period(periods[0])[1]
 
@@ -81,7 +88,6 @@ class _PxTlist:
             return f'TLIST({period_type}1,"{",".join(periods_int)}")'
         periods_int = [str(''.join(filter(str.isdigit, t))) for t in periods]
         return f'TLIST({period_type}1,"{",".join(periods_int)}")'
-
 
 class _PxHierarchy:
     """HIERARCHIES(“Country”)="parent","parent":"child",..."""
