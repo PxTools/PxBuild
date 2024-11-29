@@ -16,7 +16,7 @@ class _LastUpdated(_PxValueByKey):
         super().__init__("LAST-UPDATED")
         self._seen_languages = {}
 
-    def set(self, code: str, last_updated: str, content: str = None, lang: str = None) -> None:
+    def set(self, last_updated: str, content: str = None, lang: str = None, code: str = "") -> None:
         """latest update  in pxdate format"""
         LineValidator.is_not_None(self._keyword, last_updated)
         LineValidator.is_string(self._keyword, last_updated)

@@ -66,7 +66,7 @@ class _KeytypeVariableLang(_KeytypeLang):
         if self.lang:
             return self
         else:
-            return _KeytypeVariableLang(self.code, self.variable, lang)
+            return _KeytypeVariableLang(self.variable, lang, self.code)
 
 
 class _KeytypeContentLang(_KeytypeLang):
@@ -99,7 +99,7 @@ class _KeytypeContentLang(_KeytypeLang):
         if self.lang:
             return self
         else:
-            return _KeytypeContentLang(self.code, self.content, lang)
+            return _KeytypeContentLang(self.content, lang, self.code)
 
 
 class _KeytypeVariableValueLang(_KeytypeLang):
@@ -134,7 +134,7 @@ class _KeytypeVariableValueLang(_KeytypeLang):
         if self.lang:
             return self
         else:
-            return _KeytypeVariableValueLang(self.code, self.variable, self.value, lang)
+            return _KeytypeVariableValueLang(self.variable, self.value, lang, self.code)
 
 
 class _KeytypeVariableLangMulti(_KeytypeVariableLang):
@@ -156,7 +156,7 @@ class _KeytypeVariableLangMulti(_KeytypeVariableLang):
         if self.lang:
             return self
         else:
-            return _KeytypeVariableLangMulti(self.code, self.variable, lang, self.counter)
+            return _KeytypeVariableLangMulti(self.variable, lang, self.counter, self.code)
 
 
 class _KeytypeVariableValueLangMulti(_KeytypeVariableValueLang):
@@ -183,7 +183,7 @@ class _KeytypeVariableValueLangMulti(_KeytypeVariableValueLang):
         if self.lang:
             return self
         else:
-            return _KeytypeVariableValueLangMulti(self.code, self.variable, self.value, lang, self.counter)
+            return _KeytypeVariableValueLangMulti(self.variable, self.value, lang, self.counter, self.code)
 
 
 class _KeytypeValuesLangMulti(_KeytypeLang):

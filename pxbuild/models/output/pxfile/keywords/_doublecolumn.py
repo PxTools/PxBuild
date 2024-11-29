@@ -16,7 +16,7 @@ class _Doublecolumn(_PxValueByKey):
         super().__init__("DOUBLECOLUMN")
         self._seen_languages = {}
 
-    def set(self, code: str, doublecolumn: bool, variable: str, lang: str = None) -> None:
+    def set(self, doublecolumn: bool, variable: str, lang: str = None, code: str = "") -> None:
         """This keyword is used to get code and text in separate columns for the specified variable"""
         LineValidator.is_not_None(self._keyword, doublecolumn)
         LineValidator.is_bool(self._keyword, doublecolumn)

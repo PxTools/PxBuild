@@ -17,7 +17,7 @@ class _Valuenote(_PxValueByKey):
         self._seen_languages = {}
         self.occurence_counter = 0
 
-    def set(self, code: str, valuenote: str, variable: str, value: str, lang: str = None) -> None:
+    def set(self, valuenote: str, variable: str, value: str, lang: str = None, code: str = "") -> None:
         """Non-mandatory footnote for value in variable"""
         LineValidator.is_not_None(self._keyword, valuenote)
         LineValidator.is_string(self._keyword, valuenote)

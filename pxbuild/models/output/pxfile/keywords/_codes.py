@@ -16,7 +16,7 @@ class _Codes(_PxValueByKey):
         super().__init__("CODES")
         self._seen_languages = {}
 
-    def set(self, code: str, codes: list[str], variable: str, lang: str = None) -> None:
+    def set(self, codes: list[str], variable: str, lang: str = None, code: str = "") -> None:
         """Codes of the values for the variable."""
         LineValidator.is_not_None(self._keyword, codes)
         LineValidator.is_list_of_strings(self._keyword, codes)

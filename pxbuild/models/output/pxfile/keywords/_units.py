@@ -16,7 +16,7 @@ class _Units(_PxValueByKey):
         super().__init__("UNITS")
         self._seen_languages = {}
 
-    def set(self, code: str, units: str, content: str = None, lang: str = None) -> None:
+    def set(self, units: str, content: str = None, lang: str = None, code: str = "") -> None:
         """Unit text, e.g. ton, NOK"""
         LineValidator.is_not_None(self._keyword, units)
         LineValidator.is_string(self._keyword, units)

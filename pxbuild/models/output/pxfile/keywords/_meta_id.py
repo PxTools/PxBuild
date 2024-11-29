@@ -16,7 +16,7 @@ class _MetaId(_PxValueByKey):
         super().__init__("META-ID")
         self._seen_languages = {}
 
-    def set(self, code: str, meta_id: str, variable: str = None, value: str  = None, lang: str  = None) -> None:
+    def set(self, meta_id: str, variable: str = None, value: str  = None, lang: str  = None, code: str = "") -> None:
         """The META-ID keyword is used to reference a external meta information about a table, variable or value. Requires a separate file to resolve to urls"""
         LineValidator.is_not_None(self._keyword, meta_id)
         LineValidator.is_string(self._keyword, meta_id)

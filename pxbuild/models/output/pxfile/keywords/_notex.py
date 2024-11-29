@@ -17,7 +17,7 @@ class _Notex(_PxValueByKey):
         self._seen_languages = {}
         self.occurence_counter = 0
 
-    def set(self, code: str, notex: str, variable: str = None, lang: str = None) -> None:
+    def set(self, notex: str, variable: str = None, lang: str = None, code: str = "") -> None:
         """Mandatory footnote for variable or table if no variable is given"""
         LineValidator.is_not_None(self._keyword, notex)
         LineValidator.is_string(self._keyword, notex)

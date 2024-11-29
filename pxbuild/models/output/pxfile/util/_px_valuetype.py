@@ -34,6 +34,7 @@ class _PxTlist:
                 'Q': 4,
                 'H': 2,
                 'W': weeks_in_year(year),
+                'U': weeks_in_year(year),
                 'A': 1
             }
             return period_lengths[period_type]
@@ -70,6 +71,9 @@ class _PxTlist:
                     filled_periods.append(period_str)
             return filled_periods[int(start_period)-1:int(len(filled_periods)-(max_period-end_period))]
 
+        if isinstance(periods, str):
+            return f'TLIST({self.timescale},"{self.time_periods}")'
+        
         # Convert integer years to string format
         periods = [str(period) for period in periods]
 

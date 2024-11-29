@@ -16,7 +16,7 @@ class _Seasadj(_PxValueByKey):
         super().__init__("SEASADJ")
         self._seen_languages = {}
 
-    def set(self, code: str, seasadj: bool, content: str = None, lang: str = None) -> None:
+    def set(self, seasadj: bool, content: str = None, lang: str = None, code: str = "") -> None:
         """Is  the data seasonally adjusted"""
         LineValidator.is_not_None(self._keyword, seasadj)
         LineValidator.is_bool(self._keyword, seasadj)

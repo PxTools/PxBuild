@@ -16,7 +16,7 @@ class _Elimination(_PxValueByKey):
         super().__init__("ELIMINATION")
         self._seen_languages = {}
 
-    def set(self, code: str, elimination: str, variable: str, lang: str = None) -> None:
+    def set(self, elimination: str, variable: str, lang: str = None, code: str = "") -> None:
         """bool eller string"""
         LineValidator.is_not_None(self._keyword, elimination)
         LineValidator.is_string(self._keyword, elimination)

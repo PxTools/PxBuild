@@ -16,7 +16,7 @@ class _Dayadj(_PxValueByKey):
         super().__init__("DAYADJ")
         self._seen_languages = {}
 
-    def set(self, code: str, dayadj: bool, content: str = None, lang: str = None) -> None:
+    def set(self, dayadj: bool, content: str = None, lang: str = None, code: str = "") -> None:
         """data is adjusted e.g. to take into account the number of working days"""
         LineValidator.is_not_None(self._keyword, dayadj)
         LineValidator.is_bool(self._keyword, dayadj)

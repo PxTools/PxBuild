@@ -16,7 +16,7 @@ class _Precision(_PxValueByKey):
         super().__init__("PRECISION")
         self._seen_languages = {}
 
-    def set(self, code: str, precision: int, variable: str, value: str, lang: str = None) -> None:
+    def set(self, precision: int, variable: str, value: str, lang: str = None, code: str = "") -> None:
         """Determines that the value shall be presented with a number of decimals that differs from the keyword SHOWDECIMALS"""
         LineValidator.is_not_None(self._keyword, precision)
         LineValidator.is_int(self._keyword, precision)

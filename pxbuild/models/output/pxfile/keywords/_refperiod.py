@@ -16,7 +16,7 @@ class _Refperiod(_PxValueByKey):
         super().__init__("REFPERIOD")
         self._seen_languages = {}
 
-    def set(self, code: str, refperiod: str, content: str = None, lang: str = None) -> None:
+    def set(self, refperiod: str, content: str = None, lang: str = None, code: str = "") -> None:
         """Text with information on the exact period for the statistics."""
         LineValidator.is_not_None(self._keyword, refperiod)
         LineValidator.is_string(self._keyword, refperiod)
