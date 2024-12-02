@@ -11,14 +11,11 @@ class TestCube2:
         path_expected = "testdata/test_cube_2/expected/"
         path_actual = "testdata/out_files/cubes_0nn/test_cube_2/"
         filelist = os.listdir(path_expected)
-        print("sfasdf")
         for file in filelist:
             print(file)
 
             file_expected = path_expected + file
             file_actual = path_actual + file
-            print(file_expected)
-            print(file_actual)
             result = filecmp.cmp(file_expected, file_actual, shallow=False)
 
             assert result, file + " is not as expected."

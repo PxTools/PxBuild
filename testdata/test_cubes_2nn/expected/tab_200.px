@@ -1,4 +1,3 @@
-UNITS="This file was created from pxbuild.";
 CHARSET="ANSI";
 AXIS-VERSION="2013";
 CODEPAGE="WINDOWS-1252";
@@ -158,11 +157,11 @@ VARIABLECODE[no]("Dimensjon 2")="coded_dim2";
 VARIABLECODE[en]("Dimension 2")="coded_dim2";
 VARIABLECODE[no]("Dimensjon 3")="coded_dim3";
 VARIABLECODE[en]("Dimension 3")="coded_dim3";
+META-ID("urn:ssb:metaId_on_table urn:ssb:metaId_in_statistics")="tablelevel";
 META-ID[no]("statistikkvariabel","Måling 1")="urn:ssb:metaId_on_Measure1";
 META-ID[en]("contents","Measure 1")="urn:ssb:metaId_on_Measure1";
 META-ID[no]("Dimensjon 1")="urn:ssb:metaId_on_a_codedDimension";
 META-ID[en]("Dimension 1")="urn:ssb:metaId_on_a_codedDimension";
-META-ID("urn:ssb:metaId_on_table urn:ssb:metaId_in_statistics")="tablelevel";
 DATA=1111 1112
 . 1122
 .. 1132
