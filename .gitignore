@@ -234,3 +234,7 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# PxBuild specific
+testdata/out_files/*
+!testdata/out_files/**/.gitkeep

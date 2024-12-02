@@ -67,7 +67,7 @@ class _PxValueByKey(_SuperKeyword):
     def get_sorted_value_by_key(self):
         if isinstance(list(self._value_by_key.keys())[0], (_KeytypeVariableLang, _KeytypeContentLang, _KeytypeVariableValueLang, _KeytypeVariableValueLangMulti)):
             value_by_key_sorted = {}
-            codes = set([keypart.code for keypart in self._value_by_key.keys()])
+            codes = sorted(set([keypart.code for keypart in self._value_by_key.keys()]))
             for code in codes:
                 for keypart in self._value_by_key.keys():
                     if keypart.code == code:
