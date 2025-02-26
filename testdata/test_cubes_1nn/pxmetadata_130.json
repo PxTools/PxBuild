@@ -28,6 +28,7 @@
     "timeDimension": {
       "columnName": "dim",
       "timePeriodFormat": "åååå",
+      "isHeading": true,
       "label": {
         "no": "år",
         "en": "year"

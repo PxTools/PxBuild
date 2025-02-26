@@ -55,6 +55,7 @@
     "timeDimension": {
       "columnName": "TID",
       "timePeriodFormat": "åååå",
+      "isHeading": true,
       "label": {
         "no": "år",
         "en": "year"

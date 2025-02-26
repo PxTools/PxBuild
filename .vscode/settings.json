@@ -4,5 +4,6 @@
     ],
     "python.analysis.typeCheckingMode": "basic",
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "files.eol": "\r\n"
 }

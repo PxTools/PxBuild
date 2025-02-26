@@ -25,6 +25,7 @@
     "cellNotes": null,
     "timeDimension": {
       "columnName": "TID",
+      "isHeading": true,
       "timePeriodFormat": "åååå",
       "label": {
         "no": "år",
