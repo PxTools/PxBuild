@@ -21,8 +21,8 @@ Keywords included in Round 1:
 |TITLE|Meta||
 |DESCRIPTIONDEFAULT|Conf||
 |CONTENTS|Meta||
-|STUB|None||
-|HEADING|None||
+|STUB|None|derived by isHeading|
+|HEADING|None|derived by isHeading|
 |CONTVARIABLE|Meta||
 |VALUES|codes||
 |CODES|codes||

@@ -234,3 +234,9 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+
+# Test output files
+testdata/out_files/*
+example_data/pxbuild_output/*
+!testdata/out_files/**/.gitkeep
