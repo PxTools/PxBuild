@@ -32,9 +32,7 @@ jobs:
       - name: Install library
         run: poetry install --no-interaction
       - name: Run tests
-        run: |
-          source $VENV
-          pytest
+        run: pytest
       - name: Lint
         run: |
           source $VENV
