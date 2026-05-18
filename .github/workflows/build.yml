@@ -34,10 +34,6 @@ jobs:
       - name: Run tests
         run: poetry run pytest
       - name: Lint
-        run: |
-          source $VENV
-          flake8 . || echo "Linting errors found, but we're treating this as a warning."
+        run: poetry run flake8 . || echo "Linting errors found, but we're treating this as a warning."
       - name: Format
-        run: |
-          source $VENV
-          black . --check || echo "Formatting errors found, but we're treating this as a warning."
+        run: poetry run black . --check || echo "Formatting errors found, but we're treating this as a warning."
