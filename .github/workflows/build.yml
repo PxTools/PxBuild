@@ -2,6 +2,9 @@ name: poetry ci
 
 on: pull_request
 
+permissions:
+  contents: read
+
 jobs:
   build:
     strategy:
