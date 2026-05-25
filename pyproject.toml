@@ -22,7 +22,7 @@ coverage = {extras = ["toml"], version = "^7.6.12"}
 pytest-cov = "^6.0.0"
 flake8 = "^7.1.2"
 flake8-bugbear = "^24.12.12"
-pep8-naming = "^0.14.1"
+pep8-naming = ">=0.14.1,<0.16.0"
 black = "^24.10.0"
 
 [build-system]
